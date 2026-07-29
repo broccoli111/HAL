@@ -27,25 +27,25 @@ M2 Intent → Plan → Decision → Transaction
 
 ## 3. Authoritative M4 records
 
-| Domain | Sole mutation owner | Required contents |
-| --- | --- | --- |
+| Domain              | Sole mutation owner         | Required contents                                                                                                                             |
+| ------------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | Outcome Attestation | Outcome Attestation Service | attestation ID, correlation, all upstream IDs, terminal status, claimed effect, evidence references, uncertainty, integrity hash, timestamps. |
-| Recovery Case | Recovery Coordinator | case ID, affected correlation, failure category, preserved evidence, restriction state, recovery disposition. |
-| Explanation | Explanation Service | explanation ID, audience-safe summary, authority/decision/evidence links, limitations, uncertainty, integrity hash. |
+| Recovery Case       | Recovery Coordinator        | case ID, affected correlation, failure category, preserved evidence, restriction state, recovery disposition.                                 |
+| Explanation         | Explanation Service         | explanation ID, audience-safe summary, authority/decision/evidence links, limitations, uncertainty, integrity hash.                           |
 
 M4 records are append-only. Their derived views and CLI output never become authoritative.
 
 ## 4. Terminal outcome states
 
-| State | Required evidence | Claimed effect |
-| --- | --- | --- |
-| `achieved_without_effect` | Valid M3 attempt succeeded, artifact and verification are integrity-valid, verification passed, all links match. | `inspection_only` |
-| `blocked` | M2 Decision is deny/approval-required, or M3 admission was denied. | `none` |
-| `failed_no_effect` | M3 attempt failed before verified completion. | `none` |
-| `cancelled_no_effect` | M3 attempt cancelled and no verified result accepted. | `none` |
-| `timed_out_no_effect` | M3 attempt timed out and no verified result accepted. | `none` |
-| `verification_rejected_no_effect` | Artifact/verification failed, is tampered, or evidence conflicts. | `none` |
-| `incomplete_evidence_no_effect` | Required trace record is absent or unreadable. | `none` |
+| State                             | Required evidence                                                                                                | Claimed effect    |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ----------------- |
+| `achieved_without_effect`         | Valid M3 attempt succeeded, artifact and verification are integrity-valid, verification passed, all links match. | `inspection_only` |
+| `blocked`                         | M2 Decision is deny/approval-required, or M3 admission was denied.                                               | `none`            |
+| `failed_no_effect`                | M3 attempt failed before verified completion.                                                                    | `none`            |
+| `cancelled_no_effect`             | M3 attempt cancelled and no verified result accepted.                                                            | `none`            |
+| `timed_out_no_effect`             | M3 attempt timed out and no verified result accepted.                                                            | `none`            |
+| `verification_rejected_no_effect` | Artifact/verification failed, is tampered, or evidence conflicts.                                                | `none`            |
+| `incomplete_evidence_no_effect`   | Required trace record is absent or unreadable.                                                                   | `none`            |
 
 ## 5. Reconstruction and recovery requirements
 
@@ -81,4 +81,3 @@ It must never expose fixture contents, secrets, raw file paths, or unnecessary i
 - [ ] Explanation is accurate, bounded, and redacted.
 - [ ] No new capability, external network, model, database, real authentication, or live-effect behavior is introduced.
 - [ ] Format, lint, typecheck, tests, and dependency-security scan pass.
-

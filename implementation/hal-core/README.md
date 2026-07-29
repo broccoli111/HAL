@@ -38,6 +38,7 @@ Use only non-secret local values in `.env`.
 - `npm run m1:demo` - run local M1 trustworthy-core demo using fixed fixtures
 - `npm run m2:demo` - run local M2 durable intent demo and reconstruction
 - `npm run m3:demo` - run local M3 bounded capability demo and reconstruction
+- `npm run m4:demo` - run local M4 verified outcome demo and reconstruction
 
 ## Source structure
 
@@ -105,3 +106,18 @@ npm run m3:demo -- reconstruct --state-dir ./local-state/hal-m3 --correlation-id
 ```
 
 The command prints request/attempt/artifact/verification IDs, correlation ID, provider version, fixture manifest hash, verification result, and claimed effect.
+
+## M4 verified outcome demo usage
+
+M4 requires an explicit disposable state directory and derives a final no-effect outcome attestation from M2+M3 evidence.
+
+```bash
+mkdir -p ./local-state/hal-m4
+npm run m4:demo -- run --state-dir ./local-state/hal-m4 --scenario allowed_verified
+```
+
+Reconstruct M4 evidence by correlation ID:
+
+```bash
+npm run m4:demo -- reconstruct --state-dir ./local-state/hal-m4 --correlation-id <correlation-id>
+```
