@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 
-import type { CorrelationId, ImmutableIdentifier, RequestId } from "./types.js";
+import type { CommandId, CorrelationId, ImmutableIdentifier, RequestId } from "./types.js";
 
 export function createImmutableIdentifier(prefix: string): ImmutableIdentifier {
   const normalizedPrefix = prefix.trim().toLowerCase();
@@ -17,4 +17,8 @@ export function createCorrelationId(): CorrelationId {
 
 export function createRequestId(): RequestId {
   return createImmutableIdentifier("request") as unknown as RequestId;
+}
+
+export function createCommandId(commandName: string): CommandId {
+  return createImmutableIdentifier(commandName) as unknown as CommandId;
 }

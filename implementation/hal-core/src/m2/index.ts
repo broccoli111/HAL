@@ -1,0 +1,12 @@
+export { AuditService } from "./auditService.js";
+export { LocalFileEventJournal } from "./journal.js";
+export { M2_PROVENANCE, M2_SCHEMA_VERSION } from "./types.js";
+export { IntentManager } from "./intentManager.js";
+export { Planner } from "./planner.js";
+export { DecisionService } from "./decisionService.js";
+export { TransactionCoordinator } from "./transactionCoordinator.js";
+export { EvidenceService } from "./evidenceService.js";
+export { OutcomeService } from "./outcomeService.js";
+export { reconstructM2Trace, runM2DurableIntentDemo } from "./orchestrator.js";
+export type { M2DemoResult, ReconstructedTrace } from "./orchestrator.js";
+export type * from "./types.js";

@@ -29,3 +29,4 @@ reports/
 artifacts/
 generated/
 *.snap
+local-state/

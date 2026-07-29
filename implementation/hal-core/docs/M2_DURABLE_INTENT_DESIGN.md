@@ -12,15 +12,15 @@ M2 remains non-live-effect. No Provider execution, model invocation, external in
 
 ## 2. Authoritative ownership
 
-| Durable domain | Sole mutation owner | Derived/read-only forms |
-| --- | --- | --- |
-| Intent | Intent Manager | Intent summaries and work views |
-| Plan | Planner | Plan previews and scheduling views |
-| Decision | Decision Service | Explanation views |
-| Transaction | Transaction Coordinator | Transaction status views |
-| Evidence | Evidence Service | Evidence indexes and verification views |
-| Audit | Audit Service | Audit queries and trace views |
-| Outcome | Outcome Service | Outcome summaries |
+| Durable domain | Sole mutation owner     | Derived/read-only forms                 |
+| -------------- | ----------------------- | --------------------------------------- |
+| Intent         | Intent Manager          | Intent summaries and work views         |
+| Plan           | Planner                 | Plan previews and scheduling views      |
+| Decision       | Decision Service        | Explanation views                       |
+| Transaction    | Transaction Coordinator | Transaction status views                |
+| Evidence       | Evidence Service        | Evidence indexes and verification views |
+| Audit          | Audit Service           | Audit queries and trace views           |
+| Outcome        | Outcome Service         | Outcome summaries                       |
 
 No store, cache, CLI, fixture loader, test, or consumer gains mutation authority merely by holding a record.
 
@@ -28,15 +28,15 @@ No store, cache, CLI, fixture loader, test, or consumer gains mutation authority
 
 All records must use immutable IDs, correlation ID, causation reference where applicable, creation time, schema version, classification, provenance, and integrity metadata.
 
-| Record | Minimum governed fields | M2 constraint |
-| --- | --- | --- |
-| Intent | intent ID, request ID, objective statement, declared purpose, requester identity reference, classification, status | Captures what HAL is being asked to achieve; does not imply permission to act. |
-| Plan | plan ID, intent ID, strategy/steps, constraints, assumptions, risk, status | Bounded local plan only; may not add a capability or external effect. |
-| Decision | decision ID, subject, alternatives, evidence references, policy version, disposition, reason, uncertainty | `allow`, `deny`, or `approval_required` are decision results, not execution facts. |
-| Transaction | transaction ID, intent/plan/decision references, declared effect class, status, recovery disposition | M2 allows `not_started`, `blocked`, `completed_without_effect`, or `cancelled`; no external commit barrier. |
-| Evidence | evidence ID, source type, claim, provenance, integrity reference, confidence, status | Evidence is not authority or permission. |
-| Audit record | audit ID, event type, actor reference, correlation/causation, payload summary | Append-only and sensitive-data-minimized. |
-| Outcome | outcome ID, intent/transaction reference, stated result, verification references, confidence, status | Records only the local, non-effectful result. |
+| Record       | Minimum governed fields                                                                                            | M2 constraint                                                                                               |
+| ------------ | ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------- |
+| Intent       | intent ID, request ID, objective statement, declared purpose, requester identity reference, classification, status | Captures what HAL is being asked to achieve; does not imply permission to act.                              |
+| Plan         | plan ID, intent ID, strategy/steps, constraints, assumptions, risk, status                                         | Bounded local plan only; may not add a capability or external effect.                                       |
+| Decision     | decision ID, subject, alternatives, evidence references, policy version, disposition, reason, uncertainty          | `allow`, `deny`, or `approval_required` are decision results, not execution facts.                          |
+| Transaction  | transaction ID, intent/plan/decision references, declared effect class, status, recovery disposition               | M2 allows `not_started`, `blocked`, `completed_without_effect`, or `cancelled`; no external commit barrier. |
+| Evidence     | evidence ID, source type, claim, provenance, integrity reference, confidence, status                               | Evidence is not authority or permission.                                                                    |
+| Audit record | audit ID, event type, actor reference, correlation/causation, payload summary                                      | Append-only and sensitive-data-minimized.                                                                   |
+| Outcome      | outcome ID, intent/transaction reference, stated result, verification references, confidence, status               | Records only the local, non-effectful result.                                                               |
 
 ## 4. Local state transitions
 
@@ -60,24 +60,24 @@ Request received
 
 These are semantic contracts only. Book IX-level transport/wire contracts are still deferred.
 
-| Command | Owner | Required outcome |
-| --- | --- | --- |
-| `RecordIntent` | Intent Manager | Creates or idempotently returns one Intent record. |
-| `ProposePlan` | Planner | Creates a Plan tied to an existing Intent. |
-| `RecordDecision` | Decision Service | Records a reconstructable decision tied to Plan/Intent and evidence. |
-| `OpenTransaction` | Transaction Coordinator | Creates a non-effectful Transaction after a valid Decision. |
-| `AttachEvidence` | Evidence Service | Adds immutable evidence without rewriting the subject record. |
-| `FinalizeOutcome` | Outcome Service | Records a verified local outcome and links it to evidence. |
+| Command           | Owner                   | Required outcome                                                     |
+| ----------------- | ----------------------- | -------------------------------------------------------------------- |
+| `RecordIntent`    | Intent Manager          | Creates or idempotently returns one Intent record.                   |
+| `ProposePlan`     | Planner                 | Creates a Plan tied to an existing Intent.                           |
+| `RecordDecision`  | Decision Service        | Records a reconstructable decision tied to Plan/Intent and evidence. |
+| `OpenTransaction` | Transaction Coordinator | Creates a non-effectful Transaction after a valid Decision.          |
+| `AttachEvidence`  | Evidence Service        | Adds immutable evidence without rewriting the subject record.        |
+| `FinalizeOutcome` | Outcome Service         | Records a verified local outcome and links it to evidence.           |
 
-| Event | Meaning |
-| --- | --- |
-| `IntentRecorded` | An authoritative Intent transition completed. |
-| `PlanProposed` | A bounded Plan was recorded; it is not execution authority. |
-| `DecisionRecorded` | A decision completed with a declared disposition and evidence. |
-| `TransactionBlocked` | Work cannot proceed; no effect occurred. |
+| Event                               | Meaning                                                            |
+| ----------------------------------- | ------------------------------------------------------------------ |
+| `IntentRecorded`                    | An authoritative Intent transition completed.                      |
+| `PlanProposed`                      | A bounded Plan was recorded; it is not execution authority.        |
+| `DecisionRecorded`                  | A decision completed with a declared disposition and evidence.     |
+| `TransactionBlocked`                | Work cannot proceed; no effect occurred.                           |
 | `TransactionCompletedWithoutEffect` | Local non-effectful work completed; no external effect is claimed. |
-| `EvidenceAttached` | Immutable evidence was linked to a governed subject. |
-| `OutcomeFinalized` | A local outcome was assessed and recorded. |
+| `EvidenceAttached`                  | Immutable evidence was linked to a governed subject.               |
+| `OutcomeFinalized`                  | A local outcome was assessed and recorded.                         |
 
 ## 6. Idempotency, ordering, and recovery
 
@@ -105,4 +105,3 @@ These are semantic contracts only. Book IX-level transport/wire contracts are st
 - [ ] Every record/event includes required identity, correlation, causation, provenance, classification, and schema metadata.
 - [ ] No external network, Provider, model, real authentication, or live effect is introduced.
 - [ ] Format, lint, typecheck, tests, and dependency-security scan pass.
-

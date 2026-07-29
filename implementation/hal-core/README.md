@@ -36,6 +36,7 @@ Use only non-secret local values in `.env`.
 - `npm run security:scan` - dependency vulnerability audit (`npm audit`)
 - `npm run m0:source-manifest` - regenerate `docs/SOURCE_CONTROL_MANIFEST.md`
 - `npm run m1:demo` - run local M1 trustworthy-core demo using fixed fixtures
+- `npm run m2:demo` - run local M2 durable intent demo and reconstruction
 
 ## Source structure
 
@@ -67,3 +68,22 @@ Expected dispositions in restrictive mode (`HAL_SAFE_MODE=restrictive`):
 - `allowed_inspection_request` -> `allow` with claimed effect `inspection_only`
 - `approval_required_request` -> `approval_required` with claimed effect `none` (non-executing restriction)
 - `denied_unknown_request` -> `deny` with claimed effect `none`
+
+## M2 durable intent demo usage
+
+M2 requires an explicit disposable local state directory for the file-backed append-only journal.
+
+```bash
+mkdir -p ./local-state/hal-m2
+npm run m2:demo -- --state-dir ./local-state/hal-m2 --fixture allowed_inspection_request
+npm run m2:demo -- --state-dir ./local-state/hal-m2 --fixture approval_required_request
+npm run m2:demo -- --state-dir ./local-state/hal-m2 --fixture denied_unknown_request
+```
+
+Reconstruct a governed trace from an existing correlation ID:
+
+```bash
+npm run m2:demo -- reconstruct --state-dir ./local-state/hal-m2 --correlation-id <correlation-id>
+```
+
+The CLI prints correlation, intent, plan, decision, transaction, and outcome IDs; disposition; transaction status; claimed effect; and event count.
