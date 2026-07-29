@@ -699,7 +699,13 @@ describe("M2 durable intent path", () => {
       }
     }
 
-    expect(filesWithWrites).toEqual([path.resolve(srcRoot, "m2/journal.ts")]);
+    expect(filesWithWrites.sort()).toEqual(
+      [
+        path.resolve(srcRoot, "m2/journal.ts"),
+        path.resolve(srcRoot, "m3/artifactService.ts"),
+        path.resolve(srcRoot, "m3/journal.ts")
+      ].sort()
+    );
   });
 });
 

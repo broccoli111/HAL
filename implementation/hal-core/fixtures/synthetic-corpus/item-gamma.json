@@ -1,0 +1,9 @@
+{
+  "id": "gamma",
+  "title": "Synthetic Corpus Gamma",
+  "tags": ["governed", "summary", "evidence"],
+  "paragraphs": [
+    "The local provider emits deterministic JSON summary output.",
+    "Verification independently checks schema linkage and integrity metadata."
+  ]
+}

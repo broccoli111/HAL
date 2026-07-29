@@ -28,8 +28,13 @@ describe("network constraints", () => {
       /from\s+["']node:http["']/,
       /from\s+["']node:https["']/,
       /from\s+["']node:net["']/,
+      /from\s+["']node:child_process["']/,
+      /from\s+["']child_process["']/,
       /\bfetch\s*\(/,
-      /\bXMLHttpRequest\b/
+      /\bXMLHttpRequest\b/,
+      /from\s+["']axios["']/,
+      /from\s+["']openai["']/,
+      /from\s+["']@supabase\/supabase-js["']/
     ];
 
     for (const filePath of files) {

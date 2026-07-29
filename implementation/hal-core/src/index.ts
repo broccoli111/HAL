@@ -6,5 +6,6 @@ export * from "./audit/memoryAuditStore.js";
 export * from "./request/model.js";
 export * from "./request/fixtures.js";
 export * from "./m2/index.js";
+export * from "./m3/index.js";
 export * from "./shared/id.js";
 export * from "./shared/types.js";

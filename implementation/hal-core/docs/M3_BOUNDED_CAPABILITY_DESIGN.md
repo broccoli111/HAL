@@ -10,17 +10,17 @@ M3 proves that HAL can execute exactly one capability inside the M2 governed pat
 
 ## 2. Capability contract
 
-| Field | M3 contract |
-| --- | --- |
-| Capability ID | `inspect_synthetic_corpus_summary` |
-| Purpose | Summarize approved synthetic corpus metadata/content under declared limits. |
-| Inputs | Capability request ID, M2 transaction ID, allow Decision reference, correlation ID, corpus reference, maximum item count. |
-| Outputs | Summary artifact ID, item count, deterministic summary, input manifest hash, provider identity, verification evidence. |
-| Allowed data | Only synthetic, non-sensitive fixture corpus held below the explicit local fixture root. |
-| Prohibited data | Personal data, credentials, arbitrary host files, network resources, user-specified paths, and external accounts. |
-| Side effects | Creates only a controlled local result artifact/evidence record inside the explicit M3 state directory. |
-| Authority | Requires an M2 `allow` Decision and a `completed_without_effect`-eligible Transaction. |
-| Failure posture | Fail closed; preserve evidence; claim no effect; do not retry outside an explicit bounded policy. |
+| Field           | M3 contract                                                                                                               |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Capability ID   | `inspect_synthetic_corpus_summary`                                                                                        |
+| Purpose         | Summarize approved synthetic corpus metadata/content under declared limits.                                               |
+| Inputs          | Capability request ID, M2 transaction ID, allow Decision reference, correlation ID, corpus reference, maximum item count. |
+| Outputs         | Summary artifact ID, item count, deterministic summary, input manifest hash, provider identity, verification evidence.    |
+| Allowed data    | Only synthetic, non-sensitive fixture corpus held below the explicit local fixture root.                                  |
+| Prohibited data | Personal data, credentials, arbitrary host files, network resources, user-specified paths, and external accounts.         |
+| Side effects    | Creates only a controlled local result artifact/evidence record inside the explicit M3 state directory.                   |
+| Authority       | Requires an M2 `allow` Decision and a `completed_without_effect`-eligible Transaction.                                    |
+| Failure posture | Fail closed; preserve evidence; claim no effect; do not retry outside an explicit bounded policy.                         |
 
 ## 3. Provider and execution boundary
 
@@ -34,13 +34,13 @@ M3 has one local Provider: `LocalSyntheticCorpusInspector`.
 
 ## 4. Execution records and state
 
-| Record | Sole owner | Required fields |
-| --- | --- | --- |
-| Capability Registration | Capability Registry | capability ID, provider ID/version, input/output constraints, risk/effect classification, enabled status, evidence. |
-| Capability Request | Execution Coordinator | request ID, transaction/decision/intent references, correlation, input manifest, limits, authorization reference. |
-| Execution Attempt | Execution Coordinator | attempt ID, request ID, provider reference, status, timestamps, cancellation/deadline, result/evidence references. |
-| Result Artifact | Artifact Service | artifact ID, content, manifest hash, provenance, classification, integrity hash, retention scope. |
-| Verification Record | Verification Service | verification ID, artifact/attempt references, deterministic checks, disposition, evidence. |
+| Record                  | Sole owner            | Required fields                                                                                                     |
+| ----------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Capability Registration | Capability Registry   | capability ID, provider ID/version, input/output constraints, risk/effect classification, enabled status, evidence. |
+| Capability Request      | Execution Coordinator | request ID, transaction/decision/intent references, correlation, input manifest, limits, authorization reference.   |
+| Execution Attempt       | Execution Coordinator | attempt ID, request ID, provider reference, status, timestamps, cancellation/deadline, result/evidence references.  |
+| Result Artifact         | Artifact Service      | artifact ID, content, manifest hash, provenance, classification, integrity hash, retention scope.                   |
+| Verification Record     | Verification Service  | verification ID, artifact/attempt references, deterministic checks, disposition, evidence.                          |
 
 Attempt states: `created → running → succeeded | failed | cancelled | timed_out`. Only a verified `succeeded` attempt may support a M3 local result. A failure, cancellation, timeout, or uncertain state produces no claimed effect.
 
@@ -91,4 +91,3 @@ Only then may the M2 flow record a local `completed_without_effect` outcome. The
 - [ ] Full trace from correlation ID reconstructs Intent through verified artifact and Outcome.
 - [ ] No network, model, external provider, real authentication, database, or live effect is introduced.
 - [ ] Format, lint, typecheck, tests, and dependency-security scan pass.
-

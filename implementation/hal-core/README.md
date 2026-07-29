@@ -1,4 +1,4 @@
-# HAL Core (v0.1 M0 + M1 Skeleton)
+# HAL Core (v0.1 M0-M3 Local Implementation)
 
 This workspace contains the HAL v0.1 controlled baseline (M0) and a minimal, testable M1-ready skeleton.
 
@@ -37,6 +37,7 @@ Use only non-secret local values in `.env`.
 - `npm run m0:source-manifest` - regenerate `docs/SOURCE_CONTROL_MANIFEST.md`
 - `npm run m1:demo` - run local M1 trustworthy-core demo using fixed fixtures
 - `npm run m2:demo` - run local M2 durable intent demo and reconstruction
+- `npm run m3:demo` - run local M3 bounded capability demo and reconstruction
 
 ## Source structure
 
@@ -87,3 +88,20 @@ npm run m2:demo -- reconstruct --state-dir ./local-state/hal-m2 --correlation-id
 ```
 
 The CLI prints correlation, intent, plan, decision, transaction, and outcome IDs; disposition; transaction status; claimed effect; and event count.
+
+## M3 bounded capability demo usage
+
+M3 also requires an explicit disposable local state directory. It executes the approved synthetic corpus through M2 allow-path governance and then M3 capability execution.
+
+```bash
+mkdir -p ./local-state/hal-m3
+npm run m3:demo -- run --state-dir ./local-state/hal-m3
+```
+
+Reconstruct M3 traceability by correlation ID:
+
+```bash
+npm run m3:demo -- reconstruct --state-dir ./local-state/hal-m3 --correlation-id <correlation-id>
+```
+
+The command prints request/attempt/artifact/verification IDs, correlation ID, provider version, fixture manifest hash, verification result, and claimed effect.
