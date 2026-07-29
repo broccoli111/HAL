@@ -26,6 +26,6 @@ Repository path used in this workspace: `../../docs/governing documents/`.
 ## Review metadata
 
 - Review date: 2026-07-29
-- Repository baseline: not-yet-versioned (no local git repository detected at HAL root)
+- Repository baseline: a955ada438103741fcb4c6442930b830abe2916b on branch main
 - Implementation root: `implementation/hal-core`
 - Runtime baseline: Node.js LTS (>=20) and npm lockfile-managed dependencies
