@@ -1,0 +1,29 @@
+# Dependency and build artifacts
+node_modules/
+**/node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Local environment, credentials, and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+credentials/
+secrets/
+*.secret
+
+# Local state and generated outputs
+*.log
+tmp/
+temp/
+.DS_Store
+.vitest/
+.cache/
+reports/
+artifacts/
+generated/

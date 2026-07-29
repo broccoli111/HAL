@@ -1,0 +1,31 @@
+# Node and package artifacts
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Local environment and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+credentials/
+secrets/
+*.secret
+
+# Logs and local state
+*.log
+tmp/
+temp/
+.DS_Store
+.vitest/
+.cache/
+
+# Test outputs and generated artifacts
+reports/
+artifacts/
+generated/
+*.snap
