@@ -5,15 +5,21 @@ export type AuditRecord = Readonly<{
   auditRecordId: ImmutableIdentifier;
   timestampIso8601: string;
   correlationId: CorrelationId;
+  causationAuditRecordId?: ImmutableIdentifier;
   eventType: string;
   details: string;
 }>;
 
 export type NewAuditRecordInput = Readonly<{
   correlationId: CorrelationId;
+  causationAuditRecordId?: ImmutableIdentifier;
   eventType: string;
   details: string;
 }>;
+
+function containsSensitiveMaterial(value: string): boolean {
+  return /(password|secret|token|api[_-]?key|private[_-]?key|credential)/i.test(value);
+}
 
 export class InMemoryAppendOnlyAuditStore {
   private readonly records: AuditRecord[] = [];
@@ -33,11 +39,17 @@ export class InMemoryAppendOnlyAuditStore {
     if (!input.details.trim()) {
       throw new Error("Audit details must be non-empty.");
     }
+    if (containsSensitiveMaterial(input.details)) {
+      throw new Error("Audit details rejected: sensitive-looking content is not admitted.");
+    }
 
     const record: AuditRecord = Object.freeze({
       auditRecordId: createImmutableIdentifier("audit"),
       timestampIso8601: new Date().toISOString(),
       correlationId: input.correlationId,
+      ...(input.causationAuditRecordId
+        ? { causationAuditRecordId: input.causationAuditRecordId }
+        : {}),
       eventType: input.eventType,
       details: input.details
     });
@@ -48,5 +60,9 @@ export class InMemoryAppendOnlyAuditStore {
 
   public list(): readonly AuditRecord[] {
     return Object.freeze([...this.records]);
+  }
+
+  public findByCorrelationId(correlationId: CorrelationId): readonly AuditRecord[] {
+    return Object.freeze(this.records.filter((record) => record.correlationId === correlationId));
   }
 }

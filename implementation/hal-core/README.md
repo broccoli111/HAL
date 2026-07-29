@@ -35,6 +35,7 @@ Use only non-secret local values in `.env`.
 - `npm run check` - format + lint + typecheck + tests
 - `npm run security:scan` - dependency vulnerability audit (`npm audit`)
 - `npm run m0:source-manifest` - regenerate `docs/SOURCE_CONTROL_MANIFEST.md`
+- `npm run m1:demo` - run local M1 trustworthy-core demo using fixed fixtures
 
 ## Source structure
 
@@ -50,3 +51,19 @@ Use only non-secret local values in `.env`.
 ## CI behavior
 
 GitHub Actions runs format check, lint, typecheck, tests, and security scan. Tests are deterministic and local-only; no network-dependent test behavior is admitted.
+
+## M1 demo usage
+
+The CLI only accepts predefined local fixtures:
+
+```bash
+npm run m1:demo -- --fixture allowed_inspection_request
+npm run m1:demo -- --fixture approval_required_request
+npm run m1:demo -- --fixture denied_unknown_request
+```
+
+Expected dispositions in restrictive mode (`HAL_SAFE_MODE=restrictive`):
+
+- `allowed_inspection_request` -> `allow` with claimed effect `inspection_only`
+- `approval_required_request` -> `approval_required` with claimed effect `none` (non-executing restriction)
+- `denied_unknown_request` -> `deny` with claimed effect `none`

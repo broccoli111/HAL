@@ -45,4 +45,43 @@ describe("InMemoryAppendOnlyAuditStore", () => {
     expect(() => (listed as unknown as Array<unknown>).push("x")).toThrow();
     expect(store.list()).toHaveLength(1);
   });
+
+  test("can reconstruct audit trail by correlation ID", () => {
+    const store = new InMemoryAppendOnlyAuditStore("test");
+    const firstCorrelationId = createCorrelationId();
+    const secondCorrelationId = createCorrelationId();
+
+    const receipt = store.append({
+      correlationId: firstCorrelationId,
+      eventType: "request_received",
+      details: "requestId=req_1"
+    });
+    store.append({
+      correlationId: firstCorrelationId,
+      causationAuditRecordId: receipt.auditRecordId,
+      eventType: "decision_recorded",
+      details: "disposition=deny"
+    });
+    store.append({
+      correlationId: secondCorrelationId,
+      eventType: "request_received",
+      details: "requestId=req_2"
+    });
+
+    const firstTrail = store.findByCorrelationId(firstCorrelationId);
+    expect(firstTrail).toHaveLength(2);
+    expect(firstTrail[1]?.causationAuditRecordId).toBe(receipt.auditRecordId);
+  });
+
+  test("rejects sensitive-looking audit details", () => {
+    const store = new InMemoryAppendOnlyAuditStore("development");
+
+    expect(() =>
+      store.append({
+        correlationId: createCorrelationId(),
+        eventType: "request_received",
+        details: "token=super-secret-value"
+      })
+    ).toThrow(/sensitive-looking content/);
+  });
 });
