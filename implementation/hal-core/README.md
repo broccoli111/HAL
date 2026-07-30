@@ -130,3 +130,4 @@ npm run m4:demo -- reconstruct --state-dir ./local-state/hal-m4 --correlation-id
 - `docs/M5_INDEPENDENT_VERIFICATION_PROTOCOL.md`
 - `docs/M5_OWNER_READINESS_DECISION.md`
 - `docs/M5_OWNER_RUN_REPRODUCIBILITY_RECORD.md`
+- `docs/M5_LOCAL_BACKUP_AND_RESTORE_DESIGN.md`
