@@ -1,6 +1,6 @@
-# HAL Core (v0.1 M0-M3 Local Implementation)
+# HAL Core (v0.1 M0-M4 Local Implemented Slice + M5 Assurance Docs)
 
-This workspace contains the HAL v0.1 controlled baseline (M0) and a minimal, testable M1-ready skeleton.
+This workspace contains the HAL v0.1 implemented local slice for M0-M4, plus M5 assurance and readiness documentation.
 
 ## Safety boundary (local-only)
 
@@ -48,7 +48,7 @@ Use only non-secret local values in `.env`.
 - `src/audit` - append-only in-memory audit records (dev/test only)
 - `src/shared` - shared immutable ID and correlation types
 - `test` - deterministic unit tests
-- `docs` - M0/M1 evidence records
+- `docs` - M0-M5 evidence, implementation, readiness, and assurance records
 - `scripts` - manifest generation utility
 
 ## CI behavior
@@ -121,3 +121,11 @@ Reconstruct M4 evidence by correlation ID:
 ```bash
 npm run m4:demo -- reconstruct --state-dir ./local-state/hal-m4 --correlation-id <correlation-id>
 ```
+
+## M5 assurance package documents
+
+- `docs/M5_READINESS_AND_ASSURANCE_DESIGN.md`
+- `docs/M5_EVIDENCE_REGISTER.md`
+- `docs/M5_LOCAL_OPERATIONS_AND_RECOVERY_RUNBOOK.md`
+- `docs/M5_INDEPENDENT_VERIFICATION_PROTOCOL.md`
+- `docs/M5_OWNER_READINESS_DECISION.md`
