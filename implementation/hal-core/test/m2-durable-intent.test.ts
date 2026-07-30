@@ -704,6 +704,9 @@ describe("M2 durable intent path", () => {
         path.resolve(srcRoot, "m2/journal.ts"),
         path.resolve(srcRoot, "m3/artifactService.ts"),
         path.resolve(srcRoot, "m3/journal.ts"),
+        path.resolve(srcRoot, "m5/backupService.ts"),
+        path.resolve(srcRoot, "m5/operationJournal.ts"),
+        path.resolve(srcRoot, "m5/restoreService.ts"),
         path.resolve(srcRoot, "m4/journal.ts"),
         path.resolve(srcRoot, "m4/orchestrator.ts")
       ].sort()

@@ -39,6 +39,7 @@ Use only non-secret local values in `.env`.
 - `npm run m2:demo` - run local M2 durable intent demo and reconstruction
 - `npm run m3:demo` - run local M3 bounded capability demo and reconstruction
 - `npm run m4:demo` - run local M4 verified outcome demo and reconstruction
+- `npm run m5:backup-restore` - run local M5 backup/restore/verify operations
 
 ## Source structure
 
@@ -131,3 +132,14 @@ npm run m4:demo -- reconstruct --state-dir ./local-state/hal-m4 --correlation-id
 - `docs/M5_OWNER_READINESS_DECISION.md`
 - `docs/M5_OWNER_RUN_REPRODUCIBILITY_RECORD.md`
 - `docs/M5_LOCAL_BACKUP_AND_RESTORE_DESIGN.md`
+- `docs/M5_LOCAL_BACKUP_AND_RESTORE_IMPLEMENTATION_RECORD.md`
+
+## M5 backup/restore CLI usage
+
+All M5 backup/restore inputs require explicit caller-provided paths and source references; no protected-root defaults exist.
+
+```bash
+npm run m5:backup-restore -- backup --source-state-dir ./local-state/hal-m4 --backup-root ./local-state/m5-backups --operation-state-dir ./local-state/m5-ops --source-commit-ref <commit-sha> --source-version 0.1.0-local --classification synthetic_non_sensitive --initiated-by owner_local_operator
+npm run m5:backup-restore -- restore --snapshot-dir <snapshot-dir> --snapshot-root ./local-state/m5-backups --restore-target-dir ./local-state/m5-restore/restored-1 --restore-root ./local-state/m5-restore --operation-state-dir ./local-state/m5-ops
+npm run m5:backup-restore -- verify --snapshot-dir <snapshot-dir> --snapshot-root ./local-state/m5-backups --operation-state-dir ./local-state/m5-ops
+```

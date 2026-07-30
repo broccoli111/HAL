@@ -87,6 +87,35 @@ npm --prefix "implementation/hal-core" run m3:demo -- run --state-dir "./impleme
 npm --prefix "implementation/hal-core" run m4:demo -- run --state-dir "./implementation/hal-core/local-state/m5/m4" --scenario allowed_verified
 ```
 
+### 4.5 M5 backup/restore/verify demo set
+
+```bash
+mkdir -p "./implementation/hal-core/local-state/m5/backup-root"
+mkdir -p "./implementation/hal-core/local-state/m5/ops"
+mkdir -p "./implementation/hal-core/local-state/m5/restore-root"
+
+npm --prefix "implementation/hal-core" run m5:backup-restore -- backup \
+  --source-state-dir "./implementation/hal-core/local-state/m5/m4" \
+  --backup-root "./implementation/hal-core/local-state/m5/backup-root" \
+  --operation-state-dir "./implementation/hal-core/local-state/m5/ops" \
+  --source-commit-ref "<commit-sha>" \
+  --source-version "0.1.0-local" \
+  --classification "synthetic_non_sensitive" \
+  --initiated-by "owner_local_operator"
+
+npm --prefix "implementation/hal-core" run m5:backup-restore -- restore \
+  --snapshot-dir "<snapshot-dir-from-backup-output>" \
+  --snapshot-root "./implementation/hal-core/local-state/m5/backup-root" \
+  --restore-target-dir "./implementation/hal-core/local-state/m5/restore-root/restored-1" \
+  --restore-root "./implementation/hal-core/local-state/m5/restore-root" \
+  --operation-state-dir "./implementation/hal-core/local-state/m5/ops"
+
+npm --prefix "implementation/hal-core" run m5:backup-restore -- verify \
+  --snapshot-dir "<snapshot-dir-from-backup-output>" \
+  --snapshot-root "./implementation/hal-core/local-state/m5/backup-root" \
+  --operation-state-dir "./implementation/hal-core/local-state/m5/ops"
+```
+
 ## 5) Reconstruction procedure
 
 Capture correlation IDs from demo output, then reconstruct:
@@ -156,15 +185,15 @@ npm --prefix "implementation/hal-core" run test
 npm --prefix "implementation/hal-core" run security:scan
 ```
 
-## 10) Backup/restore drill status (explicit gap)
+## 10) Backup/restore drill status
 
-**Current state:** unavailable / not yet implemented for this local slice.
+**Current state:** implemented local control with retained constraints.
 
-- No implemented backup orchestration is admitted in current runtime scope.
-- Do not invent backup success artifacts.
-- If backup/restore evidence is requested, escalate as a readiness gap and block any uplift decision.
+- Backup and restore are local-only evidence controls with explicit caller-provided roots.
+- Restore output is evidence/reconstruction material only; it does not authorize rerun.
+- Failures are durably recorded in `m5-backup-restore-journal.jsonl`; partial restore targets are marked invalid.
+- This capability does not change authority, boundary scope, or Owner decision posture.
 
-Escalation requirement:
+Open closure condition:
 
-- create or update a tracked gap entry in `M5_EVIDENCE_REGISTER.md` and `M5_OWNER_READINESS_DECISION.md`;
-- require completion of a tested backup/restore control before reconsidering readiness posture.
+- Independent verification of the M5 backup/restore control remains required before reconsidering `not_ready`.
