@@ -1,7 +1,7 @@
 {
   "name": "hal-core",
   "version": "0.1.0",
-  "description": "HAL v0.1 local-only controlled baseline and M1 skeleton",
+  "description": "HAL v0.1 local-only implemented M0-M4 slice with M5 assurance controls",
   "private": true,
   "type": "module",
   "main": "dist/index.js",
@@ -19,6 +19,7 @@
     "m2:demo": "npm run build && node ./dist/src/cli/m2DemoCli.js",
     "m3:demo": "npm run build && node ./dist/src/cli/m3DemoCli.js",
     "m4:demo": "npm run build && node ./dist/src/cli/m4DemoCli.js",
+    "m5:backup-restore": "npm run build && node ./dist/src/cli/m5BackupRestoreCli.js",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
     "security:scan": "npm audit --audit-level=high",
     "m0:source-manifest": "node ./scripts/generate-source-manifest.mjs"
