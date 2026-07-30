@@ -52,19 +52,22 @@ Each evidence item includes:
 | EV-M5-001    | C5 Owner decision trace                         | `implementation/hal-core/docs/M5_OWNER_READINESS_DECISION.md`              | `TBD_COMMIT_SHA`      | governance_evidence  | `implementation/hal-core/docs/`   | decision record inspection           | `Owner / pending signature`      | `decision date in record`             | implementation-produced |
 | EV-M5-002    | C3 runbook readiness                            | `implementation/hal-core/docs/M5_LOCAL_OPERATIONS_AND_RECOVERY_RUNBOOK.md` | `TBD_COMMIT_SHA`      | operational_evidence | `implementation/hal-core/docs/`   | procedural completeness review       | `Pending independent reviewer`   | `TBD`                                 | implementation-produced |
 | EV-M5-003    | C2/C5 independent verification protocol         | `implementation/hal-core/docs/M5_INDEPENDENT_VERIFICATION_PROTOCOL.md`     | `TBD_COMMIT_SHA`      | assurance_evidence   | `implementation/hal-core/docs/`   | protocol completeness review         | `Pending independent reviewer`   | `TBD`                                 | implementation-produced |
+| EV-M5-004    | C3 reproducibility evidence (Owner-run)         | `implementation/hal-core/docs/M5_OWNER_RUN_REPRODUCIBILITY_RECORD.md`      | `TBD_COMMIT_SHA`      | operational_evidence | `implementation/hal-core/docs/`   | reproducibility record inspection    | `Owner-run / observed evidence`  | `2026-07-30`                          | implementation-produced |
 
 ## 4) Required runtime artifact evidence (capture plan)
 
 These items are required evidence inputs for M5 but are expected to be captured by execution of the verification protocol:
 
-| evidence_id | required artifact                              | capture location                      | verification method                 | status  |
-| ----------- | ---------------------------------------------- | ------------------------------------- | ----------------------------------- | ------- |
-| EV-ART-001  | M2 journal snapshot (`m2-event-journal.jsonl`) | `TBD_M5_EVIDENCE_DIR/journals/m2/`    | hash + integrity-chain verification | pending |
-| EV-ART-002  | M3 journal snapshot (`m3-event-journal.jsonl`) | `TBD_M5_EVIDENCE_DIR/journals/m3/`    | hash + integrity-chain verification | pending |
-| EV-ART-003  | M4 journal snapshot (`m4-event-journal.jsonl`) | `TBD_M5_EVIDENCE_DIR/journals/m4/`    | hash + integrity-chain verification | pending |
-| EV-ART-004  | M3 artifact hash inventory                     | `TBD_M5_EVIDENCE_DIR/artifacts/m3/`   | recompute hash and compare          | pending |
-| EV-ART-005  | reconstruction output bundle (M2/M3/M4)        | `TBD_M5_EVIDENCE_DIR/reconstruction/` | correlation/linkage review          | pending |
-| EV-ART-006  | tamper and mismatch negative-path outputs      | `TBD_M5_EVIDENCE_DIR/negative/`       | expected fail-closed assertions     | pending |
+| evidence_id | required artifact                                                         | capture location                      | verification method                 | status                  |
+| ----------- | ------------------------------------------------------------------------- | ------------------------------------- | ----------------------------------- | ----------------------- |
+| EV-ART-001  | M2 journal snapshot (`m2-event-journal.jsonl`)                            | `TBD_M5_EVIDENCE_DIR/journals/m2/`    | hash + integrity-chain verification | pending                 |
+| EV-ART-002  | M3 journal snapshot (`m3-event-journal.jsonl`)                            | `TBD_M5_EVIDENCE_DIR/journals/m3/`    | hash + integrity-chain verification | pending                 |
+| EV-ART-003  | M4 journal snapshot (`m4-event-journal.jsonl`)                            | `TBD_M5_EVIDENCE_DIR/journals/m4/`    | hash + integrity-chain verification | pending                 |
+| EV-ART-004  | M3 artifact hash inventory                                                | `TBD_M5_EVIDENCE_DIR/artifacts/m3/`   | recompute hash and compare          | pending                 |
+| EV-ART-005  | reconstruction output bundle (M2/M3/M4)                                   | `TBD_M5_EVIDENCE_DIR/reconstruction/` | correlation/linkage review          | pending                 |
+| EV-ART-006  | tamper and mismatch negative-path outputs                                 | `TBD_M5_EVIDENCE_DIR/negative/`       | expected fail-closed assertions     | pending                 |
+| EV-ART-007  | M4 positive correlation evidence (`dc142aaa-4647-4483-b216-d30eb2f2e856`) | `TBD_M5_EVIDENCE_DIR/reconstruction/` | verify correlation linkage to M4    | implementation-produced |
+| EV-ART-008  | local Owner-run reproducibility evidence bundle                           | `TBD_M5_EVIDENCE_DIR/`                | confirm journals/artifacts/hash set | implementation-produced |
 
 ## 5) Independent evidence and not-applicable declarations
 
@@ -85,3 +88,4 @@ Until independent review is completed, no item in this register may be claimed a
 - This register is append-by-supersession; do not silently rewrite prior dispositions.
 - Any stale evidence must be marked `pending` or `inconclusive` until refreshed.
 - If any evidence integrity check fails, dependent claims must be downgraded and decision posture must fail closed.
+- M5 decision state remains `not_ready`; independent review and tested backup/restore remain open closure conditions.

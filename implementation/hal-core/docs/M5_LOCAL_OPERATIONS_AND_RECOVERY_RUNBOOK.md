@@ -47,6 +47,18 @@ Do not reuse prior test state unless replay testing explicitly requires it.
 
 Run from repo root using explicit `--prefix`.
 
+### 4.0 Required local test configuration (M1/M2 prerequisite)
+
+Before running M1 or M2 demos, set:
+
+```bash
+export HAL_ENVIRONMENT=development
+export HAL_SAFE_MODE=restrictive
+export HAL_OWNER_ID=owner_independent_reviewer
+```
+
+These values are local non-secret test configuration only. They are not authentication credentials and do not create authority.
+
 ### 4.1 M1 demo set
 
 ```bash
