@@ -194,6 +194,6 @@ npm --prefix "implementation/hal-core" run security:scan
 - Failures are durably recorded in `m5-backup-restore-journal.jsonl`; partial restore targets are marked invalid.
 - This capability does not change authority, boundary scope, or Owner decision posture.
 
-Open closure condition:
+Residual assurance condition:
 
-- Independent verification of the M5 backup/restore control remains required before reconsidering `not_ready`.
+- Independent review of M5 backup/restore evidence remains an explicit residual risk and a prerequisite for any stronger assurance claim or scope expansion.

@@ -68,4 +68,4 @@ This was an Owner-run reproducibility review, not a role-separated independent v
 
 ## 7) Decision and boundary reminder
 
-No authority change, readiness uplift, certification outcome, or boundary expansion follows from this record. M5 readiness remains governed by the `not_ready` Owner decision until independent review and other closure conditions are completed.
+No authority change, readiness uplift, certification outcome, or boundary expansion follows from this record. Independent review remains an explicit residual risk and a prerequisite for any stronger assurance claim or scope expansion.

@@ -55,6 +55,7 @@ Each evidence item includes:
 | EV-M5-004    | C3 reproducibility evidence (Owner-run)         | `implementation/hal-core/docs/M5_OWNER_RUN_REPRODUCIBILITY_RECORD.md`               | `TBD_COMMIT_SHA`                           | operational_evidence | `implementation/hal-core/docs/`   | reproducibility record inspection         | `Owner-run / observed evidence`  | `2026-07-30`                          | implementation-produced |
 | EV-M5-005    | C2/C3 local backup/restore implementation       | `implementation/hal-core/docs/M5_LOCAL_BACKUP_AND_RESTORE_IMPLEMENTATION_RECORD.md` | `TBD_COMMIT_SHA`                           | operational_evidence | `implementation/hal-core/docs/`   | implementation-to-test traceability check | `Pending independent reviewer`   | `2026-07-30`                          | implementation-produced |
 | EV-M5-006    | C3 Owner-run backup/restore reproducibility run | `implementation/hal-core/docs/M5_OWNER_RUN_BACKUP_RESTORE_EVIDENCE_RECORD.md`       | `7eeff03880db5e418850311996f81e4dd7ac96e6` | operational_evidence | `implementation/hal-core/docs/`   | transcript and artifact reference review  | `Owner-run / observed evidence`  | `2026-07-30`                          | implementation-produced |
+| EV-M5-007    | C5 Owner local readiness superseding decision   | `implementation/hal-core/docs/M5_OWNER_LOCAL_READINESS_DECISION.md`                 | `TBD_COMMIT_SHA`                           | governance_evidence  | `implementation/hal-core/docs/`   | decision scope and boundary review        | `Owner / local-only disposition` | `2026-07-30`                          | implementation-produced |
 
 ## 4) Required runtime artifact evidence (capture plan)
 
@@ -91,4 +92,5 @@ Until independent review is completed, no item in this register may be claimed a
 - This register is append-by-supersession; do not silently rewrite prior dispositions.
 - Any stale evidence must be marked `pending` or `inconclusive` until refreshed.
 - If any evidence integrity check fails, dependent claims must be downgraded and decision posture must fail closed.
-- M5 decision state remains `not_ready`; independent review remains an open closure condition, including independent review of backup/restore evidence.
+- Current limited Owner disposition is `ready_to_remain_local_only` for existing local-only scope.
+- Independent review remains an explicit residual risk and a prerequisite for any stronger assurance claim or scope expansion, including backup/restore evidence.

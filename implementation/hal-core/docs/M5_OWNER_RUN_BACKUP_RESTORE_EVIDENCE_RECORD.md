@@ -11,7 +11,7 @@ This record captures a local Owner-run reproducibility exercise for M1/M4 scenar
 - This record is **not** independent verification.
 - This record is **not** certification.
 - This record does **not** change authority or readiness posture.
-- Owner decision remains `not_ready` because independent review is still outstanding.
+- Independent review remains an explicit residual risk and is required for any stronger assurance claim or scope expansion.
 
 ## 2) Reviewed commit and environment fingerprint
 
@@ -142,4 +142,4 @@ SHA-256 integrity inventory:
 
 ## 8) Assurance boundary statement
 
-This is Owner-run reproducibility evidence only. It is not independent verification and not certification. The Owner decision remains `not_ready` because independent review is still outstanding.
+This is Owner-run reproducibility evidence only. It is not independent verification and not certification. Independent review remains an explicit residual risk and a prerequisite for any stronger assurance claim or scope expansion.
