@@ -131,8 +131,13 @@ npm run m4:demo -- reconstruct --state-dir ./local-state/hal-m4 --correlation-id
 - `docs/M5_INDEPENDENT_VERIFICATION_PROTOCOL.md`
 - `docs/M5_OWNER_READINESS_DECISION.md`
 - `docs/M5_OWNER_RUN_REPRODUCIBILITY_RECORD.md`
+- `docs/M5_OWNER_RUN_BACKUP_RESTORE_EVIDENCE_RECORD.md`
 - `docs/M5_LOCAL_BACKUP_AND_RESTORE_DESIGN.md`
 - `docs/M5_LOCAL_BACKUP_AND_RESTORE_IMPLEMENTATION_RECORD.md`
+
+Local evidence bundle retained for the pre-independent-verification Owner run:
+
+- `local-state/m5/evidence-package/m5-pre-iv-20260730T190603Z/`
 
 ## M5 backup/restore CLI usage
 

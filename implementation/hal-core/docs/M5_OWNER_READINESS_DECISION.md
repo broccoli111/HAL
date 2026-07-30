@@ -28,7 +28,7 @@ A future Owner readiness reconsideration requires all minimum closure conditions
 
 1. completed independent review executed via `M5_INDEPENDENT_VERIFICATION_PROTOCOL.md`;
 2. complete M5 evidence package populated and traceable in `M5_EVIDENCE_REGISTER.md`;
-3. tested backup/restore control evidence (currently unavailable in this local slice);
+3. independent verification of the full M5 evidence package, including backup/restore evidence captured in `M5_LOCAL_BACKUP_AND_RESTORE_IMPLEMENTATION_RECORD.md` and `M5_OWNER_RUN_BACKUP_RESTORE_EVIDENCE_RECORD.md`;
 4. explicit separate Owner review for any proposed next-boundary scope.
 
 If any condition remains unmet, readiness remains `not_ready`.
@@ -36,8 +36,8 @@ If any condition remains unmet, readiness remains `not_ready`.
 ## 4) Current unresolved gaps
 
 - Independent verification evidence is pending.
-- Backup/restore control is not yet implemented for the current slice.
-- Evidence package requires final immutable capture set (journals, reconstruction outputs, hashes, and reviewer attestations).
+- Independent review of backup/restore evidence is pending.
+- Evidence package requires final independent-review dispositions and immutable capture attestations.
 
 ## 5) Decision metadata
 
@@ -46,7 +46,7 @@ If any condition remains unmet, readiness remains `not_ready`.
 - **Expiry/review date:** `TBD_OWNER_REVIEW_DATE`
 - **Review triggers (early reassessment):**
   - completion of independent verification package;
-  - completion of tested backup/restore controls;
+  - completion of independent verification of backup/restore evidence;
   - material scope, dependency, or assurance drift;
   - new integrity, security, or governance incident.
 
@@ -56,6 +56,8 @@ If any condition remains unmet, readiness remains `not_ready`.
 - `implementation/hal-core/docs/M5_EVIDENCE_REGISTER.md`
 - `implementation/hal-core/docs/M5_LOCAL_OPERATIONS_AND_RECOVERY_RUNBOOK.md`
 - `implementation/hal-core/docs/M5_INDEPENDENT_VERIFICATION_PROTOCOL.md`
+- `implementation/hal-core/docs/M5_LOCAL_BACKUP_AND_RESTORE_IMPLEMENTATION_RECORD.md`
+- `implementation/hal-core/docs/M5_OWNER_RUN_BACKUP_RESTORE_EVIDENCE_RECORD.md`
 - `implementation/hal-core/docs/M0_EXIT_DECISION.md`
 - `implementation/hal-core/docs/M1_IMPLEMENTATION_RECORD.md`
 - `implementation/hal-core/docs/M2_IMPLEMENTATION_RECORD.md`
