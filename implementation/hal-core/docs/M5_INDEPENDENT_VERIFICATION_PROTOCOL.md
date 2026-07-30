@@ -34,6 +34,16 @@ mkdir -p "./implementation/hal-core/local-state/m5-independent/m3"
 mkdir -p "./implementation/hal-core/local-state/m5-independent/m4"
 ```
 
+Required local test configuration before M1/M2 demo checks:
+
+```bash
+export HAL_ENVIRONMENT=development
+export HAL_SAFE_MODE=restrictive
+export HAL_OWNER_ID=owner_independent_reviewer
+```
+
+These values are local non-secret test configuration. They are not authentication credentials and do not establish authority.
+
 ## 3) Baseline validation checks
 
 From repo root:
