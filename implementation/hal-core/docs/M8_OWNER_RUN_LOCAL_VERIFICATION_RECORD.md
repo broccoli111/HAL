@@ -31,7 +31,7 @@ This record captures directly observed bounded outcomes from Owner-run local M8 
 | `npm --prefix "implementation/hal-core" run format:check`  | exited successfully; formatting check passed                  |
 | `npm --prefix "implementation/hal-core" run lint`          | exited successfully                                           |
 | `npm --prefix "implementation/hal-core" run typecheck`     | exited successfully                                           |
-| `npm --prefix "implementation/hal-core" run test`          | exited successfully; 16 test files passed; 125 tests passed   |
+| `npm --prefix "implementation/hal-core" run test`          | exited successfully; 17 test files passed; 131 tests passed   |
 | `npm --prefix "implementation/hal-core" run security:scan` | exited successfully; `npm audit` reported `0 vulnerabilities` |
 
 ## 4) M8 scenario observations (bounded fields only)
