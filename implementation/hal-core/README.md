@@ -41,6 +41,7 @@ Use only non-secret local values in `.env`.
 - `npm run m4:demo` - run local M4 verified outcome demo and reconstruction
 - `npm run m5:backup-restore` - run local M5 backup/restore/verify operations
 - `npm run m6:inquire` - run local M6 deterministic free-form inquiry
+- `npm run m7:session` - run local M7 terminal inquiry session (M6-governed delegation)
 
 ## Source structure
 
@@ -140,7 +141,8 @@ npm run m4:demo -- reconstruct --state-dir ./local-state/hal-m4 --correlation-id
 - `docs/M6_IMPLEMENTATION_RECORD.md`
 - `docs/M6_LOCAL_TEST_RUNBOOK.md`
 - `docs/M6_OWNER_RUN_LOCAL_VERIFICATION_RECORD.md`
-- `docs/M7_LOCAL_INQUIRY_SESSION_DESIGN.md` (Proposed / not implemented)
+- `docs/M7_LOCAL_INQUIRY_SESSION_DESIGN.md` (Design basis)
+- `docs/M7_IMPLEMENTATION_RECORD.md`
 
 ## M6 controlled local inquiry usage
 
@@ -180,3 +182,30 @@ npm run m5:backup-restore -- backup --source-state-dir ./local-state/hal-m4 --ba
 npm run m5:backup-restore -- restore --snapshot-dir <snapshot-dir> --snapshot-root ./local-state/m5-backups --restore-target-dir ./local-state/m5-restore/restored-1 --restore-root ./local-state/m5-restore --operation-state-dir ./local-state/m5-ops
 npm run m5:backup-restore -- verify --snapshot-dir <snapshot-dir> --snapshot-root ./local-state/m5-backups --operation-state-dir ./local-state/m5-ops
 ```
+
+## M7 local inquiry session usage
+
+M7 is a terminal-only local session interface that delegates every inquiry to M6 governed execution.
+
+```bash
+mkdir -p ./local-state/m7
+npm run m7:session -- --state-dir ./local-state/m7
+```
+
+Admitted commands:
+
+- `help`
+- `status`
+- `ask <question>`
+- `ask --request-id <id> --replay-intent <question>`
+- `exit`
+
+Session constraints:
+
+- Requires explicit `--state-dir` with strict local safety validation.
+- Plain `ask` generates a fresh local request ID using `m7-session-request-...`.
+- Explicit request-ID reuse is only allowed via `--request-id ... --replay-intent ...`.
+- No follow-up interpretation, no conversational memory, and no hidden prompt state.
+- No session transcript, raw question history, rendered answer text, or excerpt persistence by M7.
+- M6/M2/M3/M4/M5 durable records remain the sole governed evidence path.
+- All outcomes remain local-only, synthetic-only, deterministic, and `externalEffect=none`.
