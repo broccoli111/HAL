@@ -6,7 +6,7 @@ import { createCommandId, createImmutableIdentifier } from "../shared/id.js";
 import type { CorrelationId, ImmutableIdentifier } from "../shared/types.js";
 import { M3TraceService, computeRecordIntegrityHash, createM3Metadata } from "./traceService.js";
 import type { ArtifactRecord, VerificationRecord } from "./types.js";
-import { M3_PROVIDER_ID, M3_PROVIDER_VERSION, M3_SCHEMA_VERSION } from "./types.js";
+import { M3_SCHEMA_VERSION, M6_M3_PROVIDER_ID } from "./types.js";
 
 type VerificationOutcome = Readonly<{ verified: boolean; reason: string; contentHash?: string }>;
 
@@ -106,11 +106,8 @@ export class VerificationService {
         reason: "Artifact path is outside state artifact directory."
       });
     }
-    if (
-      input.artifact.providerId !== M3_PROVIDER_ID ||
-      input.artifact.providerVersion !== M3_PROVIDER_VERSION
-    ) {
-      return Object.freeze({ verified: false, reason: "Provider identity/version mismatch." });
+    if (!input.artifact.providerId.trim() || !input.artifact.providerVersion.trim()) {
+      return Object.freeze({ verified: false, reason: "Provider identity/version missing." });
     }
     if (!artifactPath.includes(path.resolve(this.traceService.getStateDirectory()))) {
       return Object.freeze({
@@ -163,6 +160,13 @@ export class VerificationService {
       itemCount: number;
       providerId: string;
       providerVersion: string;
+      deterministicInquiry?: {
+        questionNormalizedHashSha256?: string;
+        selectedDocumentIds?: string[];
+        selectedSectionIds?: string[];
+        noMatch?: boolean;
+        answerHashSha256?: string;
+      };
       summary: { totalItems: number };
     }>;
     if (candidate.fixtureManifestHash !== input.expectedFixtureManifestHash) {
@@ -173,8 +177,8 @@ export class VerificationService {
       });
     }
     if (
-      candidate.providerId !== M3_PROVIDER_ID ||
-      candidate.providerVersion !== M3_PROVIDER_VERSION
+      candidate.providerId !== input.artifact.providerId ||
+      candidate.providerVersion !== input.artifact.providerVersion
     ) {
       return Object.freeze({
         verified: false,
@@ -193,6 +197,40 @@ export class VerificationService {
         reason: "Artifact payload schema or item count mismatch.",
         contentHash
       });
+    }
+    if (input.artifact.providerId === M6_M3_PROVIDER_ID) {
+      const deterministicInquiry = candidate.deterministicInquiry;
+      if (!deterministicInquiry) {
+        return Object.freeze({
+          verified: false,
+          reason: "M6 artifact payload missing deterministic inquiry metadata.",
+          contentHash
+        });
+      }
+      if (
+        typeof deterministicInquiry.questionNormalizedHashSha256 !== "string" ||
+        !deterministicInquiry.questionNormalizedHashSha256.trim() ||
+        !Array.isArray(deterministicInquiry.selectedDocumentIds) ||
+        !deterministicInquiry.selectedDocumentIds.every((value) => typeof value === "string") ||
+        !Array.isArray(deterministicInquiry.selectedSectionIds) ||
+        !deterministicInquiry.selectedSectionIds.every((value) => typeof value === "string") ||
+        typeof deterministicInquiry.noMatch !== "boolean" ||
+        typeof deterministicInquiry.answerHashSha256 !== "string" ||
+        !deterministicInquiry.answerHashSha256.trim()
+      ) {
+        return Object.freeze({
+          verified: false,
+          reason: "M6 artifact deterministic inquiry metadata schema mismatch.",
+          contentHash
+        });
+      }
+      if (deterministicInquiry.selectedSectionIds.length !== candidate.itemCount) {
+        return Object.freeze({
+          verified: false,
+          reason: "M6 artifact selected section count mismatch.",
+          contentHash
+        });
+      }
     }
 
     return Object.freeze({ verified: true, reason: "Artifact verified.", contentHash });

@@ -53,7 +53,7 @@ export function runM3BoundedCapabilityDemo(input: {
   });
   const m2Audit = new AuditService(input.stateDirectory);
   const traceService = new M3TraceService(input.stateDirectory);
-  const registry = new CapabilityRegistry(traceService, fixtureRoot);
+  const registry = new CapabilityRegistry(traceService);
   const provider = new LocalSyntheticCorpusInspector();
   const artifactService = new ArtifactService(traceService, input.stateDirectory);
   const verificationService = new VerificationService(traceService, fixtureRoot);

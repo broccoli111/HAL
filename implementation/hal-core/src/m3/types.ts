@@ -3,13 +3,15 @@ import type { CommandId, CorrelationId, ImmutableIdentifier } from "../shared/ty
 export const M3_SCHEMA_VERSION = "m3.v1" as const;
 export const M3_PROVENANCE = "local_m3_bounded_capability" as const;
 export const M3_CAPABILITY_ID = "inspect_synthetic_corpus_summary" as const;
+export const M6_M3_CAPABILITY_ID = "answer_synthetic_corpus_question_deterministic_v1" as const;
 export const M3_PROVIDER_ID = "LocalSyntheticCorpusInspector" as const;
+export const M6_M3_PROVIDER_ID = "LocalDeterministicInquiryProvider" as const;
 export const M3_PROVIDER_VERSION = "1.0.0" as const;
 
 export type M3SchemaVersion = typeof M3_SCHEMA_VERSION;
 export type M3Provenance = typeof M3_PROVENANCE;
-export type M3CapabilityId = typeof M3_CAPABILITY_ID;
-export type M3ProviderId = typeof M3_PROVIDER_ID;
+export type M3CapabilityId = typeof M3_CAPABILITY_ID | typeof M6_M3_CAPABILITY_ID;
+export type M3ProviderId = typeof M3_PROVIDER_ID | typeof M6_M3_PROVIDER_ID;
 export type M3ProviderVersion = typeof M3_PROVIDER_VERSION;
 
 export type M3BaseMetadata = Readonly<{
@@ -186,6 +188,7 @@ export type CapabilityRequestInput = Readonly<{
   itemLimit: number;
   deadlineMs: number;
   cancellationRequested?: boolean;
+  providerInput?: Readonly<Record<string, unknown>>;
 }>;
 
 export type ProviderSummaryResult = Readonly<{
@@ -194,6 +197,13 @@ export type ProviderSummaryResult = Readonly<{
   fixtureManifestHash: string;
   consumedFiles: readonly string[];
   itemCount: number;
+  deterministicInquiry?: Readonly<{
+    questionNormalizedHashSha256: string;
+    selectedDocumentIds: readonly string[];
+    selectedSectionIds: readonly string[];
+    noMatch: boolean;
+    answerHashSha256: string;
+  }>;
   summary: Readonly<{
     totalItems: number;
     titles: readonly string[];

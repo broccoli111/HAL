@@ -50,6 +50,9 @@ export class ArtifactService {
       providerVersion: input.providerResult.providerVersion,
       fixtureManifestHash: input.providerResult.fixtureManifestHash,
       itemCount: input.providerResult.itemCount,
+      ...(input.providerResult.deterministicInquiry
+        ? { deterministicInquiry: input.providerResult.deterministicInquiry }
+        : {}),
       consumedFiles: input.providerResult.consumedFiles,
       summary: input.providerResult.summary
     });

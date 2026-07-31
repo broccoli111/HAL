@@ -216,7 +216,7 @@ function deriveOutcomeClaimedEffect(
   transaction: TransactionRecord
 ): ClaimedEffect {
   if (decision.disposition === "allow" && transaction.status === "completed_without_effect") {
-    return "inspection_only";
+    return transaction.claimedEffect;
   }
   return "none";
 }

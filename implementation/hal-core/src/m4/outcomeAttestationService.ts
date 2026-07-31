@@ -21,6 +21,11 @@ import {
   type FinalizeOutcomeAttestationInput,
   type OutcomeAttestationRecord
 } from "./types.js";
+import { M6_M3_CAPABILITY_ID } from "../m3/types.js";
+import { M6EvidenceJournal } from "../m6/evidenceJournal.js";
+import { loadApprovedSyntheticCorpus } from "../m6/corpus.js";
+import { renderM6Response } from "../m6/response.js";
+import type { M6MatchOutcome, M6SelectedDocument, M6SelectedSection } from "../m6/types.js";
 
 export type FinalAttestationResult = Readonly<{
   attestation: OutcomeAttestationRecord;
@@ -362,6 +367,31 @@ export class OutcomeAttestationService {
       });
     }
 
+    if (request.requestedCapabilityId === M6_M3_CAPABILITY_ID) {
+      const m6Outcome = this.validateM6EvidenceConsistency({
+        request,
+        m2Trace,
+        terminal,
+        artifact
+      });
+      if (!m6Outcome.valid) {
+        return this.attestWithRecovery({
+          request,
+          commandId,
+          requestFingerprint,
+          finalOutcomeStatus: "incomplete_evidence_no_effect",
+          claimedEffect: "none",
+          m3AttemptRan: true,
+          verificationPassed: false,
+          uncertainty: m6Outcome.uncertainty,
+          evidenceSummary: m6Outcome.reason,
+          failureCategory: m6Outcome.category,
+          failureReason: m6Outcome.reason,
+          affectedReferences: m6Outcome.affectedReferences
+        });
+      }
+    }
+
     return this.attestWithoutRecovery({
       request,
       commandId,
@@ -370,7 +400,8 @@ export class OutcomeAttestationService {
       m2Trace,
       terminal,
       finalOutcomeStatus: "achieved_without_effect",
-      claimedEffect: "inspection_only",
+      claimedEffect:
+        request.requestedCapabilityId === M6_M3_CAPABILITY_ID ? "none" : "inspection_only",
       uncertainty: "low"
     });
   }
@@ -754,6 +785,224 @@ export class OutcomeAttestationService {
     }
     return Object.freeze({ valid: true });
   }
+
+  private validateM6EvidenceConsistency(input: {
+    request: FinalizeOutcomeAttestationInput;
+    m2Trace: ReconstructedTrace;
+    terminal: TerminalM3Evidence;
+    artifact: ArtifactRecord;
+  }):
+    | Readonly<{ valid: true }>
+    | Readonly<{
+        valid: false;
+        category: "missing_evidence" | "evidence_linkage_mismatch" | "artifact_integrity_failure";
+        reason: string;
+        uncertainty: string;
+        affectedReferences: readonly string[];
+      }> {
+    let latestM6: ReturnType<M6EvidenceJournal["listAll"]>[number]["record"] | undefined;
+    try {
+      latestM6 = new M6EvidenceJournal(this.stateDirectory)
+        .listAll()
+        .filter((event) => event.correlationId === input.request.correlationId)
+        .map((event) => event.record)
+        .at(-1);
+    } catch (error) {
+      return Object.freeze({
+        valid: false,
+        category: "artifact_integrity_failure",
+        reason: `M6 evidence journal integrity failure: ${(error as Error).message}`,
+        uncertainty: "m6_journal_integrity_failure",
+        affectedReferences: ["m6_event_journal"]
+      });
+    }
+    if (!latestM6) {
+      return Object.freeze({
+        valid: false,
+        category: "missing_evidence",
+        reason: "M6 evidence record missing for attested correlation.",
+        uncertainty: "missing_m6_evidence",
+        affectedReferences: ["m6_event_journal"]
+      });
+    }
+    if (latestM6.requestId !== input.terminal.capabilityRequest?.capabilityRequestId) {
+      return Object.freeze({
+        valid: false,
+        category: "evidence_linkage_mismatch",
+        reason: "M6 request identity does not match M3 capability request identity.",
+        uncertainty: "m6_request_id_mismatch",
+        affectedReferences: ["m6.requestId", "m3.capabilityRequestId"]
+      });
+    }
+    if (
+      latestM6.m2IntentId !== (input.m2Trace.summary.intentId as unknown as ImmutableIdentifier) ||
+      latestM6.m2PlanId !== (input.m2Trace.summary.planId as unknown as ImmutableIdentifier) ||
+      latestM6.m2DecisionId !==
+        (input.m2Trace.summary.decisionId as unknown as ImmutableIdentifier) ||
+      latestM6.m2TransactionId !==
+        (input.m2Trace.summary.transactionId as unknown as ImmutableIdentifier)
+    ) {
+      return Object.freeze({
+        valid: false,
+        category: "evidence_linkage_mismatch",
+        reason: "M6 record M2 linkage does not match reconstructed M2 linkage.",
+        uncertainty: "m6_m2_linkage_mismatch",
+        affectedReferences: ["m6.m2Linkage", "m2.summary"]
+      });
+    }
+    if (latestM6.corpusManifestHashSha256 !== input.artifact.fixtureManifestHash) {
+      return Object.freeze({
+        valid: false,
+        category: "evidence_linkage_mismatch",
+        reason: "M6 corpus manifest hash does not match M3 artifact manifest hash.",
+        uncertainty: "m6_manifest_hash_mismatch",
+        affectedReferences: ["m6.corpusManifestHashSha256", "m3.artifact.fixtureManifestHash"]
+      });
+    }
+
+    let parsedArtifact: unknown;
+    try {
+      parsedArtifact = JSON.parse(readFileSync(input.artifact.artifactPath, "utf8"));
+    } catch (error) {
+      return Object.freeze({
+        valid: false,
+        category: "missing_evidence",
+        reason: `M3 artifact unreadable while validating M6 linkage: ${(error as Error).message}`,
+        uncertainty: "m3_artifact_unreadable_for_m6_check",
+        affectedReferences: ["m3.artifactPath"]
+      });
+    }
+    const artifactDeterministic = (
+      parsedArtifact as {
+        deterministicInquiry?: {
+          questionNormalizedHashSha256?: string;
+          selectedDocumentIds?: string[];
+          selectedSectionIds?: string[];
+          noMatch?: boolean;
+          answerHashSha256?: string;
+        };
+      }
+    ).deterministicInquiry;
+    if (
+      !artifactDeterministic ||
+      typeof artifactDeterministic.questionNormalizedHashSha256 !== "string" ||
+      !Array.isArray(artifactDeterministic.selectedDocumentIds) ||
+      !Array.isArray(artifactDeterministic.selectedSectionIds) ||
+      typeof artifactDeterministic.noMatch !== "boolean" ||
+      typeof artifactDeterministic.answerHashSha256 !== "string"
+    ) {
+      return Object.freeze({
+        valid: false,
+        category: "artifact_integrity_failure",
+        reason: "M6 deterministic artifact metadata missing or malformed.",
+        uncertainty: "m6_artifact_metadata_malformed",
+        affectedReferences: ["m3.artifact.deterministicInquiry"]
+      });
+    }
+    if (
+      latestM6.questionNormalizedHashSha256 !==
+        artifactDeterministic.questionNormalizedHashSha256 ||
+      latestM6.answerHashSha256 !== artifactDeterministic.answerHashSha256 ||
+      latestM6.noMatch !== artifactDeterministic.noMatch
+    ) {
+      return Object.freeze({
+        valid: false,
+        category: "evidence_linkage_mismatch",
+        reason: "M6 question/result hash or no-match flag mismatch versus M3 artifact metadata.",
+        uncertainty: "m6_artifact_hash_or_nomatch_mismatch",
+        affectedReferences: [
+          "m6.questionHash/answerHash/noMatch",
+          "m3.artifact.deterministicInquiry"
+        ]
+      });
+    }
+    if (
+      latestM6.selectedDocumentIds.join("|") !==
+        artifactDeterministic.selectedDocumentIds.join("|") ||
+      latestM6.selectedSectionIds.join("|") !== artifactDeterministic.selectedSectionIds.join("|")
+    ) {
+      return Object.freeze({
+        valid: false,
+        category: "evidence_linkage_mismatch",
+        reason: "M6 selected references mismatch versus M3 artifact deterministic metadata.",
+        uncertainty: "m6_selected_references_mismatch",
+        affectedReferences: ["m6.selectedReferences", "m3.artifact.deterministicInquiry"]
+      });
+    }
+    let corpusSnapshot: ReturnType<typeof loadApprovedSyntheticCorpus>;
+    try {
+      corpusSnapshot = loadApprovedSyntheticCorpus();
+    } catch (error) {
+      return Object.freeze({
+        valid: false,
+        category: "missing_evidence",
+        reason: `Approved corpus load failed during M6 attestation validation: ${(error as Error).message}`,
+        uncertainty: "m6_corpus_load_failure",
+        affectedReferences: ["approved_m6_corpus"]
+      });
+    }
+    if (corpusSnapshot.manifestHashSha256 !== latestM6.corpusManifestHashSha256) {
+      return Object.freeze({
+        valid: false,
+        category: "evidence_linkage_mismatch",
+        reason: "Canonical manifest hash does not match the approved corpus manifest hash.",
+        uncertainty: "m6_canonical_manifest_mismatch",
+        affectedReferences: ["m6.corpusManifestHashSha256", "approvedCorpus.manifestHashSha256"]
+      });
+    }
+    let rendered: ReturnType<typeof renderM6Response>;
+    try {
+      const reconstructedMatch = reconstructM6MatchOutcome({
+        corpusSnapshot,
+        selectedDocumentIds: artifactDeterministic.selectedDocumentIds,
+        selectedSectionIds: artifactDeterministic.selectedSectionIds,
+        noMatch: artifactDeterministic.noMatch
+      });
+      rendered = renderM6Response({
+        match: reconstructedMatch,
+        corpusManifestHashSha256: latestM6.corpusManifestHashSha256
+      });
+    } catch (error) {
+      return Object.freeze({
+        valid: false,
+        category: "evidence_linkage_mismatch",
+        reason: `M6 deterministic reconstruction failed: ${(error as Error).message}`,
+        uncertainty: "m6_reconstruction_failure",
+        affectedReferences: ["m3.artifact.deterministicInquiry", "approved_m6_corpus"]
+      });
+    }
+    const reconstructedHash = createHash("sha256").update(rendered.responseText).digest("hex");
+    if (
+      reconstructedHash !== artifactDeterministic.answerHashSha256 ||
+      reconstructedHash !== latestM6.answerHashSha256
+    ) {
+      return Object.freeze({
+        valid: false,
+        category: "evidence_linkage_mismatch",
+        reason: "Independent M6 response hash mismatch across artifact/evidence reconstruction.",
+        uncertainty: "m6_reconstructed_response_hash_mismatch",
+        affectedReferences: [
+          "m3.artifact.deterministicInquiry.answerHashSha256",
+          "m6.answerHashSha256",
+          "m6.reconstructedResponseHash"
+        ]
+      });
+    }
+    const renderedManifest = rendered.responseText
+      .split("\n")
+      .find((line) => line.startsWith("corpusManifestHash="))
+      ?.slice("corpusManifestHash=".length);
+    if (renderedManifest !== latestM6.corpusManifestHashSha256) {
+      return Object.freeze({
+        valid: false,
+        category: "evidence_linkage_mismatch",
+        reason: "Rendered response corpusManifestHash field mismatches canonical manifest hash.",
+        uncertainty: "m6_rendered_manifest_field_mismatch",
+        affectedReferences: ["rendered.corpusManifestHash", "m6.corpusManifestHashSha256"]
+      });
+    }
+    return Object.freeze({ valid: true });
+  }
 }
 
 type TerminalM3Evidence = Readonly<{
@@ -788,4 +1037,59 @@ function buildEvidenceSummary(terminal: TerminalM3Evidence, m2Trace: Reconstruct
     `m3Attempt=${terminal.attempt?.status ?? "none"}`,
     `m3Verification=${terminal.verification?.verified === true ? "verified" : "not_verified"}`
   ].join("; ");
+}
+
+function reconstructM6MatchOutcome(input: {
+  corpusSnapshot: ReturnType<typeof loadApprovedSyntheticCorpus>;
+  selectedDocumentIds: readonly string[];
+  selectedSectionIds: readonly string[];
+  noMatch: boolean;
+}): M6MatchOutcome {
+  if (input.noMatch) {
+    return Object.freeze({
+      noMatch: true,
+      selectedDocuments: Object.freeze([]),
+      selectedDocumentIds: Object.freeze([]),
+      selectedSectionIds: Object.freeze([])
+    });
+  }
+  const documentsById = new Map(
+    input.corpusSnapshot.documents.map((document) => [document.id, document] as const)
+  );
+  const selectedDocuments: M6SelectedDocument[] = [];
+  for (const documentId of input.selectedDocumentIds) {
+    const document = documentsById.get(documentId);
+    if (!document) {
+      throw new Error(`M6 attestation reconstruction missing document ID ${documentId}.`);
+    }
+    const sectionRefs = input.selectedSectionIds.filter((ref) => ref.startsWith(`${documentId}#`));
+    const selectedSections: M6SelectedSection[] = sectionRefs.map((reference, index) => {
+      const sectionId = reference.split("#")[1];
+      const section = document.sections.find((candidate) => candidate.sectionId === sectionId);
+      if (!section) {
+        throw new Error(`M6 attestation reconstruction missing section reference ${reference}.`);
+      }
+      return Object.freeze({
+        documentId,
+        sectionId: section.sectionId,
+        sectionIndex: section.index,
+        sectionScore: Math.max(1, sectionRefs.length - index),
+        paragraph: section.originalParagraph
+      });
+    });
+    selectedDocuments.push(
+      Object.freeze({
+        documentId,
+        documentScore: Math.max(2, selectedSections.length),
+        titleMatches: 1,
+        selectedSections: Object.freeze(selectedSections)
+      })
+    );
+  }
+  return Object.freeze({
+    noMatch: false,
+    selectedDocuments: Object.freeze(selectedDocuments),
+    selectedDocumentIds: Object.freeze([...input.selectedDocumentIds]),
+    selectedSectionIds: Object.freeze([...input.selectedSectionIds])
+  });
 }

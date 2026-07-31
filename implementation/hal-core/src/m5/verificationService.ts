@@ -4,6 +4,7 @@ import path from "node:path";
 import { reconstructM2Trace } from "../m2/index.js";
 import { reconstructM3Trace } from "../m3/index.js";
 import { reconstructM4Trace } from "../m4/index.js";
+import { reconstructM6Trace } from "../m6/index.js";
 import type { CorrelationId, ImmutableIdentifier } from "../shared/types.js";
 import { parseManifestFromFile, sha256Hex } from "./manifest.js";
 import {
@@ -126,6 +127,9 @@ export function verifyReconstructionViews(
         );
       }
     }
+    if (correlationSets.m6.has(correlationId)) {
+      reconstructM6Trace(payloadDirectory, correlationId);
+    }
   }
   return correlationSets.all.size;
 }
@@ -138,14 +142,16 @@ function collectCorrelationSets(
   m2: Set<CorrelationId>;
   m3: Set<CorrelationId>;
   m4: Set<CorrelationId>;
+  m6: Set<CorrelationId>;
   successfulM4: Set<CorrelationId>;
 }> {
   const m2 = collectCorrelationIdsFromJournal(payloadDirectory, "m2-event-journal.jsonl");
   const m3 = collectCorrelationIdsFromJournal(payloadDirectory, "m3-event-journal.jsonl");
   const m4 = collectCorrelationIdsFromJournal(payloadDirectory, "m4-event-journal.jsonl");
+  const m6 = collectCorrelationIdsFromOptionalJournal(payloadDirectory, "m6-event-journal.jsonl");
   ensureManifestHasRequiredJournals(manifest);
   const successfulM4 = collectSuccessfulM4OutcomeCorrelations(payloadDirectory);
-  const all = new Set<CorrelationId>([...m2, ...m3, ...m4]);
+  const all = new Set<CorrelationId>([...m2, ...m3, ...m4, ...m6]);
   if (all.size === 0) {
     throw new Error("No correlation IDs discovered in restored journals.");
   }
@@ -154,6 +160,7 @@ function collectCorrelationSets(
     m2,
     m3,
     m4,
+    m6,
     successfulM4
   });
 }
@@ -161,7 +168,10 @@ function collectCorrelationSets(
 function collectCorrelationIdsFromJournal(
   payloadDirectory: string,
   journalRelativePath:
-    "m2-event-journal.jsonl" | "m3-event-journal.jsonl" | "m4-event-journal.jsonl"
+    | "m2-event-journal.jsonl"
+    | "m3-event-journal.jsonl"
+    | "m4-event-journal.jsonl"
+    | "m6-event-journal.jsonl"
 ): Set<CorrelationId> {
   const correlations = new Set<CorrelationId>();
   const absolute = path.resolve(payloadDirectory, journalRelativePath);
@@ -176,6 +186,18 @@ function collectCorrelationIdsFromJournal(
     }
   }
   return correlations;
+}
+
+function collectCorrelationIdsFromOptionalJournal(
+  payloadDirectory: string,
+  journalRelativePath: "m6-event-journal.jsonl"
+): Set<CorrelationId> {
+  const absolute = path.resolve(payloadDirectory, journalRelativePath);
+  const lstat = lstatSync(absolute, { throwIfNoEntry: false });
+  if (!lstat || !lstat.isFile()) {
+    return new Set<CorrelationId>();
+  }
+  return collectCorrelationIdsFromJournal(payloadDirectory, journalRelativePath);
 }
 
 function collectSuccessfulM4OutcomeCorrelations(payloadDirectory: string): Set<CorrelationId> {

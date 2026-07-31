@@ -29,6 +29,7 @@ const REQUIRED_JOURNALS = [
   "m3-event-journal.jsonl",
   "m4-event-journal.jsonl"
 ] as const;
+const OPTIONAL_JOURNALS = ["m6-event-journal.jsonl"] as const;
 
 type CapturedSourceFile = Readonly<{
   sourceAbsolutePath: string;
@@ -177,6 +178,9 @@ function collectAllowlistedSourceFiles(
     if (REQUIRED_JOURNALS.includes(name as (typeof REQUIRED_JOURNALS)[number])) {
       continue;
     }
+    if (OPTIONAL_JOURNALS.includes(name as (typeof OPTIONAL_JOURNALS)[number])) {
+      continue;
+    }
     if (name === "m3-artifacts") {
       continue;
     }
@@ -186,6 +190,21 @@ function collectAllowlistedSourceFiles(
   const files: CapturedSourceFile[] = [];
   for (const journalName of REQUIRED_JOURNALS) {
     const journalPath = path.resolve(sourceStateDirectory, journalName);
+    assertRegularFileNoSymlink(journalPath, journalName);
+    files.push(
+      Object.freeze({
+        sourceAbsolutePath: journalPath,
+        relativePath: journalName,
+        logicalContentClass: toLogicalClass(journalName)
+      })
+    );
+  }
+  for (const journalName of OPTIONAL_JOURNALS) {
+    const journalPath = path.resolve(sourceStateDirectory, journalName);
+    const exists = lstatSync(journalPath, { throwIfNoEntry: false });
+    if (!exists) {
+      continue;
+    }
     assertRegularFileNoSymlink(journalPath, journalName);
     files.push(
       Object.freeze({
@@ -252,12 +271,17 @@ function assertRegularFileNoSymlink(filePath: string, label: string): void {
   }
 }
 
-function toLogicalClass(fileName: (typeof REQUIRED_JOURNALS)[number]): LogicalContentClass {
+function toLogicalClass(
+  fileName: (typeof REQUIRED_JOURNALS)[number] | (typeof OPTIONAL_JOURNALS)[number]
+): LogicalContentClass {
   if (fileName === "m2-event-journal.jsonl") {
     return "m2_journal";
   }
   if (fileName === "m3-event-journal.jsonl") {
     return "m3_journal";
+  }
+  if (fileName === "m6-event-journal.jsonl") {
+    return "m6_journal";
   }
   return "m4_journal";
 }

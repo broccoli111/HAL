@@ -74,7 +74,7 @@ export type TransactionRecord = Readonly<
     planId: ImmutableIdentifier;
     decisionId: ImmutableIdentifier;
     status: TransactionStatus;
-    declaredEffectClass: "local_synthetic_inspection";
+    declaredEffectClass: "local_synthetic_inspection" | "local_synthetic_inquiry";
     claimedEffect: ClaimedEffect;
     recoveryDisposition: "reconstruct_from_journal";
   }
@@ -166,7 +166,7 @@ export type OpenTransactionCommand = CommandEnvelope<{
   intentId: ImmutableIdentifier;
   planId: ImmutableIdentifier;
   decisionId: ImmutableIdentifier;
-  declaredEffectClass: "local_synthetic_inspection";
+  declaredEffectClass: "local_synthetic_inspection" | "local_synthetic_inquiry";
   status: TransactionStatus;
   claimedEffect: ClaimedEffect;
 }>;
