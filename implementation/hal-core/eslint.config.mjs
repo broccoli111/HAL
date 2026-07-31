@@ -36,5 +36,18 @@ export default [
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }
       ]
     }
+  },
+  {
+    files: ["src/m8/renderer.ts"],
+    languageOptions: {
+      globals: {
+        document: "readonly",
+        window: "readonly",
+        HTMLElement: "readonly",
+        HTMLInputElement: "readonly",
+        HTMLButtonElement: "readonly",
+        HTMLUListElement: "readonly"
+      }
+    }
   }
 ];

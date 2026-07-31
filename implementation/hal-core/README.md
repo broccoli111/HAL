@@ -1,6 +1,6 @@
-# HAL Core (v0.1 M0-M6 Local Implemented Slice + M5-M6 Assurance Docs)
+# HAL Core (v0.1 M0-M8 Local Implemented Slice + Assurance Docs)
 
-This workspace contains the HAL v0.1 implemented local slice for M0-M6, plus M5-M6 assurance and readiness documentation.
+This workspace contains the HAL v0.1 implemented local slice for M0-M8, plus assurance and readiness documentation.
 
 ## Safety boundary (local-only)
 
@@ -42,6 +42,7 @@ Use only non-secret local values in `.env`.
 - `npm run m5:backup-restore` - run local M5 backup/restore/verify operations
 - `npm run m6:inquire` - run local M6 deterministic free-form inquiry
 - `npm run m7:session` - run local M7 terminal inquiry session (M6-governed delegation)
+- `npm run m8:desktop` - run local M8 offline desktop interface (M6-governed delegation)
 
 ## Source structure
 
@@ -144,6 +145,7 @@ npm run m4:demo -- reconstruct --state-dir ./local-state/hal-m4 --correlation-id
 - `docs/M7_LOCAL_INQUIRY_SESSION_DESIGN.md` (Design basis)
 - `docs/M7_IMPLEMENTATION_RECORD.md`
 - `docs/M8_OFFLINE_DESKTOP_INTERFACE_DESIGN.md` (**Proposed / not implemented**)
+- `docs/M8_IMPLEMENTATION_RECORD.md`
 
 ## M6 controlled local inquiry usage
 
@@ -209,4 +211,25 @@ Session constraints:
 - No follow-up interpretation, no conversational memory, and no hidden prompt state.
 - No session transcript, raw question history, rendered answer text, or excerpt persistence by M7.
 - M6/M2/M3/M4/M5 durable records remain the sole governed evidence path.
+- All outcomes remain local-only, synthetic-only, deterministic, and `externalEffect=none`.
+
+## M8 offline desktop interface usage
+
+M8 is a local desktop launcher interface that delegates every inquiry to the same governed M6 path used by M7.
+
+```bash
+mkdir -p ./local-state/m8
+npm run m8:desktop
+```
+
+M8 constraints:
+
+- Local packaged content only (no remote URLs/scripts/webviews/navigation/new windows).
+- Renderer has no raw Node/Electron/IPC authority.
+- Main process validates IPC sender/frame and payload before action.
+- State directory must be selected as an existing local directory and pass strict validation.
+- Plain submit generates a fresh request ID in main process.
+- Replay is deliberate only (explicit request ID + question flow), never automatic reuse.
+- No transcript/session log/answer history or parallel durable evidence is created by M8.
+- M6/M2/M3/M4/M5 remain the sole durable evidence chain.
 - All outcomes remain local-only, synthetic-only, deterministic, and `externalEffect=none`.

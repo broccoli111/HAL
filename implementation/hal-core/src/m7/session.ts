@@ -1,10 +1,10 @@
-import { constants as fsConstants } from "node:fs";
-import { accessSync, lstatSync, realpathSync } from "node:fs";
-import { randomBytes } from "node:crypto";
-import path from "node:path";
-
-import { reconstructM4Trace } from "../m4/orchestrator.js";
-import { reconstructM6Trace, runM6Inquiry, type M6InquiryResult } from "../m6/orchestrator.js";
+import type { M6InquiryResult } from "../m6/orchestrator.js";
+import {
+  M7_REQUEST_ID_PREFIX,
+  createLocalInquiryRequestIdGenerator,
+  executeLocalGovernedInquiry,
+  resolveAndValidateLocalInquiryStateDirectory
+} from "../inquiry/localInquiryService.js";
 
 type M7AskCommand = Readonly<{
   kind: "ask";
@@ -50,56 +50,8 @@ export type M7SessionRunSummary = Readonly<{
   lastOutcome: SessionLastOutcome | undefined;
 }>;
 
-type TrustAssessment = Readonly<{ trusted: true }> | Readonly<{ trusted: false; reason: string }>;
-
-const GENERATED_REQUEST_ID_PREFIX = "m7-session-request-";
-
-function isUrlLikeStateDir(value: string): boolean {
-  const trimmed = value.trim();
-  if (!trimmed) {
-    return false;
-  }
-  const windowsDrivePath = /^[A-Za-z]:[\\/]/.test(trimmed);
-  if (windowsDrivePath) {
-    return false;
-  }
-  if (trimmed.includes("://")) {
-    return true;
-  }
-  return /^[A-Za-z][A-Za-z0-9+.-]*:/.test(trimmed);
-}
-
 export function resolveAndValidateM7StateDirectory(rawStateDirectory: string): string {
-  const candidate = rawStateDirectory.trim();
-  if (!candidate) {
-    throw new Error("Missing required --state-dir.");
-  }
-  if (isUrlLikeStateDir(candidate)) {
-    throw new Error("State directory must be a local filesystem path (URL-like value rejected).");
-  }
-  const resolved = path.resolve(candidate);
-  try {
-    const directoryStat = lstatSync(resolved);
-    if (directoryStat.isSymbolicLink()) {
-      throw new Error("State directory root must not be a symlink.");
-    }
-    if (!directoryStat.isDirectory()) {
-      throw new Error("State directory path must resolve to a directory.");
-    }
-    const canonicalPath = realpathSync(resolved);
-    if (canonicalPath !== resolved) {
-      throw new Error("State directory must not resolve through symlink boundaries.");
-    }
-    accessSync(resolved, fsConstants.R_OK | fsConstants.W_OK | fsConstants.X_OK);
-    return resolved;
-  } catch (error) {
-    throw new Error(
-      `State directory validation failed (fail closed): ${(error as Error).message}`,
-      {
-        cause: error
-      }
-    );
-  }
+  return resolveAndValidateLocalInquiryStateDirectory(rawStateDirectory);
 }
 
 function parseAskCommand(trimmed: string): M7Command {
@@ -227,58 +179,10 @@ function printM6Result(io: M7SessionIo, result: M6InquiryResult): void {
   io.writeLine(result.renderedResponse);
 }
 
-function assessSuccessTrust(stateDirectory: string, result: M6InquiryResult): TrustAssessment {
-  try {
-    const m6Trace = reconstructM6Trace(stateDirectory, result.correlationId);
-    const m4Trace = reconstructM4Trace(stateDirectory, result.correlationId);
-    if (m6Trace.evidenceCount < 1) {
-      return Object.freeze({ trusted: false, reason: "m6_evidence_missing" });
-    }
-    if (m6Trace.latestDisposition !== "completed_without_effect") {
-      return Object.freeze({ trusted: false, reason: "m6_latest_disposition_untrusted" });
-    }
-    if (!m4Trace.m2IntegrityValid || !m4Trace.m3IntegrityValid || !m4Trace.m4IntegrityValid) {
-      return Object.freeze({ trusted: false, reason: "m4_integrity_untrusted" });
-    }
-    if (!m4Trace.crossJournalLinkageValid) {
-      return Object.freeze({ trusted: false, reason: "cross_journal_linkage_untrusted" });
-    }
-    if (m4Trace.finalOutcomeStatus === "unavailable" || m4Trace.claimedEffect === "unavailable") {
-      return Object.freeze({ trusted: false, reason: "attestation_unavailable" });
-    }
-    if (m4Trace.finalOutcomeStatus !== result.attestationStatus) {
-      return Object.freeze({ trusted: false, reason: "attestation_status_mismatch" });
-    }
-    if (m4Trace.claimedEffect !== result.attestationClaimedEffect) {
-      return Object.freeze({ trusted: false, reason: "attestation_effect_mismatch" });
-    }
-    return Object.freeze({ trusted: true });
-  } catch {
-    return Object.freeze({ trusted: false, reason: "reconstruction_failed" });
-  }
-}
-
-function createRequestIdGenerator(): () => string {
-  let lastTimestamp = 0;
-  let sequence = 0;
-  return () => {
-    const nowMs = Date.now();
-    if (nowMs === lastTimestamp) {
-      sequence += 1;
-    } else {
-      lastTimestamp = nowMs;
-      sequence = 0;
-    }
-    const timePart = nowMs.toString(36).padStart(10, "0");
-    const sequencePart = sequence.toString(36).padStart(3, "0");
-    const randomPart = randomBytes(6).toString("hex");
-    return `${GENERATED_REQUEST_ID_PREFIX}${timePart}${sequencePart}${randomPart}`;
-  };
-}
-
 export async function runM7Session(options: M7SessionOptions): Promise<M7SessionRunSummary> {
   const nowProvider = options.now ?? (() => new Date());
-  const requestIdGenerator = options.generateRequestId ?? createRequestIdGenerator();
+  const requestIdGenerator =
+    options.generateRequestId ?? createLocalInquiryRequestIdGenerator(M7_REQUEST_ID_PREFIX);
   const stateDirectory = resolveAndValidateM7StateDirectory(options.rawStateDirectory);
   const startedAtIso8601 = nowProvider().toISOString();
   let inquiryCount = 0;
@@ -319,40 +223,37 @@ export async function runM7Session(options: M7SessionOptions): Promise<M7Session
       continue;
     }
 
-    const requestId = command.requestId ?? requestIdGenerator();
-    if (!command.replayIntentional) {
-      options.io.writeLine(`generatedRequestId: ${requestId}`);
-    }
+    const outcome = executeLocalGovernedInquiry({
+      stateDirectory,
+      questionText: command.question,
+      replayIntentional: command.replayIntentional,
+      ...(command.requestId ? { requestId: command.requestId } : {}),
+      generateRequestId: requestIdGenerator,
+      ...(options.onInquiryResult ? { onInquiryResult: options.onInquiryResult } : {})
+    });
 
-    let m6Result: M6InquiryResult;
-    try {
-      m6Result = runM6Inquiry({
-        stateDirectory,
-        questionText: command.question,
-        requestId
-      });
-      options.onInquiryResult?.(m6Result);
-    } catch (error) {
-      printBlocked(options.io, {
-        reason: `m6_invocation_failed:${(error as Error).message}`,
-        requestId
-      });
-      continue;
-    }
-
-    if (m6Result.disposition === "completed_without_effect") {
-      const trust = assessSuccessTrust(stateDirectory, m6Result);
-      if (!trust.trusted) {
+    if (!outcome.ok) {
+      if (outcome.code === "integrity_unavailable") {
         printBlocked(options.io, {
-          reason: `integrity_unavailable:${trust.reason}`,
-          requestId: m6Result.requestId,
-          correlationId: m6Result.correlationId,
+          reason: `integrity_unavailable:${outcome.reason}`,
+          requestId: outcome.requestId,
+          ...(outcome.correlationId ? { correlationId: outcome.correlationId } : {}),
           includeIntegrityResult: true
         });
         continue;
       }
+      printBlocked(options.io, {
+        reason: `m6_invocation_failed:${outcome.reason}`,
+        ...(outcome.requestId ? { requestId: outcome.requestId } : {})
+      });
+      continue;
     }
 
+    if (!command.replayIntentional && outcome.generatedRequestId) {
+      options.io.writeLine(`generatedRequestId: ${outcome.generatedRequestId}`);
+    }
+
+    const m6Result = outcome.result;
     printM6Result(options.io, m6Result);
     inquiryCount += 1;
     lastOutcome = Object.freeze({

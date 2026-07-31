@@ -22,6 +22,8 @@
     "m5:backup-restore": "npm run build && node ./dist/src/cli/m5BackupRestoreCli.js",
     "m6:inquire": "npm run build && node ./dist/src/cli/m6InquiryCli.js",
     "m7:session": "npm run build && node ./dist/src/cli/m7SessionCli.js",
+    "m8:copy-assets": "node ./scripts/copy-m8-assets.mjs",
+    "m8:desktop": "npm run build && npm run m8:copy-assets && electron ./dist/src/cli/m8DesktopCli.js",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
     "security:scan": "npm audit --audit-level=high",
     "m0:source-manifest": "node ./scripts/generate-source-manifest.mjs"
@@ -39,6 +41,7 @@
     "@types/node": "^24.3.0",
     "@typescript-eslint/eslint-plugin": "^8.65.0",
     "@typescript-eslint/parser": "^8.65.0",
+    "electron": "^43.2.0",
     "eslint": "^10.8.0",
     "prettier": "^3.6.2",
     "typescript": "^5.9.2",
