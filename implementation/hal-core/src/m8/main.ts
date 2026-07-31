@@ -1,16 +1,13 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 
-import {
+import * as electron from "electron";
+import type {
   BrowserWindow,
-  app,
-  dialog,
-  ipcMain,
-  protocol,
-  type BrowserWindowConstructorOptions,
-  type IpcMainInvokeEvent,
-  type OpenDialogOptions,
-  type OpenDialogReturnValue
+  BrowserWindowConstructorOptions,
+  IpcMainInvokeEvent,
+  OpenDialogOptions,
+  OpenDialogReturnValue
 } from "electron";
 
 import { resolveAndValidateLocalInquiryStateDirectory } from "../inquiry/localInquiryService.js";
@@ -33,6 +30,13 @@ import {
   resolveRendererAssetPath,
   toM8AppUrl
 } from "./securityPolicy.js";
+
+const electronRuntime = (
+  "default" in electron
+    ? ((electron as { default: typeof electron }).default as unknown)
+    : (electron as unknown)
+) as typeof electron;
+const { BrowserWindow: ElectronBrowserWindow, app, dialog, ipcMain, protocol } = electronRuntime;
 
 protocol.registerSchemesAsPrivileged([
   {
@@ -85,7 +89,9 @@ export async function launchM8DesktopApp(options: M8DesktopLaunchOptions): Promi
   });
   const inMemoryState: M8InMemoryState = {};
   const executeInquiry = createM8InquiryExecutor();
-  const mainWindow = new BrowserWindow(createM8WindowOptions({ preloadPath: options.preloadPath }));
+  const mainWindow = new ElectronBrowserWindow(
+    createM8WindowOptions({ preloadPath: options.preloadPath })
+  );
 
   await registerM8Protocol(options.rendererRoot);
   enforceM8Security(mainWindow);
@@ -134,7 +140,7 @@ function enforceM8Security(mainWindow: BrowserWindow): void {
   );
 }
 
-function registerM8IpcHandlers(input: {
+export function registerM8IpcHandlers(input: {
   mainWindow: BrowserWindow;
   inMemoryState: M8InMemoryState;
   executeInquiry: ReturnType<typeof createM8InquiryExecutor>;

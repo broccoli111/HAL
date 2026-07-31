@@ -87,6 +87,15 @@ M7 was refactored to use the shared local inquiry service so M7 and M8 now share
 - M6/M2/M3/M4/M5 remain the only durable evidence chain.
 - M5 backup/restore compatibility with underlying governed evidence remains unchanged.
 
+## Desktop reliability hardening updates
+
+- Post-build asset packaging explicitly copies compiled `dist/src/m8/renderer.js` to `dist/src/m8/renderer/renderer.js` so the allowlisted local protocol path can load the renderer module deterministically.
+- Picker IPC failure handling in renderer controls is fail-closed and non-silent, using minimized status codes only (`state_directory_picker_unavailable`, `question_submission_unavailable`, `replay_submission_unavailable`, `renderer_initialization_unavailable`).
+- Native directory picker failures return bounded status only (`{ selected: false, error: "state_directory_picker_unavailable" }`) without leaking raw native dialog exception text.
+- Cancellation remains distinct and bounded as `state_directory_not_selected`.
+- Existing-directory, canonical-path, and symlink-safe validation remains enforced in main process.
+- Untrusted sender/frame/origin IPC callers remain blocked before picker action and do not receive selected local paths.
+
 ## Build and command changes
 
 - Added Electron as the only new dependency for M8.
