@@ -149,6 +149,10 @@ npm run m4:demo -- reconstruct --state-dir ./local-state/hal-m4 --correlation-id
 - `docs/M8_LOCAL_TEST_RUNBOOK.md`
 - `docs/M8_OWNER_RUN_LOCAL_VERIFICATION_RECORD.md`
 
+## Proposed / not implemented
+
+- `docs/M9_CONTROLLED_LOCAL_KNOWLEDGE_PACKS_DESIGN.md`
+
 ## M6 controlled local inquiry usage
 
 M6 accepts exactly one typed question and executes local-only deterministic matching against the approved synthetic corpus.
