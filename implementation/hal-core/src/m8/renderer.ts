@@ -73,14 +73,28 @@ async function refreshBoundaryModes(): Promise<void> {
 }
 
 async function refreshStateDirectoryStatus(): Promise<void> {
-  const status = await window.halM8.getStateDirectoryStatus();
-  writeStateDirectoryStatus(status);
+  try {
+    const status = await window.halM8.getStateDirectoryStatus();
+    writeStateDirectoryStatus(status);
+  } catch {
+    writeStateDirectoryStatus({
+      selected: false,
+      error: "state_directory_picker_unavailable"
+    });
+  }
 }
 
 pickStateDirectoryButton.addEventListener("click", async () => {
   clearResultError();
-  const status = await window.halM8.pickStateDirectory();
-  writeStateDirectoryStatus(status);
+  try {
+    const status = await window.halM8.pickStateDirectory();
+    writeStateDirectoryStatus(status);
+  } catch {
+    writeStateDirectoryStatus({
+      selected: false,
+      error: "state_directory_picker_unavailable"
+    });
+  }
 });
 
 submitQuestionButton.addEventListener("click", async () => {

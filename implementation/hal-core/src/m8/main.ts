@@ -8,7 +8,9 @@ import {
   ipcMain,
   protocol,
   type BrowserWindowConstructorOptions,
-  type IpcMainInvokeEvent
+  type IpcMainInvokeEvent,
+  type OpenDialogOptions,
+  type OpenDialogReturnValue
 } from "electron";
 
 import { resolveAndValidateLocalInquiryStateDirectory } from "../inquiry/localInquiryService.js";
@@ -51,6 +53,7 @@ const BOUNDARY_MODES: readonly M8BoundaryMode[] = Object.freeze([
   "deterministic",
   "non_live_effect"
 ]);
+const M8_PICKER_UNAVAILABLE_ERROR = "state_directory_picker_unavailable";
 
 export type M8DesktopLaunchOptions = Readonly<{
   rendererRoot: string;
@@ -181,9 +184,18 @@ function registerM8IpcHandlers(input: {
     if (senderError) {
       return buildDeniedStateDirectoryStatus();
     }
-    const selection = await dialog.showOpenDialog(input.mainWindow, {
+    const options: OpenDialogOptions = {
+      title: "Select existing HAL local state directory",
+      buttonLabel: "Select",
       properties: ["openDirectory", "dontAddToRecent", "noResolveAliases"]
-    });
+    };
+    const selection = await showTrustedStateDirectoryPicker(input.mainWindow, options);
+    if (!selection) {
+      return Object.freeze({
+        selected: false,
+        error: M8_PICKER_UNAVAILABLE_ERROR
+      });
+    }
     if (selection.canceled || selection.filePaths.length === 0) {
       input.inMemoryState.selectionError = "state_directory_not_selected";
       return buildStateDirectoryStatus(input.inMemoryState, "state_directory_not_selected");
@@ -194,8 +206,8 @@ function registerM8IpcHandlers(input: {
       input.inMemoryState.selectedStateDirectory = validated;
       delete input.inMemoryState.selectionError;
       return buildStateDirectoryStatus(input.inMemoryState);
-    } catch (error) {
-      input.inMemoryState.selectionError = (error as Error).message;
+    } catch {
+      input.inMemoryState.selectionError = "state_directory_validation_failed";
       return buildStateDirectoryStatus(input.inMemoryState, "state_directory_validation_failed");
     }
   });
@@ -270,6 +282,56 @@ function registerM8IpcHandlers(input: {
   });
 }
 
+async function showTrustedStateDirectoryPicker(
+  mainWindow: BrowserWindow,
+  options: OpenDialogOptions
+): Promise<OpenDialogReturnValue | undefined> {
+  if (process.platform === "darwin") {
+    focusMainWindowForDialog(mainWindow);
+  }
+  const fallbackOptions: OpenDialogOptions = {
+    properties: ["openDirectory", "dontAddToRecent", "noResolveAliases"]
+  };
+  const attempts: readonly (() => Promise<OpenDialogReturnValue>)[] =
+    process.platform === "darwin"
+      ? Object.freeze([
+          async () => await dialog.showOpenDialog(options),
+          async () => await dialog.showOpenDialog(mainWindow, options),
+          async () => await dialog.showOpenDialog(fallbackOptions),
+          async () => await dialog.showOpenDialog(mainWindow, fallbackOptions)
+        ])
+      : Object.freeze([
+          async () => await dialog.showOpenDialog(mainWindow, options),
+          async () => await dialog.showOpenDialog(options)
+        ]);
+  for (const attempt of attempts) {
+    try {
+      return await attempt();
+    } catch {
+      // Keep failing closed and return minimized picker-unavailable status.
+    }
+  }
+  return undefined;
+}
+
+function focusMainWindowForDialog(mainWindow: BrowserWindow): void {
+  try {
+    app.focus({ steal: true });
+  } catch {
+    // no-op
+  }
+  try {
+    mainWindow.show();
+  } catch {
+    // no-op
+  }
+  try {
+    mainWindow.focus();
+  } catch {
+    // no-op
+  }
+}
+
 function buildStateDirectoryStatus(
   state: M8InMemoryState,
   error?: string
@@ -285,6 +347,6 @@ function buildStateDirectoryStatus(
 export function resolveM8RuntimePaths(projectRoot: string): M8DesktopLaunchOptions {
   return Object.freeze({
     rendererRoot: path.resolve(projectRoot, "dist/src/m8/renderer"),
-    preloadPath: path.resolve(projectRoot, "dist/src/m8/preload.js")
+    preloadPath: path.resolve(projectRoot, "dist/src/m8/preload.cjs")
   });
 }

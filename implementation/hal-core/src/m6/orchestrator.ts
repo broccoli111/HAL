@@ -6,7 +6,7 @@ import { CapabilityRegistry } from "../m3/capabilityRegistry.js";
 import { ExecutionCoordinator } from "../m3/executionCoordinator.js";
 import { APPROVED_CORPUS_REFERENCE } from "../m3/fixtureCorpus.js";
 import { M3TraceService } from "../m3/traceService.js";
-import type { CapabilityRequestRecord, ProviderSummaryResult } from "../m3/types.js";
+import type { ProviderSummaryResult } from "../m3/types.js";
 import { M6_M3_CAPABILITY_ID, M6_M3_PROVIDER_ID } from "../m3/types.js";
 import { VerificationService } from "../m3/verificationService.js";
 import { AuditService } from "../m2/auditService.js";
@@ -15,7 +15,7 @@ import { runM2ForM6Inquiry } from "./m2Linkage.js";
 import { OutcomeAttestationService } from "../m4/outcomeAttestationService.js";
 import { ExplanationService } from "../m4/explanationService.js";
 import { RecoveryCoordinator } from "../m4/recoveryCoordinator.js";
-import type { FinalOutcomeStatus } from "../m4/types.js";
+import type { FinalOutcomeStatus, OutcomeAttestationRecord } from "../m4/types.js";
 import { M4TraceService } from "../m4/traceService.js";
 import { createImmutableIdentifier } from "../shared/id.js";
 import type { CorrelationId, ImmutableIdentifier } from "../shared/types.js";
@@ -82,8 +82,9 @@ export function runM6Inquiry(input: {
       ? (assessment.code ?? "REJ_EMPTY_OR_WHITESPACE")
       : "ACCEPTED";
 
-  const existingEvidence = getLatestEvidenceByRequestId(m6Journal, requestId);
+  const existingEvidence = getAuthoritativeEvidenceByRequestId(m6Journal, requestId);
   if (existingEvidence) {
+    const recordsForRequestId = getEvidenceByRequestId(m6Journal, requestId);
     const existingLinkage = extractM2Linkage(existingEvidence);
     const replayFingerprint = computeRequestFingerprint({
       requestId,
@@ -127,51 +128,12 @@ export function runM6Inquiry(input: {
         replayed: false
       });
     }
-
-    if (existingEvidence.disposition === "completed_without_effect") {
-      const m3Request = new M3TraceService(stateDirectory).getRecordById<CapabilityRequestRecord>(
-        "capability_request",
-        requestId
-      );
-      if (!m3Request) {
-        throw new Error("Replay failed: governed M3 request record missing.");
-      }
-      const replayOutcome = runM6ThroughM3({
-        stateDirectory,
-        corpusRoot: resolveApprovedM6CorpusRoot(),
-        assessment,
-        requestedAdmissionMode,
-        requestId,
-        m2: {
-          correlationId: m3Request.correlationId,
-          intentId: m3Request.intentId,
-          planId: m3Request.planId,
-          decisionId: m3Request.decisionId,
-          transactionId: m3Request.transactionId,
-          decisionDisposition: "allow",
-          transactionStatus: "completed_without_effect",
-          claimedEffect: "none",
-          stateDirectory
-        }
-      });
-      return Object.freeze({
-        requestId,
-        correlationId: replayOutcome.correlationId,
-        disposition: "completed_without_effect",
-        result: replayOutcome.result,
-        renderedResponse: replayOutcome.renderedResponse,
-        attestationStatus: normalizeAttestationStatus(
-          replayOutcome.attestationStatus ?? "achieved_without_effect"
-        ),
-        attestationClaimedEffect: replayOutcome.attestationClaimedEffect ?? "none",
-        selectedSectionIds: replayOutcome.selectedSectionIds,
-        selectedDocumentIds: replayOutcome.selectedDocumentIds,
-        corpusManifestHashSha256: replayOutcome.corpusManifestHashSha256,
-        questionHashSha256: replayOutcome.questionHashSha256,
-        inputClassification,
-        replayed: true
-      });
-    }
+    return replayTerminalResultFromEvidence({
+      stateDirectory,
+      evidence: existingEvidence,
+      requestId,
+      recordsForRequestId
+    });
   }
 
   const deniedByInput = assessment.disposition === "denied";
@@ -527,15 +489,22 @@ function computeRequestFingerprint(input: {
   );
 }
 
-function getLatestEvidenceByRequestId(
+function getAuthoritativeEvidenceByRequestId(
   journal: M6EvidenceJournal,
   requestId: ImmutableIdentifier
 ): M6EvidenceRecord | undefined {
-  const records = journal
+  const records = getEvidenceByRequestId(journal, requestId);
+  return records[0];
+}
+
+function getEvidenceByRequestId(
+  journal: M6EvidenceJournal,
+  requestId: ImmutableIdentifier
+): readonly M6EvidenceRecord[] {
+  return journal
     .listAll()
     .map((event) => event.record)
     .filter((record) => record.requestId === requestId);
-  return records.at(-1);
 }
 
 function extractM2Linkage(
@@ -550,6 +519,155 @@ function extractM2Linkage(
     decisionId: record.m2DecisionId,
     transactionId: record.m2TransactionId
   });
+}
+
+function replayTerminalResultFromEvidence(input: {
+  stateDirectory: string;
+  evidence: M6EvidenceRecord;
+  requestId: ImmutableIdentifier;
+  recordsForRequestId: readonly M6EvidenceRecord[];
+}): M6InquiryResult {
+  const attestation = getLatestAttestationForCorrelation(
+    input.stateDirectory,
+    input.evidence.correlationId
+  );
+  const result = inferResultFromEvidence(input.evidence, input.recordsForRequestId);
+  return Object.freeze({
+    requestId: input.requestId,
+    correlationId: input.evidence.correlationId,
+    disposition: input.evidence.disposition,
+    result,
+    renderedResponse: renderResponseFromEvidence(
+      input.stateDirectory,
+      input.evidence,
+      result,
+      input.recordsForRequestId
+    ),
+    attestationStatus: normalizeAttestationStatus(
+      attestation?.finalOutcomeStatus ??
+        (input.evidence.disposition === "completed_without_effect"
+          ? "achieved_without_effect"
+          : "blocked")
+    ),
+    attestationClaimedEffect: attestation?.claimedEffect ?? "none",
+    selectedSectionIds: input.evidence.selectedSectionIds,
+    selectedDocumentIds: input.evidence.selectedDocumentIds,
+    corpusManifestHashSha256: input.evidence.corpusManifestHashSha256,
+    questionHashSha256: input.evidence.questionNormalizedHashSha256,
+    inputClassification: input.evidence.inputClassification,
+    replayed: true
+  });
+}
+
+function inferResultFromEvidence(
+  evidence: M6EvidenceRecord,
+  recordsForRequestId: readonly M6EvidenceRecord[]
+): M6InquiryResult["result"] {
+  if (evidence.disposition === "completed_without_effect") {
+    return evidence.noMatch ? "no_match" : "matched";
+  }
+  if (evidence.inputDisposition === "denied") {
+    return "denied";
+  }
+  if (isConflictRecord(evidence, recordsForRequestId)) {
+    return "blocked";
+  }
+  return "blocked";
+}
+
+function renderResponseFromEvidence(
+  stateDirectory: string,
+  evidence: M6EvidenceRecord,
+  result: M6InquiryResult["result"],
+  recordsForRequestId: readonly M6EvidenceRecord[]
+): string {
+  if (result === "matched" || result === "no_match") {
+    const corpus = loadApprovedSyntheticCorpus();
+    const match = hydrateMatchOutcomeFromDeterministic(corpus, {
+      selectedDocumentIds: evidence.selectedDocumentIds,
+      selectedSectionIds: evidence.selectedSectionIds,
+      noMatch: evidence.noMatch
+    });
+    return renderM6Response({
+      match,
+      corpusManifestHashSha256: evidence.corpusManifestHashSha256
+    }).responseText;
+  }
+  if (result === "denied") {
+    const reasonCode = evidence.inputClassification.startsWith("REJ_")
+      ? evidence.inputClassification
+      : "REJ_UNKNOWN";
+    return `result=denied\nexternalEffect=none\nreasonCode=${reasonCode}`;
+  }
+  if (isConflictRecord(evidence, recordsForRequestId)) {
+    return "result=blocked\nexternalEffect=none\nreason=request_id_conflict";
+  }
+  const disposition = resolveDecisionDisposition(stateDirectory, evidence);
+  return `result=blocked\nexternalEffect=none\nreason=m2_${disposition}`;
+}
+
+function getLatestAttestationForCorrelation(
+  stateDirectory: string,
+  correlationId: CorrelationId
+):
+  | Readonly<{
+      finalOutcomeStatus: FinalOutcomeStatus;
+      claimedEffect: "inspection_only" | "none";
+    }>
+  | undefined {
+  try {
+    const trace = new M4TraceService(stateDirectory);
+    const attestation = trace
+      .listEventsByCorrelationId(correlationId)
+      .filter((event) => event.recordKind === "outcome_attestation" && event.record)
+      .map((event) => event.record as OutcomeAttestationRecord)
+      .at(-1);
+    if (!attestation) {
+      return undefined;
+    }
+    return Object.freeze({
+      finalOutcomeStatus: attestation.finalOutcomeStatus,
+      claimedEffect: attestation.claimedEffect
+    });
+  } catch {
+    return undefined;
+  }
+}
+
+function isConflictRecord(
+  evidence: M6EvidenceRecord,
+  recordsForRequestId: readonly M6EvidenceRecord[]
+): boolean {
+  if (evidence.disposition !== "blocked" || recordsForRequestId.length < 2) {
+    return false;
+  }
+  const authoritative = recordsForRequestId[0];
+  if (!authoritative) {
+    return false;
+  }
+  return recordsForRequestId.some(
+    (record) =>
+      record.requestId === evidence.requestId &&
+      record.requestFingerprintSha256 !== authoritative.requestFingerprintSha256
+  );
+}
+
+function resolveDecisionDisposition(
+  stateDirectory: string,
+  evidence: M6EvidenceRecord
+): "allow" | "deny" | "approval_required" | "unknown" {
+  if (!evidence.m2DecisionId) {
+    return "unknown";
+  }
+  try {
+    const decision = new AuditService(stateDirectory).getRecordById(
+      "decision",
+      evidence.m2DecisionId
+    ) as { disposition: "allow" | "deny" | "approval_required" } | undefined;
+    return decision?.disposition ?? "unknown";
+  } catch {
+    return "unknown";
+  }
 }
 
 function requireDeterministicInquiry(providerResult: ProviderSummaryResult | undefined): Readonly<{
