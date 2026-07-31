@@ -49,5 +49,14 @@ export default [
         HTMLUListElement: "readonly"
       }
     }
+  },
+  {
+    files: ["src/m8/preload.cjs"],
+    languageOptions: {
+      globals: {
+        require: "readonly",
+        module: "readonly"
+      }
+    }
   }
 ];

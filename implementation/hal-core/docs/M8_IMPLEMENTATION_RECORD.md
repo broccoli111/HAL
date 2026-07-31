@@ -67,6 +67,8 @@ M7 was refactored to use the shared local inquiry service so M7 and M8 now share
 - M6 invocation path;
 - M6/M4 reconstruction trust checks;
 - `integrity_unavailable` fail-closed behavior.
+- terminal-result-complete replay reuse: materially identical deliberate replay preserves original governed terminal outcomes (`matched`, `no_match`, `denied`, policy-blocked, and conflict where applicable), including original correlation ID and replay signaling, without issuing new M2/M3/M4/M6 writes.
+- replay lookup authority is first-record anchored in governed M6 evidence so legacy duplicate records do not redefine request identity; duplicate/conflict history remains durable but non-authoritative for replay identity.
 
 ## UI contract delivered
 

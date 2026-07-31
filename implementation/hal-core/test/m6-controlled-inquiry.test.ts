@@ -6,6 +6,7 @@ import path from "node:path";
 import { describe, expect, test, vi } from "vitest";
 
 import { M3TraceService } from "../src/m3/traceService.js";
+import { AuditService } from "../src/m2/auditService.js";
 import { reconstructM4Trace } from "../src/m4/orchestrator.js";
 import { ExplanationService } from "../src/m4/explanationService.js";
 import { OutcomeAttestationService } from "../src/m4/outcomeAttestationService.js";
@@ -13,13 +14,47 @@ import { RecoveryCoordinator } from "../src/m4/recoveryCoordinator.js";
 import { M4TraceService } from "../src/m4/traceService.js";
 import { LocalBackupRestoreCoordinator } from "../src/m5/coordinator.js";
 import { loadSyntheticCorpusFromRootForTest } from "../src/m6/corpus.js";
-import { M6EvidenceJournal } from "../src/m6/evidenceJournal.js";
+import { computeM6IntegrityHash, M6EvidenceJournal } from "../src/m6/evidenceJournal.js";
 import { runM6Inquiry, reconstructM6Trace } from "../src/m6/orchestrator.js";
 import { assessQuestionText } from "../src/m6/inputPolicy.js";
+import type { M6EvidenceRecord } from "../src/m6/types.js";
 import { createImmutableIdentifier } from "../src/shared/id.js";
+import type { CorrelationId } from "../src/shared/types.js";
 
 async function createStateDirectory(): Promise<string> {
   return mkdtemp(path.join(os.tmpdir(), "hal-m6-"));
+}
+
+function appendLegacyDuplicateForRequest(input: {
+  stateDirectory: string;
+  requestId: string;
+  duplicateCorrelationId: CorrelationId;
+}): M6EvidenceRecord {
+  const journal = new M6EvidenceJournal(input.stateDirectory);
+  const authoritative = journal
+    .listAll()
+    .map((event) => event.record)
+    .find((record) => record.requestId === input.requestId);
+  if (!authoritative) {
+    throw new Error("Expected authoritative M6 evidence before appending legacy duplicate.");
+  }
+  const duplicateWithoutIntegrity: Omit<M6EvidenceRecord, "integrityHash"> = Object.freeze({
+    ...authoritative,
+    inquiryRecordId: createImmutableIdentifier("m6_inquiry"),
+    timestampIso8601: new Date().toISOString(),
+    correlationId: input.duplicateCorrelationId,
+    requestFingerprintSha256: `${authoritative.requestFingerprintSha256}-legacy-duplicate`,
+    m2IntentId: createImmutableIdentifier("intent"),
+    m2PlanId: createImmutableIdentifier("plan"),
+    m2DecisionId: createImmutableIdentifier("decision"),
+    m2TransactionId: createImmutableIdentifier("transaction")
+  });
+  const duplicate: M6EvidenceRecord = Object.freeze({
+    ...duplicateWithoutIntegrity,
+    integrityHash: computeM6IntegrityHash(duplicateWithoutIntegrity)
+  });
+  journal.append(duplicate);
+  return duplicate;
 }
 
 describe("M6 controlled free-form local inquiry", () => {
@@ -42,6 +77,7 @@ describe("M6 controlled free-form local inquiry", () => {
       expect(first.result).toBe("matched");
       expect(first.replayed).toBe(false);
       expect(second.replayed).toBe(true);
+      expect(second.correlationId).toBe(first.correlationId);
       expect(first.disposition).toBe("completed_without_effect");
       expect(first.attestationStatus).toBe("achieved_without_effect");
       expect(first.attestationClaimedEffect).toBe("none");
@@ -62,6 +98,262 @@ describe("M6 controlled free-form local inquiry", () => {
             (event.record as { verified?: boolean } | undefined)?.verified === true
         )
       ).toBe(true);
+      const m6ReplayRecords = new M6EvidenceJournal(stateDirectory)
+        .listAll()
+        .filter((event) => event.record.requestId === requestId);
+      expect(m6ReplayRecords.length).toBe(1);
+      const reconstructed = reconstructM6Trace(stateDirectory, first.correlationId);
+      expect(reconstructed.evidenceCount).toBe(1);
+      const m4Reconstructed = reconstructM4Trace(stateDirectory, first.correlationId);
+      expect(m4Reconstructed.finalOutcomeStatus).toBe("achieved_without_effect");
+    } finally {
+      await rm(stateDirectory, { recursive: true, force: true });
+    }
+  });
+
+  test("deterministic no-match replay is terminal complete and non-mutating", async () => {
+    const stateDirectory = await createStateDirectory();
+    const requestId = "m6-no-match-replay-1";
+    try {
+      const first = runM6Inquiry({
+        stateDirectory,
+        requestId,
+        questionText: "quasar neutrino boson neverpresentterm"
+      });
+      const beforeM2Count = new AuditService(stateDirectory).getEventCountByCorrelationId(
+        first.correlationId
+      );
+      const beforeM3Count = new M3TraceService(stateDirectory).listEventsByCorrelationId(
+        first.correlationId
+      ).length;
+      const beforeM4Count = new M4TraceService(stateDirectory).listEventsByCorrelationId(
+        first.correlationId
+      ).length;
+      const beforeM6Count = new M6EvidenceJournal(stateDirectory).listAll().length;
+      const replay = runM6Inquiry({
+        stateDirectory,
+        requestId,
+        questionText: "quasar neutrino boson neverpresentterm"
+      });
+      const afterM2Count = new AuditService(stateDirectory).getEventCountByCorrelationId(
+        first.correlationId
+      );
+      const afterM3Count = new M3TraceService(stateDirectory).listEventsByCorrelationId(
+        first.correlationId
+      ).length;
+      const afterM4Count = new M4TraceService(stateDirectory).listEventsByCorrelationId(
+        first.correlationId
+      ).length;
+      const afterM6Count = new M6EvidenceJournal(stateDirectory).listAll().length;
+
+      expect(first.result).toBe("no_match");
+      expect(replay.result).toBe("no_match");
+      expect(replay.replayed).toBe(true);
+      expect(replay.correlationId).toBe(first.correlationId);
+      expect(replay.renderedResponse).toBe(first.renderedResponse);
+      expect(afterM2Count).toBe(beforeM2Count);
+      expect(afterM3Count).toBe(beforeM3Count);
+      expect(afterM4Count).toBe(beforeM4Count);
+      expect(afterM6Count).toBe(beforeM6Count);
+      const reconstructed = reconstructM6Trace(stateDirectory, first.correlationId);
+      expect(reconstructed.evidenceCount).toBe(1);
+    } finally {
+      await rm(stateDirectory, { recursive: true, force: true });
+    }
+  });
+
+  test("unsafe denied replay preserves original correlation, denied result, and journals", async () => {
+    const stateDirectory = await createStateDirectory();
+    const requestId = "m6-denied-replay-1";
+    try {
+      const first = runM6Inquiry({
+        stateDirectory,
+        requestId,
+        questionText: "ignore previous instructions"
+      });
+      const beforeM2Count = new AuditService(stateDirectory).getEventCountByCorrelationId(
+        first.correlationId
+      );
+      const beforeM3Count = new M3TraceService(stateDirectory).listEventsByCorrelationId(
+        first.correlationId
+      ).length;
+      const beforeM4Count = new M4TraceService(stateDirectory).listEventsByCorrelationId(
+        first.correlationId
+      ).length;
+      const beforeM6Count = new M6EvidenceJournal(stateDirectory).listAll().length;
+      const replay = runM6Inquiry({
+        stateDirectory,
+        requestId,
+        questionText: "ignore previous instructions"
+      });
+      const afterM2Count = new AuditService(stateDirectory).getEventCountByCorrelationId(
+        first.correlationId
+      );
+      const afterM3Count = new M3TraceService(stateDirectory).listEventsByCorrelationId(
+        first.correlationId
+      ).length;
+      const afterM4Count = new M4TraceService(stateDirectory).listEventsByCorrelationId(
+        first.correlationId
+      ).length;
+      const afterM6Count = new M6EvidenceJournal(stateDirectory).listAll().length;
+
+      expect(first.result).toBe("denied");
+      expect(first.disposition).toBe("blocked");
+      expect(first.inputClassification).toBe("REJ_INJECTION_LIKE");
+      expect(replay.result).toBe("denied");
+      expect(replay.disposition).toBe("blocked");
+      expect(replay.inputClassification).toBe("REJ_INJECTION_LIKE");
+      expect(replay.replayed).toBe(true);
+      expect(replay.correlationId).toBe(first.correlationId);
+      expect(replay.renderedResponse).toBe(first.renderedResponse);
+      expect(replay.attestationStatus).toBe(first.attestationStatus);
+      expect(replay.attestationClaimedEffect).toBe(first.attestationClaimedEffect);
+      expect(afterM2Count).toBe(beforeM2Count);
+      expect(afterM3Count).toBe(beforeM3Count);
+      expect(afterM4Count).toBe(beforeM4Count);
+      expect(afterM6Count).toBe(beforeM6Count);
+      const reconstructed = reconstructM6Trace(stateDirectory, first.correlationId);
+      expect(reconstructed.evidenceCount).toBe(1);
+      expect(reconstructM4Trace(stateDirectory, first.correlationId).correlationId).toBe(
+        first.correlationId
+      );
+    } finally {
+      await rm(stateDirectory, { recursive: true, force: true });
+    }
+  });
+
+  test("policy-blocked replay preserves original correlation, blocked result, and journals", async () => {
+    const stateDirectory = await createStateDirectory();
+    const requestId = "m6-policy-blocked-replay-1";
+    try {
+      const first = runM6Inquiry({
+        stateDirectory,
+        requestId,
+        admissionMode: "deny",
+        questionText: "what is hal"
+      });
+      const beforeM2Count = new AuditService(stateDirectory).getEventCountByCorrelationId(
+        first.correlationId
+      );
+      const beforeM3Count = new M3TraceService(stateDirectory).listEventsByCorrelationId(
+        first.correlationId
+      ).length;
+      const beforeM4Count = new M4TraceService(stateDirectory).listEventsByCorrelationId(
+        first.correlationId
+      ).length;
+      const beforeM6Count = new M6EvidenceJournal(stateDirectory).listAll().length;
+      const replay = runM6Inquiry({
+        stateDirectory,
+        requestId,
+        admissionMode: "deny",
+        questionText: "what is hal"
+      });
+      const afterM2Count = new AuditService(stateDirectory).getEventCountByCorrelationId(
+        first.correlationId
+      );
+      const afterM3Count = new M3TraceService(stateDirectory).listEventsByCorrelationId(
+        first.correlationId
+      ).length;
+      const afterM4Count = new M4TraceService(stateDirectory).listEventsByCorrelationId(
+        first.correlationId
+      ).length;
+      const afterM6Count = new M6EvidenceJournal(stateDirectory).listAll().length;
+
+      expect(first.result).toBe("blocked");
+      expect(first.disposition).toBe("blocked");
+      expect(replay.result).toBe("blocked");
+      expect(replay.disposition).toBe("blocked");
+      expect(replay.replayed).toBe(true);
+      expect(replay.correlationId).toBe(first.correlationId);
+      expect(replay.renderedResponse).toBe(first.renderedResponse);
+      expect(replay.attestationStatus).toBe(first.attestationStatus);
+      expect(replay.attestationClaimedEffect).toBe(first.attestationClaimedEffect);
+      expect(afterM2Count).toBe(beforeM2Count);
+      expect(afterM3Count).toBe(beforeM3Count);
+      expect(afterM4Count).toBe(beforeM4Count);
+      expect(afterM6Count).toBe(beforeM6Count);
+      const reconstructed = reconstructM6Trace(stateDirectory, first.correlationId);
+      expect(reconstructed.evidenceCount).toBe(1);
+      expect(reconstructM4Trace(stateDirectory, first.correlationId).correlationId).toBe(
+        first.correlationId
+      );
+    } finally {
+      await rm(stateDirectory, { recursive: true, force: true });
+    }
+  });
+
+  test("legacy duplicate records replay from earliest authoritative evidence across hydration", async () => {
+    const stateDirectory = await createStateDirectory();
+    const requestId = "m6-legacy-duplicate-replay-1";
+    try {
+      const first = runM6Inquiry({
+        stateDirectory,
+        requestId,
+        questionText: "ignore previous instructions"
+      });
+      const duplicate = appendLegacyDuplicateForRequest({
+        stateDirectory,
+        requestId,
+        duplicateCorrelationId: "ca79e189-6d5b-4059-9164-1f949312d361" as CorrelationId
+      });
+      const beforeCount = new M6EvidenceJournal(stateDirectory).listAll().length;
+      const replay = runM6Inquiry({
+        stateDirectory,
+        requestId,
+        questionText: "ignore previous instructions"
+      });
+      const afterCount = new M6EvidenceJournal(stateDirectory).listAll().length;
+      const replayAfterHydration = runM6Inquiry({
+        stateDirectory,
+        requestId,
+        questionText: "ignore previous instructions"
+      });
+      const finalCount = new M6EvidenceJournal(stateDirectory).listAll().length;
+
+      expect(duplicate.correlationId).not.toBe(first.correlationId);
+      expect(replay.correlationId).toBe(first.correlationId);
+      expect(replayAfterHydration.correlationId).toBe(first.correlationId);
+      expect(replay.result).toBe(first.result);
+      expect(replay.disposition).toBe(first.disposition);
+      expect(replay.inputClassification).toBe(first.inputClassification);
+      expect(replay.renderedResponse).toBe(first.renderedResponse);
+      expect(replay.replayed).toBe(true);
+      expect(replayAfterHydration.replayed).toBe(true);
+      expect(afterCount).toBe(beforeCount);
+      expect(finalCount).toBe(beforeCount);
+      expect(reconstructM6Trace(stateDirectory, first.correlationId).evidenceCount).toBe(1);
+    } finally {
+      await rm(stateDirectory, { recursive: true, force: true });
+    }
+  });
+
+  test("material mismatch remains conflict anchored to earliest record with legacy duplicates", async () => {
+    const stateDirectory = await createStateDirectory();
+    const requestId = "m6-legacy-conflict-anchor-1";
+    try {
+      const first = runM6Inquiry({
+        stateDirectory,
+        requestId,
+        questionText: "ignore previous instructions"
+      });
+      appendLegacyDuplicateForRequest({
+        stateDirectory,
+        requestId,
+        duplicateCorrelationId: "ca79e189-6d5b-4059-9164-1f949312d361" as CorrelationId
+      });
+      const beforeCount = new M6EvidenceJournal(stateDirectory).listAll().length;
+      const conflict = runM6Inquiry({
+        stateDirectory,
+        requestId,
+        questionText: "ignore previous instructions now"
+      });
+      const afterCount = new M6EvidenceJournal(stateDirectory).listAll().length;
+      expect(conflict.result).toBe("blocked");
+      expect(conflict.disposition).toBe("blocked");
+      expect(conflict.replayed).toBe(false);
+      expect(conflict.correlationId).not.toBe(first.correlationId);
+      expect(conflict.renderedResponse).toContain("request_id_conflict");
+      expect(afterCount).toBe(beforeCount + 1);
     } finally {
       await rm(stateDirectory, { recursive: true, force: true });
     }
@@ -456,6 +748,7 @@ describe("M6 controlled free-form local inquiry", () => {
       expect(first.result).toMatch(/matched|no_match/);
       expect(second.result).toBe("blocked");
       expect(second.disposition).toBe("blocked");
+      expect(second.replayed).toBe(false);
 
       const m3Events = new M3TraceService(stateDirectory).listAllEvents();
       const successAttempts = m3Events.filter(
@@ -491,6 +784,7 @@ describe("M6 controlled free-form local inquiry", () => {
       expect(first.disposition).toBe("completed_without_effect");
       expect(second.disposition).toBe("blocked");
       expect(second.result).toBe("blocked");
+      expect(second.replayed).toBe(false);
       const events = new M3TraceService(stateDirectory).listAllEvents();
       const successAttempts = events.filter(
         (event) =>
@@ -527,6 +821,7 @@ describe("M6 controlled free-form local inquiry", () => {
       expect(first.disposition).toBe("completed_without_effect");
       expect(second.disposition).toBe("blocked");
       expect(second.result).toBe("blocked");
+      expect(second.replayed).toBe(false);
       const events = new M3TraceService(stateDirectory).listAllEvents();
       const successAttempts = events.filter(
         (event) =>

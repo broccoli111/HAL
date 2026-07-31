@@ -16,6 +16,8 @@ M6 implements a local deterministic inquiry path constrained to:
 - M6 provider ID/version: `LocalDeterministicInquiryProvider@1.0.0`
 - One question per invocation through `npm run m6:inquire`.
 - Caller-visible request identity via `--request-id` supports governed replay/conflict handling.
+- Replay is terminal-result complete: materially identical deliberate replay reuses the original governed result for `matched`, `no_match`, `denied`, and policy-blocked outcomes (including original correlation ID and replay flag) without rerunning M2/M3/M4 or appending duplicate M6 evidence.
+- Replay/idempotency authority is anchored to the earliest durable M6 record for each request ID (journal order), preserving first-write request identity across restart/hydration while retaining later duplicate/conflict records as immutable historical evidence.
 - Fixed input normalization, rejection categories, and first-match precedence from the M6 design.
 - Deterministic tokenizer/matcher/index versions:
   - `m6.tokenizer.v1`
@@ -29,6 +31,7 @@ M6 implements a local deterministic inquiry path constrained to:
 - M3 emits request/attempt/artifact/verification evidence for accepted and admitted inquiries.
 - M4 final attestation runs for every inquiry correlation and preserves no-effect semantics.
 - Matched and no-match inquiries both complete with `completed_without_effect` and M4 claimed effect `none`.
+- Same-request-ID material mismatch remains a durable request-ID conflict (`blocked`) and is never treated as replay.
 
 ## Durable evidence model
 
