@@ -73,7 +73,7 @@ export function runM4VerifiedOutcomeDemo(input: {
     const coordinator = new ExecutionCoordinator({
       traceService: m3Trace,
       m2AuditService: m2Audit,
-      registry: new CapabilityRegistry(m3Trace, fixtureRoot),
+      registry: new CapabilityRegistry(m3Trace),
       provider: new LocalSyntheticCorpusInspector(),
       artifactService: new ArtifactService(m3Trace, input.stateDirectory),
       verificationService: new VerificationService(m3Trace, fixtureRoot),

@@ -46,7 +46,7 @@ function buildCoordinator(input: { stateDirectory: string; fixtureRoot?: string 
   const traceService = new M3TraceService(input.stateDirectory);
   const auditService = new AuditService(input.stateDirectory);
   const fixtureRoot = input.fixtureRoot ?? fixtureRootPath();
-  const registry = new CapabilityRegistry(traceService, fixtureRoot);
+  const registry = new CapabilityRegistry(traceService);
   const provider = new LocalSyntheticCorpusInspector();
   const artifactService = new ArtifactService(traceService, input.stateDirectory);
   const verificationService = new VerificationService(traceService, fixtureRoot);

@@ -40,6 +40,7 @@ Use only non-secret local values in `.env`.
 - `npm run m3:demo` - run local M3 bounded capability demo and reconstruction
 - `npm run m4:demo` - run local M4 verified outcome demo and reconstruction
 - `npm run m5:backup-restore` - run local M5 backup/restore/verify operations
+- `npm run m6:inquire` - run local M6 deterministic free-form inquiry
 
 ## Source structure
 
@@ -135,10 +136,28 @@ npm run m4:demo -- reconstruct --state-dir ./local-state/hal-m4 --correlation-id
 - `docs/M5_OWNER_RUN_BACKUP_RESTORE_EVIDENCE_RECORD.md`
 - `docs/M5_LOCAL_BACKUP_AND_RESTORE_DESIGN.md`
 - `docs/M5_LOCAL_BACKUP_AND_RESTORE_IMPLEMENTATION_RECORD.md`
+- `docs/M6_CONTROLLED_FREE_FORM_LOCAL_INQUIRY_DESIGN.md`
+- `docs/M6_IMPLEMENTATION_RECORD.md`
 
-## Proposed / not implemented
+## M6 controlled local inquiry usage
 
-- `docs/M6_CONTROLLED_FREE_FORM_LOCAL_INQUIRY_DESIGN.md` (design-only proposal; implementation not authorized by this document)
+M6 accepts exactly one typed question and executes local-only deterministic matching against the approved synthetic corpus.
+
+```bash
+mkdir -p ./local-state/m6
+npm run m6:inquire -- --state-dir ./local-state/m6 --request-id m6-inquiry-001 --question "What is HAL?"
+```
+
+Constraints:
+
+- One `--question` value per invocation.
+- Caller-visible `--request-id` enables governed replay/conflict behavior.
+- Input is normalized and evaluated with fixed deterministic rejection precedence.
+- Rejected input never prints or persists raw question text.
+- Corpus is fixed to approved local synthetic JSON files under `fixtures/synthetic-corpus`.
+- Rendered response is deterministic and capped at 1200 UTF-8 bytes.
+- Durable journals exclude raw question text, raw corpus paragraphs, rendered answer text, and transient excerpts.
+- All outcomes remain `externalEffect=none`.
 
 Local evidence bundle retained for the pre-independent-verification Owner run:
 

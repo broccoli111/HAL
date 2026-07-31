@@ -109,9 +109,14 @@ export class TransactionCoordinator {
     const expectedStatus =
       decisionRecord.disposition === "allow" ? "completed_without_effect" : "blocked";
     const expectedClaimedEffect =
-      decisionRecord.disposition === "allow" ? "inspection_only" : "none";
+      decisionRecord.disposition === "allow"
+        ? command.payload.declaredEffectClass === "local_synthetic_inquiry"
+          ? "none"
+          : "inspection_only"
+        : "none";
     const commandIsConsistent =
-      command.payload.declaredEffectClass === "local_synthetic_inspection" &&
+      (command.payload.declaredEffectClass === "local_synthetic_inspection" ||
+        command.payload.declaredEffectClass === "local_synthetic_inquiry") &&
       command.payload.status === expectedStatus &&
       command.payload.claimedEffect === expectedClaimedEffect;
     if (!commandIsConsistent) {
@@ -151,7 +156,7 @@ export class TransactionCoordinator {
       planId: planRecord.planId,
       decisionId: decisionRecord.decisionId,
       status: expectedStatus,
-      declaredEffectClass: "local_synthetic_inspection",
+      declaredEffectClass: command.payload.declaredEffectClass,
       claimedEffect: expectedClaimedEffect,
       recoveryDisposition: "reconstruct_from_journal"
     } satisfies TransactionRecord);

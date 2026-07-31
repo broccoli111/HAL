@@ -63,7 +63,7 @@ function runM3AllowedFlow(input: {
   const coordinator = new ExecutionCoordinator({
     traceService: m3Trace,
     m2AuditService: new AuditService(input.stateDirectory),
-    registry: new CapabilityRegistry(m3Trace, fixtureRootPath()),
+    registry: new CapabilityRegistry(m3Trace),
     provider: new LocalSyntheticCorpusInspector(),
     artifactService: new ArtifactService(m3Trace, input.stateDirectory),
     verificationService: new VerificationService(m3Trace, fixtureRootPath()),

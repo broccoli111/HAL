@@ -7,10 +7,11 @@ import { M3_PROVIDER_ID, M3_PROVIDER_VERSION } from "./types.js";
 export class LocalSyntheticCorpusInspector {
   private invocationCount = 0;
 
-  public inspect(input: {
+  public execute(input: {
     fixtureRoot: string;
     files: readonly string[];
     fixtureManifestHash: string;
+    providerInput?: Readonly<Record<string, unknown>>;
   }): ProviderSummaryResult {
     this.invocationCount += 1;
     const fixtureRoot = path.resolve(input.fixtureRoot);
@@ -52,6 +53,14 @@ export class LocalSyntheticCorpusInspector {
         totalParagraphCharacters
       })
     });
+  }
+
+  public inspect(input: {
+    fixtureRoot: string;
+    files: readonly string[];
+    fixtureManifestHash: string;
+  }): ProviderSummaryResult {
+    return this.execute(input);
   }
 
   public getInvocationCount(): number {

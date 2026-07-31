@@ -1,4 +1,5 @@
 import { createCommandId, createImmutableIdentifier } from "../shared/id.js";
+import { readFileSync } from "node:fs";
 import type { ImmutableIdentifier } from "../shared/types.js";
 import { AuditService } from "../m2/auditService.js";
 import type { DecisionRecord, IntentRecord, PlanRecord, TransactionRecord } from "../m2/types.js";
@@ -8,18 +9,15 @@ import { resolveApprovedSyntheticCorpus } from "./fixtureCorpus.js";
 import { LocalSyntheticCorpusInspector } from "./localSyntheticCorpusInspector.js";
 import { M3TraceService, computeRecordIntegrityHash, createM3Metadata } from "./traceService.js";
 import type {
+  ArtifactRecord,
   CapabilityRequestInput,
   CapabilityRequestRecord,
   ExecutionAttemptRecord,
   ExecutionAttemptStatus,
+  ProviderSummaryResult,
   VerificationRecord
 } from "./types.js";
-import {
-  M3_CAPABILITY_ID,
-  M3_PROVIDER_ID,
-  M3_PROVIDER_VERSION,
-  M3_SCHEMA_VERSION
-} from "./types.js";
+import { M3_CAPABILITY_ID, M3_SCHEMA_VERSION, M6_M3_CAPABILITY_ID } from "./types.js";
 import { VerificationService } from "./verificationService.js";
 
 type AttemptOutcome = Readonly<{
@@ -27,7 +25,10 @@ type AttemptOutcome = Readonly<{
   attempt: ExecutionAttemptRecord;
   verification: VerificationRecord | undefined;
   claimedEffect: "inspection_only" | "none";
+  providerResult?: ProviderSummaryResult;
 }>;
+
+type CapabilityProvider = Pick<LocalSyntheticCorpusInspector, "getInvocationCount" | "execute">;
 
 type AdmissionRejectionCategory =
   | "malformed_request_field"
@@ -47,7 +48,7 @@ export class ExecutionCoordinator {
   private readonly traceService: M3TraceService;
   private readonly m2AuditService: AuditService;
   private readonly registry: CapabilityRegistry;
-  private readonly provider: LocalSyntheticCorpusInspector;
+  private readonly provider: CapabilityProvider;
   private readonly artifactService: ArtifactService;
   private readonly verificationService: VerificationService;
   private readonly fixtureRoot: string;
@@ -56,7 +57,7 @@ export class ExecutionCoordinator {
     traceService: M3TraceService;
     m2AuditService: AuditService;
     registry: CapabilityRegistry;
-    provider: LocalSyntheticCorpusInspector;
+    provider: CapabilityProvider;
     artifactService: ArtifactService;
     verificationService: VerificationService;
     fixtureRoot: string;
@@ -110,24 +111,34 @@ export class ExecutionCoordinator {
             existingAttempt.verificationId
           )
         : undefined;
+      const existingArtifact = existingAttempt.artifactId
+        ? this.traceService.getRecordById<ArtifactRecord>("artifact", existingAttempt.artifactId)
+        : undefined;
+      const hydratedProviderResult =
+        existingArtifact && existingVerification?.verified
+          ? this.hydrateProviderResultFromArtifact(existingArtifact)
+          : undefined;
       return Object.freeze({
         capabilityRequest: existingRequest,
         attempt: existingAttempt,
         verification: existingVerification,
-        claimedEffect: existingVerification?.verified ? "inspection_only" : "none"
+        claimedEffect:
+          existingVerification?.verified && existingRequest.capabilityId === M3_CAPABILITY_ID
+            ? "inspection_only"
+            : "none",
+        ...(hydratedProviderResult ? { providerResult: hydratedProviderResult } : {})
       });
     }
     if (claim.kind === "conflict") {
       throw new Error("Capability request ID reuse conflict denied.");
     }
 
-    const registration = this.registry.ensureRegistered(request.correlationId);
+    const registration =
+      request.capabilityId === M3_CAPABILITY_ID
+        ? this.registry.ensureRegistered(request.correlationId)
+        : this.registry.getRegisteredCapability(request.capabilityId);
 
-    if (
-      request.capabilityId !== M3_CAPABILITY_ID ||
-      registration.providerId !== M3_PROVIDER_ID ||
-      registration.providerVersion !== M3_PROVIDER_VERSION
-    ) {
+    if (!registration || request.capabilityId !== registration.capabilityId) {
       this.rejectAdmissionAndThrow({
         request,
         commandId,
@@ -196,9 +207,9 @@ export class ExecutionCoordinator {
     const requestWithoutIntegrity: Omit<CapabilityRequestRecord, "integrityHash"> = {
       ...requestBase,
       capabilityRequestId: request.capabilityRequestId,
-      capabilityId: M3_CAPABILITY_ID,
-      providerId: M3_PROVIDER_ID,
-      providerVersion: M3_PROVIDER_VERSION,
+      capabilityId: registration.capabilityId,
+      providerId: registration.providerId,
+      providerVersion: registration.providerVersion,
       decisionId: request.decisionId,
       transactionId: request.transactionId,
       intentId: request.intentId,
@@ -280,10 +291,11 @@ export class ExecutionCoordinator {
       statusReason: "Execution running.",
       cancellationRequested: false
     });
-    const providerResult = this.provider.inspect({
+    const providerResult = this.provider.execute({
       fixtureRoot: resolvedCorpus.fixtureRoot,
       files: resolvedCorpus.files,
-      fixtureManifestHash: resolvedCorpus.manifestHash
+      fixtureManifestHash: resolvedCorpus.manifestHash,
+      ...(request.providerInput ? { providerInput: request.providerInput } : {})
     });
     const artifact = this.artifactService.createArtifact({
       correlationId: request.correlationId,
@@ -299,7 +311,10 @@ export class ExecutionCoordinator {
       executionAttemptId: createdAttempt.executionAttemptId,
       transactionId: references.transaction.transactionId,
       decisionId: references.decision.decisionId,
-      expectedFixtureManifestHash: resolvedCorpus.manifestHash,
+      expectedFixtureManifestHash:
+        requestRecord.capabilityId === M6_M3_CAPABILITY_ID
+          ? providerResult.fixtureManifestHash
+          : resolvedCorpus.manifestHash,
       artifact
     });
 
@@ -319,7 +334,11 @@ export class ExecutionCoordinator {
       capabilityRequest: requestRecord,
       attempt: finalAttempt,
       verification,
-      claimedEffect: verification.verified ? "inspection_only" : "none"
+      claimedEffect:
+        verification.verified && requestRecord.capabilityId === M3_CAPABILITY_ID
+          ? "inspection_only"
+          : "none",
+      providerResult
     });
   }
 
@@ -462,6 +481,15 @@ export class ExecutionCoordinator {
     if (typeof request.corpusReference !== "string" || !request.corpusReference.trim()) {
       return "corpusReference is required.";
     }
+    if (request.providerInput !== undefined) {
+      if (
+        typeof request.providerInput !== "object" ||
+        request.providerInput === null ||
+        Array.isArray(request.providerInput)
+      ) {
+        return "providerInput must be an object when provided.";
+      }
+    }
     if (
       typeof request.decisionId !== "string" ||
       typeof request.transactionId !== "string" ||
@@ -543,8 +571,8 @@ export class ExecutionCoordinator {
       ...base,
       executionAttemptId,
       capabilityRequestId: input.request.capabilityRequestId,
-      providerId: M3_PROVIDER_ID,
-      providerVersion: M3_PROVIDER_VERSION,
+      providerId: input.request.providerId,
+      providerVersion: input.request.providerVersion,
       status: input.status,
       deadlineMs: input.request.deadlineMs,
       cancellationRequested: input.cancellationRequested,
@@ -596,6 +624,74 @@ export class ExecutionCoordinator {
       .map((event) => event.record as ExecutionAttemptRecord)
       .filter((attempt) => attempt.capabilityRequestId === capabilityRequestId);
     return attempts.at(-1);
+  }
+
+  private hydrateProviderResultFromArtifact(
+    artifact: ArtifactRecord
+  ): ProviderSummaryResult | undefined {
+    try {
+      const parsed = JSON.parse(readFileSync(artifact.artifactPath, "utf8")) as Partial<{
+        providerId: string;
+        providerVersion: string;
+        fixtureManifestHash: string;
+        consumedFiles: string[];
+        itemCount: number;
+        deterministicInquiry?: {
+          questionNormalizedHashSha256: string;
+          selectedDocumentIds: string[];
+          selectedSectionIds: string[];
+          noMatch: boolean;
+          answerHashSha256: string;
+        };
+        summary: {
+          totalItems: number;
+          titles: string[];
+          totalParagraphs: number;
+          totalParagraphCharacters: number;
+        };
+      }>;
+      if (
+        typeof parsed.providerId !== "string" ||
+        typeof parsed.providerVersion !== "string" ||
+        typeof parsed.fixtureManifestHash !== "string" ||
+        !Array.isArray(parsed.consumedFiles) ||
+        typeof parsed.itemCount !== "number" ||
+        !parsed.summary ||
+        typeof parsed.summary.totalItems !== "number" ||
+        !Array.isArray(parsed.summary.titles) ||
+        typeof parsed.summary.totalParagraphs !== "number" ||
+        typeof parsed.summary.totalParagraphCharacters !== "number"
+      ) {
+        return undefined;
+      }
+      return Object.freeze({
+        providerId: parsed.providerId as ProviderSummaryResult["providerId"],
+        providerVersion: parsed.providerVersion as ProviderSummaryResult["providerVersion"],
+        fixtureManifestHash: parsed.fixtureManifestHash,
+        consumedFiles: Object.freeze(parsed.consumedFiles),
+        itemCount: parsed.itemCount,
+        ...(parsed.deterministicInquiry
+          ? {
+              deterministicInquiry: Object.freeze({
+                questionNormalizedHashSha256:
+                  parsed.deterministicInquiry.questionNormalizedHashSha256,
+                selectedDocumentIds: Object.freeze(parsed.deterministicInquiry.selectedDocumentIds),
+                selectedSectionIds: Object.freeze(parsed.deterministicInquiry.selectedSectionIds),
+                noMatch: parsed.deterministicInquiry.noMatch,
+                answerHashSha256: parsed.deterministicInquiry.answerHashSha256
+              })
+            }
+          : {}),
+        summary: Object.freeze({
+          totalItems: parsed.summary.totalItems,
+          titles: Object.freeze(parsed.summary.titles),
+          totalParagraphs: parsed.summary.totalParagraphs,
+          totalParagraphCharacters: parsed.summary.totalParagraphCharacters
+        })
+      });
+    } catch {
+      return undefined;
+    }
   }
 }
 
