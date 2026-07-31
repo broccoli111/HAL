@@ -62,6 +62,13 @@ function setResultError(message: string): void {
   resultError.textContent = message;
 }
 
+const M8_RENDERER_ERROR_CODES = Object.freeze({
+  pickerUnavailable: "state_directory_picker_unavailable",
+  questionSubmitUnavailable: "question_submission_unavailable",
+  replaySubmitUnavailable: "replay_submission_unavailable",
+  initializationUnavailable: "renderer_initialization_unavailable"
+});
+
 async function refreshBoundaryModes(): Promise<void> {
   const modes = await window.halM8.getBoundaryModes();
   boundaryList.innerHTML = "";
@@ -79,7 +86,7 @@ async function refreshStateDirectoryStatus(): Promise<void> {
   } catch {
     writeStateDirectoryStatus({
       selected: false,
-      error: "state_directory_picker_unavailable"
+      error: M8_RENDERER_ERROR_CODES.pickerUnavailable
     });
   }
 }
@@ -92,7 +99,7 @@ pickStateDirectoryButton.addEventListener("click", async () => {
   } catch {
     writeStateDirectoryStatus({
       selected: false,
-      error: "state_directory_picker_unavailable"
+      error: M8_RENDERER_ERROR_CODES.pickerUnavailable
     });
   }
 });
@@ -104,8 +111,12 @@ submitQuestionButton.addEventListener("click", async () => {
     setResultError("Question is required.");
     return;
   }
-  const panel = await window.halM8.submitQuestion({ questionText });
-  writeResult(panel);
+  try {
+    const panel = await window.halM8.submitQuestion({ questionText });
+    writeResult(panel);
+  } catch {
+    setResultError(M8_RENDERER_ERROR_CODES.questionSubmitUnavailable);
+  }
 });
 
 submitReplayButton.addEventListener("click", async () => {
@@ -116,18 +127,22 @@ submitReplayButton.addEventListener("click", async () => {
     setResultError("Replay request ID and question are required.");
     return;
   }
-  const panel = await window.halM8.submitReplay({
-    requestId,
-    questionText
-  });
-  writeResult(panel);
+  try {
+    const panel = await window.halM8.submitReplay({
+      requestId,
+      questionText
+    });
+    writeResult(panel);
+  } catch {
+    setResultError(M8_RENDERER_ERROR_CODES.replaySubmitUnavailable);
+  }
 });
 
 void (async () => {
   try {
     await refreshBoundaryModes();
     await refreshStateDirectoryStatus();
-  } catch (error) {
-    setResultError(`Initialization failed: ${(error as Error).message}`);
+  } catch {
+    setResultError(M8_RENDERER_ERROR_CODES.initializationUnavailable);
   }
 })();

@@ -1,4 +1,4 @@
-import { contextBridge, ipcRenderer } from "electron";
+import * as electron from "electron";
 
 import { M8_IPC_CHANNELS } from "./ipcContracts.js";
 import type {
@@ -8,6 +8,13 @@ import type {
   M8ReplaySubmission,
   M8StateDirectoryStatus
 } from "./types.js";
+
+const electronRuntime = (
+  "default" in electron
+    ? ((electron as { default: typeof electron }).default as unknown)
+    : (electron as unknown)
+) as typeof electron;
+const { contextBridge, ipcRenderer } = electronRuntime;
 
 export type M8RendererApi = Readonly<{
   getBoundaryModes: () => Promise<readonly M8BoundaryMode[]>;
