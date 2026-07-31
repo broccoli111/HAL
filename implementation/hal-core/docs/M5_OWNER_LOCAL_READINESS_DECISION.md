@@ -3,7 +3,7 @@
 **Decision status:** `ready_to_remain_local_only`  
 **Decision date:** 2026-07-30  
 **Review expiry:** 2026-08-29  
-**Scope:** HAL current M0-M5 local-only, synthetic-data-only, non-live-effect implementation
+**Scope:** HAL current M0-M6 local-only, synthetic-data-only, non-live-effect implementation
 
 ## 1) Decision statement
 
@@ -13,13 +13,14 @@ This is a narrow operational-readiness decision for current local usage only. It
 
 ## 2) Basis for this decision
 
-Decision basis observed in current M0-M5 local implementation evidence:
+Decision basis observed in current M0-M6 local implementation evidence:
 
 - implemented M0-M5 controls in the current slice;
 - `66` passing tests;
 - `0` dependency vulnerabilities in local security scan output;
 - Owner-run M1/M4/M5 reproducibility evidence;
-- M5 backup/verify/restore/reconstruction evidence.
+- M5 backup/verify/restore/reconstruction evidence;
+- M6 local verification runbook and Owner-run local evidence record template are prepared for bounded local execution and evidence capture.
 
 ## 3) Residual risk and assurance limitation
 
@@ -32,7 +33,7 @@ Decision basis observed in current M0-M5 local implementation evidence:
 
 This decision does **not** authorize any of the following:
 
-- free-form inquiry;
+- unbounded or externally sourced free-form inquiry;
 - model/provider admission changes;
 - network behavior;
 - external storage;
@@ -42,6 +43,11 @@ This decision does **not** authorize any of the following:
 - live effects;
 - new capabilities;
 - any other scope expansion.
+
+M6 boundary reminder under this decision:
+
+- M6 remains local-only, synthetic-only, deterministic, and non-live-effect.
+- M6 does not authorize model execution, network access, private-file authority, external-tool authority, or real-world authority.
 
 ## 5) Review triggers
 
@@ -67,6 +73,8 @@ The prior `M5_OWNER_READINESS_DECISION.md` record is preserved as historical evi
 - `implementation/hal-core/docs/M5_OWNER_RUN_REPRODUCIBILITY_RECORD.md`
 - `implementation/hal-core/docs/M5_OWNER_RUN_BACKUP_RESTORE_EVIDENCE_RECORD.md`
 - `implementation/hal-core/docs/M5_LOCAL_BACKUP_AND_RESTORE_IMPLEMENTATION_RECORD.md`
+- `implementation/hal-core/docs/M6_LOCAL_TEST_RUNBOOK.md`
+- `implementation/hal-core/docs/M6_OWNER_RUN_LOCAL_VERIFICATION_RECORD.md`
 
 ### 7.2 Supporting M5 assurance package references
 

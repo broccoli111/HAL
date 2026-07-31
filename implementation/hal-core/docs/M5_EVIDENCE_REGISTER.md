@@ -1,7 +1,7 @@
 # M5 Evidence Register
 
-**Status:** Working register for M5 assurance package  
-**Scope:** HAL v0.1 M0-M4 local-only, synthetic-data-only, non-live-effect  
+**Status:** Working register for M5 assurance package
+**Scope:** HAL v0.1 M0-M6 local-only, synthetic-data-only, non-live-effect
 **Authority note:** This register is evidence bookkeeping only; it does not certify readiness or grant authority.
 
 ## 1) Evidence status scale
@@ -26,7 +26,7 @@ Each evidence item includes:
 - `freshness_or_review_date`
 - `status`
 
-## 3) Evidence inventory (M0-M4 + package checks)
+## 3) Evidence inventory (M0-M6 + package checks)
 
 | evidence_id  | claim_or_subclaim                               | source_artifact                                                                     | version_or_commit_ref                      | classification       | retention_location                | verification_method                       | reviewer_and_disposition         | freshness_or_review_date              | status                  |
 | ------------ | ----------------------------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------ | -------------------- | --------------------------------- | ----------------------------------------- | -------------------------------- | ------------------------------------- | ----------------------- |
@@ -56,6 +56,8 @@ Each evidence item includes:
 | EV-M5-005    | C2/C3 local backup/restore implementation       | `implementation/hal-core/docs/M5_LOCAL_BACKUP_AND_RESTORE_IMPLEMENTATION_RECORD.md` | `TBD_COMMIT_SHA`                           | operational_evidence | `implementation/hal-core/docs/`   | implementation-to-test traceability check | `Pending independent reviewer`   | `2026-07-30`                          | implementation-produced |
 | EV-M5-006    | C3 Owner-run backup/restore reproducibility run | `implementation/hal-core/docs/M5_OWNER_RUN_BACKUP_RESTORE_EVIDENCE_RECORD.md`       | `7eeff03880db5e418850311996f81e4dd7ac96e6` | operational_evidence | `implementation/hal-core/docs/`   | transcript and artifact reference review  | `Owner-run / observed evidence`  | `2026-07-30`                          | implementation-produced |
 | EV-M5-007    | C5 Owner local readiness superseding decision   | `implementation/hal-core/docs/M5_OWNER_LOCAL_READINESS_DECISION.md`                 | `TBD_COMMIT_SHA`                           | governance_evidence  | `implementation/hal-core/docs/`   | decision scope and boundary review        | `Owner / local-only disposition` | `2026-07-30`                          | implementation-produced |
+| EV-M6-001    | C3 M6 local verification procedure              | `implementation/hal-core/docs/M6_LOCAL_TEST_RUNBOOK.md`                             | `TBD_COMMIT_SHA`                           | operational_evidence | `implementation/hal-core/docs/`   | runbook procedural completeness review    | `Owner / pending execution`      | `TBD`                                 | implementation-produced |
+| EV-M6-002    | C3 M6 Owner-run local evidence capture template | `implementation/hal-core/docs/M6_OWNER_RUN_LOCAL_VERIFICATION_RECORD.md`            | `TBD_COMMIT_SHA`                           | operational_evidence | `implementation/hal-core/docs/`   | template field completeness review        | `Owner / pending execution`      | `TBD`                                 | implementation-produced |
 
 ## 4) Required runtime artifact evidence (capture plan)
 
@@ -72,6 +74,7 @@ These items are required evidence inputs for M5 but are expected to be captured 
 | EV-ART-007  | M4 positive correlation evidence (`dc142aaa-4647-4483-b216-d30eb2f2e856`) | `TBD_M5_EVIDENCE_DIR/reconstruction/`                                                 | verify correlation linkage to M4           | implementation-produced |
 | EV-ART-008  | local Owner-run reproducibility evidence bundle                           | `TBD_M5_EVIDENCE_DIR/`                                                                | confirm journals/artifacts/hash set        | implementation-produced |
 | EV-ART-009  | pre-independent-verification backup/restore evidence bundle               | `implementation/hal-core/local-state/m5/evidence-package/m5-pre-iv-20260730T190603Z/` | SHA-256 inventory + transcript cross-check | implementation-produced |
+| EV-ART-010  | M6 Owner-run local verification evidence bundle (runbook/record aligned)  | `implementation/hal-core/local-state/m6-owner-run/<run-id>/`                          | command transcript + checksum cross-check  | pending                 |
 
 ## 5) Independent evidence and not-applicable declarations
 
@@ -93,4 +96,6 @@ Until independent review is completed, no item in this register may be claimed a
 - Any stale evidence must be marked `pending` or `inconclusive` until refreshed.
 - If any evidence integrity check fails, dependent claims must be downgraded and decision posture must fail closed.
 - Current limited Owner disposition is `ready_to_remain_local_only` for existing local-only scope.
+- M6 evidence remains constrained to local-only, synthetic-only, deterministic, non-live-effect operation.
+- M6 evidence does not authorize model, network, private-file, external-tool, or real-world authority expansion.
 - Independent review remains an explicit residual risk and a prerequisite for any stronger assurance claim or scope expansion, including backup/restore evidence.

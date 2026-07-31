@@ -1,6 +1,6 @@
-# HAL Core (v0.1 M0-M4 Local Implemented Slice + M5 Assurance Docs)
+# HAL Core (v0.1 M0-M6 Local Implemented Slice + M5-M6 Assurance Docs)
 
-This workspace contains the HAL v0.1 implemented local slice for M0-M4, plus M5 assurance and readiness documentation.
+This workspace contains the HAL v0.1 implemented local slice for M0-M6, plus M5-M6 assurance and readiness documentation.
 
 ## Safety boundary (local-only)
 
@@ -50,7 +50,7 @@ Use only non-secret local values in `.env`.
 - `src/audit` - append-only in-memory audit records (dev/test only)
 - `src/shared` - shared immutable ID and correlation types
 - `test` - deterministic unit tests
-- `docs` - M0-M5 evidence, implementation, readiness, and assurance records
+- `docs` - M0-M6 evidence, implementation, readiness, and assurance records
 - `scripts` - manifest generation utility
 
 ## CI behavior
@@ -138,6 +138,8 @@ npm run m4:demo -- reconstruct --state-dir ./local-state/hal-m4 --correlation-id
 - `docs/M5_LOCAL_BACKUP_AND_RESTORE_IMPLEMENTATION_RECORD.md`
 - `docs/M6_CONTROLLED_FREE_FORM_LOCAL_INQUIRY_DESIGN.md`
 - `docs/M6_IMPLEMENTATION_RECORD.md`
+- `docs/M6_LOCAL_TEST_RUNBOOK.md`
+- `docs/M6_OWNER_RUN_LOCAL_VERIFICATION_RECORD.md`
 
 ## M6 controlled local inquiry usage
 
@@ -158,6 +160,11 @@ Constraints:
 - Rendered response is deterministic and capped at 1200 UTF-8 bytes.
 - Durable journals exclude raw question text, raw corpus paragraphs, rendered answer text, and transient excerpts.
 - All outcomes remain `externalEffect=none`.
+
+For Owner-run local verification and evidence capture:
+
+- `docs/M6_LOCAL_TEST_RUNBOOK.md`
+- `docs/M6_OWNER_RUN_LOCAL_VERIFICATION_RECORD.md`
 
 Local evidence bundle retained for the pre-independent-verification Owner run:
 
