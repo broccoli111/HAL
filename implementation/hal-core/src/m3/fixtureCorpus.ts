@@ -20,7 +20,9 @@ export function resolveApprovedSyntheticCorpus(input: {
   corpusReference: string;
   itemLimit: number;
 }): ResolvedCorpus {
-  if (input.corpusReference !== APPROVED_CORPUS_REFERENCE) {
+  const isApprovedReference =
+    input.corpusReference === APPROVED_CORPUS_REFERENCE || input.corpusReference.startsWith("m9:");
+  if (!isApprovedReference) {
     throw new Error("Unsupported corpus reference; only approved synthetic corpus is admitted.");
   }
   if (URL_LIKE_PATTERN.test(input.corpusReference) || input.corpusReference.includes("..")) {

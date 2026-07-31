@@ -33,3 +33,43 @@ export type M8ReplaySubmission = Readonly<{
   requestId: string;
   questionText: string;
 }>;
+
+export type M8PackStatus = Readonly<{
+  approvedPacks: readonly Readonly<{
+    packId: string;
+    packVersion: string;
+    manifestHashSha256: string;
+  }>[];
+  activePack?: Readonly<{
+    activationRecordId: string;
+    packId: string;
+    packVersion: string;
+    manifestHashSha256: string;
+  }>;
+  externalEffect: "none";
+}>;
+
+export type M8PackActivationRequest = Readonly<{
+  requestId: string;
+  ownerDisposition: "activate" | "deactivate";
+  packId?: string;
+  ownerConfirmation: "local_owner_confirmed";
+  reasonCode: "owner_local_activation" | "owner_local_deactivation";
+}>;
+
+export type M8PackActivationResult = Readonly<{
+  requestId: string;
+  correlationId: string;
+  result: "succeeded" | "blocked";
+  resultReasonCode: string;
+  replayed: boolean;
+  conflict: boolean;
+  activationRecordId?: string;
+  activePack?: Readonly<{
+    activationRecordId: string;
+    packId: string;
+    packVersion: string;
+    manifestHashSha256: string;
+  }>;
+  externalEffect: "none";
+}>;

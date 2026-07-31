@@ -30,6 +30,7 @@ const REQUIRED_JOURNALS = [
   "m4-event-journal.jsonl"
 ] as const;
 const OPTIONAL_JOURNALS = ["m6-event-journal.jsonl"] as const;
+const OPTIONAL_M9_JOURNAL_RELATIVE = "m9/m9-pack-activation-journal.jsonl" as const;
 
 type CapturedSourceFile = Readonly<{
   sourceAbsolutePath: string;
@@ -181,6 +182,20 @@ function collectAllowlistedSourceFiles(
     if (OPTIONAL_JOURNALS.includes(name as (typeof OPTIONAL_JOURNALS)[number])) {
       continue;
     }
+    if (name === "m9") {
+      const m9Directory = path.resolve(sourceStateDirectory, "m9");
+      const m9Stat = lstatSync(m9Directory);
+      if (m9Stat.isSymbolicLink() || !m9Stat.isDirectory()) {
+        throw new Error("m9 activation directory is invalid.");
+      }
+      const m9Entries = readdirSync(m9Directory);
+      for (const m9Entry of m9Entries) {
+        if (m9Entry !== "m9-pack-activation-journal.jsonl") {
+          throw new Error(`Unexpected m9 entry detected: ${m9Entry}`);
+        }
+      }
+      continue;
+    }
     if (name === "m3-artifacts") {
       continue;
     }
@@ -211,6 +226,18 @@ function collectAllowlistedSourceFiles(
         sourceAbsolutePath: journalPath,
         relativePath: journalName,
         logicalContentClass: toLogicalClass(journalName)
+      })
+    );
+  }
+  const optionalM9Path = path.resolve(sourceStateDirectory, OPTIONAL_M9_JOURNAL_RELATIVE);
+  const optionalM9Stat = lstatSync(optionalM9Path, { throwIfNoEntry: false });
+  if (optionalM9Stat) {
+    assertRegularFileNoSymlink(optionalM9Path, OPTIONAL_M9_JOURNAL_RELATIVE);
+    files.push(
+      Object.freeze({
+        sourceAbsolutePath: optionalM9Path,
+        relativePath: OPTIONAL_M9_JOURNAL_RELATIVE,
+        logicalContentClass: "m9_journal"
       })
     );
   }

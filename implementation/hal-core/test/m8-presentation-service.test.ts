@@ -8,6 +8,7 @@ import { reconstructM6Trace } from "../src/m6/orchestrator.js";
 import { computeM6IntegrityHash, M6EvidenceJournal } from "../src/m6/evidenceJournal.js";
 import { buildBlockedPanel, createM8InquiryExecutor } from "../src/m8/presentationService.js";
 import type { M6EvidenceRecord } from "../src/m6/types.js";
+import { activateApprovedM9Pack, createM9OperationRequestId } from "../src/m9/index.js";
 import { createImmutableIdentifier } from "../src/shared/id.js";
 import type { CorrelationId } from "../src/shared/types.js";
 
@@ -17,6 +18,18 @@ async function createStateDirectory(): Promise<string> {
     `../local-state/m8-presentation-${Date.now()}-${Math.random().toString(16).slice(2)}`
   );
   await mkdir(stateDirectory, { recursive: true });
+  const activated = activateApprovedM9Pack({
+    operationRequestId: createM9OperationRequestId(),
+    stateDirectory,
+    packId: "pack_alpha",
+    ownerConfirmationClaim: "local_owner_confirmed",
+    reasonCode: "owner_local_activation"
+  });
+  if (activated.result !== "succeeded") {
+    throw new Error(
+      `Failed to activate M9 pack for M8 presentation tests: ${activated.resultReasonCode}`
+    );
+  }
   return stateDirectory;
 }
 

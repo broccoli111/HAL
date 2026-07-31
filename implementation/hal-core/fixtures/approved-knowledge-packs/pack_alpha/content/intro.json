@@ -1,0 +1,9 @@
+{
+  "id": "alpha.doc.intro",
+  "title": "alpha synthetic intro",
+  "tags": ["alpha", "intro"],
+  "paragraphs": [
+    "alpha systems run deterministic local checks.",
+    "alpha evidence remains synthetic and bounded."
+  ]
+}

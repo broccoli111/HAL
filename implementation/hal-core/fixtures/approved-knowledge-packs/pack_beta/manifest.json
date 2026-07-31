@@ -1,0 +1,43 @@
+{
+  "contentRoot": "content",
+  "documents": [
+    {
+      "documentId": "beta.doc.faq",
+      "sectionIds": ["paragraph:0", "paragraph:1"]
+    },
+    {
+      "documentId": "beta.doc.safety",
+      "sectionIds": ["paragraph:0", "paragraph:1"]
+    }
+  ],
+  "files": [
+    {
+      "byteSize": 219,
+      "contentClass": "pack_content_json",
+      "relativePath": "content/faq.json",
+      "sha256": "5d603d666a0f7a9f415723856a97addfa8eb80f1d791dfa16e05a97e7deffbaa"
+    },
+    {
+      "byteSize": 213,
+      "contentClass": "pack_content_json",
+      "relativePath": "content/safety.json",
+      "sha256": "3a069c1bd88bf1a6ba007d5c8b1da6480315d6f911cfa9cf9e577545891bb693"
+    }
+  ],
+  "integrity": {
+    "manifestHashAlgorithm": "sha256",
+    "manifestHashSha256": "87c8f573406e010dbbfa695eb37e340f8c5fe3397120fa1d081bb4a0480e69e2"
+  },
+  "m6Compatibility": {
+    "corpusIndexVersion": "m6.corpus-index.v1",
+    "documentShape": "m6.synthetic-document.v1",
+    "matcherVersion": "m6.matcher.v1",
+    "tokenizerVersion": "m6.tokenizer.v1"
+  },
+  "packClassification": "synthetic_approved_local_only",
+  "packId": "pack_beta",
+  "packName": "Pack Beta",
+  "packVersion": "1.0.0",
+  "provenanceClassification": "synthetic_non_sensitive",
+  "schemaVersion": "hal.m9.knowledge-pack.manifest.v1"
+}

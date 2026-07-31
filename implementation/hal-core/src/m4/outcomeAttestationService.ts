@@ -23,9 +23,10 @@ import {
 } from "./types.js";
 import { M6_M3_CAPABILITY_ID } from "../m3/types.js";
 import { M6EvidenceJournal } from "../m6/evidenceJournal.js";
-import { loadApprovedSyntheticCorpus } from "../m6/corpus.js";
+import { loadApprovedSyntheticCorpus, loadSyntheticCorpusFromRootForTest } from "../m6/corpus.js";
 import { renderM6Response } from "../m6/response.js";
 import type { M6MatchOutcome, M6SelectedDocument, M6SelectedSection } from "../m6/types.js";
+import { listApprovedPacks } from "../m9/validator.js";
 
 export type FinalAttestationResult = Readonly<{
   attestation: OutcomeAttestationRecord;
@@ -880,6 +881,12 @@ export class OutcomeAttestationService {
           selectedSectionIds?: string[];
           noMatch?: boolean;
           answerHashSha256?: string;
+          m9ActivationContext?: {
+            activationRecordId?: string;
+            packId?: string;
+            packVersion?: string;
+            manifestHashSha256?: string;
+          };
         };
       }
     ).deterministicInquiry;
@@ -929,25 +936,89 @@ export class OutcomeAttestationService {
         affectedReferences: ["m6.selectedReferences", "m3.artifact.deterministicInquiry"]
       });
     }
-    let corpusSnapshot: ReturnType<typeof loadApprovedSyntheticCorpus>;
-    try {
-      corpusSnapshot = loadApprovedSyntheticCorpus();
-    } catch (error) {
+    const artifactM9 = artifactDeterministic.m9ActivationContext;
+    if (
+      !latestM6.m9ActivationRecordId ||
+      !latestM6.m9PackId ||
+      !latestM6.m9PackVersion ||
+      !latestM6.m9ManifestHashSha256
+    ) {
       return Object.freeze({
         valid: false,
-        category: "missing_evidence",
-        reason: `Approved corpus load failed during M6 attestation validation: ${(error as Error).message}`,
-        uncertainty: "m6_corpus_load_failure",
-        affectedReferences: ["approved_m6_corpus"]
+        category: "evidence_linkage_mismatch",
+        reason: "M6 record missing required M9 activation tuple fields.",
+        uncertainty: "m6_missing_m9_tuple",
+        affectedReferences: ["m6.m9ActivationContext"]
       });
+    }
+    if (
+      !artifactM9 ||
+      artifactM9.activationRecordId !== latestM6.m9ActivationRecordId ||
+      artifactM9.packId !== latestM6.m9PackId ||
+      artifactM9.packVersion !== latestM6.m9PackVersion ||
+      artifactM9.manifestHashSha256 !== latestM6.m9ManifestHashSha256
+    ) {
+      return Object.freeze({
+        valid: false,
+        category: "evidence_linkage_mismatch",
+        reason: "M6 M9 activation tuple mismatch versus M3 deterministic artifact metadata.",
+        uncertainty: "m6_m9_tuple_mismatch",
+        affectedReferences: [
+          "m6.m9ActivationContext",
+          "m3.artifact.deterministicInquiry.m9ActivationContext"
+        ]
+      });
+    }
+    let corpusSnapshot: ReturnType<typeof loadApprovedSyntheticCorpus>;
+    if (latestM6.m9PackId && latestM6.m9PackVersion && latestM6.m9ManifestHashSha256) {
+      const pack = listApprovedPacks().find(
+        (candidate) =>
+          candidate.manifest.packId === latestM6.m9PackId &&
+          candidate.manifest.packVersion === latestM6.m9PackVersion &&
+          candidate.manifestHashSha256 === latestM6.m9ManifestHashSha256
+      );
+      if (!pack) {
+        return Object.freeze({
+          valid: false,
+          category: "missing_evidence",
+          reason: "M6 evidence references an unavailable M9 active pack tuple.",
+          uncertainty: "m6_m9_pack_unavailable",
+          affectedReferences: ["m6.m9ActivationContext", "m9.approvedPackRegistry"]
+        });
+      }
+      try {
+        corpusSnapshot = loadSyntheticCorpusFromRootForTest(
+          path.resolve(pack.packDirectory, "content")
+        );
+      } catch (error) {
+        return Object.freeze({
+          valid: false,
+          category: "missing_evidence",
+          reason: `Active M9 corpus load failed during M6 attestation validation: ${(error as Error).message}`,
+          uncertainty: "m6_corpus_load_failure",
+          affectedReferences: ["m9.approvedPack.content"]
+        });
+      }
+    } else {
+      try {
+        corpusSnapshot = loadApprovedSyntheticCorpus();
+      } catch (error) {
+        return Object.freeze({
+          valid: false,
+          category: "missing_evidence",
+          reason: `Approved corpus load failed during M6 attestation validation: ${(error as Error).message}`,
+          uncertainty: "m6_corpus_load_failure",
+          affectedReferences: ["approved_m6_corpus"]
+        });
+      }
     }
     if (corpusSnapshot.manifestHashSha256 !== latestM6.corpusManifestHashSha256) {
       return Object.freeze({
         valid: false,
         category: "evidence_linkage_mismatch",
-        reason: "Canonical manifest hash does not match the approved corpus manifest hash.",
+        reason: "Canonical manifest hash does not match the attested corpus manifest hash.",
         uncertainty: "m6_canonical_manifest_mismatch",
-        affectedReferences: ["m6.corpusManifestHashSha256", "approvedCorpus.manifestHashSha256"]
+        affectedReferences: ["m6.corpusManifestHashSha256", "attestedCorpus.manifestHashSha256"]
       });
     }
     let rendered: ReturnType<typeof renderM6Response>;

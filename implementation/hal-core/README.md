@@ -1,6 +1,6 @@
-# HAL Core (v0.1 M0-M8 Local Implemented Slice + Assurance Docs)
+# HAL Core (v0.1 M0-M9 Local Implemented Slice + Assurance Docs)
 
-This workspace contains the HAL v0.1 implemented local slice for M0-M8, plus assurance and readiness documentation.
+This workspace contains the HAL v0.1 implemented local slice for M0-M9, plus assurance and readiness documentation.
 
 ## Safety boundary (local-only)
 
@@ -43,6 +43,7 @@ Use only non-secret local values in `.env`.
 - `npm run m6:inquire` - run local M6 deterministic free-form inquiry
 - `npm run m7:session` - run local M7 terminal inquiry session (M6-governed delegation)
 - `npm run m8:desktop` - run local M8 offline desktop interface (M6-governed delegation)
+- `npm run m9:packs` - run local M9 approved-pack list/activate/status/deactivate CLI
 
 ## Source structure
 
@@ -52,7 +53,7 @@ Use only non-secret local values in `.env`.
 - `src/audit` - append-only in-memory audit records (dev/test only)
 - `src/shared` - shared immutable ID and correlation types
 - `test` - deterministic unit tests
-- `docs` - M0-M8 evidence, implementation, readiness, and assurance records
+- `docs` - M0-M9 evidence, implementation, readiness, and assurance records
 - `scripts` - manifest generation utility
 
 ## CI behavior
@@ -149,9 +150,10 @@ npm run m4:demo -- reconstruct --state-dir ./local-state/hal-m4 --correlation-id
 - `docs/M8_LOCAL_TEST_RUNBOOK.md`
 - `docs/M8_OWNER_RUN_LOCAL_VERIFICATION_RECORD.md`
 
-## Proposed / not implemented
+## M9 controlled local knowledge packs documents
 
 - `docs/M9_CONTROLLED_LOCAL_KNOWLEDGE_PACKS_DESIGN.md`
+- `docs/M9_IMPLEMENTATION_RECORD.md`
 
 ## M6 controlled local inquiry usage
 
@@ -239,3 +241,23 @@ M8 constraints:
 - No transcript/session log/answer history or parallel durable evidence is created by M8.
 - M6/M2/M3/M4/M5 remain the sole durable evidence chain.
 - All outcomes remain local-only, synthetic-only, deterministic, and `externalEffect=none`.
+
+## M9 controlled local knowledge-pack usage
+
+M9 is a local-only, synthetic-only, deterministic approved-pack lifecycle with explicit local Owner confirmation claims and governed M2 admission.
+
+```bash
+mkdir -p ./local-state/m9
+npm run m9:packs -- list --state-dir ./local-state/m9
+npm run m9:packs -- activate --state-dir ./local-state/m9 --pack-id pack_alpha --owner-confirmation local_owner_confirmed --reason-code owner_local_activation
+npm run m9:packs -- status --state-dir ./local-state/m9
+npm run m9:packs -- deactivate --state-dir ./local-state/m9 --owner-confirmation local_owner_confirmed --reason-code owner_local_deactivation
+```
+
+M9 constraints:
+
+- Fixed approved pack root only: `fixtures/approved-knowledge-packs` (no CLI/UI/env override).
+- Activation/deactivation are request-only operations and are never treated as real authentication.
+- Every activation/deactivation request is admitted through dedicated M2 governance before any state mutation.
+- M6 inquiries fail closed when no active validated pack is available.
+- Durable journals and UI state persist bounded identity/linkage fields only; no raw pack text or filesystem path persistence.

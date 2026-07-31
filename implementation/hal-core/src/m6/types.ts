@@ -108,6 +108,10 @@ export type M6EvidenceRecord = Readonly<{
   matcherVersion: typeof M6_MATCHER_VERSION;
   corpusIndexVersion: typeof M6_CORPUS_INDEX_VERSION;
   corpusManifestHashSha256: string;
+  m9PackId?: string;
+  m9PackVersion?: string;
+  m9ManifestHashSha256?: string;
+  m9ActivationRecordId?: ImmutableIdentifier;
   selectedDocumentIds: readonly string[];
   selectedSectionIds: readonly string[];
   noMatch: boolean;

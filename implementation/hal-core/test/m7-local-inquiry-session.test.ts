@@ -13,6 +13,7 @@ import {
   type M7SessionIo
 } from "../src/m7/session.js";
 import type { CorrelationId } from "../src/shared/types.js";
+import { activateApprovedM9Pack, createM9OperationRequestId } from "../src/m9/index.js";
 
 class ScriptedIo implements M7SessionIo {
   private readonly inputs: Array<string | null>;
@@ -40,6 +41,18 @@ async function createStateDirectory(): Promise<string> {
     `../local-state/m7-test-${randomBytes(6).toString("hex")}`
   );
   await mkdir(stateDirectory, { recursive: true });
+  const activated = activateApprovedM9Pack({
+    operationRequestId: createM9OperationRequestId(),
+    stateDirectory,
+    packId: "pack_alpha",
+    ownerConfirmationClaim: "local_owner_confirmed",
+    reasonCode: "owner_local_activation"
+  });
+  if (activated.result !== "succeeded") {
+    throw new Error(
+      `Failed to activate default M9 pack for M7 test state: ${activated.resultReasonCode}`
+    );
+  }
   return stateDirectory;
 }
 

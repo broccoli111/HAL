@@ -10,6 +10,7 @@ import {
   executeLocalGovernedInquiry,
   resolveAndValidateLocalInquiryStateDirectory
 } from "../src/inquiry/localInquiryService.js";
+import { activateApprovedM9Pack, createM9OperationRequestId } from "../src/m9/index.js";
 
 async function createStateDirectory(): Promise<string> {
   const stateDirectory = path.resolve(
@@ -17,6 +18,18 @@ async function createStateDirectory(): Promise<string> {
     `../local-state/local-inquiry-${Date.now()}-${Math.random().toString(16).slice(2)}`
   );
   await mkdir(stateDirectory, { recursive: true });
+  const activated = activateApprovedM9Pack({
+    operationRequestId: createM9OperationRequestId(),
+    stateDirectory,
+    packId: "pack_alpha",
+    ownerConfirmationClaim: "local_owner_confirmed",
+    reasonCode: "owner_local_activation"
+  });
+  if (activated.result !== "succeeded") {
+    throw new Error(
+      `Failed to activate M9 pack for local inquiry tests: ${activated.resultReasonCode}`
+    );
+  }
   return stateDirectory;
 }
 

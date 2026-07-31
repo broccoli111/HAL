@@ -1,10 +1,12 @@
-import type { M8QuestionSubmission, M8ReplaySubmission } from "./types.js";
+import type { M8PackActivationRequest, M8QuestionSubmission, M8ReplaySubmission } from "./types.js";
 import type { M8StateDirectoryStatus } from "./types.js";
 
 export const M8_IPC_CHANNELS = Object.freeze({
   getBoundary: "m8:get-boundary",
   pickStateDirectory: "m8:pick-state-directory",
   getStateDirectoryStatus: "m8:get-state-directory-status",
+  getPackStatus: "m8:get-pack-status",
+  requestPackActivation: "m8:request-pack-activation",
   submitQuestion: "m8:submit-question",
   submitReplay: "m8:submit-replay"
 });
@@ -32,6 +34,45 @@ export function parseM8ReplaySubmission(payload: unknown): M8ReplaySubmission | 
   return Object.freeze({
     requestId,
     questionText
+  });
+}
+
+export function parseM8PackActivationRequest(
+  payload: unknown
+): M8PackActivationRequest | undefined {
+  if (!isObject(payload)) {
+    return undefined;
+  }
+  const requestId = payload.requestId;
+  const ownerDisposition = payload.ownerDisposition;
+  const rawPackId = payload.packId;
+  const ownerConfirmation = payload.ownerConfirmation;
+  const reasonCode = payload.reasonCode;
+  if (
+    typeof requestId !== "string" ||
+    (ownerDisposition !== "activate" && ownerDisposition !== "deactivate") ||
+    ownerConfirmation !== "local_owner_confirmed" ||
+    (reasonCode !== "owner_local_activation" && reasonCode !== "owner_local_deactivation")
+  ) {
+    return undefined;
+  }
+  if (ownerDisposition === "activate" && (!rawPackId || typeof rawPackId !== "string")) {
+    return undefined;
+  }
+  if (
+    ownerDisposition === "deactivate" &&
+    rawPackId !== undefined &&
+    typeof rawPackId !== "string"
+  ) {
+    return undefined;
+  }
+  const packId = typeof rawPackId === "string" ? rawPackId : undefined;
+  return Object.freeze({
+    requestId,
+    ownerDisposition,
+    ...(packId ? { packId } : {}),
+    ownerConfirmation,
+    reasonCode
   });
 }
 

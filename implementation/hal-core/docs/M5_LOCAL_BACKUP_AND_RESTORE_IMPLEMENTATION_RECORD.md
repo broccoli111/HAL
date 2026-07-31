@@ -42,7 +42,7 @@ Per-file entries include required fields:
 - `relativePath`
 - `byteSize`
 - `sha256`
-- `logicalContentClass` (`m2_journal`, `m3_journal`, `m4_journal`, `m3_artifact`)
+- `logicalContentClass` (`m2_journal`, `m3_journal`, `m4_journal`, `m6_journal`, `m9_journal`, `m3_artifact`)
 
 Manifest integrity hash is computed over canonical UTF-8 JSON excluding `manifestIntegrityHash`.
 
@@ -73,6 +73,8 @@ No successful operation is returned without durable append.
   - `m2-event-journal.jsonl`
   - `m3-event-journal.jsonl`
   - `m4-event-journal.jsonl`
+  - optional `m6-event-journal.jsonl`
+  - optional `m9/m9-pack-activation-journal.jsonl`
   - regular files directly under `m3-artifacts/`
 - Rejects:
   - symlinks

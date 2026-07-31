@@ -14,12 +14,15 @@ import { resolveAndValidateLocalInquiryStateDirectory } from "../inquiry/localIn
 import {
   buildDeniedStateDirectoryStatus,
   M8_IPC_CHANNELS,
+  parseM8PackActivationRequest,
   parseM8QuestionSubmission,
   parseM8ReplaySubmission,
   validateM8IpcSender
 } from "./ipcContracts.js";
 import { buildBlockedPanel, createM8InquiryExecutor } from "./presentationService.js";
 import type { M8BoundaryMode, M8StateDirectoryStatus } from "./types.js";
+import { getM9ActivePackState, listApprovedM9PackRegistrations } from "../m9/index.js";
+import { applyM8PackActivationRequest } from "./packActivationService.js";
 import {
   M8_APP_PROTOCOL,
   M8_APP_HOST,
@@ -183,6 +186,88 @@ export function registerM8IpcHandlers(input: {
       return buildDeniedStateDirectoryStatus();
     }
     return buildStateDirectoryStatus(input.inMemoryState);
+  });
+
+  ipcMain.handle(M8_IPC_CHANNELS.getPackStatus, (event) => {
+    const senderError = requireTrustedSender(event);
+    if (senderError) {
+      return Object.freeze({
+        approvedPacks: Object.freeze([]),
+        externalEffect: "none"
+      });
+    }
+    if (!input.inMemoryState.selectedStateDirectory) {
+      return Object.freeze({
+        approvedPacks: listApprovedM9PackRegistrations().map((entry) =>
+          Object.freeze({
+            packId: entry.packId,
+            packVersion: entry.packVersion,
+            manifestHashSha256: entry.manifestHashSha256
+          })
+        ),
+        externalEffect: "none"
+      });
+    }
+    const activePack = getM9ActivePackState(input.inMemoryState.selectedStateDirectory);
+    return Object.freeze({
+      approvedPacks: listApprovedM9PackRegistrations().map((entry) =>
+        Object.freeze({
+          packId: entry.packId,
+          packVersion: entry.packVersion,
+          manifestHashSha256: entry.manifestHashSha256
+        })
+      ),
+      ...(activePack ? { activePack } : {}),
+      externalEffect: "none"
+    });
+  });
+
+  ipcMain.handle(M8_IPC_CHANNELS.requestPackActivation, (event, payload: unknown) => {
+    const senderError = requireTrustedSender(event);
+    if (senderError) {
+      return Object.freeze({
+        requestId: "unavailable",
+        correlationId: "unavailable",
+        result: "blocked",
+        resultReasonCode: "ipc_validation_failed",
+        replayed: false,
+        conflict: false,
+        externalEffect: "none"
+      });
+    }
+    if (!input.inMemoryState.selectedStateDirectory) {
+      return Object.freeze({
+        requestId: "unavailable",
+        correlationId: "unavailable",
+        result: "blocked",
+        resultReasonCode: "state_directory_not_selected",
+        replayed: false,
+        conflict: false,
+        externalEffect: "none"
+      });
+    }
+    const parsed = parseM8PackActivationRequest(payload);
+    if (!parsed) {
+      return Object.freeze({
+        requestId: "unavailable",
+        correlationId: "unavailable",
+        result: "blocked",
+        resultReasonCode: "malformed_payload",
+        replayed: false,
+        conflict: false,
+        externalEffect: "none"
+      });
+    }
+    if (parsed.ownerDisposition === "activate") {
+      return applyM8PackActivationRequest({
+        parsedRequest: parsed,
+        stateDirectory: input.inMemoryState.selectedStateDirectory
+      });
+    }
+    return applyM8PackActivationRequest({
+      parsedRequest: parsed,
+      stateDirectory: input.inMemoryState.selectedStateDirectory
+    });
   });
 
   ipcMain.handle(M8_IPC_CHANNELS.pickStateDirectory, async (event) => {

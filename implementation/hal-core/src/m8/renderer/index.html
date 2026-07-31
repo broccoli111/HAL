@@ -28,6 +28,17 @@
         </button>
       </section>
 
+      <section aria-labelledby="pack-heading">
+        <h2 id="pack-heading">M9 packs (request-only)</h2>
+        <p id="pack-active-status">active pack: none</p>
+        <ul id="pack-list" aria-label="Approved packs"></ul>
+        <label for="pack-select-input">Pack ID for activation</label>
+        <input id="pack-select-input" type="text" autocomplete="off" />
+        <button id="pack-activate" type="button">Request activate</button>
+        <button id="pack-deactivate" type="button">Request deactivate</button>
+        <p id="pack-action-result" role="status" aria-live="polite"></p>
+      </section>
+
       <section aria-labelledby="question-heading">
         <h2 id="question-heading">Submit inquiry</h2>
         <label for="question-input">Question (single inquiry)</label>

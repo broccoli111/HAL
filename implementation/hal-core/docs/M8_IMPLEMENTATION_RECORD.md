@@ -21,11 +21,11 @@ Added modules:
 - `src/m8/preload.ts`
   - narrow allowlisted typed bridge (`halM8`) only.
 - `src/m8/renderer.ts`
-  - local UI behavior for state-directory selection, submit, deliberate replay, and read-only result panel updates.
+  - local UI behavior for state-directory selection, submit, deliberate replay, read-only result panel updates, approved-pack status display, and request-only pack activation/deactivation actions.
 - `src/m8/presentationService.ts`
   - UI-facing result mapping preserving governed fields and deterministic blocked/fail-closed rendering.
 - `src/m8/ipcContracts.ts`
-  - channel allowlist plus sender and payload validation helpers.
+  - channel allowlist plus sender and payload validation helpers, including typed M9 pack request payload validation.
 - `src/m8/securityPolicy.ts`
   - protocol constants, asset allowlist, strict navigation controls, and hardened web preference policy.
 - `src/m8/index.ts`
@@ -78,6 +78,10 @@ M7 was refactored to use the shared local inquiry service so M7 and M8 now share
 - deliberate replay flow requiring explicit request ID and question;
 - read-only evidence panel constrained to governed fields:
   - request ID, correlation ID, result, disposition, replay status, attestation status/effect, input classification, bounded response;
+- read-only M9 panel constrained to bounded fields:
+  - approved pack IDs/versions/hashes;
+  - current active tuple status;
+  - request-only activation/deactivation actions through typed IPC (no direct state mutation);
 - no conversation memory, no answer history, no hidden context;
 - integrity fail-closed rendering (`integrity_unavailable`) when trust reconstruction is unavailable.
 
@@ -108,7 +112,7 @@ M7 was refactored to use the shared local inquiry service so M7 and M8 now share
 - `test/local-inquiry-service.test.ts`
   - state-dir validation safety, request-ID generation behavior, replay conflict behavior, integrity fail-closed.
 - `test/m8-ipc-contracts.test.ts`
-  - IPC payload allowlist and sender/frame/origin validation.
+  - IPC payload allowlist and sender/frame/origin validation, including M9 pack request payload constraints.
 - `test/m8-security-policy.test.ts`
   - hardened renderer policy values, strict navigation rules, and protocol asset allowlisting.
 - `test/m8-preload-renderer-boundary.test.ts`

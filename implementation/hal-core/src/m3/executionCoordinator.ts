@@ -642,6 +642,12 @@ export class ExecutionCoordinator {
           selectedSectionIds: string[];
           noMatch: boolean;
           answerHashSha256: string;
+          m9ActivationContext?: {
+            activationRecordId: string;
+            packId: string;
+            packVersion: string;
+            manifestHashSha256: string;
+          };
         };
         summary: {
           totalItems: number;
@@ -678,7 +684,19 @@ export class ExecutionCoordinator {
                 selectedDocumentIds: Object.freeze(parsed.deterministicInquiry.selectedDocumentIds),
                 selectedSectionIds: Object.freeze(parsed.deterministicInquiry.selectedSectionIds),
                 noMatch: parsed.deterministicInquiry.noMatch,
-                answerHashSha256: parsed.deterministicInquiry.answerHashSha256
+                answerHashSha256: parsed.deterministicInquiry.answerHashSha256,
+                ...(parsed.deterministicInquiry.m9ActivationContext
+                  ? {
+                      m9ActivationContext: Object.freeze({
+                        activationRecordId:
+                          parsed.deterministicInquiry.m9ActivationContext.activationRecordId,
+                        packId: parsed.deterministicInquiry.m9ActivationContext.packId,
+                        packVersion: parsed.deterministicInquiry.m9ActivationContext.packVersion,
+                        manifestHashSha256:
+                          parsed.deterministicInquiry.m9ActivationContext.manifestHashSha256
+                      })
+                    }
+                  : {})
               })
             }
           : {}),

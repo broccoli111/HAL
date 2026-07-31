@@ -1,0 +1,43 @@
+{
+  "contentRoot": "content",
+  "documents": [
+    {
+      "documentId": "alpha.doc.intro",
+      "sectionIds": ["paragraph:0", "paragraph:1"]
+    },
+    {
+      "documentId": "alpha.doc.process",
+      "sectionIds": ["paragraph:0", "paragraph:1"]
+    }
+  ],
+  "files": [
+    {
+      "byteSize": 224,
+      "contentClass": "pack_content_json",
+      "relativePath": "content/intro.json",
+      "sha256": "0290e92b9892af94dafe4fc025e60e3379acab80dbbbde48ce7ee59b6b2bccc2"
+    },
+    {
+      "byteSize": 242,
+      "contentClass": "pack_content_json",
+      "relativePath": "content/process.json",
+      "sha256": "c5ac32af2610fb63169a3a7c86a158aa25d7a30396a713e07d8edb5439fa5401"
+    }
+  ],
+  "integrity": {
+    "manifestHashAlgorithm": "sha256",
+    "manifestHashSha256": "7779a1b98cc604a3b2412b3e57b05d29bb868d9eb7f6e81484bdc845ffda3c10"
+  },
+  "m6Compatibility": {
+    "corpusIndexVersion": "m6.corpus-index.v1",
+    "documentShape": "m6.synthetic-document.v1",
+    "matcherVersion": "m6.matcher.v1",
+    "tokenizerVersion": "m6.tokenizer.v1"
+  },
+  "packClassification": "synthetic_approved_local_only",
+  "packId": "pack_alpha",
+  "packName": "Pack Alpha",
+  "packVersion": "1.0.0",
+  "provenanceClassification": "synthetic_non_sensitive",
+  "schemaVersion": "hal.m9.knowledge-pack.manifest.v1"
+}

@@ -2,6 +2,7 @@ import { describe, expect, test } from "vitest";
 
 import {
   buildDeniedStateDirectoryStatus,
+  parseM8PackActivationRequest,
   parseM8QuestionSubmission,
   parseM8ReplaySubmission,
   validateM8IpcSender
@@ -28,6 +29,45 @@ describe("M8 IPC contracts", () => {
     });
     expect(parseM8ReplaySubmission({ requestId: "x" })).toBeUndefined();
     expect(parseM8ReplaySubmission({ requestId: 1, questionText: "x" })).toBeUndefined();
+  });
+
+  test("parses request-only M9 activation payload", () => {
+    expect(
+      parseM8PackActivationRequest({
+        requestId: "req-1",
+        ownerDisposition: "activate",
+        packId: "pack_alpha",
+        ownerConfirmation: "local_owner_confirmed",
+        reasonCode: "owner_local_activation"
+      })
+    ).toEqual({
+      requestId: "req-1",
+      ownerDisposition: "activate",
+      packId: "pack_alpha",
+      ownerConfirmation: "local_owner_confirmed",
+      reasonCode: "owner_local_activation"
+    });
+    expect(
+      parseM8PackActivationRequest({
+        requestId: "req-2",
+        ownerDisposition: "deactivate",
+        ownerConfirmation: "local_owner_confirmed",
+        reasonCode: "owner_local_deactivation"
+      })
+    ).toEqual({
+      requestId: "req-2",
+      ownerDisposition: "deactivate",
+      ownerConfirmation: "local_owner_confirmed",
+      reasonCode: "owner_local_deactivation"
+    });
+    expect(
+      parseM8PackActivationRequest({
+        requestId: "req-3",
+        ownerDisposition: "activate",
+        ownerConfirmation: "not_owner",
+        reasonCode: "owner_local_activation"
+      })
+    ).toBeUndefined();
   });
 
   test("enforces sender identity, frame, and origin", () => {

@@ -203,6 +203,12 @@ export type ProviderSummaryResult = Readonly<{
     selectedSectionIds: readonly string[];
     noMatch: boolean;
     answerHashSha256: string;
+    m9ActivationContext?: Readonly<{
+      activationRecordId: string;
+      packId: string;
+      packVersion: string;
+      manifestHashSha256: string;
+    }>;
   }>;
   summary: Readonly<{
     totalItems: number;

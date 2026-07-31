@@ -17,6 +17,12 @@ type M6ProviderInput = Readonly<{
     decisionId: string;
     transactionId: string;
   }>;
+  m9ActivationContext?: Readonly<{
+    activationRecordId: string;
+    packId: string;
+    packVersion: string;
+    manifestHashSha256: string;
+  }>;
 }>;
 
 function isM6ProviderInput(value: unknown): value is M6ProviderInput {
@@ -24,6 +30,13 @@ function isM6ProviderInput(value: unknown): value is M6ProviderInput {
     return false;
   }
   const candidate = value as Partial<M6ProviderInput>;
+  const m9ActivationContext = candidate.m9ActivationContext;
+  const m9Valid =
+    !m9ActivationContext ||
+    (typeof m9ActivationContext.activationRecordId === "string" &&
+      typeof m9ActivationContext.packId === "string" &&
+      typeof m9ActivationContext.packVersion === "string" &&
+      typeof m9ActivationContext.manifestHashSha256 === "string");
   return (
     typeof candidate.questionNormalizedHashSha256 === "string" &&
     candidate.questionNormalizedHashSha256.trim().length > 0 &&
@@ -34,7 +47,8 @@ function isM6ProviderInput(value: unknown): value is M6ProviderInput {
     typeof candidate.m2LinkageIdentity.intentId === "string" &&
     typeof candidate.m2LinkageIdentity.planId === "string" &&
     typeof candidate.m2LinkageIdentity.decisionId === "string" &&
-    typeof candidate.m2LinkageIdentity.transactionId === "string"
+    typeof candidate.m2LinkageIdentity.transactionId === "string" &&
+    m9Valid
   );
 }
 
@@ -76,7 +90,17 @@ export class LocalDeterministicInquiryProvider {
         selectedDocumentIds: match.selectedDocumentIds,
         selectedSectionIds: match.selectedSectionIds,
         noMatch: match.noMatch,
-        answerHashSha256: sha256(rendered.responseText)
+        answerHashSha256: sha256(rendered.responseText),
+        ...(input.providerInput.m9ActivationContext
+          ? {
+              m9ActivationContext: {
+                activationRecordId: input.providerInput.m9ActivationContext.activationRecordId,
+                packId: input.providerInput.m9ActivationContext.packId,
+                packVersion: input.providerInput.m9ActivationContext.packVersion,
+                manifestHashSha256: input.providerInput.m9ActivationContext.manifestHashSha256
+              }
+            }
+          : {})
       }),
       summary: Object.freeze({
         totalItems: match.selectedSectionIds.length,

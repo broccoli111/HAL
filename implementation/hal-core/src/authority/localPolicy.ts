@@ -4,6 +4,8 @@ import type { SafeMode } from "../kernel/safeMode.js";
 
 const ALLOWED_ACTION = "inspect_synthetic_corpus_summary";
 const M6_ALLOWED_ACTION = "answer_synthetic_corpus_question_deterministic_v1";
+const M9_ACTIVATE_ALLOWED_ACTION = "m9_owner_pack_activation_request";
+const M9_DEACTIVATE_ALLOWED_ACTION = "m9_owner_pack_deactivation_request";
 const APPROVAL_REQUIRED_ACTION = "prepare_synthetic_brief_draft";
 
 export function evaluateLocalPolicy(request: LocalRequest, safeMode: SafeMode): AuthorityDecision {
@@ -16,7 +18,12 @@ export function evaluateLocalPolicy(request: LocalRequest, safeMode: SafeMode): 
     );
   }
 
-  if (action === ALLOWED_ACTION || action === M6_ALLOWED_ACTION) {
+  if (
+    action === ALLOWED_ACTION ||
+    action === M6_ALLOWED_ACTION ||
+    action === M9_ACTIVATE_ALLOWED_ACTION ||
+    action === M9_DEACTIVATE_ALLOWED_ACTION
+  ) {
     return createAuthorityDecision(
       "allow",
       "Admitted synthetic inspection action in local-only mode.",
@@ -50,5 +57,7 @@ export function evaluateLocalPolicy(request: LocalRequest, safeMode: SafeMode): 
 export const LOCAL_POLICY_ACTIONS = Object.freeze({
   ALLOWED_ACTION,
   M6_ALLOWED_ACTION,
+  M9_ACTIVATE_ALLOWED_ACTION,
+  M9_DEACTIVATE_ALLOWED_ACTION,
   APPROVAL_REQUIRED_ACTION
 });

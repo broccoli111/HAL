@@ -4,7 +4,6 @@ import path from "node:path";
 import { ArtifactService } from "../m3/artifactService.js";
 import { CapabilityRegistry } from "../m3/capabilityRegistry.js";
 import { ExecutionCoordinator } from "../m3/executionCoordinator.js";
-import { APPROVED_CORPUS_REFERENCE } from "../m3/fixtureCorpus.js";
 import { M3TraceService } from "../m3/traceService.js";
 import type { ProviderSummaryResult } from "../m3/types.js";
 import { M6_M3_CAPABILITY_ID, M6_M3_PROVIDER_ID } from "../m3/types.js";
@@ -19,7 +18,7 @@ import type { FinalOutcomeStatus, OutcomeAttestationRecord } from "../m4/types.j
 import { M4TraceService } from "../m4/traceService.js";
 import { createImmutableIdentifier } from "../shared/id.js";
 import type { CorrelationId, ImmutableIdentifier } from "../shared/types.js";
-import { loadApprovedSyntheticCorpus, resolveApprovedM6CorpusRoot } from "./corpus.js";
+import { loadApprovedSyntheticCorpus, loadSyntheticCorpusFromRootForTest } from "./corpus.js";
 import { LocalDeterministicInquiryProvider } from "./deterministicInquiryProvider.js";
 import { M6EvidenceJournal, computeM6IntegrityHash } from "./evidenceJournal.js";
 import { assessQuestionText } from "./inputPolicy.js";
@@ -36,6 +35,8 @@ import {
   type M6SelectedDocument,
   type M6SelectedSection
 } from "./types.js";
+import { resolveM9PackForActiveInquiry } from "../m9/service.js";
+import { listApprovedPacks } from "../m9/validator.js";
 
 function sha256(value: string): string {
   return createHash("sha256").update(value).digest("hex");
@@ -86,11 +87,24 @@ export function runM6Inquiry(input: {
   if (existingEvidence) {
     const recordsForRequestId = getEvidenceByRequestId(m6Journal, requestId);
     const existingLinkage = extractM2Linkage(existingEvidence);
+    const existingM9ActivationContext =
+      existingEvidence.m9ActivationRecordId &&
+      existingEvidence.m9PackId &&
+      existingEvidence.m9PackVersion &&
+      existingEvidence.m9ManifestHashSha256
+        ? Object.freeze({
+            activationRecordId: existingEvidence.m9ActivationRecordId,
+            packId: existingEvidence.m9PackId,
+            packVersion: existingEvidence.m9PackVersion,
+            manifestHashSha256: existingEvidence.m9ManifestHashSha256
+          })
+        : undefined;
     const replayFingerprint = computeRequestFingerprint({
       requestId,
       requestedAdmissionMode,
       questionNormalizedHashSha256: assessment.questionNormalizedHashSha256,
-      m2Linkage: existingLinkage
+      m2Linkage: existingLinkage,
+      ...(existingM9ActivationContext ? { m9ActivationContext: existingM9ActivationContext } : {})
     });
     if (replayFingerprint !== existingEvidence.requestFingerprintSha256) {
       const conflictM2 = runM2ForM6Inquiry({
@@ -137,13 +151,15 @@ export function runM6Inquiry(input: {
   }
 
   const deniedByInput = assessment.disposition === "denied";
+  const activePack = !deniedByInput ? resolveActivePackForNewInquiry(stateDirectory) : undefined;
   const resolvedAdmission = deniedByInput ? "deny" : requestedAdmissionMode;
   const m2 = runM2ForM6Inquiry({ stateDirectory, admissionMode: resolvedAdmission });
   const requestFingerprintSha256 = computeRequestFingerprint({
     requestId,
     requestedAdmissionMode,
     questionNormalizedHashSha256: assessment.questionNormalizedHashSha256,
-    m2Linkage: m2
+    m2Linkage: m2,
+    ...(activePack ? { m9ActivationContext: activePack } : {})
   });
   if (deniedByInput) {
     const deniedResult = appendEvidenceRecord({
@@ -171,6 +187,32 @@ export function runM6Inquiry(input: {
       replayed: false
     });
   }
+  if (!activePack) {
+    const blockedResult = appendEvidenceRecord({
+      journal: m6Journal,
+      requestId,
+      requestFingerprintSha256,
+      requestedAdmissionMode,
+      m2Linkage: m2,
+      correlationId: m2.correlationId,
+      assessment,
+      inputClassification,
+      disposition: "blocked",
+      result: "blocked",
+      renderedResponse: "result=blocked\nexternalEffect=none\nreason=no_active_pack",
+      corpusManifestHashSha256: sha256("m9-no-active-pack"),
+      selectedDocumentIds: Object.freeze([]),
+      selectedSectionIds: Object.freeze([]),
+      noMatch: false
+    });
+    const attested = attest(stateDirectory, m2.correlationId, requestId);
+    return Object.freeze({
+      ...blockedResult,
+      attestationStatus: normalizeAttestationStatus(attested.attestation.finalOutcomeStatus),
+      attestationClaimedEffect: attested.attestation.claimedEffect,
+      replayed: false
+    });
+  }
   if (m2.decisionDisposition !== "allow") {
     const blockedResult = appendEvidenceRecord({
       journal: m6Journal,
@@ -187,7 +229,11 @@ export function runM6Inquiry(input: {
       corpusManifestHashSha256: sha256("m6-no-corpus"),
       selectedDocumentIds: Object.freeze([]),
       selectedSectionIds: Object.freeze([]),
-      noMatch: false
+      noMatch: false,
+      m9PackId: activePack.packId,
+      m9PackVersion: activePack.packVersion,
+      m9ManifestHashSha256: activePack.manifestHashSha256,
+      m9ActivationRecordId: activePack.activationRecordId
     });
     const attested = attest(stateDirectory, m2.correlationId, requestId);
     return Object.freeze({
@@ -199,7 +245,8 @@ export function runM6Inquiry(input: {
   }
   const executed = runM6ThroughM3({
     stateDirectory,
-    corpusRoot: resolveApprovedM6CorpusRoot(),
+    corpusRoot: activePack.contentRoot,
+    m9ActivationContext: activePack,
     assessment,
     requestedAdmissionMode,
     requestId,
@@ -218,6 +265,10 @@ export function runM6Inquiry(input: {
     result: executed.result,
     renderedResponse: executed.renderedResponse,
     corpusManifestHashSha256: executed.corpusManifestHashSha256,
+    m9PackId: activePack.packId,
+    m9PackVersion: activePack.packVersion,
+    m9ManifestHashSha256: activePack.manifestHashSha256,
+    m9ActivationRecordId: activePack.activationRecordId,
     selectedDocumentIds: executed.selectedDocumentIds,
     selectedSectionIds: executed.selectedSectionIds,
     noMatch: executed.result === "no_match"
@@ -271,6 +322,12 @@ export function reconstructM6Trace(
 function runM6ThroughM3(input: {
   stateDirectory: string;
   corpusRoot: string;
+  m9ActivationContext: Readonly<{
+    activationRecordId: ImmutableIdentifier;
+    packId: string;
+    packVersion: string;
+    manifestHashSha256: string;
+  }>;
   assessment: ReturnType<typeof assessQuestionText>;
   requestedAdmissionMode: M6AdmissionMode;
   requestId: ImmutableIdentifier;
@@ -304,7 +361,7 @@ function runM6ThroughM3(input: {
     transactionId: input.m2.transactionId,
     intentId: input.m2.intentId,
     planId: input.m2.planId,
-    corpusReference: APPROVED_CORPUS_REFERENCE,
+    corpusReference: `m9:${input.m9ActivationContext.packId}@${input.m9ActivationContext.packVersion}:${input.m9ActivationContext.manifestHashSha256}`,
     itemLimit: 20,
     deadlineMs: 5_000,
     providerInput: {
@@ -316,6 +373,12 @@ function runM6ThroughM3(input: {
         planId: input.m2.planId,
         decisionId: input.m2.decisionId,
         transactionId: input.m2.transactionId
+      },
+      m9ActivationContext: {
+        activationRecordId: input.m9ActivationContext.activationRecordId,
+        packId: input.m9ActivationContext.packId,
+        packVersion: input.m9ActivationContext.packVersion,
+        manifestHashSha256: input.m9ActivationContext.manifestHashSha256
       }
     }
   });
@@ -334,7 +397,7 @@ function runM6ThroughM3(input: {
   if (deterministic.selectedSectionIds.length !== outcome.providerResult.itemCount) {
     throw new Error("M6 deterministic inquiry item count mismatch.");
   }
-  const corpusSnapshot = loadApprovedSyntheticCorpus();
+  const corpusSnapshot = loadSyntheticCorpusFromRootForTest(input.corpusRoot);
   if (corpusSnapshot.manifestHashSha256 !== deterministic.fixtureManifestHash) {
     throw new Error("M6 canonical manifest hash mismatch against approved corpus.");
   }
@@ -408,6 +471,10 @@ function appendEvidenceRecord(input: {
   assessment: ReturnType<typeof assessQuestionText>;
   inputClassification: string;
   corpusManifestHashSha256: string;
+  m9PackId?: string;
+  m9PackVersion?: string;
+  m9ManifestHashSha256?: string;
+  m9ActivationRecordId?: ImmutableIdentifier;
   selectedDocumentIds: readonly string[];
   selectedSectionIds: readonly string[];
   noMatch: boolean;
@@ -433,6 +500,10 @@ function appendEvidenceRecord(input: {
     matcherVersion: M6_MATCHER_VERSION,
     corpusIndexVersion: M6_CORPUS_INDEX_VERSION,
     corpusManifestHashSha256: input.corpusManifestHashSha256,
+    ...(input.m9PackId ? { m9PackId: input.m9PackId } : {}),
+    ...(input.m9PackVersion ? { m9PackVersion: input.m9PackVersion } : {}),
+    ...(input.m9ManifestHashSha256 ? { m9ManifestHashSha256: input.m9ManifestHashSha256 } : {}),
+    ...(input.m9ActivationRecordId ? { m9ActivationRecordId: input.m9ActivationRecordId } : {}),
     selectedDocumentIds: input.selectedDocumentIds,
     selectedSectionIds: input.selectedSectionIds,
     noMatch: input.noMatch,
@@ -473,6 +544,12 @@ function computeRequestFingerprint(input: {
   requestedAdmissionMode: M6AdmissionMode;
   questionNormalizedHashSha256: string;
   m2Linkage: Pick<M6M2Context, "intentId" | "planId" | "decisionId" | "transactionId">;
+  m9ActivationContext?: Readonly<{
+    activationRecordId: ImmutableIdentifier;
+    packId: string;
+    packVersion: string;
+    manifestHashSha256: string;
+  }>;
 }): string {
   return sha256(
     JSON.stringify({
@@ -484,7 +561,17 @@ function computeRequestFingerprint(input: {
         planId: input.m2Linkage.planId,
         decisionId: input.m2Linkage.decisionId,
         transactionId: input.m2Linkage.transactionId
-      }
+      },
+      ...(input.m9ActivationContext
+        ? {
+            m9ActivationContext: {
+              activationRecordId: input.m9ActivationContext.activationRecordId,
+              packId: input.m9ActivationContext.packId,
+              packVersion: input.m9ActivationContext.packVersion,
+              manifestHashSha256: input.m9ActivationContext.manifestHashSha256
+            }
+          }
+        : {})
     })
   );
 }
@@ -582,7 +669,7 @@ function renderResponseFromEvidence(
   recordsForRequestId: readonly M6EvidenceRecord[]
 ): string {
   if (result === "matched" || result === "no_match") {
-    const corpus = loadApprovedSyntheticCorpus();
+    const corpus = resolveCorpusForEvidenceReplay(evidence);
     const match = hydrateMatchOutcomeFromDeterministic(corpus, {
       selectedDocumentIds: evidence.selectedDocumentIds,
       selectedSectionIds: evidence.selectedSectionIds,
@@ -604,6 +691,46 @@ function renderResponseFromEvidence(
   }
   const disposition = resolveDecisionDisposition(stateDirectory, evidence);
   return `result=blocked\nexternalEffect=none\nreason=m2_${disposition}`;
+}
+
+function resolveActivePackForNewInquiry(stateDirectory: string):
+  | Readonly<{
+      activationRecordId: ImmutableIdentifier;
+      packId: string;
+      packVersion: string;
+      manifestHashSha256: string;
+      contentRoot: string;
+    }>
+  | undefined {
+  try {
+    return resolveM9PackForActiveInquiry(stateDirectory);
+  } catch {
+    return undefined;
+  }
+}
+
+function resolveCorpusForEvidenceReplay(
+  evidence: M6EvidenceRecord
+): ReturnType<typeof loadApprovedSyntheticCorpus> {
+  if (evidence.m9PackId && evidence.m9PackVersion && evidence.m9ManifestHashSha256) {
+    const matched = listApprovedPacks().find(
+      (pack) =>
+        pack.manifest.packId === evidence.m9PackId &&
+        pack.manifest.packVersion === evidence.m9PackVersion &&
+        pack.manifestHashSha256 === evidence.m9ManifestHashSha256
+    );
+    if (!matched) {
+      throw new Error("replay blocked: M9 pack tuple unavailable");
+    }
+    const corpus = loadSyntheticCorpusFromRootForTest(
+      path.resolve(matched.packDirectory, "content")
+    );
+    if (corpus.manifestHashSha256 !== evidence.corpusManifestHashSha256) {
+      throw new Error("replay blocked: M9 manifest hash mismatch");
+    }
+    return corpus;
+  }
+  return loadApprovedSyntheticCorpus();
 }
 
 function getLatestAttestationForCorrelation(

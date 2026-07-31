@@ -20,9 +20,23 @@ import { assessQuestionText } from "../src/m6/inputPolicy.js";
 import type { M6EvidenceRecord } from "../src/m6/types.js";
 import { createImmutableIdentifier } from "../src/shared/id.js";
 import type { CorrelationId } from "../src/shared/types.js";
+import { activateApprovedM9Pack, createM9OperationRequestId } from "../src/m9/index.js";
 
 async function createStateDirectory(): Promise<string> {
-  return mkdtemp(path.join(os.tmpdir(), "hal-m6-"));
+  const stateDirectory = await mkdtemp(path.join(os.tmpdir(), "hal-m6-"));
+  const activated = activateApprovedM9Pack({
+    operationRequestId: createM9OperationRequestId(),
+    stateDirectory,
+    packId: "pack_alpha",
+    ownerConfirmationClaim: "local_owner_confirmed",
+    reasonCode: "owner_local_activation"
+  });
+  if (activated.result !== "succeeded") {
+    throw new Error(
+      `Failed to activate default M9 pack for test state: ${activated.resultReasonCode}`
+    );
+  }
+  return stateDirectory;
 }
 
 function appendLegacyDuplicateForRequest(input: {

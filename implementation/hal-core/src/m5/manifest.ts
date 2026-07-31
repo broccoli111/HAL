@@ -158,6 +158,7 @@ export function validateManifest(value: unknown, contextLabel = "manifest"): M5L
       typed.logicalContentClass !== "m3_journal" &&
       typed.logicalContentClass !== "m4_journal" &&
       typed.logicalContentClass !== "m6_journal" &&
+      typed.logicalContentClass !== "m9_journal" &&
       typed.logicalContentClass !== "m3_artifact"
     ) {
       throw new Error(`${contextLabel} files[${index}] has invalid logicalContentClass.`);

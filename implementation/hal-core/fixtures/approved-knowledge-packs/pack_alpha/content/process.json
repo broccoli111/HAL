@@ -1,0 +1,9 @@
+{
+  "id": "alpha.doc.process",
+  "title": "alpha synthetic process",
+  "tags": ["alpha", "process"],
+  "paragraphs": [
+    "operators confirm activation before inquiries.",
+    "deactivation clears active pack state deterministically."
+  ]
+}

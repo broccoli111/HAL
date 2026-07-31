@@ -7,7 +7,7 @@ export const M5_OPERATION_OWNER = "LocalBackupRestoreCoordinator";
 export type M5ManifestSchemaVersion = typeof M5_MANIFEST_SCHEMA_VERSION;
 
 export type LogicalContentClass =
-  "m2_journal" | "m3_journal" | "m4_journal" | "m6_journal" | "m3_artifact";
+  "m2_journal" | "m3_journal" | "m4_journal" | "m6_journal" | "m9_journal" | "m3_artifact";
 
 export type M5ManifestFileEntry = Readonly<{
   relativePath: string;
