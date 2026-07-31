@@ -52,7 +52,7 @@ Use only non-secret local values in `.env`.
 - `src/audit` - append-only in-memory audit records (dev/test only)
 - `src/shared` - shared immutable ID and correlation types
 - `test` - deterministic unit tests
-- `docs` - M0-M6 evidence, implementation, readiness, and assurance records
+- `docs` - M0-M8 evidence, implementation, readiness, and assurance records
 - `scripts` - manifest generation utility
 
 ## CI behavior
@@ -144,8 +144,10 @@ npm run m4:demo -- reconstruct --state-dir ./local-state/hal-m4 --correlation-id
 - `docs/M6_OWNER_RUN_LOCAL_VERIFICATION_RECORD.md`
 - `docs/M7_LOCAL_INQUIRY_SESSION_DESIGN.md` (Design basis)
 - `docs/M7_IMPLEMENTATION_RECORD.md`
-- `docs/M8_OFFLINE_DESKTOP_INTERFACE_DESIGN.md` (**Proposed / not implemented**)
+- `docs/M8_OFFLINE_DESKTOP_INTERFACE_DESIGN.md` (Design basis)
 - `docs/M8_IMPLEMENTATION_RECORD.md`
+- `docs/M8_LOCAL_TEST_RUNBOOK.md`
+- `docs/M8_OWNER_RUN_LOCAL_VERIFICATION_RECORD.md`
 
 ## M6 controlled local inquiry usage
 
