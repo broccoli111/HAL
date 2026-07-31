@@ -143,6 +143,7 @@ npm run m4:demo -- reconstruct --state-dir ./local-state/hal-m4 --correlation-id
 - `docs/M6_OWNER_RUN_LOCAL_VERIFICATION_RECORD.md`
 - `docs/M7_LOCAL_INQUIRY_SESSION_DESIGN.md` (Design basis)
 - `docs/M7_IMPLEMENTATION_RECORD.md`
+- `docs/M8_OFFLINE_DESKTOP_INTERFACE_DESIGN.md` (**Proposed / not implemented**)
 
 ## M6 controlled local inquiry usage
 
