@@ -12,11 +12,11 @@ The active workspace is the Git repository rooted at `/Users/rosslauda/Documents
 
 ## Current Phase
 
-**Hermes Zero-Capability Design and Conformance Phase**
+**Reference Runtime Integration — Hermes v1**
 
 ## Current Objective
 
-Define and test the HAL-owned mediation component and a zero-capability Hermes adapter path using local-only Qwen3 on GX10-1, without governed resources or external connectivity.
+Demonstrate a minimal end-to-end execution using the real installed Hermes runtime, existing local Ollama service, and existing local Qwen3 model while preserving the HAL Agent Runtime Contract and governance boundaries.
 
 ## Completed
 
@@ -105,6 +105,7 @@ Define and test the HAL-owned mediation component and a zero-capability Hermes a
 - The follow-up AI technical re-review of correction revision `add12ce` passed with no unresolved technical nonconformance. It remains advisory only; the distinct, time-bounded Owner Exception 0024 supplies the limited exception-based certification-control disposition.
 - The Owner technical review of correction revision `add12ce` passed and is retained as additional durable evidence. It explicitly remains an Owner review rather than independent review or certification; the high-risk certification gate remains open. See [Owner review](Documents/Book%20III/reviews/BOOK_III_SOLO_OWNER_ASSURANCE_OWNER_REVIEW_2026-08-09.md).
 - An independent AI technical review of the narrow Book II runtime-sovereignty clarification and synthetic test-only evidence completed with Pass with limitations at revision `083c2c8b9de91370a6b8ce61290d29a4755c1234`. All required technical checks passed; the disposition does not certify Hermes, production integration, real mediation, governed-resource access, or deployment, and it does not claim human or professional reviewer qualification. See [review disposition](tests/agent_runtime_contract/BOOK_II_RUNTIME_SOVEREIGNTY_REVIEW_2026-08-09.md).
+- DR 0026 authorized a bounded real Hermes local-only pilot. The HAL-owned mediator permits only an exact, expiring binding, fixed local `qwen3:8b` profile, bounded text requests, and a small turn budget; its deterministic admission tests pass. The network-none/read-only Hermes container reached the mediator and the mediator reached loopback Ollama with HTTP 200 responses. Hermes’s final-response compatibility with this provider is still unresolved; no result was accepted as HAL knowledge and all temporary pilot containers/processes were removed.
 
 ## Important Current Architectural Boundaries
 
@@ -120,13 +121,13 @@ The following are status pointers, not restatements or replacements of architect
 
 1. Maintain the provisional, explicitly unrecertified formatted Book II working edition under the active, time-bounded [Engineering Exception 0010](decisions/0010-owner-authorized-independent-review-control-exception.md).
 2. The Book II targeted review passed with limitations for the narrow runtime-sovereignty clarification and synthetic test-only evidence; retain its expiry and re-review triggers. See [review record](tests/agent_runtime_contract/BOOK_II_RUNTIME_SOVEREIGNTY_REVIEW_2026-08-09.md).
-3. Perform only the Owner-authorized DR 0025 zero-capability Hermes design-and-conformance work; do not infer production, resource, or general mediation authorization.
+3. Complete the Owner-authorized DR 0026 real Hermes local-only pilot: preserve the zero-capability containment posture, resolve the Hermes/Ollama completion compatibility finding, and record bounded evidence through HAL-owned interfaces.
 4. Use the Solo-Owner Assurance Profile only for eligible routine, reversible, non-production work; retain independent review for the high-risk threshold and production release. Exception 0024 applies only to the exact Book III amendment certification-control gate.
-5. Do not broaden the completed DR 0012/0015/0019/0020 pilots into an external provider, unapproved model, real capability, real resource, or production deployment. Any further inference, Hermes runtime integration, or production route requires a new Owner decision and, where high-risk, independent review.
+5. Do not broaden the completed DR 0012/0015/0019/0020 pilots or DR 0026 into an external provider, unapproved model, real capability, real resource, general mediation service, or production deployment.
 
 ## Explicitly Out of Scope
 
-- Production Hermes activation or connection to a real Hermes package, process, or transport.
+- Production Hermes activation or connection to a real Hermes package, process, or transport beyond the bounded DR 0026 pilot.
 - Unrestricted filesystem access.
 - NAS access.
 - Unrestricted shell execution.
@@ -144,7 +145,7 @@ The runtime-sovereignty clarification is recorded in the Book II Markdown workin
 
 The formal independent AI technical-review scope, findings/disposition, date, and attestation are now stored in the repository with Pass with limitations. This status record does not decide whether an AI reviewer satisfies any human or professional qualification requirement and therefore does not itself claim or issue Book II recertification. The Owner has authorized the narrow, temporary [Engineering Exception 0010](decisions/0010-owner-authorized-independent-review-control-exception.md), which allows only provisional documentation and test-only work until 2026-08-16. If the recorded reviewer qualification is not accepted by the applicable Owner/Certification Service, a qualified human disposition remains required before expiry. The exception cannot authorize production integration or a certification claim.
 
-GX10-1 synthetic evaluation evidence remains strictly bounded to the approved isolated `hal_eval` account, rootless container profile, static validation, safe no-provider smoke result, and synthetic line-driver probes. It does not authorize production Hermes activation, any real capability, a real provider, credentials, governed resources, or a production transport.
+GX10-1 evaluation evidence remains strictly bounded to the approved isolated `hal_eval` account, rootless container profile, static validation, safe no-provider smoke result, synthetic line-driver probes, and the DR 0026 local-only Hermes/Qwen3 pilot. The pilot has demonstrated HAL-mediated local inference with zero runtime capabilities, but Hermes completion compatibility and HAL-custodied result/evidence integration remain incomplete. It does not authorize production activation, credentials, governed resources, a general provider route, or a production transport.
 
 DR 0018 resolves the design-authorization decision for a HAL-owned identity-and-correlation mediator. The activation path remains blocked on its planned conformance evidence and a further Owner activation decision. Read-only assessment confirms that rootless Docker retains its default `bridge`, `host`, and `none` network definitions, while GX10-1 exposes multiple host loopback listeners (including Ollama). The host-side proxy prototype is intentionally not mountable or runtime-addressable. No container-to-proxy route, container mount, runtime identity binding, or bypass/egress negative test has been attempted or passed.
 
