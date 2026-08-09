@@ -73,6 +73,7 @@ Protected-path metadata checks; required PR fields; release gate.
 
 Principal Engineer and designated reviewers verify authority mapping; Architecture Authority reviews deviations.
 
+
 ## 12. Exceptions and waiver authority
 
 An exception MUST identify affected control, justification, scope, risk, compensating controls, approver, effective date, expiration date, review date, evidence, and revocation conditions. Constitutional invariants cannot be waived. Architecture deviations follow the architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.
@@ -175,6 +176,7 @@ Secret scanning, signed-commit/provenance checks, dependency SBOM and vulnerabil
 ## 11. Human review requirements
 
 Code owners review protected paths; security reviews secret and dependency exceptions.
+
 
 ## 12. Exceptions and waiver authority
 
@@ -279,6 +281,7 @@ Schema/contract compatibility, state-machine, idempotency, ordering, failure-inj
 
 Architecture review is required for state ownership, cross-domain contracts, and Reality Boundary changes.
 
+
 ## 12. Exceptions and waiver authority
 
 An exception MUST identify affected control, justification, scope, risk, compensating controls, approver, effective date, expiration date, review date, evidence, and revocation conditions. Constitutional invariants cannot be waived. Architecture deviations follow the architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.
@@ -381,6 +384,7 @@ Static analysis, type checks, log-schema checks, performance regression tests, a
 ## 11. Human review requirements
 
 Peer reviewer checks readability and errors; observability and accessibility owners review high-risk changes.
+
 
 ## 12. Exceptions and waiver authority
 
@@ -485,6 +489,7 @@ Threat-model, negative Authority and Permission, firewall, privacy, cryptographi
 
 Security Authority reviews threats and exceptions; Privacy Authority reviews data use; Owner authority is required only where Book I reserves it.
 
+
 ## 12. Exceptions and waiver authority
 
 An exception MUST identify affected control, justification, scope, risk, compensating controls, approver, effective date, expiration date, review date, evidence, and revocation conditions. Constitutional invariants cannot be waived. Architecture deviations follow the architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.
@@ -588,6 +593,7 @@ CI test gates, deterministic replay, simulation fidelity records, canary analysi
 
 Test lead approves verification plans; security/privacy reviewers approve relevant risk coverage.
 
+
 ## 12. Exceptions and waiver authority
 
 An exception MUST identify affected control, justification, scope, risk, compensating controls, approver, effective date, expiration date, review date, evidence, and revocation conditions. Constitutional invariants cannot be waived. Architecture deviations follow the architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.
@@ -690,6 +696,7 @@ Build attestations, artifact signature verification, migration rehearsal, deploy
 ## 11. Human review requirements
 
 Release Authority certifies release; Architecture/Security/Privacy review based on risk classification.
+
 
 ## 12. Exceptions and waiver authority
 
@@ -802,6 +809,7 @@ When no independent reviewer exists, the Owner may review an eligible change. Th
 
 Independent review remains required before production release or a high-risk milestone involving constitutional interpretation/change, Owner authority, a trust or security boundary, canonical knowledge semantics, evidence or recovery guarantees, a major architecture contract, a new capability or Treaty class, substantial irreversible migration/risk, or another Book I-reserved matter.
 
+
 ## 12. Exceptions and waiver authority
 
 An exception MUST identify affected control, justification, scope, risk, compensating controls, approver, effective date, expiration date, review date, evidence, and revocation conditions. Constitutional invariants cannot be waived. Architecture deviations follow the architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.
@@ -905,6 +913,7 @@ Control-as-code where practical; exception-expiry detection; periodic certificat
 
 Control owner maintains controls; exception authority is limited by the catalog and never exceeds Book I.
 
+
 ## 12. Exceptions and waiver authority
 
 An exception MUST identify affected control, justification, scope, risk, compensating controls, approver, effective date, expiration date, review date, evidence, and revocation conditions. Constitutional invariants cannot be waived. Architecture deviations follow the architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.
@@ -972,4 +981,4 @@ Exceptions are time-bounded, scoped, evidenced, revocable, and reviewable. They 
 
 # Appendix C - Certification statement
 
-This final edition establishes the engineering-law baseline. Required control mappings, review records, deliverables, and validation records are complete.
+This Owner-authorized working amendment has an exception-based technical certification disposition under Engineering Exception 0024. It is not independent certification; existing formatted editions remain the prior baseline until controlled release and visual verification are complete.

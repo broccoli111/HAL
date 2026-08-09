@@ -44,6 +44,7 @@ Control-as-code where practical; exception-expiry detection; periodic certificat
 
 Control owner maintains controls; exception authority is limited by the catalog and never exceeds Book I.
 
+
 ## 12. Exceptions and waiver authority
 
 An exception MUST identify affected control, justification, scope, risk, compensating controls, approver, effective date, expiration date, review date, evidence, and revocation conditions. Constitutional invariants cannot be waived. Architecture deviations follow the architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.

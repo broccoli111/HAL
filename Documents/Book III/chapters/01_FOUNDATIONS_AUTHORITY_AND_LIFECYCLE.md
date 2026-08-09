@@ -44,6 +44,7 @@ Protected-path metadata checks; required PR fields; release gate.
 
 Principal Engineer and designated reviewers verify authority mapping; Architecture Authority reviews deviations.
 
+
 ## 12. Exceptions and waiver authority
 
 An exception MUST identify affected control, justification, scope, risk, compensating controls, approver, effective date, expiration date, review date, evidence, and revocation conditions. Constitutional invariants cannot be waived. Architecture deviations follow the architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.

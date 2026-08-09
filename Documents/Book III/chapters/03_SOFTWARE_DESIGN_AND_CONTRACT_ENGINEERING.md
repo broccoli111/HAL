@@ -44,6 +44,7 @@ Schema/contract compatibility, state-machine, idempotency, ordering, failure-inj
 
 Architecture review is required for state ownership, cross-domain contracts, and Reality Boundary changes.
 
+
 ## 12. Exceptions and waiver authority
 
 An exception MUST identify affected control, justification, scope, risk, compensating controls, approver, effective date, expiration date, review date, evidence, and revocation conditions. Constitutional invariants cannot be waived. Architecture deviations follow the architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.

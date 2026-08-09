@@ -44,6 +44,7 @@ Build attestations, artifact signature verification, migration rehearsal, deploy
 
 Release Authority certifies release; Architecture/Security/Privacy review based on risk classification.
 
+
 ## 12. Exceptions and waiver authority
 
 An exception MUST identify affected control, justification, scope, risk, compensating controls, approver, effective date, expiration date, review date, evidence, and revocation conditions. Constitutional invariants cannot be waived. Architecture deviations follow the architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.

@@ -44,6 +44,7 @@ Secret scanning, signed-commit/provenance checks, dependency SBOM and vulnerabil
 
 Code owners review protected paths; security reviews secret and dependency exceptions.
 
+
 ## 12. Exceptions and waiver authority
 
 An exception MUST identify affected control, justification, scope, risk, compensating controls, approver, effective date, expiration date, review date, evidence, and revocation conditions. Constitutional invariants cannot be waived. Architecture deviations follow the architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.
