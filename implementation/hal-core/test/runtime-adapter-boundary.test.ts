@@ -5,6 +5,7 @@ import { describe, expect, test } from "vitest";
 
 import { HermesAdapter } from "../src/runtime/hermesAdapter.js";
 import { HermesLineDriver } from "../src/runtime/hermesLineDriver.js";
+import { HermesStatelessDriver } from "../src/runtime/hermesStatelessDriver.js";
 import { LocalSyntheticCapabilityGateway } from "../src/runtime/localSyntheticCapabilityGateway.js";
 import { RuntimeHost } from "../src/runtime/runtimeHost.js";
 import { RuntimeJournal } from "../src/runtime/runtimeJournal.js";
@@ -272,6 +273,34 @@ describe("Agent Runtime adapter boundary", () => {
       })
     );
     expect(frames.find((frame) => frame.type === "execute_task")?.capabilities).toEqual([]);
+  });
+
+  test("Hermes stateless driver returns its result only through HAL callback custody", async () => {
+    const received: string[] = [];
+    const driver = new HermesStatelessDriver({
+      execute: async ({ contextSummary }) => {
+        expect(contextSummary).toBe("bounded synthetic context");
+        return "HAL_LOCAL_OK";
+      }
+    });
+    const host = new RuntimeHost({
+      runtimeId,
+      runtime: new HermesAdapter(driver),
+      callbacks: Object.freeze({
+        ...createCallbacks(),
+        reportResult: async (report) => void received.push(report.summary)
+      })
+    });
+    await executeZeroCapabilityHost(host);
+    expect(received).toEqual(["HAL_LOCAL_OK"]);
+  });
+
+  test("Hermes stateless driver fails closed if HAL supplies a capability", async () => {
+    const driver = new HermesStatelessDriver({ execute: async () => "unreachable" });
+    await driver.start({ runtimeId, callbacks: createCallbacks() });
+    await expect(
+      driver.provideCapabilityManifest({ agentId, capabilities: ["hal.files.read"] })
+    ).rejects.toThrow(/accepts no runtime capability grant/);
   });
 
   test("test-only Hermes line driver rejects malformed remote frames", async () => {

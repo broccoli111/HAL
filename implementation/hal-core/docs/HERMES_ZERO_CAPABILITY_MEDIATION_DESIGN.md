@@ -36,6 +36,17 @@ capability MUST fail before any upstream contact.
 - Input/output: fixed bounded synthetic prompt and response limits.
 - Result: an integrity-linked `unaccepted_runtime_claim`, never canonical knowledge, evidence acceptance, authority, permission, or outcome.
 
+## Verified Stateless Execution Slice
+
+The adapter-private `hal_hermes_stateless_runner.py` invokes Hermes's built-in
+stateless inference component only. In the DR 0026 containment profile it
+returned the fixed synthetic `HAL_LOCAL_OK` result through the HAL-issued
+binding, the HAL-owned mediator, and local Ollama `qwen3:8b`. The associated
+`HermesStatelessDriver` accepts only an empty capability manifest and reports
+its output through HAL callback custody. This is not evidence that the full
+Hermes CLI agent loop is compatible with this provider, and it does not make
+the runtime output canonical knowledge.
+
 ## Conformance Evidence Required Before or During the DR 0026 GX10 Pilot
 
 1. HAL-only issue/revoke/expiry/replay tests.
