@@ -29,6 +29,8 @@ Establish and verify the implementation-neutral Agent Runtime boundary before in
 - Test-only Agent Runtime Contract conformance suite defined in [tests/agent_runtime_contract/CONFORMANCE_SUITE.md](tests/agent_runtime_contract/CONFORMANCE_SUITE.md).
 - Deterministic TestRuntimeAdapter/fake runtime and in-memory governance/Gateway fixtures implemented for the suite.
 - Test-only conformance cases ARTC-001 through ARTC-014 passed; see [test evidence](tests/agent_runtime_contract/TEST_EVIDENCE.md).
+- Local Canon baseline committed and merged with the existing GitHub `main` implementation history without conflicts.
+- Existing TypeScript implementation through M9 controlled local knowledge packs is now present under `implementation/hal-core`; its conformance to the runtime-sovereignty clarification has not yet been assessed.
 
 ## Important Current Architectural Boundaries
 
