@@ -20,6 +20,7 @@ import unittest
 
 SCRIPT = Path(__file__).parents[2] / "implementation/hal-core/scripts/hal_hermes_local_mediation.py"
 RUNTIME_SCRIPT = Path(__file__).parents[2] / "implementation/hal-core/scripts/hal_gx10_stateless_runtime.py"
+CLI_PROBE_SCRIPT = Path(__file__).parents[2] / "implementation/hal-core/scripts/hal_hermes_cli_no_tools_probe.py"
 
 
 def load_mediator():
@@ -128,6 +129,18 @@ class Gx10ForcedRuntimeEntrypointTests(unittest.TestCase):
                 self.call_read_request(
                     b'{"correlationId":"runtime-001","prompt":"synthetic","capabilities":[]}\n'
                 )
+
+
+class HermesCliNoToolsProbeTests(unittest.TestCase):
+    def test_probe_is_fixed_prompt_no_tools_and_uses_the_hal_relay(self) -> None:
+        source = CLI_PROBE_SCRIPT.read_text(encoding="utf-8")
+        self.assertIn('PROMPT = "Reply with exactly: HAL_LOCAL_OK"', source)
+        self.assertIn('"  cli: []",', source)
+        self.assertIn('http://127.0.0.1:11434/v1', source)
+        self.assertIn('"--network", "none"', source)
+        self.assertIn('"--read-only"', source)
+        self.assertIn('"--cap-drop", "ALL"', source)
+        self.assertNotIn('HAL_HERMES_PROMPT', source)
 
 
 if __name__ == "__main__":
