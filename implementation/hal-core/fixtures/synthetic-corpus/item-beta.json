@@ -1,0 +1,9 @@
+{
+  "id": "beta",
+  "title": "Synthetic Corpus Beta",
+  "tags": ["deterministic", "local", "bounded"],
+  "paragraphs": [
+    "Fixtures are constrained below a declared root and never resolved from user input.",
+    "Capability execution remains non-live-effect and local-only."
+  ]
+}

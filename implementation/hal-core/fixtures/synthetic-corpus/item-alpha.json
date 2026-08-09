@@ -1,0 +1,9 @@
+{
+  "id": "alpha",
+  "title": "Synthetic Corpus Alpha",
+  "tags": ["local", "synthetic", "inspection"],
+  "paragraphs": [
+    "This is deterministic synthetic fixture content for local-only verification.",
+    "No secrets, accounts, credentials, or external references appear in this corpus."
+  ]
+}

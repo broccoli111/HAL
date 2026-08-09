@@ -1,0 +1,9 @@
+{
+  "id": "beta.doc.faq",
+  "title": "beta synthetic faq",
+  "tags": ["beta", "faq"],
+  "paragraphs": [
+    "beta inquiries are independent per request.",
+    "beta replay preserves original correlation context."
+  ]
+}

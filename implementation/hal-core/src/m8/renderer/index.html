@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HAL M8 Offline Desktop Interface</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main>
+      <h1>HAL M8 Offline Desktop Interface</h1>
+      <section aria-labelledby="boundary-heading">
+        <h2 id="boundary-heading">Boundary indicator</h2>
+        <p>local_only, synthetic_only, deterministic, non_live_effect</p>
+        <ul id="boundary-list" aria-label="Boundary modes"></ul>
+      </section>
+
+      <section aria-labelledby="state-directory-heading">
+        <h2 id="state-directory-heading">State directory</h2>
+        <p>Selected directory: <code id="state-directory-value">not selected</code></p>
+        <p id="state-directory-error" role="status" aria-live="polite"></p>
+        <button id="pick-state-directory" type="button">
+          Select existing local state directory
+        </button>
+      </section>
+
+      <section aria-labelledby="pack-heading">
+        <h2 id="pack-heading">M9 packs (request-only)</h2>
+        <p id="pack-active-status">active pack: none</p>
+        <ul id="pack-list" aria-label="Approved packs"></ul>
+        <label for="pack-select-input">Pack ID for activation</label>
+        <input id="pack-select-input" type="text" autocomplete="off" />
+        <button id="pack-activate" type="button">Request activate</button>
+        <button id="pack-deactivate" type="button">Request deactivate</button>
+        <p id="pack-action-result" role="status" aria-live="polite"></p>
+      </section>
+
+      <section aria-labelledby="question-heading">
+        <h2 id="question-heading">Submit inquiry</h2>
+        <label for="question-input">Question (single inquiry)</label>
+        <input id="question-input" type="text" autocomplete="off" />
+        <button id="submit-question" type="button">Submit question</button>
+      </section>
+
+      <section aria-labelledby="replay-heading">
+        <h2 id="replay-heading">Deliberate replay</h2>
+        <label for="replay-request-id-input">Replay request ID</label>
+        <input id="replay-request-id-input" type="text" autocomplete="off" />
+        <label for="replay-question-input">Replay question</label>
+        <input id="replay-question-input" type="text" autocomplete="off" />
+        <button id="submit-replay" type="button">Submit deliberate replay</button>
+      </section>
+
+      <section aria-labelledby="result-heading">
+        <h2 id="result-heading">Read-only result and evidence</h2>
+        <p id="result-error" role="status" aria-live="assertive"></p>
+        <dl>
+          <dt>Request ID</dt>
+          <dd id="result-request-id">unavailable</dd>
+          <dt>Correlation ID</dt>
+          <dd id="result-correlation-id">unavailable</dd>
+          <dt>Result</dt>
+          <dd id="result-result">unavailable</dd>
+          <dt>Disposition</dt>
+          <dd id="result-disposition">unavailable</dd>
+          <dt>Replay status</dt>
+          <dd id="result-replayed">false</dd>
+          <dt>Attestation status</dt>
+          <dd id="result-attestation-status">unavailable</dd>
+          <dt>Attestation claimed effect</dt>
+          <dd id="result-attestation-effect">unavailable</dd>
+          <dt>Input classification</dt>
+          <dd id="result-input-classification">UNAVAILABLE</dd>
+          <dt>M6 bounded response</dt>
+          <dd>
+            <pre id="result-response">
+result=blocked
+externalEffect=none
+reason=unavailable</pre>
+          </dd>
+        </dl>
+      </section>
+    </main>
+
+    <script type="module" src="./renderer.js"></script>
+  </body>
+</html>

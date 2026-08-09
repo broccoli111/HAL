@@ -1,0 +1,9 @@
+{
+  "id": "beta.doc.safety",
+  "title": "beta synthetic safety",
+  "tags": ["beta", "safety"],
+  "paragraphs": [
+    "beta controls reject undeclared files.",
+    "beta records preserve no external effect."
+  ]
+}

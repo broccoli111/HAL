@@ -1,0 +1,20 @@
+# M1 Traceability Register
+
+This register maps the M1 skeleton artifacts in `implementation/hal-core` to governing requirements from Books II, III, IV, VI, VIII, IX, and X.
+
+| M1 skeleton item              | Implementation artifact                   | Governing basis                                                                                                                                                                                                                                                           | Traceability note                                                                                                 |
+| ----------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Controlled startup admission  | `src/kernel/config.ts`                    | Book II (single authority ownership and controlled boundaries), Book III (configuration and source controls), Book IV (kernel admission obligations), Book VI (fail-closed identity/authority posture), Book VIII (deterministic verification), Book X (canonical naming) | Loader validates required configuration and rejects unknown `HAL_` keys to prevent ambient or inferred authority. |
+| Safe Mode default restrictive | `src/kernel/safeMode.ts`                  | Book II (runtime boundary control), Book IV (service lifecycle and safe mode), Book VI (least privilege and trust-boundary protection), Book VIII (negative path verification), Book X (term consistency)                                                                 | Default state is `restrictive`; no mutation or external action capability exists in this baseline.                |
+| Immutable identifiers         | `src/shared/id.ts`, `src/shared/types.ts` | Book II (immutable identity model), Book III (contract and implementation quality), Book IX (contract identity fields), Book X (canonical information model)                                                                                                              | Stable immutable IDs and explicit `CorrelationId` type preserve unambiguous identity and traceability.            |
+| Exact authority decision type | `src/authority/decision.ts`               | Book II (policy-constrained decision boundaries), Book IV (authority/policy decision component responsibilities), Book VI (permission is not trust or credential possession), Book IX (decision contract semantics), Book X (terminology)                                 | Decision vocabulary is exactly `allow`, `deny`, or `approval_required`, with required reason and correlation ID.  |
+| Append-only audit foundation  | `src/audit/memoryAuditStore.ts`           | Book II (event and evidence orientation), Book IV (observability and audit component obligations), Book VI (minimize sensitive content, preserve accountability), Book VIII (reconstructable test evidence), Book IX (audit/event schema contracts), Book X               | Development/test-only in-memory append-only store; records are immutable snapshots with correlation IDs.          |
+| Verification evidence         | `test/*.test.ts`, `vitest.config.ts`      | Book III (engineering verification practices), Book VIII (risk-scaled verification and certification inputs)                                                                                                                                                              | Tests include allow/deny/approval-required paths, fail-closed config handling, and immutable audit behavior.      |
+
+## M1 explicit exclusions
+
+- No model provider integration.
+- No external API clients.
+- No real authentication implementation.
+- No database.
+- No execution side-effect capabilities.
