@@ -22,7 +22,23 @@ BINDING = os.environ["HAL_HERMES_BINDING"]
 EXPIRES_AT = float(os.environ["HAL_HERMES_EXPIRES_AT"])
 MAX_BYTES = 131_072
 REQUESTS = 0
-MAX_REQUESTS = 2
+MAX_REQUESTS = 4
+
+
+async def read_http_request(reader: asyncio.StreamReader) -> tuple[bytes, bytes]:
+    head = await asyncio.wait_for(reader.readuntil(b"\r\n\r\n"), timeout=30)
+    if len(head) > MAX_BYTES:
+        raise ValueError("oversize request header")
+    lines = head[:-4].decode("ascii").split("\r\n")
+    headers = {line.split(":", 1)[0].lower(): line.split(":", 1)[1].strip() for line in lines[1:] if ":" in line}
+    try:
+        content_length = int(headers.get("content-length", "0"))
+    except ValueError as error:
+        raise ValueError("invalid content length") from error
+    if content_length < 0 or content_length > MAX_BYTES - len(head):
+        raise ValueError("oversize request body")
+    body = await asyncio.wait_for(reader.readexactly(content_length), timeout=30)
+    return head[:-4], body
 
 
 def admitted(headers: dict[str, str], body: bytes) -> dict[str, object] | None:
@@ -71,11 +87,10 @@ async def handle(reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> 
     global REQUESTS
     upstream = None
     try:
-        raw = await asyncio.wait_for(reader.read(MAX_BYTES + 1), timeout=30)
-        head, separator, body = raw.partition(b"\r\n\r\n")
+        head, body = await read_http_request(reader)
         lines = head.decode().split("\r\n")
         headers = {line.split(":", 1)[0].lower(): line.split(":", 1)[1].strip() for line in lines[1:] if ":" in line}
-        request = admitted(headers, body) if separator and lines[0].startswith("POST /v1/chat/completions ") else None
+        request = admitted(headers, body) if lines[0].startswith("POST /v1/chat/completions ") else None
         if request is None:
             writer.write(b"HTTP/1.1 403 Forbidden\r\nContent-Length: 0\r\n\r\n")
             await writer.drain()

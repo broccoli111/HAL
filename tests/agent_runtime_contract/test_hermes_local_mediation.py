@@ -6,6 +6,7 @@ HAL-owned admission logic that stands in front of the local model route.
 
 from __future__ import annotations
 
+import asyncio
 import importlib.util
 import json
 import os
@@ -72,6 +73,17 @@ class HermesLocalMediationTests(unittest.TestCase):
     def test_denies_after_the_bounded_inference_budget(self) -> None:
         self.mediator.REQUESTS = self.mediator.MAX_REQUESTS
         self.assertIsNone(self.mediator.admitted(self.headers, self.body))
+
+    def test_reads_a_complete_length_bounded_http_request(self) -> None:
+        async def read() -> tuple[bytes, bytes]:
+            reader = asyncio.StreamReader()
+            reader.feed_data(b"POST /v1/chat/completions HTTP/1.1\r\nContent-Length: 4\r\n\r\ntest")
+            reader.feed_eof()
+            return await self.mediator.read_http_request(reader)
+
+        head, body = asyncio.run(read())
+        self.assertTrue(head.startswith(b"POST /v1/chat/completions"))
+        self.assertEqual(body, b"test")
 
 
 if __name__ == "__main__":

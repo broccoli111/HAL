@@ -26,7 +26,7 @@ model, only through a HAL-owned, binding-gated Unix-socket mediator.
   loopback relay that forwards to the HAL-owned Unix socket.
 - The mediator fixes the model profile to local `qwen3:8b`, accepts only
   bounded text chat requests bearing an exact, expiring HAL binding, and has a
-  small fixed inference-turn budget. It is not a general model proxy.
+  four-request inference budget. It is not a general model proxy.
 - Runtime outputs remain non-canonical runtime claims. This pilot does not
   accept canonical knowledge, authorize actions, or enable production use.
 
