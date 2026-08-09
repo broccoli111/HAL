@@ -12,11 +12,11 @@ The active workspace is the Git repository rooted at `/Users/rosslauda/Documents
 
 ## Current Phase
 
-**HAL-Owned Local Inference Mediation Pilot Evaluation Complete**
+**Hermes Zero-Capability Design and Conformance Phase**
 
 ## Current Objective
 
-Record and preserve the bounded mediation-pilot evidence while retaining the no-connection posture for any further inference or runtime integration.
+Define and test the HAL-owned mediation component and a zero-capability Hermes adapter path using local-only Qwen3 on GX10-1, without governed resources or external connectivity.
 
 ## Completed
 
@@ -119,8 +119,8 @@ The following are status pointers, not restatements or replacements of architect
 ## Next Planned Sequence
 
 1. Maintain the provisional, explicitly unrecertified formatted Book II working edition under the active, time-bounded [Engineering Exception 0010](decisions/0010-owner-authorized-independent-review-control-exception.md).
-2. Have the applicable Owner/Certification Service determine whether the recorded independent AI technical disposition satisfies the project's reviewer-qualification requirement; if not, obtain a qualified human disposition before Engineering Exception 0010 expires on 2026-08-16.
-3. Only after an accepted independent disposition, perform the separately controlled Book II publication/recertification step; do not infer production or Hermes authorization from the narrow review.
+2. The Book II targeted review passed with limitations for the narrow runtime-sovereignty clarification and synthetic test-only evidence; retain its expiry and re-review triggers. See [review record](tests/agent_runtime_contract/BOOK_II_RUNTIME_SOVEREIGNTY_REVIEW_2026-08-09.md).
+3. Perform only the Owner-authorized DR 0025 zero-capability Hermes design-and-conformance work; do not infer production, resource, or general mediation authorization.
 4. Use the Solo-Owner Assurance Profile only for eligible routine, reversible, non-production work; retain independent review for the high-risk threshold and production release. Exception 0024 applies only to the exact Book III amendment certification-control gate.
 5. Do not broaden the completed DR 0012/0015/0019/0020 pilots into an external provider, unapproved model, real capability, real resource, or production deployment. Any further inference, Hermes runtime integration, or production route requires a new Owner decision and, where high-risk, independent review.
 
