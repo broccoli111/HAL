@@ -104,6 +104,7 @@ Record and preserve the bounded mediation-pilot evidence while retaining the no-
 - A follow-up independent AI technical review of revision `a277311b704f38138461e376f6a7268fda7d9ed4` found a P1 combined-Markdown chapter-metadata inconsistency. The correction and a nine-chapter status assertion passed local validation; independent re-review remains required and no certification claim is made.
 - The follow-up AI technical re-review of correction revision `add12ce` passed with no unresolved technical nonconformance. It remains advisory only; the distinct, time-bounded Owner Exception 0024 supplies the limited exception-based certification-control disposition.
 - The Owner technical review of correction revision `add12ce` passed and is retained as additional durable evidence. It explicitly remains an Owner review rather than independent review or certification; the high-risk certification gate remains open. See [Owner review](Documents/Book%20III/reviews/BOOK_III_SOLO_OWNER_ASSURANCE_OWNER_REVIEW_2026-08-09.md).
+- An independent AI technical review of the narrow Book II runtime-sovereignty clarification and synthetic test-only evidence completed with Pass with limitations at revision `083c2c8b9de91370a6b8ce61290d29a4755c1234`. All required technical checks passed; the disposition does not certify Hermes, production integration, real mediation, governed-resource access, or deployment, and it does not claim human or professional reviewer qualification. See [review disposition](tests/agent_runtime_contract/BOOK_II_RUNTIME_SOVEREIGNTY_REVIEW_2026-08-09.md).
 
 ## Important Current Architectural Boundaries
 
@@ -118,8 +119,8 @@ The following are status pointers, not restatements or replacements of architect
 ## Next Planned Sequence
 
 1. Maintain the provisional, explicitly unrecertified formatted Book II working edition under the active, time-bounded [Engineering Exception 0010](decisions/0010-owner-authorized-independent-review-control-exception.md).
-2. Obtain and record the independent-review disposition before the exception expires on 2026-08-16; otherwise the project fails closed at that gate.
-3. Obtain and record the independent-review disposition for the Book II runtime-sovereignty clarification before Engineering Exception 0010 expires on 2026-08-16; otherwise the project fails closed at that gate.
+2. Have the applicable Owner/Certification Service determine whether the recorded independent AI technical disposition satisfies the project's reviewer-qualification requirement; if not, obtain a qualified human disposition before Engineering Exception 0010 expires on 2026-08-16.
+3. Only after an accepted independent disposition, perform the separately controlled Book II publication/recertification step; do not infer production or Hermes authorization from the narrow review.
 4. Use the Solo-Owner Assurance Profile only for eligible routine, reversible, non-production work; retain independent review for the high-risk threshold and production release. Exception 0024 applies only to the exact Book III amendment certification-control gate.
 5. Do not broaden the completed DR 0012/0015/0019/0020 pilots into an external provider, unapproved model, real capability, real resource, or production deployment. Any further inference, Hermes runtime integration, or production route requires a new Owner decision and, where high-risk, independent review.
 
@@ -141,7 +142,7 @@ The runtime-sovereignty clarification is recorded in the Book II Markdown workin
 
 ## Material Blocker
 
-The formal reviewer scope, findings/disposition, date, and attestation have not been stored in the repository; this session therefore does not claim or issue Book II certification. The Owner has authorized the narrow, temporary [Engineering Exception 0010](decisions/0010-owner-authorized-independent-review-control-exception.md), which allows only provisional documentation and test-only work until 2026-08-16. [RECERTIFICATION_DISPOSITION_TEMPLATE.md](tests/agent_runtime_contract/RECERTIFICATION_DISPOSITION_TEMPLATE.md) remains the required record for independent review. The exception cannot authorize production integration or a certification claim.
+The formal independent AI technical-review scope, findings/disposition, date, and attestation are now stored in the repository with Pass with limitations. This status record does not decide whether an AI reviewer satisfies any human or professional qualification requirement and therefore does not itself claim or issue Book II recertification. The Owner has authorized the narrow, temporary [Engineering Exception 0010](decisions/0010-owner-authorized-independent-review-control-exception.md), which allows only provisional documentation and test-only work until 2026-08-16. If the recorded reviewer qualification is not accepted by the applicable Owner/Certification Service, a qualified human disposition remains required before expiry. The exception cannot authorize production integration or a certification claim.
 
 GX10-1 synthetic evaluation evidence remains strictly bounded to the approved isolated `hal_eval` account, rootless container profile, static validation, safe no-provider smoke result, and synthetic line-driver probes. It does not authorize production Hermes activation, any real capability, a real provider, credentials, governed resources, or a production transport.
 
