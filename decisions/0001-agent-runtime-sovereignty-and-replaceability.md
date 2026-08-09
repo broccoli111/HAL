@@ -51,4 +51,4 @@ Not required for this record because it records an architectural clarification a
 
 ## Continuity Notes
 
-The next task is to define a test-only Agent Runtime Contract conformance suite. Targeted Book II conformance recertification and regeneration of authoritative formatted Book II editions remain pending after the suite provides evidence.
+The test-only Agent Runtime Contract conformance suite and an inert TypeScript adapter seam are implemented. The next implementation task is a HAL-owned runtime-host and Capability Gateway integration against the existing local synthetic authority path. Targeted Book II conformance recertification remains pending until the independent reviewer’s formal disposition is stored; an actual Hermes package, process, transport, or credential integration is not authorized by this record.

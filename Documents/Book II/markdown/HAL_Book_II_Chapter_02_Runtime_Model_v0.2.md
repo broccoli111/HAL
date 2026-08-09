@@ -52,6 +52,8 @@ HAL remains authoritative for agent admission and lifecycle, identity, delegated
 
 HermesAdapter is the initial reference adapter for **Hermes Reference Runtime v1**. NativeHALAdapter, TestRuntimeAdapter, and FutureRuntimeAdapter are equally valid contract implementations. Replacing a runtime MUST NOT require changes to the Constitution, Owner identity, canonical HAL knowledge, Evidence Graph semantics, authorization model, Capability Gateway semantics, or HAL-facing interfaces.
 
+HAL retains durable custody of attributable Runtime Contract submissions and Gateway dispositions. A retained runtime capability request, report, or evidence submission is an operational claim with correlation, provenance, and disposition context; it does not become canonical knowledge, an accepted outcome, authority, or permission merely because HAL records it. Exact storage schemas remain implementation concerns subject to the declared evidence, recovery, and compatibility controls.
+
 ## 3.2 Runtime Dependency Guarantee
 
 HAL architecture may depend on the Agent Runtime Contract but MUST NOT depend on Hermes-specific behavior unless that dependency is contained entirely inside HermesAdapter. HAL Core code and governed state MUST NOT understand Hermes internals. The dependency direction is `HAL Core → Agent Runtime Interface → HermesAdapter → Hermes`; direct `HAL Core → Hermes internals` dependency is prohibited.

@@ -2,7 +2,7 @@
 
 ## 1. Document control
 
-Status: Final. Control families: VER-004 VER-005 VER-006 GOV-006. Version: 1.0. Source authority: Book I then Book II.
+Status: Owner-authorized working amendment; recertification pending. Control families: VER-004 VER-005 VER-006 GOV-006. Version: 1.1. Source authority: Book I then Book II.
 
 ## 2. Purpose
 
@@ -30,7 +30,7 @@ Teams MUST perform design, security, privacy, reliability, and verification work
 
 ## 8. Prohibited practices
 
-Approval by an author alone, unresolved high-severity finding, or a debt item that conceals an authority or safety defect is prohibited.
+Approval by an author alone, except for a documented Solo-Owner Assurance Profile under §11.1, unresolved high-severity finding, or a debt item that conceals an authority or safety defect is prohibited.
 
 ## 9. Required evidence
 
@@ -42,7 +42,15 @@ Review workflow checks, finding-age reports, certification and post-release evid
 
 ## 11. Human review requirements
 
-Independent reviewer for consequential changes; certification reviewers verify source traceability.
+Independent reviewer for high-risk milestones and production release; certification reviewers verify source traceability. A documented Solo-Owner Assurance Profile may be used only for eligible routine, reversible, non-production work.
+
+### 11.1 Solo-Owner Assurance Profile
+
+When no independent reviewer exists, the Owner may review an eligible change. The resulting record MUST identify the Owner as reviewer, declare that the review is not independent, state the risk classification and why the profile applies, cite governing sources, retain reproducible automated verification and evidence, resolve or contain findings, and record rollback/containment status. It MUST NOT be called independent review or independent certification.
+
+### 11.2 Independent-Review Threshold
+
+Independent review remains required before production release or a high-risk milestone involving constitutional interpretation/change, Owner authority, a trust or security boundary, canonical knowledge semantics, evidence or recovery guarantees, a major architecture contract, a new capability or Treaty class, substantial irreversible migration/risk, or another Book I-reserved matter.
 
 ## 12. Exceptions and waiver authority
 
@@ -66,7 +74,7 @@ Critical behavior MUST define hazard-bounded degradation, containment, recovery,
 
 ## 17. Verification method
 
-Verify through automated checks, independent review, and risk-scaled test/release evidence. Critical invariants require an identified repeatable verification method; critical failure modes require tested containment or recovery.
+Verify through automated checks and risk-scaled test/release evidence, plus independent review or the documented Solo-Owner Assurance Profile where §11.1 permits it. Critical invariants require an identified repeatable verification method; critical failure modes require tested containment or recovery.
 
 ## 18. Metrics
 

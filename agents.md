@@ -95,6 +95,12 @@ When escalation is required, provide:
 * Reversibility
 * Preferred option and rationale
 
+## Solo-Owner Assurance
+
+Where the Book III Solo-Owner Assurance Profile applies, the Owner may perform a documented assurance review for routine, reversible, non-production work when no independent reviewer exists. The record MUST state that it is not independent and retain risk assessment, applicable authority, automated verification, findings, evidence, and rollback/containment status.
+
+Independent review remains required for production release and high-risk milestones, including constitutional interpretation/change, Owner-authority changes, trust or security-boundary changes, canonical-knowledge/evidence/recovery changes, major architecture contracts, new capability or Treaty classes, substantial irreversible migration/risk, and other Book I-reserved matters.
+
 ## Runtime sovereignty
 
 HAL owns sovereign control of:

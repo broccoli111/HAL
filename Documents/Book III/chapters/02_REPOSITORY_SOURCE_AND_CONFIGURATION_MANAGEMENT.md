@@ -66,7 +66,7 @@ Critical behavior MUST define hazard-bounded degradation, containment, recovery,
 
 ## 17. Verification method
 
-Verify through automated checks, independent review, and risk-scaled test/release evidence. Critical invariants require an identified repeatable verification method; critical failure modes require tested containment or recovery.
+Verify through automated checks and risk-scaled test/release evidence, plus independent review or the documented Solo-Owner Assurance Profile where Book III Chapter 8 §11.1 permits it. Critical invariants require an identified repeatable verification method; critical failure modes require tested containment or recovery.
 
 ## 18. Metrics
 

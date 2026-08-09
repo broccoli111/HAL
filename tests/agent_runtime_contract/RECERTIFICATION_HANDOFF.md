@@ -14,6 +14,7 @@ The review is limited to the following claimed architecture refinements:
 - Capability Gateway authority boundary;
 - runtime-memory non-authoritativeness;
 - runtime lifecycle, failure, replacement, and recovery implications; and
+- durable custody of non-canonical runtime claims and Gateway dispositions; and
 - the test-only conformance evidence supporting those boundaries.
 
 ## Evidence Package
@@ -22,7 +23,9 @@ The review is limited to the following claimed architecture refinements:
 - [Agent Runtime Contract Conformance Suite](CONFORMANCE_SUITE.md) specifies ARTC-001 through ARTC-014.
 - [Test Evidence](TEST_EVIDENCE.md) records deterministic execution of all 14 cases.
 - [DR 0001](../../decisions/0001-agent-runtime-sovereignty-and-replaceability.md) records rationale, sources, consequences, and Owner Review assessment.
+- [DR 0002](../../decisions/0002-runtime-contract-durable-record-model.md) records the Owner-approved narrow runtime record model.
 - [CURRENT_STATE.md](../../CURRENT_STATE.md) records current status and remaining work.
+- [Reviewer Disposition Template](RECERTIFICATION_DISPOSITION_TEMPLATE.md) provides the required independent-review record structure.
 
 ## Required Independent Review Checks
 
@@ -34,6 +37,7 @@ The review is limited to the following claimed architecture refinements:
 6. Confirm runtime replacement and memory loss preserve identity, authorization, Evidence Graph semantics, canonical knowledge, recovery, and HAL-facing interfaces.
 7. Confirm test-only evidence is appropriately scoped and does not claim production integration, real-resource security, or Hermes verification.
 8. Record any nonconformance, limitation, required remediation, or decision not supported by the evidence.
+9. Confirm runtime-journal claims remain non-canonical and cannot be read as evidence acceptance, authorization, permission, or an outcome.
 
 ## Disposition Criteria
 

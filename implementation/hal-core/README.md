@@ -52,6 +52,7 @@ Use only non-secret local values in `.env`.
 - `src/authority` - exact authority decision model
 - `src/audit` - append-only in-memory audit records (dev/test only)
 - `src/shared` - shared immutable ID and correlation types
+- `src/runtime` - implementation-neutral Agent Runtime Contract seam, deterministic test runtime, and inert Hermes adapter boundary
 - `test` - deterministic unit tests
 - `docs` - M0-M9 evidence, implementation, readiness, and assurance records
 - `scripts` - manifest generation utility
@@ -59,6 +60,10 @@ Use only non-secret local values in `.env`.
 ## CI behavior
 
 GitHub Actions runs format check, lint, typecheck, tests, and security scan. Tests are deterministic and local-only; no network-dependent test behavior is admitted.
+
+## Agent Runtime boundary
+
+The local runtime module is a semantic, test-only implementation seam for Book II’s Agent Runtime Contract. `HermesAdapter` contains no Hermes package or process integration; it delegates only contract operations to an injected driver. The runtime boundary holds no governed-resource handle and cannot authorize a capability request. See `docs/RUNTIME_ADAPTER_BOUNDARY_IMPLEMENTATION_RECORD.md`.
 
 ## M1 demo usage
 

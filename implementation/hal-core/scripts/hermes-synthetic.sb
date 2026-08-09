@@ -1,0 +1,25 @@
+; HAL synthetic Hermes evaluation profile — template only.
+; Supply EVAL_ROOT with sandbox-exec -D EVAL_ROOT=<absolute-temporary-directory>.
+(version 1)
+(deny default)
+
+; Allow the isolated evaluation root and the macOS/Python runtime needed for
+; negative-control checks. No home, repository, external volume, or network
+; path is allowed by this profile.
+(allow file-read* (subpath (param "EVAL_ROOT")))
+(allow file-write* (subpath (param "EVAL_ROOT")))
+(allow file-read* (subpath "/System"))
+(allow file-read* (subpath "/usr/lib"))
+(allow file-read* (subpath "/usr/share"))
+(allow file-read* (subpath "/Library/Apple"))
+(allow file-read* (literal "/dev/null"))
+
+; Permit the explicit interpreter used by the containment checks and its normal
+; macOS process bootstrap interactions. These allowances do not grant network
+; or filesystem access beyond the rules above.
+(allow process-exec)
+(allow process-fork)
+(allow sysctl-read)
+(allow mach-lookup)
+
+; Network remains denied by the default rule. Do not add socket allowances.

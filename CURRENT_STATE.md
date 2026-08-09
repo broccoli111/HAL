@@ -12,11 +12,11 @@ The active workspace is the Git repository rooted at `/Users/rosslauda/Documents
 
 ## Current Phase
 
-**Agent Runtime Abstraction and Runtime Sovereignty**
+**HAL-Owned Local Inference Mediation Pilot Evaluation Complete**
 
 ## Current Objective
 
-Establish and verify the implementation-neutral Agent Runtime boundary before integrating Hermes.
+Record and preserve the bounded mediation-pilot evidence while retaining the no-connection posture for any further inference or runtime integration.
 
 ## Completed
 
@@ -36,6 +36,68 @@ Establish and verify the implementation-neutral Agent Runtime boundary before in
 - Local Canon baseline committed and merged with the existing GitHub `main` implementation history without conflicts.
 - Existing TypeScript implementation through M9 controlled local knowledge packs is now present under `implementation/hal-core`; its conformance to the runtime-sovereignty clarification has not yet been assessed.
 - Workspace reconciled into the repository root: verified duplicate `docs/` trees now link to their single physical `Documents/` sources, and generated render/cache output was removed.
+- Owner has authorized a time-bounded exception to the independent-review control for the narrow runtime-sovereignty clarification; see [Engineering Exception 0010](decisions/0010-owner-authorized-independent-review-control-exception.md). The formal reviewer artifact is still absent, and no independent recertification claim is made.
+- A local TypeScript semantic projection of the Agent Runtime Contract is implemented in `implementation/hal-core/src/runtime/`, with `TestRuntimeAdapter` and an inert `HermesAdapter` seam.
+- `RuntimeHost` now owns local runtime lifecycle sequencing, bounded context and capability-manifest delivery, callback custody, and agent/task/correlation linkage checks.
+- `LocalSyntheticCapabilityGateway` reuses the existing restrictive M3 local policy to permit only the already-admitted synthetic corpus-inspection capability; unknown requests, including `hal.files.read`, are denied.
+- The local adapter boundary has no Hermes package/process dependency and no filesystem, shell, network, secret, node, or governed-resource handle.
+- Adapter-boundary tests now cover lifecycle, permit/deny, report submission, failure reporting, runtime replacement, and runtime-memory loss/reconstruction.
+- Static anti-coupling tests verify HAL Core has no Hermes-specific reference outside the runtime adapter boundary and that the boundary imports no Hermes implementation.
+- Owner Decision DR 0002 authorizes a narrow, synthetic-only durable operational record for runtime claims and Gateway dispositions. Those records are integrity-chained and explicitly non-canonical.
+- Owner Decision DR 0004 supersedes DR 0003 and pins the Hermes evaluation candidate to the latest official release resolved on 2026-08-09: `v2026.8.3`, commit `3c27eb6234bf91b8ceee9e9071591b31e9b148cb`, for read-only source preflight only.
+- The current v2026.8.3 source preflight records broad runtime capability surfaces and containment requirements; see [preflight findings](implementation/hal-core/docs/HERMES_SOURCE_PREFLIGHT_v2026.8.3.md). No Hermes artifact is installed or executed.
+- `npm run check` passed for the existing TypeScript core and adapter-boundary addition: 22 test files and 162 tests.
+- Owner selected **GX10-1** as the separately provisioned target host for a future containerized Hermes evaluation. This records placement only; no remote access, installation, container creation, or Hermes execution has occurred.
+- GX10-1 host identity was Owner-verified and trusted for SSH on 2026-08-09. The host rejected the available SSH credentials, so no remote preflight command, installation, container creation, or Hermes execution occurred.
+- A dedicated local `HAL-to-GX10-1` SSH key pair was created on 2026-08-09 and its public half was authorized for the `broccoli_01` account on GX10-1.
+- The authorized read-only preflight reached GX10-1: it runs Ubuntu 24.04.4 LTS, kernel `6.17.0-1026-nvidia`, and Docker 29.2.1 with baseline AppArmor, seccomp, and cgroup-namespace security options. No host or container state was changed.
+- The supplied `broccoli_01` account belongs to both `sudo` and `docker` groups, and one existing Docker container is present. Administrator authentication is required to inspect the Docker daemon configuration and firewall state. This account must not be treated as the eventual least-privilege evaluation identity without an Owner security-boundary decision.
+- Owner approved Option 1 for GX10-1: establish a dedicated non-sudo evaluation identity and rootless Docker runtime. The required Ubuntu packages were installed without a Docker upgrade; no container was created.
+- A distinct local SSH key pair was created and authorized for the non-privileged GX10-1 evaluation identity.
+- The Owner-approved `hal_eval` account and its account-local rootless Docker 29.2.1 service are now provisioned on GX10-1. The runtime has zero images, zero containers, and zero published ports; no Hermes artifact was acquired or executed. The pre-container record is [HERMES_GX10_1_ROOTLESS_RUNTIME_PROVISIONING.md](implementation/hal-core/docs/HERMES_GX10_1_ROOTLESS_RUNTIME_PROVISIONING.md).
+- GX10-1 pre-container capacity evidence records 20 logical CPUs, 121 GiB memory, and 824 GiB free in the evaluation account’s home filesystem; no GPU/device access is enabled for the evaluation identity.
+- Owner approved the initial GX10-1 disposable evaluation cap profile: 4 CPUs, 16 GiB memory, 256 processes, 30 GiB writable storage, 100 MiB logs, 15-minute maximum runtime, no GPU, and no network. This is not authorization to acquire an image, create a container, or execute Hermes.
+- Owner authorized one bounded source-only acquisition of the DR 0004-pinned Hermes Git tag on the GX10-1 `hal_eval` identity: no checkout, build, dependency installation, image pull, container, or execution.
+- The bounded source-only acquisition completed and resolved to the DR 0004-pinned commit. Its 404 KiB Git object store passed `git fsck`; the worktree has zero materialized source entries, and rootless Docker still has zero images and zero containers. Evidence: [HERMES_GX10_1_SOURCE_ACQUISITION.md](implementation/hal-core/docs/HERMES_GX10_1_SOURCE_ACQUISITION.md).
+- Owner approved the bounded GX10-1 synthetic runtime test phase, beginning with a digest-pinned Linux/ARM64 Python 3.13 slim base-image acquisition and containment probes only; see [DR 0007](decisions/0007-gx10-1-synthetic-runtime-test-phase.md).
+- DR 0007 Phase 1 passed: the digest-pinned base image ran a synthetic rootless probe with no network route, no host mounts, read-only root, dropped capabilities, no devices, and the approved CPU/memory/process/log limits. The probe container was destroyed and no Hermes code ran. Evidence: [HERMES_GX10_1_CONTAINMENT_PROBE.md](implementation/hal-core/docs/HERMES_GX10_1_CONTAINMENT_PROBE.md).
+- DR 0007 Phase 2 passed: the DR 0004-pinned source was copied into a network-disabled static-validation image and all 1,106 Python files compiled in memory under the hardened profile. No Hermes import or runtime process occurred; the disposable validation container was destroyed. Evidence: [HERMES_GX10_1_STATIC_VALIDATION.md](implementation/hal-core/docs/HERMES_GX10_1_STATIC_VALIDATION.md).
+- DR 0007 Phase 3 dependency image was built from the frozen lockfile, but the non-root `hermes --help` smoke command was denied by the image filesystem before process execution. The container was destroyed; no Hermes process, network action, or HAL interaction occurred. Diagnose the image-path permission boundary without relaxing the non-root runtime identity.
+- DR 0007 Phase 3 remediation passed: rebuilding against the approved system Python 3.13 allowed non-root `hermes --help` under the hardened profile. A safe-mode no-provider synthetic task then failed as expected before inference, reporting no configured provider; no network, credentials, tool action, HAL connection, or governed-resource action occurred. Each disposable container was destroyed.
+- Post-containment local validation passed on 2026-08-09: the repository Agent Runtime Contract suite passed 14/14 tests, and `implementation/hal-core` formatting, lint, typecheck, and Vitest gate passed 22/22 files and 162/162 tests.
+- Owner-approved DR 0008 test-only line-driver seam is implemented wholly at the Hermes adapter edge. It accepts injected transport replies only as correlated progress/result/failure claims and retains HAL callback custody; its focused TypeScript adapter test passes 7/7 cases.
+- The DR 0008 GX10-side synthetic line-driver command was syntax-checked, placed only under `hal_eval`'s isolated acquisition path, and probed over the approved SSH channel. A zero-capability execute-task frame returned exactly correlated progress/result claims; it did not invoke Hermes, a model, a tool, a capability, or a HAL resource.
+- The DR 0008 external SSH harness was implemented outside HAL Core and passed against GX10-1 using the dedicated non-privileged key. It validated only correlated progress/result frames from the synthetic driver.
+- The line-driver boundary rejects malformed, capability-like, and mislinked remote frames before callback delivery. HAL-side claim custody remains covered by the existing `RuntimeSubmissionRecorder`/`RuntimeJournal` adapter-boundary test.
+- Owner-approved DR 0009 synthetic streaming cancellation passed over the isolated GX10-1 SSH stdio session with a 15-minute harness deadline: a bounded cancel frame produced a correlated failure claim and no capability, model, credential, tool, HAL resource, or inbound listener was used.
+- The line-driver integration path has a passing HAL-side journal-custody test: correlated progress/result frames are integrity-chained as `unaccepted_runtime_claim` records and cannot become canonical knowledge by transport success alone.
+- Test-only line-driver hardening rejects remote claims returned on checkpoint, cancel, or destroy control operations, and rejects post-terminal claims after closing HAL task linkage; focused boundary checks passed 15/15.
+- `RuntimeHost` now rejects checkpoint, cancel, and destroy calls for agents not admitted through that HAL-owned host; the expanded focused boundary checks passed 16/16.
+- `RuntimeHost` now gives every adapter HAL-owned callback custody: mismatched runtime, agent, task, or correlation claims are rejected before callback handling across capability, evidence, progress, result, failure, and subagent operations; the expanded focused boundary checks passed 18/18.
+- The repository-root `scripts/run_runtime_boundary_checks.sh` runner makes the complete test-only Contract, HAL Core, and diff-integrity gate reproducible without invoking Hermes or any external resource.
+- Owner Decision DR 0011 authorizes production-integration design and conformance planning only. It does not authorize a real Hermes driver, installation, execution, transport, provider, credential, capability, or governed resource.
+- Owner Decision DR 0012 is accepted for sequential Phases A–C. Phase A is active; Phase B remains blocked until Phase A evidence is complete and an adapter-private transport proposal is explicitly selected.
+- DR 0012 Phase A conformance evidence is complete. Phase B ran one isolated safe-mode, zero-capability, no-provider synthetic Hermes task: it failed before inference as expected because no provider/API key existed, and cleanup verified zero containers and no default Hermes state. Evidence: [GX10-1 Phase B record](implementation/hal-core/docs/HERMES_GX10_1_PHASE_B_SAFE_MODE_EVALUATION.md).
+- Owner Decision DR 0013 establishes a local-only model-provider policy: external inference providers and egress are prohibited. HAL may choose only from an Owner-approved local model catalog and may not autonomously acquire or expose models. A synthetic local-model-only pilot is approved subject to its recorded preconditions.
+- Owner Decision DR 0014 selects Ollama as the initial GX10-1 local model runtime.
+- Owner Decision DR 0015 selects `qwen3:8b` as the first local catalog candidate, limited to a synthetic text-only Ollama pilot with one-time provenance-recorded acquisition and no external inference.
+- The Qwen3 8B local model-only pilot passed on GX10-1: Ollama 0.32.6 is loopback-only with cloud disabled; artifact `500a1f067a9f` returned the synthetic expected text, loaded 100% on the GB10, and was unloaded. Evidence: [local model pilot](implementation/hal-core/docs/GX10_1_OLLAMA_QWEN3_8B_LOCAL_MODEL_PILOT.md).
+- A 120-page provisional Book II working edition was generated and visually checked in Markdown, DOCX, and PDF form under Engineering Exception 0010. It is explicitly non-recertified, does not replace the July 27 certified baseline, and is recorded in the [Book II Project Register](Documents/Book%20II/markdown/HAL_Book_II_Project_Register_v0.6.md).
+- DR 0017 host-side proxy prototype checks passed on GX10-1 under `hal_eval`: the sole synthetic Qwen3 request returned a 663-byte bounded response, a non-allow-listed request was denied locally, signal-aware teardown removed the Unix socket, and Ollama was left with no loaded model. No Hermes process, container, container mount, runtime route, network listener, capability, or governed resource was used. Evidence: [GX10-1 proxy synthetic test](implementation/hal-core/docs/GX10_1_LOCAL_OLLAMA_PROXY_SYNTHETIC_TEST.md).
+- Owner accepted DR 0018: HAL-owned local-inference mediation must bind runtime, agent, task, correlation, profile, lifetime, and limits before any runtime request can reach the local model. The adapter-neutral contract, control matrix, and staged verification plan are recorded under `implementation/hal-core/docs/`; no route or activation is authorized.
+- DR 0018 pure-contract and in-memory fake-upstream conformance passed locally: nine deterministic tests cover HAL-issued one-use bindings, pre-execution mismatch/profile denial, expiry/replay, cancellation/revocation, fixed-profile forwarding, upstream/oversize failure containment, and non-canonical result-claim custody. It opens no socket or network and invokes no model, container, or runtime process. Evidence: [Agent Runtime Contract Test Evidence](tests/agent_runtime_contract/TEST_EVIDENCE.md).
+- The GX10-1 rootless-network read-only assessment is recorded: Docker has its default `bridge`, `host`, and `none` definitions and the host has several loopback listeners, so neither default networking nor host reachability is admissible. The only current runtime posture remains `--network none`. Evidence: [rootless network assessment](implementation/hal-core/docs/GX10_1_ROOTLESS_NETWORK_READONLY_ASSESSMENT.md).
+- The DR 0017/DR 0018 containment test design defines exact negative probes, fixed no-network entry/exit posture, teardown, and a separate Owner-gated positive test. Evidence: [containment test design](implementation/hal-core/docs/LOCAL_INFERENCE_MEDIATION_CONTAINMENT_TEST_DESIGN.md).
+- Owner approved DR 0019 for CT-001 through CT-007 only: a disposable negative containment simulation. Hermes, all model requests/CT-008, real data, capabilities, host networking, and production use remain excluded.
+- DR 0019 CT-001 through CT-007 passed on GX10-1. The disposable rootless namespace denied DNS/LAN/host-loopback paths and had no host sockets/devices/secrets; missing and invalid bindings were denied by the no-upstream mediator; teardown removed the socket and prevented reuse. Final verification found no mediator process/socket, containers, or loaded Ollama model. Evidence: [negative containment test](implementation/hal-core/docs/GX10_1_LOCAL_INFERENCE_CONTAINMENT_NEGATIVE_TEST.md).
+- Owner approved DR 0020 for CT-008 only: one disposable synthetic `qwen3:8b` request through a one-use HAL-issued test binding. Hermes, real data, capabilities, external providers, host networking, and production use remain excluded.
+- DR 0020 CT-008 passed once on GX10-1: the exact one-use binding was accepted; the fixed synthetic request returned a 663-byte bounded response; only minimized non-canonical events were retained; and final verification found no mediator process/socket, containers, or loaded Ollama model. Hermes, raw Ollama access, and all other paths remained absent. Evidence: [CT-008 positive test](implementation/hal-core/docs/GX10_1_LOCAL_INFERENCE_MEDIATION_POSITIVE_TEST.md).
+- Owner approved initiation of the targeted independent Book II runtime-sovereignty review under DR 0021. The review packet is ready; the independent reviewer’s completed disposition/attestation is still required and the Book II working edition remains unrecertified until then.
+- Owner directed continuation without waiting for the independent-review artifact under DR 0022. This relies only on the existing time-bounded Engineering Exception 0010 through 2026-08-16; it permits provisional/test-only work only and does not issue recertification or authorize production/Hermes integration.
+- CT-008 mediator validation was hardened with three deterministic local tests: only the exact one-use binding/request shape is admitted, and mutation, malformed input, replay, expiry, and invalid lifetimes are denied before upstream contact. The full local runner now has 32 Python checks and 167 TypeScript tests. The 60-second expiry addition was not exercised through a second GX10 inference request. Evidence: [Agent Runtime Contract Test Evidence](tests/agent_runtime_contract/TEST_EVIDENCE.md).
+- Owner accepted DR 0023, establishing a risk-scaled Book III Solo-Owner Assurance Profile for routine, reversible, non-production work when no independent reviewer exists. The Book III Chapter 8 Markdown source and combined Markdown edition are now an Owner-authorized working amendment pending recertification; the prior formatted Book III editions remain the certified baseline. The reusable [Solo-Owner Assurance template](Documents/Book%20III/templates/SOLO_OWNER_ASSURANCE_TEMPLATE.md) records required evidence and the high-risk threshold.
+- Test-only mediation script boundaries are now statically enforced: networkless/read-only/capability-dropped/Hermes-free harnesses; no upstream/model path in the negative mediator; and fixed loopback/model/expiry limits in the positive mediator. Evidence: [Agent Runtime Contract Test Evidence](tests/agent_runtime_contract/TEST_EVIDENCE.md).
+- The Book III Solo-Owner Assurance amendment certification packet and read-only local verification runner are prepared. They do not certify the amendment or alter the existing formatted Book III baseline; an independent high-risk review disposition remains required. See [certification packet](Documents/Book%20III/deliverables/HAL_BOOK_III_SOLO_OWNER_ASSURANCE_CERTIFICATION_PACKET.md).
 
 ## Important Current Architectural Boundaries
 
@@ -49,14 +111,15 @@ The following are status pointers, not restatements or replacements of architect
 
 ## Next Planned Sequence
 
-1. Obtain an independent targeted Book II conformance review using the [recertification handoff](tests/agent_runtime_contract/RECERTIFICATION_HANDOFF.md) and test-only evidence.
-2. Record the resulting scoped conformance disposition; remediate any finding before certification.
-3. Regenerate authoritative formatted Book II editions after successful targeted recertification.
-4. Begin HermesAdapter integration only after the boundary has been validated and the preceding steps are complete.
+1. Maintain the provisional, explicitly unrecertified formatted Book II working edition under the active, time-bounded [Engineering Exception 0010](decisions/0010-owner-authorized-independent-review-control-exception.md).
+2. Obtain and record the independent-review disposition before the exception expires on 2026-08-16; otherwise the project fails closed at that gate.
+3. Run `sh scripts/verify_book_iii_solo_owner_assurance.sh`, complete the Book III certification packet with an independent reviewer, and record the disposition before treating the Solo-Owner Assurance Profile as a certified baseline.
+4. Once the amendment is certified, use the Solo-Owner Assurance Profile only for eligible routine, reversible, non-production work; retain independent review for the high-risk threshold and production release.
+5. Do not broaden the completed DR 0012/0015/0019/0020 pilots into an external provider, unapproved model, real capability, real resource, or production deployment. Any further inference, Hermes runtime integration, or production route requires a new Owner decision and, where high-risk, independent review.
 
 ## Explicitly Out of Scope
 
-- Production Hermes integration.
+- Production Hermes activation or connection to a real Hermes package, process, or transport.
 - Unrestricted filesystem access.
 - NAS access.
 - Unrestricted shell execution.
@@ -68,11 +131,19 @@ The following are status pointers, not restatements or replacements of architect
 
 ## Current Documentation and Certification Status
 
-The runtime-sovereignty clarification is recorded in the Book II Markdown working edition and [Book II Project Register](Documents/Book%20II/markdown/HAL_Book_II_Project_Register_v0.6.md). Test-only contract evidence is available in [tests/agent_runtime_contract/TEST_EVIDENCE.md](tests/agent_runtime_contract/TEST_EVIDENCE.md), with a bounded [recertification handoff](tests/agent_runtime_contract/RECERTIFICATION_HANDOFF.md). Targeted Book II conformance recertification and regeneration of authoritative formatted Book II editions remain pending. The prior Book II certification applies to the preceding baseline only.
+The runtime-sovereignty clarification is recorded in the Book II Markdown working edition and [Book II Project Register](Documents/Book%20II/markdown/HAL_Book_II_Project_Register_v0.6.md). A 2026-08-09 provisional Markdown, DOCX, and PDF edition exists in `Documents/_FinalOutput/`; it is explicitly unrecertified and separate from the certified baseline. Test-only contract evidence is available in [tests/agent_runtime_contract/TEST_EVIDENCE.md](tests/agent_runtime_contract/TEST_EVIDENCE.md), with a bounded [recertification handoff](tests/agent_runtime_contract/RECERTIFICATION_HANDOFF.md). Targeted Book II conformance recertification and regeneration of authoritative formatted Book II editions remain pending. The prior Book II certification applies to the preceding baseline only.
 
 ## Material Blocker
 
-Book II Chapter 35 requires independent review before a conformance certification can be issued. The required evidence package has been prepared, but this session cannot represent its own review as independent. No certification claim may be made until an independent targeted review records its disposition.
+The formal reviewer scope, findings/disposition, date, and attestation have not been stored in the repository; this session therefore does not claim or issue Book II certification. The Owner has authorized the narrow, temporary [Engineering Exception 0010](decisions/0010-owner-authorized-independent-review-control-exception.md), which allows only provisional documentation and test-only work until 2026-08-16. [RECERTIFICATION_DISPOSITION_TEMPLATE.md](tests/agent_runtime_contract/RECERTIFICATION_DISPOSITION_TEMPLATE.md) remains the required record for independent review. The exception cannot authorize production integration or a certification claim.
+
+GX10-1 synthetic evaluation evidence remains strictly bounded to the approved isolated `hal_eval` account, rootless container profile, static validation, safe no-provider smoke result, and synthetic line-driver probes. It does not authorize production Hermes activation, any real capability, a real provider, credentials, governed resources, or a production transport.
+
+DR 0018 resolves the design-authorization decision for a HAL-owned identity-and-correlation mediator. The activation path remains blocked on its planned conformance evidence and a further Owner activation decision. Read-only assessment confirms that rootless Docker retains its default `bridge`, `host`, and `none` network definitions, while GX10-1 exposes multiple host loopback listeners (including Ollama). The host-side proxy prototype is intentionally not mountable or runtime-addressable. No container-to-proxy route, container mount, runtime identity binding, or bypass/egress negative test has been attempted or passed.
+
+## Known Dependency Follow-Up
+
+The lockfile-pinned development dependency audit reports two high-severity advisories: `brace-expansion` (GHSA-rgw5-rvv9-x895) and `nanoid` (GHSA-2v37-7h3g-55p8). No dependency or lockfile change was made, and package install scripts for `esbuild` and `fsevents` remained blocked by the local install policy. Review and remediation must be a separately scoped dependency-change task under Book II Chapter 29; it is not part of the adapter-boundary milestone.
 
 ## Owner Review Status
 

@@ -12,8 +12,9 @@ from docx.shared import Inches, Pt
 DOCUMENTS = Path(__file__).resolve().parents[2]
 BOOK = DOCUMENTS / "Book II"
 OUTPUT = DOCUMENTS / "_FinalOutput"
-DOC_OUT = OUTPUT / "DOC" / "HAL_BOOK_II_ARCHITECTURE_SPECIFICATION.docx"
-MD_OUT = OUTPUT / "Markdown" / "HAL_BOOK_II_ARCHITECTURE_SPECIFICATION.md"
+EDITION_LABEL = "PROVISIONAL_2026-08-09"
+DOC_OUT = OUTPUT / "DOC" / f"HAL_BOOK_II_ARCHITECTURE_SPECIFICATION_{EDITION_LABEL}.docx"
+MD_OUT = OUTPUT / "Markdown" / f"HAL_BOOK_II_ARCHITECTURE_SPECIFICATION_{EDITION_LABEL}.md"
 
 
 def edition(chapter: int) -> str:
@@ -58,12 +59,12 @@ for number in range(1, 36):
 front_markdown = [
     "# HAL Book II — The Architecture Specification",
     "",
-    "**Status:** Consolidated authoritative architecture baseline  ",
+    "**Status:** Provisional working edition — not independently recertified  ",
     "**Scope:** Chapters 1–35  ",
-    "**Compilation date:** 2026-07-27  ",
+    "**Compilation date:** 2026-08-09  ",
     "**Constitutional authority:** Book I — The Constitution",
     "",
-    "Book I remains the supreme authority. This edition contains the latest approved chapter edition for every numbered chapter and defines the implementation-independent architecture of HAL.",
+    "Book I remains the supreme authority. This provisional edition contains the current Markdown working chapter editions, including the runtime-sovereignty clarification. It is published under the time-bounded Engineering Exception 0010 and does not replace the certified 2026-07-27 baseline or issue a certification claim.",
     "",
     "## Authoritative editions",
     "",
@@ -105,9 +106,9 @@ run.font.size = Pt(26)
 subtitle = document.add_paragraph()
 subtitle.alignment = WD_ALIGN_PARAGRAPH.CENTER
 subtitle.add_run(
-    "Consolidated authoritative architecture baseline\n"
+    "Provisional working edition — not independently recertified\n"
     "Chapters 1–35\n"
-    "Compiled 27 July 2026"
+    "Compiled 9 August 2026"
 )
 
 authority = document.add_paragraph()
@@ -121,24 +122,29 @@ control = document.add_table(rows=0, cols=2)
 control.style = "Table Grid"
 for key, value in [
     ("Document", "BOOK_II_ARCHITECTURE_SPECIFICATION"),
-    ("Status", "Consolidated authoritative architecture baseline"),
+    ("Status", "Provisional working edition — not independently recertified"),
     ("Scope", "Thirty-five chapters"),
     ("Constitutional authority", "Book I Constitution v1.0"),
-    ("Compilation date", "27 July 2026"),
-    ("Owner Review", "No unresolved decision recorded in the latest chapter set"),
+    ("Compilation date", "9 August 2026"),
+    ("Independent review", "Pending; not waived by this publication"),
+    ("Engineering exception", "0010; expires 16 August 2026"),
 ]:
     cells = control.add_row().cells
     cells[0].text = key
     cells[1].text = value
 
 document.add_paragraph(
-    "This edition includes the latest approved chapter edition for each numbered "
-    "chapter. Earlier editions and audit working papers remain outside this "
-    "publication bundle."
+    "This edition includes the current Markdown working edition for each numbered "
+    "chapter. It is a provisional publication for test-only documentation continuity. "
+    "It must not be presented as independently recertified or as authorization for "
+    "production runtime integration. Earlier certified editions and audit working papers "
+    "remain outside this publication bundle."
 )
 statement = document.add_paragraph()
 statement.alignment = WD_ALIGN_PARAGRAPH.CENTER
-statement_run = statement.add_run("BOOK I REMAINS THE SUPREME AUTHORITY")
+statement_run = statement.add_run(
+    "BOOK I REMAINS THE SUPREME AUTHORITY — THIS EDITION IS NOT RECERTIFIED"
+)
 statement_run.bold = True
 
 document.add_page_break()
@@ -163,7 +169,7 @@ header.text = "HAL  •  BOOK II  •  ARCHITECTURE SPECIFICATION"
 footer = section.footer.paragraphs[0]
 footer.alignment = WD_ALIGN_PARAGRAPH.CENTER
 footer.clear()
-footer.add_run("Consolidated authoritative baseline  •  ")
+footer.add_run("Provisional working edition — not independently recertified  •  ")
 field = OxmlElement("w:fldSimple")
 field.set(qn("w:instr"), "PAGE")
 footer._p.append(field)
