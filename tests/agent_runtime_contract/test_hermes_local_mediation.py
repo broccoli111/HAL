@@ -78,6 +78,12 @@ class HermesLocalMediationTests(unittest.TestCase):
             },
         )
 
+    def test_permits_only_boolean_streaming_mode(self) -> None:
+        streaming = json.dumps({"messages": [{"role": "user", "content": "synthetic"}], "stream": True}).encode()
+        self.assertTrue(self.mediator.admitted(self.headers, streaming)["stream"])
+        invalid = json.dumps({"messages": [{"role": "user", "content": "synthetic"}], "stream": "yes"}).encode()
+        self.assertIsNone(self.mediator.admitted(self.headers, invalid))
+
     def test_denies_invalid_binding_and_non_text_content(self) -> None:
         self.assertIsNone(self.mediator.admitted({"x-hal-binding": "wrong"}, self.body))
         body = json.dumps({"messages": [{"role": "user", "content": [{"type": "text"}]}]}).encode()

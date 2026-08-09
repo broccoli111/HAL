@@ -96,11 +96,15 @@ def admitted(headers: dict[str, str], body: bytes) -> dict[str, object] | None:
     if not all(isinstance(message, dict) and isinstance(message.get("role"), str) and isinstance(message.get("content"), str) for message in messages):
         print("HAL mediator denial=unsupported-message-content", flush=True)
         return None
+    stream = request.get("stream", False)
+    if not isinstance(stream, bool):
+        print("HAL mediator denial=invalid-stream-mode", flush=True)
+        return None
     print("HAL mediator decision=permit-local-inference", flush=True)
     return {
         "model": "qwen3:8b",
         "messages": messages,
-        "stream": False,
+        "stream": stream,
         "max_tokens": 2_048,
         "temperature": 0,
         "think": False,
@@ -149,8 +153,11 @@ async def handle(reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> 
             print("HAL mediator finish_reason=" + repr(choice.get("finish_reason")), flush=True)
         except (KeyError, TypeError, UnicodeDecodeError, json.JSONDecodeError, IndexError):
             print("HAL mediator response_shape=unrecognized", flush=True)
-        response, normalization = normalize_upstream_response(response)
-        print("HAL mediator normalization=" + normalization, flush=True)
+        if request["stream"]:
+            print("HAL mediator normalization=stream-passthrough", flush=True)
+        else:
+            response, normalization = normalize_upstream_response(response)
+            print("HAL mediator normalization=" + normalization, flush=True)
         writer.write(response)
         await writer.drain()
     except Exception as error:
