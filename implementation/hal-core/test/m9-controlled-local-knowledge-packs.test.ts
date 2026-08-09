@@ -1,4 +1,4 @@
-import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from "node:fs/promises";
+import { cp, mkdir, mkdtemp, readFile, rm, symlink, writeFile } from "node:fs/promises";
 import { lstatSync } from "node:fs";
 import { Buffer } from "node:buffer";
 import os from "node:os";
@@ -160,6 +160,33 @@ describe("M9 controlled local knowledge packs", () => {
     expect(HAL_CANON_SOURCE_PATHS).toContain(
       "Documents/_FinalOutput/Markdown/HAL_BOOK_1_CONSTITUTION.md"
     );
+  });
+
+  test("HAL Canon source-record tampering is rejected even after manifest rehash", async () => {
+    const root = await createTempDirectory("hal-m9-canon-tamper-");
+    try {
+      const source = path.resolve(
+        process.cwd(),
+        "fixtures",
+        "approved-knowledge-packs",
+        M9_HAL_CANON_PACK_ID
+      );
+      const copiedPack = path.resolve(root, M9_HAL_CANON_PACK_ID);
+      await cp(source, copiedPack, { recursive: true });
+      const manifestPath = path.resolve(copiedPack, "manifest.json");
+      const manifest = JSON.parse(await readFile(manifestPath, "utf8")) as Record<string, unknown>;
+      const sourceRecords = manifest.sourceRecords as Array<Record<string, unknown>>;
+      sourceRecords[0] = { ...sourceRecords[0], sha256: "0".repeat(64) };
+      const integrity = manifest.integrity as Record<string, unknown>;
+      delete integrity.manifestHashSha256;
+      integrity.manifestHashSha256 = sha256Hex(canonicalJsonUtf8Bytes(manifest));
+      await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+      expect(() => validateApprovedPackDirectory(copiedPack)).toThrow(
+        "HAL Canon source hash mismatch"
+      );
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
   });
 
   test("HAL Canon pack activation yields non-canonical, source-labeled inquiry context", async () => {

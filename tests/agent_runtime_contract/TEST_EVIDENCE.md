@@ -97,8 +97,8 @@ The UI limits a process to 20 independent turns and each question to 8,192 chara
 | --- | --- |
 | Date | 2026-08-09 |
 | Scope | Owner-approved, fixed-source local HAL Canon retrieval pack |
-| Local validation | HAL Core `npm run check`: 22 test files and 173 tests passed |
-| Integration evidence | M9 activation/inquiry test proves source-confined activation, non-canonical context labels, source-labeled references, and retained excerpt |
+| Local validation | HAL Core `npm run check`: 22 test files and 174 tests passed |
+| Integration evidence | M9 activation/inquiry test proves source-confined activation, non-canonical context labels, source-labeled references, retained excerpt, and source-record tamper rejection after manifest rehash |
 | Live bounded smoke | A restricted GX10 zero-capability inquiry returned a concise source-labeled explanation of runtime authority from HAL-provided context |
 
 The `hal_canon_v1` pack has 47 bounded content files and is generated only from the exact DR 0028 allowlist. Its source records are hash-verified by M9. The runtime receives bounded rendered context only; it receives no source path, filesystem handle, capability, tool, secret, canonical-knowledge write authority, or network egress. Result claims remain non-canonical.
