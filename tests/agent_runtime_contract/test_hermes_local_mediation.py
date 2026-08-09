@@ -98,6 +98,16 @@ class HermesLocalMediationTests(unittest.TestCase):
         self.assertTrue(head.startswith(b"POST /v1/chat/completions"))
         self.assertEqual(body, b"test")
 
+    def test_strips_local_reasoning_without_altering_final_content(self) -> None:
+        upstream = {
+            "choices": [{"message": {"role": "assistant", "content": "HAL_LOCAL_OK", "reasoning": "private"}, "finish_reason": "stop"}]
+        }
+        body = json.dumps(upstream).encode()
+        response = b"HTTP/1.1 200 OK\r\nContent-Length: " + str(len(body)).encode() + b"\r\n\r\n" + body
+        normalized = self.mediator.normalize_upstream_response(response)
+        payload = json.loads(normalized.partition(b"\r\n\r\n")[2])
+        self.assertEqual(payload["choices"][0]["message"], {"role": "assistant", "content": "HAL_LOCAL_OK"})
+
 
 class Gx10ForcedRuntimeEntrypointTests(unittest.TestCase):
     def call_read_request(self, payload: bytes, original_command: str = "") -> tuple[str, str]:

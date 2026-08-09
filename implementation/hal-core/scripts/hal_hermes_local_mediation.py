@@ -25,6 +25,30 @@ REQUESTS = 0
 MAX_REQUESTS = 4
 
 
+def normalize_upstream_response(response: bytes) -> bytes:
+    """Remove local-provider reasoning traces before handing a result to Hermes.
+
+    The bounded local Qwen profile returns both visible final content and an
+    implementation-specific ``reasoning`` field.  Hermes's CLI loop treats
+    that combination as continuable despite a ``stop`` result, so this adapter
+    normalization exposes only the ordinary OpenAI-compatible final message.
+    """
+    head, separator, body = response.partition(b"\r\n\r\n")
+    if not separator:
+        return response
+    try:
+        payload = json.loads(body)
+        message = payload["choices"][0]["message"]
+        if not isinstance(message, dict) or "reasoning" not in message:
+            return response
+        del message["reasoning"]
+        normalized_body = json.dumps(payload, separators=(",", ":")).encode()
+    except (KeyError, TypeError, UnicodeDecodeError, json.JSONDecodeError, IndexError):
+        return response
+    headers = [line for line in head.split(b"\r\n") if not line.lower().startswith(b"content-length:")]
+    return b"\r\n".join(headers + [f"Content-Length: {len(normalized_body)}".encode()]) + b"\r\n\r\n" + normalized_body
+
+
 async def read_http_request(reader: asyncio.StreamReader) -> tuple[bytes, bytes]:
     head = await asyncio.wait_for(reader.readuntil(b"\r\n\r\n"), timeout=30)
     if len(head) > MAX_BYTES:
@@ -125,6 +149,7 @@ async def handle(reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> 
             print("HAL mediator finish_reason=" + repr(choice.get("finish_reason")), flush=True)
         except (KeyError, TypeError, UnicodeDecodeError, json.JSONDecodeError, IndexError):
             print("HAL mediator response_shape=unrecognized", flush=True)
+        response = normalize_upstream_response(response)
         writer.write(response)
         await writer.drain()
     except Exception as error:
