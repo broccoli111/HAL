@@ -26,6 +26,7 @@
     "m8:copy-assets": "node ./scripts/copy-m8-assets.mjs",
     "m8:desktop": "npm run build && npm run m8:copy-assets && electron ./dist/src/cli/m8DesktopCli.js",
     "runtime:ask": "npm run build && node ./scripts/ask-gx10-hermes.mjs",
+    "runtime:ask:knowledge": "npm run build && node ./scripts/ask-gx10-hermes-with-approved-knowledge.mjs",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
     "security:scan": "npm audit --audit-level=high",
     "m0:source-manifest": "node ./scripts/generate-source-manifest.mjs"
