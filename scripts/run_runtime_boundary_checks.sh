@@ -13,6 +13,7 @@ python3 -m unittest -q tests.agent_runtime_contract.test_local_inference_mediati
 python3 -m unittest -q tests.agent_runtime_contract.test_positive_mediation_validation
 python3 -m unittest -q tests.agent_runtime_contract.test_mediation_script_boundaries
 python3 -m unittest -q tests.agent_runtime_contract.test_readonly_shell_pilot
+python3 -m unittest -q tests.agent_runtime_contract.test_stateless_chat_interface
 
 cd "$repo_root/implementation/hal-core"
 npm run check

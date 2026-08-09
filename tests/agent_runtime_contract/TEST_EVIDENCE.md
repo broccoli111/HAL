@@ -79,6 +79,18 @@ ARTC-001 through ARTC-014 passed, covering lifecycle admission, bounded dispatch
 
 The checks execute only the exact HAL-owned `pwd`, `git status --short`, and `git log --oneline -n 20` argument arrays in the repository workspace and bound returned output to 16 KiB. They prove rejection of arbitrary commands, shell-like argument injection, and malformed request shapes before execution. Static assertions require the fixed repository-status and repository-history assistants to obtain their context only through that probe and to provide it as text context with an explicit no-tools instruction; they forbid a direct Git subprocess or shell-enabled composition path. This evidence does not grant a runtime a shell capability, a general command interface, governed-resource access, or canonical-knowledge write authority.
 
+## Bounded Stateless Terminal Assistant Evidence
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-08-09 |
+| Scope | Existing DR 0027 restricted local text-only transport presented through a local terminal UI |
+| Static command | `python3 -m unittest -v tests.agent_runtime_contract.test_stateless_chat_interface` |
+| Live smoke command | `printf '%s\\n%s\\n' 'What is 2 + 2? Reply with only the number.' '/exit' | npm run runtime:chat` with the existing required GX10 environment variables |
+| Result | PASS — static boundary test passed; live request returned `4` and the session ended cleanly |
+
+The UI limits a process to 20 independent turns and each question to 8,192 characters, matching the existing forced runtime request bound. It persists neither transcript nor runtime memory and starts no listener. Each turn delegates only to the existing `runtime:ask` composition, which retains HAL result/evidence custody and grants the runtime no capabilities. EOF is handled as a clean local session termination. This is a convenience UI over the approved bounded local text-only slice, not a new runtime contract, capability, authority, or production service.
+
 ## Limitations and Follow-up
 
 The harness verifies the defined semantic boundary only. It does not verify a production implementation, Hermes, a general Capability Gateway, real resources, secrets, external connectivity, deployment, or formatted Book II recertification. The existing local synthetic Gateway has exactly one permitted M3 inspection capability and returns no resource, credential, or execution handle to a runtime. Under [DR 0002](../../decisions/0002-runtime-contract-durable-record-model.md), the runtime journal retains only integrity-chained, non-canonical runtime claims and Gateway dispositions. The separate, test-only GX10 synthetic cancellation probe passed with a 15-minute harness limit; it is not a production transport. The next required activity is to store the independent reviewer’s scoped Book II conformance disposition, then regenerate authoritative formatted Book II editions.
