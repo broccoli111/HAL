@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /** Ask Hermes about HAL's repository status after HAL runs its allow-listed check. */
 import { spawn } from "node:child_process";
+import { Buffer } from "node:buffer";
 import { once } from "node:events";
 import path from "node:path";
 
