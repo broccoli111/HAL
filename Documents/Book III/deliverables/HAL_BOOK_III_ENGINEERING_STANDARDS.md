@@ -31,7 +31,7 @@ Book III MUST NOT alter, weaken, reinterpret, or contradict Book I or Book II. W
 
 ## 1. Document control
 
-Status: Final. Control families: GOV-001 GOV-002 GOV-003 GOV-004 GOV-005. Version: 1.0. Source authority: Book I then Book II.
+Status: Owner-authorized working amendment; recertification pending. Control families: GOV-001 GOV-002 GOV-003 GOV-004 GOV-005. Version: 1.1. Source authority: Book I then Book II.
 
 ## 2. Purpose
 
@@ -134,7 +134,7 @@ Complete; chapter review record retained in `reviews/chapter-reviews/`.
 
 ## 1. Document control
 
-Status: Final. Control families: SRC-001 SRC-002 SRC-003 SRC-004 SRC-005 SRC-006. Version: 1.0. Source authority: Book I then Book II.
+Status: Owner-authorized working amendment; recertification pending. Control families: SRC-001 SRC-002 SRC-003 SRC-004 SRC-005 SRC-006. Version: 1.1. Source authority: Book I then Book II.
 
 ## 2. Purpose
 
@@ -237,7 +237,7 @@ Complete; chapter review record retained in `reviews/chapter-reviews/`.
 
 ## 1. Document control
 
-Status: Final. Control families: DES-001 DES-002 DES-003 DES-004 DES-005 DES-006. Version: 1.0. Source authority: Book I then Book II.
+Status: Owner-authorized working amendment; recertification pending. Control families: DES-001 DES-002 DES-003 DES-004 DES-005 DES-006. Version: 1.1. Source authority: Book I then Book II.
 
 ## 2. Purpose
 
@@ -340,7 +340,7 @@ Complete; chapter review record retained in `reviews/chapter-reviews/`.
 
 ## 1. Document control
 
-Status: Final. Control families: OBS-001 OBS-002 OBS-003 OBS-004 DOC-001. Version: 1.0. Source authority: Book I then Book II.
+Status: Owner-authorized working amendment; recertification pending. Control families: OBS-001 OBS-002 OBS-003 OBS-004 DOC-001. Version: 1.1. Source authority: Book I then Book II.
 
 ## 2. Purpose
 
@@ -443,7 +443,7 @@ Complete; chapter review record retained in `reviews/chapter-reviews/`.
 
 ## 1. Document control
 
-Status: Final. Control families: SEC-001 SEC-002 SEC-003 SEC-004 SEC-005 SEC-006 PRV-001 PRV-002. Version: 1.0. Source authority: Book I then Book II.
+Status: Owner-authorized working amendment; recertification pending. Control families: SEC-001 SEC-002 SEC-003 SEC-004 SEC-005 SEC-006 PRV-001 PRV-002. Version: 1.1. Source authority: Book I then Book II.
 
 ## 2. Purpose
 
@@ -546,7 +546,7 @@ Complete; chapter review record retained in `reviews/chapter-reviews/`.
 
 ## 1. Document control
 
-Status: Final. Control families: TST-001 TST-002 TST-003 TST-004 VER-001 VER-002 VER-003. Version: 1.0. Source authority: Book I then Book II.
+Status: Owner-authorized working amendment; recertification pending. Control families: TST-001 TST-002 TST-003 TST-004 VER-001 VER-002 VER-003. Version: 1.1. Source authority: Book I then Book II.
 
 ## 2. Purpose
 
@@ -649,7 +649,7 @@ Complete; chapter review record retained in `reviews/chapter-reviews/`.
 
 ## 1. Document control
 
-Status: Final. Control families: BLD-001 BLD-002 BLD-003 RELSE-001 RELSE-002 RELSE-003. Version: 1.0. Source authority: Book I then Book II.
+Status: Owner-authorized working amendment; recertification pending. Control families: BLD-001 BLD-002 BLD-003 RELSE-001 RELSE-002 RELSE-003. Version: 1.1. Source authority: Book I then Book II.
 
 ## 2. Purpose
 
@@ -863,7 +863,7 @@ Complete; chapter review record retained in `reviews/chapter-reviews/`.
 
 ## 1. Document control
 
-Status: Final. Control families: GOV-007 GOV-008 DOC-002 OPS-001. Version: 1.0. Source authority: Book I then Book II.
+Status: Owner-authorized working amendment; recertification pending. Control families: GOV-007 GOV-008 DOC-002 OPS-001. Version: 1.1. Source authority: Book I then Book II.
 
 ## 2. Purpose
 

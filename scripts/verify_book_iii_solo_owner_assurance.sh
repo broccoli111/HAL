@@ -17,6 +17,7 @@ rg -q -F 'Independent reviewer for high-risk milestones and production release' 
 rg -q -F '**Version:** 1.1' "$combined"
 rg -q -F '**Status:** Owner-authorized working amendment; recertification pending' "$combined"
 rg -q -F '| 1.1 | 2026-08-09 | Owner-authorized working amendment; recertification pending' "$combined"
+test "$(rg -F 'Status: Owner-authorized working amendment; recertification pending.' "$combined" | wc -l | tr -d ' ')" -eq 9
 rg -q -F 'Solo-Owner Assurance Profile' "$combined"
 rg -q -F "AMENDMENT_DATE = '2026-08-09'" 'Documents/Book III/scripts/build_book_iii.py'
 rg -q -F 'Owner-authorized working amendment; recertification pending' 'Documents/Book III/scripts/build_book_iii.py'
