@@ -28,6 +28,7 @@
     "runtime:ask": "npm run build && node ./scripts/ask-gx10-hermes.mjs",
     "runtime:ask:knowledge": "npm run build && node ./scripts/ask-gx10-hermes-with-approved-knowledge.mjs",
     "runtime:ask:status": "npm run build && node ./scripts/ask-gx10-hermes-repository-status.mjs",
+    "runtime:ask:history": "npm run build && node ./scripts/ask-gx10-hermes-repository-history.mjs",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
     "security:scan": "npm audit --audit-level=high",
     "m0:source-manifest": "node ./scripts/generate-source-manifest.mjs"

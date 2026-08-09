@@ -77,7 +77,7 @@ ARTC-001 through ARTC-014 passed, covering lifecycle admission, bounded dispatch
 | Result | PASS — 3 tests passed |
 | External resources | None used; the test suite never starts the GX10 transport, Hermes, Ollama, or a network service |
 
-The checks execute only the exact HAL-owned `git status --short` argument array in the repository workspace and bound its returned output to 16 KiB. They prove rejection of arbitrary commands, shell-like argument injection, and malformed request shapes before execution. Static assertions require the repository-status assistant to obtain the status only through that probe and to provide the result as text context with an explicit no-tools instruction; they forbid a direct Git subprocess or shell-enabled composition path. This evidence does not grant a runtime a shell capability, a general command interface, governed-resource access, or canonical-knowledge write authority.
+The checks execute only the exact HAL-owned `pwd`, `git status --short`, and `git log --oneline -n 20` argument arrays in the repository workspace and bound returned output to 16 KiB. They prove rejection of arbitrary commands, shell-like argument injection, and malformed request shapes before execution. Static assertions require the fixed repository-status and repository-history assistants to obtain their context only through that probe and to provide it as text context with an explicit no-tools instruction; they forbid a direct Git subprocess or shell-enabled composition path. This evidence does not grant a runtime a shell capability, a general command interface, governed-resource access, or canonical-knowledge write authority.
 
 ## Limitations and Follow-up
 
