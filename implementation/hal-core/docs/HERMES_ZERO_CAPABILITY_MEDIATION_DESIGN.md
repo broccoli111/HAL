@@ -59,5 +59,9 @@ the runtime output canonical knowledge.
 
 ## Explicit Non-Goals
 
-No general prompt support, raw runtime access to Ollama, external provider,
-governed resource, or production deployment is authorized by this design.
+No general direct model proxy or unbounded prompt service, raw runtime access
+to Ollama, external provider, governed resource, or production deployment is
+authorized by this design. Under DR 0026's Owner clarification, bounded
+text-only local questions are permitted only through the DR 0027 restricted
+transport and its fixed containment profile; this does not authorize the full
+Hermes CLI loop or any runtime capability.

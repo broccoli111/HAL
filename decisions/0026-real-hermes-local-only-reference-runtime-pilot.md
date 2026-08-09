@@ -14,6 +14,18 @@ pilot. The pilot may run the already installed Hermes runtime in its existing
 isolated container against the already installed local Ollama `qwen3:8b`
 model, only through a HAL-owned, binding-gated Unix-socket mediator.
 
+### Owner clarification — bounded text-question scope
+
+On 2026-08-09, the Owner explicitly approved bounded local text questions
+through the existing DR 0027 restricted transport. This resolves the earlier
+"No general prompt support" wording in the associated design artifact: it
+prohibited a general direct model proxy or unbounded prompt service, not a
+bounded text-only assistant request that remains subject to the HAL-issued
+binding, fixed profile, request and result limits, and non-canonical result
+custody described by this decision. This clarification grants no capability,
+resource, secret, filesystem, shell, node, external-provider, or network-egress
+access and does not authorize the full Hermes CLI loop or production use.
+
 ## Boundaries
 
 - HAL retains work admission, identity, authority, policy, evidence custody,
