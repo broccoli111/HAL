@@ -47,9 +47,17 @@ local arithmetic question returned `4`. In both cases HAL recorded a
 restricted key rejected an arbitrary `id` command, and no temporary container,
 mediator, or socket remained after execution.
 
+A separate DR 0026 test-only full Hermes CLI probe also completed its fixed
+`HAL_LOCAL_OK` prompt with one streamed local-Qwen3 call and
+`text_response(finish_reason=stop)`. Its explicit `platform_toolsets.cli: []`
+configuration resulted in no loaded tools. This confirms CLI/provider
+compatibility for the same disposable, zero-capability profile only; it is not
+part of the restricted user transport and grants no capability.
+
 ## Remaining Limits
 
-- Hermes's full tool-capable CLI loop is not enabled by this transport.
+- Hermes's full tool-capable CLI loop is not enabled by this transport. Only
+  the separate zero-tool compatibility probe has been validated.
 - The runner permits no filesystem, shell, secret, node, network-egress, or
   governed-resource capability.
 - Result length is capped at 1,024 characters and requests are bounded.
