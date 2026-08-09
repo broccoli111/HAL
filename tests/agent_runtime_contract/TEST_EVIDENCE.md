@@ -91,6 +91,18 @@ The checks execute only the exact HAL-owned `pwd`, `git status --short`, and `gi
 
 The UI limits a process to 20 independent turns and each question to 8,192 characters, matching the existing forced runtime request bound. It persists neither transcript nor runtime memory and starts no listener. Each turn delegates only to the existing `runtime:ask` composition, which retains HAL result/evidence custody and grants the runtime no capabilities. EOF is handled as a clean local session termination. This is a convenience UI over the approved bounded local text-only slice, not a new runtime contract, capability, authority, or production service.
 
+## DR 0028 Controlled HAL Canon Knowledge Pilot Evidence
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-08-09 |
+| Scope | Owner-approved, fixed-source local HAL Canon retrieval pack |
+| Local validation | HAL Core `npm run check`: 22 test files and 173 tests passed |
+| Integration evidence | M9 activation/inquiry test proves source-confined activation, non-canonical context labels, source-labeled references, and retained excerpt |
+| Live bounded smoke | A restricted GX10 zero-capability inquiry returned a concise source-labeled explanation of runtime authority from HAL-provided context |
+
+The `hal_canon_v1` pack has 47 bounded content files and is generated only from the exact DR 0028 allowlist. Its source records are hash-verified by M9. The runtime receives bounded rendered context only; it receives no source path, filesystem handle, capability, tool, secret, canonical-knowledge write authority, or network egress. Result claims remain non-canonical.
+
 ## Limitations and Follow-up
 
 The harness verifies the defined semantic boundary only. It does not verify a production implementation, Hermes, a general Capability Gateway, real resources, secrets, external connectivity, deployment, or formatted Book II recertification. The existing local synthetic Gateway has exactly one permitted M3 inspection capability and returns no resource, credential, or execution handle to a runtime. Under [DR 0002](../../decisions/0002-runtime-contract-durable-record-model.md), the runtime journal retains only integrity-chained, non-canonical runtime claims and Gateway dispositions. The separate, test-only GX10 synthetic cancellation probe passed with a 15-minute harness limit; it is not a production transport. The next required activity is to store the independent reviewer’s scoped Book II conformance disposition, then regenerate authoritative formatted Book II editions.

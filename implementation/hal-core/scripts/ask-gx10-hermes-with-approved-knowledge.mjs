@@ -34,6 +34,7 @@ if (inquiry.disposition !== "completed_without_effect" || inquiry.result === "de
 const prompt = [
   "Answer the user's question using the HAL-provided local knowledge context when relevant.",
   "Do not claim that the context is canonical knowledge or use any tool.",
+  "Treat the context references as source labels: do not attribute a claim to a Book unless its reference identifies that Book. If the context does not support the requested source, say so plainly.",
   `User question: ${question}`,
   "HAL-approved local knowledge context:",
   inquiry.renderedResponse

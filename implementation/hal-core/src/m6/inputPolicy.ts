@@ -15,6 +15,13 @@ const SECRET_PATTERNS = [
   /\b[0-9a-f]{32,}\b/iu
 ] as const;
 
+// A controlled documentation corpus may legitimately define words such as
+// "secret" and "token". It still must not contain a value-shaped credential.
+const CREDENTIAL_VALUE_PATTERNS = [
+  /\b(aws|ghp|xox[baprs]|sk)_[a-z0-9]{16,}\b/iu,
+  /\bbearer\s+[a-z0-9._-]{16,}\b/iu
+] as const;
+
 const PATH_PATTERNS = [
   /(^|\s)(\/[^\s]+)/u,
   /(^|\s)(~\/[^\s]*)/u,
@@ -114,4 +121,8 @@ export function assessQuestionText(questionText: string): M6QuestionAssessment {
 
 export function containsSecretLikeContent(value: string): boolean {
   return firstPatternMatch(normalizeForM6(value), SECRET_PATTERNS);
+}
+
+export function containsUnredactedCredentialLikeContent(value: string): boolean {
+  return firstPatternMatch(normalizeForM6(value), CREDENTIAL_VALUE_PATTERNS);
 }

@@ -2,11 +2,12 @@
 
 ## Scope and authorization boundary
 
-M9 is implemented under explicit Owner authorization for local-only, synthetic-only, deterministic, non-live-effect operation.
+M9 is implemented under explicit Owner authorization for local-only, deterministic, non-live-effect operation. DR 0028 additionally authorizes one fixed, non-synthetic HAL Canon documentation pilot.
 
 Implemented scope is limited to:
 
 - fixed approved synthetic knowledge-pack root under `fixtures/approved-knowledge-packs`;
+- one fixed, source-confined `hal_canon_v1` pack generated only from the DR 0028 allowlist;
 - strict pack validation/registration for M9 v1 manifest and content contracts;
 - explicit local operator-provided Owner confirmation claims for activation/deactivation;
 - dedicated governed M2 admission path before any M9 state mutation;
@@ -76,6 +77,12 @@ Each pack contains:
 
 Pack identity tuples are case-sensitive and compared exactly.
 
+## DR 0028 HAL Canon documentation pilot
+
+`hal_canon_v1` is the sole non-synthetic M9 pack. Its generator reads only the exact code-enforced source list in `src/m9/halCanonSourceScope.ts`: named Book I–IV/X editions, root `agents.md`, `CURRENT_STATE.md`, and enumerated Decision Records. It writes a bounded JSON retrieval representation with a source-record manifest containing each source path, SHA-256 hash, and byte size. M9 revalidates those source hashes on registration and activation; a source change requires a fresh derived pack and activation tuple.
+
+This representation is non-canonical retrieval context. It is not a new canonical knowledge store, does not grant runtime filesystem access, and may not be expanded by a runtime. HAL gives the zero-capability runtime only bounded M6-rendered text and source-labeled references. Canon documentation may mention security terms such as “secret”; only value-shaped credentials are rejected for this fixed pack, while the stricter synthetic-pack guard remains unchanged.
+
 ## M6/M7/M8 integration
 
 - M6 now requires one active validated M9 pack for accepted inquiries.
@@ -139,5 +146,5 @@ Verified command suite:
 ## Remaining limits and posture
 
 - Owner confirmation claims are local operational assertions only; they are not authentication or real-world identity proof.
-- M9 stays local-only and synthetic-only with `externalEffect=none`.
+- M9 stays local-only with `externalEffect=none`. Apart from the fixed DR 0028 HAL Canon pack, packs remain synthetic-only.
 - This implementation record does not claim authority expansion, certification, or readiness uplift.

@@ -10,6 +10,10 @@ export const M9_ACTIVATION_JOURNAL_FILE = "m9-pack-activation-journal.jsonl" as 
 export const M9_CONTENT_CLASS = "pack_content_json" as const;
 export const M9_PACK_CLASSIFICATION = "synthetic_approved_local_only" as const;
 export const M9_PROVENANCE_CLASSIFICATION = "synthetic_non_sensitive" as const;
+export type M9PackClassification =
+  typeof M9_PACK_CLASSIFICATION | "owner_approved_hal_canon_local_only";
+export type M9ProvenanceClassification =
+  typeof M9_PROVENANCE_CLASSIFICATION | "owner_approved_repository_canon";
 
 export const M9_BOUNDS = Object.freeze({
   maxPacks: 32,
@@ -43,13 +47,13 @@ export type M9PackManifest = Readonly<{
   packId: string;
   packName: string;
   packVersion: string;
-  packClassification: typeof M9_PACK_CLASSIFICATION;
-  provenanceClassification: typeof M9_PROVENANCE_CLASSIFICATION;
+  packClassification: M9PackClassification;
+  provenanceClassification: M9ProvenanceClassification;
   m6Compatibility: Readonly<{
     tokenizerVersion: "m6.tokenizer.v1";
     matcherVersion: "m6.matcher.v1";
     corpusIndexVersion: "m6.corpus-index.v1";
-    documentShape: "m6.synthetic-document.v1";
+    documentShape: "m6.synthetic-document.v1" | "m6.document.v1";
   }>;
   documents: readonly M9DocumentDeclaration[];
   files: readonly M9ManifestFile[];
@@ -58,6 +62,11 @@ export type M9PackManifest = Readonly<{
     manifestHashAlgorithm: "sha256";
     manifestHashSha256: string;
   }>;
+  sourceRecords?: readonly Readonly<{
+    sourcePath: string;
+    sha256: string;
+    byteSize: number;
+  }>[];
 }>;
 
 export type M9ResolvedPack = Readonly<{

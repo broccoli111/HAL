@@ -16,6 +16,7 @@ import {
 } from "../src/m9/service.js";
 import { canonicalJsonUtf8Bytes, sha256Hex } from "../src/m9/canonical.js";
 import { M9_BOUNDS } from "../src/m9/types.js";
+import { HAL_CANON_SOURCE_PATHS, M9_HAL_CANON_PACK_ID } from "../src/m9/halCanonSourceScope.js";
 import { M9ActivationJournal } from "../src/m9/activationJournal.js";
 import { validateApprovedPackDirectory } from "../src/m9/validator.js";
 import { createImmutableIdentifier } from "../src/shared/id.js";
@@ -134,6 +135,57 @@ describe("M9 controlled local knowledge packs", () => {
     const registry = listApprovedM9PackRegistrations();
     expect(registry.length).toBeGreaterThanOrEqual(2);
     expect(registry.every((entry) => /^[a-f0-9]{64}$/.test(entry.manifestHashSha256))).toBe(true);
+  });
+
+  test("accepts contiguous section identifiers beyond lexical digit boundaries", async () => {
+    const root = await createTempDirectory("hal-m9-section-order-");
+    try {
+      const pack = await createSyntheticPack(root, { paragraphsPerDocument: 12 });
+      expect(validateApprovedPackDirectory(pack).manifest.documents[0]?.sectionIds).toEqual(
+        Array.from({ length: 12 }, (_, index) => `paragraph:${index}`)
+      );
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  });
+
+  test("HAL Canon pilot pack is source-confined and provenance-validated", () => {
+    const registration = listApprovedM9PackRegistrations().find(
+      (entry) => entry.packId === M9_HAL_CANON_PACK_ID
+    );
+    expect(registration).toBeDefined();
+    expect(registration?.manifestHashSha256).toMatch(/^[a-f0-9]{64}$/);
+    expect(HAL_CANON_SOURCE_PATHS).toContain("agents.md");
+    expect(HAL_CANON_SOURCE_PATHS).toContain("CURRENT_STATE.md");
+    expect(HAL_CANON_SOURCE_PATHS).toContain(
+      "Documents/_FinalOutput/Markdown/HAL_BOOK_1_CONSTITUTION.md"
+    );
+  });
+
+  test("HAL Canon pack activation yields non-canonical, source-labeled inquiry context", async () => {
+    const stateDirectory = await createTempDirectory("hal-m9-canon-inquiry-");
+    try {
+      const activated = activateApprovedM9Pack({
+        operationRequestId: createM9OperationRequestId(),
+        stateDirectory,
+        packId: M9_HAL_CANON_PACK_ID,
+        ownerConfirmationClaim: "local_owner_confirmed",
+        reasonCode: "owner_local_activation"
+      });
+      expect(activated.result).toBe("succeeded");
+      const inquiry = runM6Inquiry({
+        stateDirectory,
+        requestId: "m9-hal-canon-runtime-authority",
+        questionText: "What does HAL say about runtime authority?"
+      });
+      expect(inquiry.result).toBe("matched");
+      expect(inquiry.selectedDocumentIds.some((id) => id.startsWith("hal.canon."))).toBe(true);
+      expect(inquiry.renderedResponse).toContain("owner_approved_hal_canon_context_only");
+      expect(inquiry.renderedResponse).toContain("non_canonical_retrieval");
+      expect(inquiry.renderedResponse).toContain("excerpt=");
+    } finally {
+      await rm(stateDirectory, { recursive: true, force: true });
+    }
   });
 
   test("activation and deactivation are explicit and bounded with no external effect", async () => {

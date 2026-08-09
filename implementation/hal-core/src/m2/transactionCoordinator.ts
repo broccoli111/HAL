@@ -110,13 +110,15 @@ export class TransactionCoordinator {
       decisionRecord.disposition === "allow" ? "completed_without_effect" : "blocked";
     const expectedClaimedEffect =
       decisionRecord.disposition === "allow"
-        ? command.payload.declaredEffectClass === "local_synthetic_inquiry"
+        ? command.payload.declaredEffectClass === "local_synthetic_inquiry" ||
+          command.payload.declaredEffectClass === "local_owner_approved_canon_inquiry"
           ? "none"
           : "inspection_only"
         : "none";
     const commandIsConsistent =
       (command.payload.declaredEffectClass === "local_synthetic_inspection" ||
-        command.payload.declaredEffectClass === "local_synthetic_inquiry") &&
+        command.payload.declaredEffectClass === "local_synthetic_inquiry" ||
+        command.payload.declaredEffectClass === "local_owner_approved_canon_inquiry") &&
       command.payload.status === expectedStatus &&
       command.payload.claimedEffect === expectedClaimedEffect;
     if (!commandIsConsistent) {

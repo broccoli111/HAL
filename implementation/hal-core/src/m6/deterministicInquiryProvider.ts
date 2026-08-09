@@ -2,7 +2,7 @@ import type { ProviderSummaryResult } from "../m3/types.js";
 import { M6_M3_PROVIDER_ID, type M3ProviderVersion } from "../m3/types.js";
 import { createHash } from "node:crypto";
 import path from "node:path";
-import { loadSyntheticCorpusFromRootForTest } from "./corpus.js";
+import { loadSyntheticCorpusFromFilesForTest } from "./corpus.js";
 import { matchCorpus } from "./matcher.js";
 import { renderM6Response } from "./response.js";
 import { M6_PROVIDER_VERSION } from "./types.js";
@@ -70,11 +70,19 @@ export class LocalDeterministicInquiryProvider {
     }
 
     this.invocationCount += 1;
-    const corpus = loadSyntheticCorpusFromRootForTest(input.fixtureRoot);
+    const corpus = loadSyntheticCorpusFromFilesForTest(
+      input.fixtureRoot,
+      input.files,
+      input.providerInput.m9ActivationContext?.packId === "hal_canon_v1"
+    );
     const match = matchCorpus(input.providerInput.questionTokens, corpus.documents);
     const rendered = renderM6Response({
       match,
-      corpusManifestHashSha256: corpus.manifestHashSha256
+      corpusManifestHashSha256: corpus.manifestHashSha256,
+      corpusContext:
+        input.providerInput.m9ActivationContext?.packId === "hal_canon_v1"
+          ? "owner_approved_hal_canon"
+          : "synthetic"
     });
     const consumedFiles = input.files.map((filePath) => path.basename(filePath)).sort();
     const summaryTitles = corpus.documents.map((doc) => doc.id).slice(0, 8);

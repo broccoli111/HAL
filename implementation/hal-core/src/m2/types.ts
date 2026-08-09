@@ -1,19 +1,19 @@
 import type { AuthorityDecisionDisposition } from "../authority/decision.js";
-import type { LocalRequest, SyntheticDataClassification } from "../request/model.js";
+import type { LocalDataClassification, LocalRequest } from "../request/model.js";
 import type { CommandId, CorrelationId, ImmutableIdentifier, RequestId } from "../shared/types.js";
 
 export const M2_SCHEMA_VERSION = "m2.v1" as const;
 export const M2_PROVENANCE = "local_fixture_demo" as const;
 
 export type M2SchemaVersion = typeof M2_SCHEMA_VERSION;
-export type M2Provenance = typeof M2_PROVENANCE;
+export type M2Provenance = typeof M2_PROVENANCE | "local_owner_approved_repository_canon";
 
 export type M2BaseMetadata = Readonly<{
   commandId: CommandId;
   correlationId: CorrelationId;
   causationEventId?: ImmutableIdentifier;
   schemaVersion: M2SchemaVersion;
-  dataClassification: SyntheticDataClassification;
+  dataClassification: LocalDataClassification;
   provenance: M2Provenance;
   timestampIso8601: string;
 }>;
@@ -74,7 +74,10 @@ export type TransactionRecord = Readonly<
     planId: ImmutableIdentifier;
     decisionId: ImmutableIdentifier;
     status: TransactionStatus;
-    declaredEffectClass: "local_synthetic_inspection" | "local_synthetic_inquiry";
+    declaredEffectClass:
+      | "local_synthetic_inspection"
+      | "local_synthetic_inquiry"
+      | "local_owner_approved_canon_inquiry";
     claimedEffect: ClaimedEffect;
     recoveryDisposition: "reconstruct_from_journal";
   }
@@ -142,7 +145,7 @@ export type CommandEnvelope<TPayload> = Readonly<{
   correlationId: CorrelationId;
   causationEventId?: ImmutableIdentifier;
   schemaVersion: M2SchemaVersion;
-  dataClassification: SyntheticDataClassification;
+  dataClassification: LocalDataClassification;
   provenance: M2Provenance;
   payload: Readonly<TPayload>;
 }>;
@@ -166,7 +169,8 @@ export type OpenTransactionCommand = CommandEnvelope<{
   intentId: ImmutableIdentifier;
   planId: ImmutableIdentifier;
   decisionId: ImmutableIdentifier;
-  declaredEffectClass: "local_synthetic_inspection" | "local_synthetic_inquiry";
+  declaredEffectClass:
+    "local_synthetic_inspection" | "local_synthetic_inquiry" | "local_owner_approved_canon_inquiry";
   status: TransactionStatus;
   claimedEffect: ClaimedEffect;
 }>;

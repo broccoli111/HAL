@@ -12,6 +12,7 @@ import { Planner } from "../m2/planner.js";
 import { TransactionCoordinator } from "../m2/transactionCoordinator.js";
 import { M2_PROVENANCE, M2_SCHEMA_VERSION } from "../m2/types.js";
 import { sha256Hex } from "./canonical.js";
+import { M9_HAL_CANON_PACK_ID } from "./halCanonSourceScope.js";
 import type {
   M9OwnerConfirmationClaimCategory,
   M9OwnerDisposition,
@@ -39,6 +40,16 @@ export function runM2ForM9Activation(input: {
   packVersion: string;
   manifestHashSha256: string;
 }): M9AdmissionContext {
+  const isHalCanonPack = input.packId === M9_HAL_CANON_PACK_ID;
+  const dataClassification = isHalCanonPack
+    ? ("owner_approved_repository_canon" as const)
+    : ("synthetic_non_sensitive" as const);
+  const provenance = isHalCanonPack
+    ? ("local_owner_approved_repository_canon" as const)
+    : M2_PROVENANCE;
+  const declaredEffectClass = isHalCanonPack
+    ? ("local_owner_approved_canon_inquiry" as const)
+    : ("local_synthetic_inquiry" as const);
   const requestTimestampIso8601 = new Date().toISOString();
   const operationHash = sha256Hex(input.operationRequestId).slice(0, 32);
   const stableCorrelationId =
@@ -58,7 +69,7 @@ export function runM2ForM9Activation(input: {
     declaredTarget: "m9_controlled_local_knowledge_pack",
     declaredPurpose: `m9_operation_fingerprint_sha256=${input.operationFingerprintSha256}`,
     requestedAtIso8601: requestTimestampIso8601,
-    dataClassification: "synthetic_non_sensitive"
+    dataClassification
   });
   const conflictContext = (): M9AdmissionContext =>
     Object.freeze({
@@ -92,8 +103,8 @@ export function runM2ForM9Activation(input: {
     commandId: commandIdFor("record_intent"),
     correlationId: request.correlationId,
     schemaVersion: M2_SCHEMA_VERSION,
-    provenance: M2_PROVENANCE,
-    dataClassification: "synthetic_non_sensitive",
+    provenance,
+    dataClassification,
     payload: { request }
   });
   if (!intentResponse.intentRecord || !intentResponse.eventId) {
@@ -108,8 +119,8 @@ export function runM2ForM9Activation(input: {
     correlationId: request.correlationId,
     causationEventId: intentResponse.eventId,
     schemaVersion: M2_SCHEMA_VERSION,
-    provenance: M2_PROVENANCE,
-    dataClassification: "synthetic_non_sensitive",
+    provenance,
+    dataClassification,
     payload: {
       intentId: intentResponse.intentRecord.intentId,
       boundedSteps: [
@@ -140,8 +151,8 @@ export function runM2ForM9Activation(input: {
     correlationId: request.correlationId,
     causationEventId: planResponse.eventId,
     schemaVersion: M2_SCHEMA_VERSION,
-    provenance: M2_PROVENANCE,
-    dataClassification: "synthetic_non_sensitive",
+    provenance,
+    dataClassification,
     payload: {
       intentId: intentResponse.intentRecord.intentId,
       planId: planResponse.planRecord.planId,
@@ -165,13 +176,13 @@ export function runM2ForM9Activation(input: {
     correlationId: request.correlationId,
     causationEventId: decisionResponse.eventId,
     schemaVersion: M2_SCHEMA_VERSION,
-    provenance: M2_PROVENANCE,
-    dataClassification: "synthetic_non_sensitive",
+    provenance,
+    dataClassification,
     payload: {
       intentId: intentResponse.intentRecord.intentId,
       planId: planResponse.planRecord.planId,
       decisionId: decisionResponse.decisionRecord.decisionId,
-      declaredEffectClass: "local_synthetic_inquiry",
+      declaredEffectClass,
       status:
         decisionResponse.decisionRecord.disposition === "allow"
           ? "completed_without_effect"
@@ -191,8 +202,8 @@ export function runM2ForM9Activation(input: {
     correlationId: request.correlationId,
     causationEventId: transactionResponse.eventId,
     schemaVersion: M2_SCHEMA_VERSION,
-    provenance: M2_PROVENANCE,
-    dataClassification: "synthetic_non_sensitive",
+    provenance,
+    dataClassification,
     payload: {
       subjectKind: "transaction",
       subjectId: transactionResponse.transactionRecord.transactionId,
@@ -212,8 +223,8 @@ export function runM2ForM9Activation(input: {
     correlationId: request.correlationId,
     causationEventId: evidenceResponse.eventId,
     schemaVersion: M2_SCHEMA_VERSION,
-    provenance: M2_PROVENANCE,
-    dataClassification: "synthetic_non_sensitive",
+    provenance,
+    dataClassification,
     payload: {
       intentId: intentResponse.intentRecord.intentId,
       transactionId: transactionResponse.transactionRecord.transactionId,

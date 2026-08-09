@@ -4,6 +4,7 @@ import path from "node:path";
 
 const SECRET_LIKE_PATTERN =
   /\b(password|token|secret_key|api[_-]?key|private[_-]?key|credential)\b/i;
+const CREDENTIAL_VALUE_PATTERN = /\b(aws|ghp|xox[baprs]|sk)_[a-z0-9]{16,}\b/i;
 const URL_LIKE_PATTERN = /(https?:\/\/|file:\/\/|ftp:\/\/)/i;
 
 export const APPROVED_CORPUS_REFERENCE = "default_synthetic_corpus_v1" as const;
@@ -28,8 +29,8 @@ export function resolveApprovedSyntheticCorpus(input: {
   if (URL_LIKE_PATTERN.test(input.corpusReference) || input.corpusReference.includes("..")) {
     throw new Error("Corpus reference must not include traversal or URL-like values.");
   }
-  if (!Number.isInteger(input.itemLimit) || input.itemLimit <= 0 || input.itemLimit > 20) {
-    throw new Error("itemLimit must be an integer between 1 and 20.");
+  if (!Number.isInteger(input.itemLimit) || input.itemLimit <= 0 || input.itemLimit > 64) {
+    throw new Error("itemLimit must be an integer between 1 and 64.");
   }
 
   const fixtureRoot = path.resolve(input.fixtureRoot);
@@ -58,9 +59,10 @@ export function resolveApprovedSyntheticCorpus(input: {
   }
 
   const boundedFiles = files.slice(0, input.itemLimit);
+  const isHalCanonReference = input.corpusReference.startsWith("m9:hal_canon_v1@");
   for (const filePath of boundedFiles) {
     const content = readFileSync(filePath, "utf8");
-    if (SECRET_LIKE_PATTERN.test(content)) {
+    if ((isHalCanonReference ? CREDENTIAL_VALUE_PATTERN : SECRET_LIKE_PATTERN).test(content)) {
       throw new Error("Fixture content rejected: secret-like pattern detected.");
     }
   }

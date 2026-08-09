@@ -14,6 +14,10 @@ const MATCHED_UNCERTAINTY =
   "matched: lexical evidence only; synthetic corpus bounded; external data unavailable";
 const NO_MATCH_UNCERTAINTY =
   "no_match: no lexical evidence met threshold; synthetic corpus bounded; external data unavailable";
+const HAL_CANON_MATCHED_UNCERTAINTY =
+  "matched: lexical evidence only; owner-approved HAL Canon retrieval context is non-canonical; external data unavailable";
+const HAL_CANON_NO_MATCH_UNCERTAINTY =
+  "no_match: no lexical evidence met threshold; owner-approved HAL Canon retrieval context is non-canonical; external data unavailable";
 
 function utf8Bytes(value: string): number {
   return Buffer.byteLength(value, "utf8");
@@ -65,7 +69,9 @@ export type RenderedInquiryResponse = Readonly<{
 export function renderM6Response(input: {
   match: M6MatchOutcome;
   corpusManifestHashSha256: string;
+  corpusContext?: "synthetic" | "owner_approved_hal_canon";
 }): RenderedInquiryResponse {
+  const isHalCanon = input.corpusContext === "owner_approved_hal_canon";
   const references = input.match.noMatch
     ? Object.freeze([] as string[])
     : Object.freeze(
@@ -83,12 +89,19 @@ export function renderM6Response(input: {
         { key: "references", value: "none" },
         {
           key: "limitations",
-          value: "synthetic_corpus_only; lexical_match_only; no_external_data"
+          value: isHalCanon
+            ? "owner_approved_hal_canon_context_only; non_canonical_retrieval; lexical_match_only; no_external_data"
+            : "synthetic_corpus_only; lexical_match_only; no_external_data"
         },
-        { key: "uncertainty", value: NO_MATCH_UNCERTAINTY },
+        {
+          key: "uncertainty",
+          value: isHalCanon ? HAL_CANON_NO_MATCH_UNCERTAINTY : NO_MATCH_UNCERTAINTY
+        },
         {
           key: "message",
-          value: "no matching synthetic corpus sections found for the normalized question tokens"
+          value: isHalCanon
+            ? "no matching owner-approved HAL Canon sections found for the normalized question tokens"
+            : "no matching synthetic corpus sections found for the normalized question tokens"
         }
       ]
     : [
@@ -99,9 +112,14 @@ export function renderM6Response(input: {
         { key: "references", value: references.join(",") },
         {
           key: "limitations",
-          value: "synthetic_corpus_only; lexical_match_only; no_external_data"
+          value: isHalCanon
+            ? "owner_approved_hal_canon_context_only; non_canonical_retrieval; lexical_match_only; no_external_data"
+            : "synthetic_corpus_only; lexical_match_only; no_external_data"
         },
-        { key: "uncertainty", value: MATCHED_UNCERTAINTY },
+        {
+          key: "uncertainty",
+          value: isHalCanon ? HAL_CANON_MATCHED_UNCERTAINTY : MATCHED_UNCERTAINTY
+        },
         {
           key: "excerpt",
           value: input.match.selectedDocuments
@@ -117,29 +135,36 @@ export function renderM6Response(input: {
 
   const budgeted = [...fields];
   let rendered = render(budgeted);
-  if (utf8Bytes(rendered) > M6_MAX_RESPONSE_UTF8_BYTES) {
-    const excerptIndex = budgeted.findIndex((field) => field.key === "excerpt");
-    if (excerptIndex >= 0) {
-      budgeted.splice(excerptIndex, 1);
-      rendered = render(budgeted);
-    }
-  }
   while (utf8Bytes(rendered) > M6_MAX_RESPONSE_UTF8_BYTES) {
     const refIndex = budgeted.findIndex((field) => field.key === "references");
-    if (refIndex < 0) {
-      break;
-    }
-    const parts = budgeted[refIndex]?.value.split(",").filter(Boolean) ?? [];
-    if (parts.length <= 1) {
-      budgeted[refIndex] = { key: "references", value: "none" };
+    const parts = refIndex >= 0 ? (budgeted[refIndex]?.value.split(",").filter(Boolean) ?? []) : [];
+    if (parts.length > 1 && refIndex >= 0) {
+      budgeted[refIndex] = { key: "references", value: parts.slice(0, -1).join(",") };
       rendered = render(budgeted);
-      break;
+      continue;
     }
-    budgeted[refIndex] = {
-      key: "references",
-      value: parts.slice(0, -1).join(",")
-    };
-    rendered = render(budgeted);
+    const excerptIndex = budgeted.findIndex((field) => field.key === "excerpt");
+    if (excerptIndex >= 0) {
+      const current = budgeted[excerptIndex];
+      const renderedWithoutExcerpt = render(
+        budgeted.map((field, index) =>
+          index === excerptIndex ? { key: field.key, value: "" } : field
+        )
+      );
+      const available = M6_MAX_RESPONSE_UTF8_BYTES - utf8Bytes(renderedWithoutExcerpt);
+      if (available > 0) {
+        budgeted[excerptIndex] = {
+          key: "excerpt",
+          value: truncateValueWithSuffix(current?.value ?? "", available)
+        };
+        rendered = render(budgeted);
+        break;
+      }
+      budgeted.splice(excerptIndex, 1);
+      rendered = render(budgeted);
+      continue;
+    }
+    break;
   }
   if (utf8Bytes(rendered) > M6_MAX_RESPONSE_UTF8_BYTES) {
     const targetKey = input.match.noMatch ? "message" : "uncertainty";

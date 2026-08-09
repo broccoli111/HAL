@@ -2,7 +2,10 @@ import { lstatSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { containsSecretLikeContent } from "../m6/inputPolicy.js";
+import {
+  containsSecretLikeContent,
+  containsUnredactedCredentialLikeContent
+} from "../m6/inputPolicy.js";
 import type { M6CorpusDocument } from "../m6/types.js";
 import {
   M9_BOUNDS,
@@ -17,6 +20,13 @@ import {
   type M9ResolvedPack
 } from "./types.js";
 import { byteLengthUtf8, canonicalJsonUtf8Bytes, sha256Hex } from "./canonical.js";
+import {
+  HAL_CANON_SOURCE_PATHS,
+  M9_HAL_CANON_PACK_CLASSIFICATION,
+  M9_HAL_CANON_PACK_ID,
+  M9_HAL_CANON_PROVENANCE_CLASSIFICATION,
+  resolveHalRepositoryRoot
+} from "./halCanonSourceScope.js";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) {
@@ -86,10 +96,15 @@ function validateManifestStructure(manifest: unknown): M9PackManifest {
     typeof m.packVersion === "string" && /^[0-9]+\.[0-9]+\.[0-9]+$/.test(m.packVersion),
     "invalid packVersion"
   );
-  compareExact(m.packClassification ?? "", M9_PACK_CLASSIFICATION, "packClassification");
+  const isHalCanonPack = m.packId === M9_HAL_CANON_PACK_ID;
+  compareExact(
+    m.packClassification ?? "",
+    isHalCanonPack ? M9_HAL_CANON_PACK_CLASSIFICATION : M9_PACK_CLASSIFICATION,
+    "packClassification"
+  );
   compareExact(
     m.provenanceClassification ?? "",
-    M9_PROVENANCE_CLASSIFICATION,
+    isHalCanonPack ? M9_HAL_CANON_PROVENANCE_CLASSIFICATION : M9_PROVENANCE_CLASSIFICATION,
     "provenanceClassification"
   );
   assert(m.m6Compatibility && typeof m.m6Compatibility === "object", "m6Compatibility missing");
@@ -100,7 +115,11 @@ function validateManifestStructure(manifest: unknown): M9PackManifest {
     "m6.corpus-index.v1",
     "corpusIndexVersion"
   );
-  compareExact(m.m6Compatibility?.documentShape ?? "", "m6.synthetic-document.v1", "documentShape");
+  compareExact(
+    m.m6Compatibility?.documentShape ?? "",
+    isHalCanonPack ? "m6.document.v1" : "m6.synthetic-document.v1",
+    "documentShape"
+  );
   compareExact(m.contentRoot ?? "", "content", "contentRoot");
   assert(Array.isArray(m.documents), "documents must be array");
   assert(Array.isArray(m.files), "files must be array");
@@ -114,6 +133,36 @@ function validateManifestStructure(manifest: unknown): M9PackManifest {
   return m as M9PackManifest;
 }
 
+function validateHalCanonSourceRecords(manifest: M9PackManifest): void {
+  const isHalCanonPack = manifest.packId === M9_HAL_CANON_PACK_ID;
+  if (!isHalCanonPack) {
+    assert(!manifest.sourceRecords, "synthetic pack sourceRecords rejected");
+    return;
+  }
+  assert(Array.isArray(manifest.sourceRecords), "HAL Canon sourceRecords missing");
+  const records = manifest.sourceRecords;
+  assert(records.length === HAL_CANON_SOURCE_PATHS.length, "HAL Canon source count mismatch");
+  const repositoryRoot = resolveHalRepositoryRoot();
+  for (let index = 0; index < HAL_CANON_SOURCE_PATHS.length; index += 1) {
+    const expectedPath = HAL_CANON_SOURCE_PATHS[index]!;
+    const record = records[index];
+    assert(record, "HAL Canon source record missing");
+    compareExact(record.sourcePath, expectedPath, "HAL Canon source path");
+    assert(/^[a-f0-9]{64}$/.test(record.sha256), "HAL Canon source sha256 invalid");
+    assert(
+      Number.isInteger(record.byteSize) && record.byteSize > 0,
+      "HAL Canon source byteSize invalid"
+    );
+    const absolute = path.resolve(repositoryRoot, record.sourcePath);
+    assertInside(repositoryRoot, absolute, "HAL Canon source");
+    ensureNoSymlinkOrSpecial(absolute, "HAL Canon source");
+    assert(lstatSync(absolute).isFile(), "HAL Canon source must be a regular file");
+    const raw = readFileSync(absolute, "utf8");
+    compareExact(sha256Hex(raw), record.sha256, "HAL Canon source hash");
+    compareExact(String(byteLengthUtf8(raw)), String(record.byteSize), "HAL Canon source byteSize");
+  }
+}
+
 function enforceManifestDeterminism(manifest: M9PackManifest): void {
   assert(manifest.documents.length <= M9_BOUNDS.maxDocuments, "document count exceeds v1 bound");
   const documentIds = manifest.documents.map((document) => document.documentId);
@@ -125,7 +174,6 @@ function enforceManifestDeterminism(manifest: M9PackManifest): void {
       "paragraph count exceeds v1 bound"
     );
     const sectionIds = [...document.sectionIds];
-    assert(sortedUnique(sectionIds), "sectionIds must be sorted unique");
     for (let index = 0; index < sectionIds.length; index += 1) {
       compareExact(sectionIds[index]!, `paragraph:${index}`, "sectionId contiguity");
     }
@@ -162,6 +210,7 @@ function validateContentDocument(input: {
   absolutePath: string;
   declared: M9ManifestFile;
   manifestDocumentsById: Map<string, readonly string[]>;
+  useCredentialValueOnlyGuard: boolean;
 }): M6CorpusDocument {
   const raw = readFileSync(input.absolutePath, "utf8");
   const rawBytes = byteLengthUtf8(raw);
@@ -208,13 +257,13 @@ function validateContentDocument(input: {
       "paragraph exceeds v1 bound"
     );
   }
-  assert(!containsSecretLikeContent(parsed.title), "secret-like content rejected");
+  const containsForbiddenContent = input.useCredentialValueOnlyGuard
+    ? containsUnredactedCredentialLikeContent
+    : containsSecretLikeContent;
+  assert(!containsForbiddenContent(parsed.title), "secret-like content rejected");
+  assert(!parsed.tags.some((tag) => containsForbiddenContent(tag)), "secret-like content rejected");
   assert(
-    !parsed.tags.some((tag) => containsSecretLikeContent(tag)),
-    "secret-like content rejected"
-  );
-  assert(
-    !parsed.paragraphs.some((paragraph) => containsSecretLikeContent(paragraph)),
+    !parsed.paragraphs.some((paragraph) => containsForbiddenContent(paragraph)),
     "secret-like content rejected"
   );
   return Object.freeze({
@@ -270,6 +319,7 @@ export function validateApprovedPackDirectory(packDirectory: string): M9Resolved
   );
   const manifest = validateManifestStructure(parseJsonFile<unknown>(manifestPath, "manifest"));
   enforceManifestDeterminism(manifest);
+  validateHalCanonSourceRecords(manifest);
   const manifestHash = verifyManifestSelfHash(manifest);
 
   const manifestDocumentsById = new Map<string, readonly string[]>(
@@ -306,7 +356,8 @@ export function validateApprovedPackDirectory(packDirectory: string): M9Resolved
     const parsed = validateContentDocument({
       absolutePath: absolute,
       declared,
-      manifestDocumentsById
+      manifestDocumentsById,
+      useCredentialValueOnlyGuard: manifest.packId === M9_HAL_CANON_PACK_ID
     });
     if (containsSecretLikeContent(parsed.id)) {
       throw new Error("secret-like content rejected");

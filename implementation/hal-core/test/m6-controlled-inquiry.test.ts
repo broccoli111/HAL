@@ -96,6 +96,7 @@ describe("M6 controlled free-form local inquiry", () => {
       expect(first.attestationStatus).toBe("achieved_without_effect");
       expect(first.attestationClaimedEffect).toBe("none");
       expect(first.renderedResponse).toBe(second.renderedResponse);
+      expect(first.renderedResponse).toContain("excerpt=");
       expect(first.corpusManifestHashSha256).toBe(second.corpusManifestHashSha256);
       expect(first.questionHashSha256).toBe(second.questionHashSha256);
 

@@ -2,22 +2,23 @@
 
 | Field | Value |
 | --- | --- |
-| Status | Proposed — not adopted |
+| Status | Accepted Owner decision |
 | Date | 2026-08-09 |
 | Scope | A bounded, local-only, non-synthetic knowledge pilot for named HAL repository documentation |
-| Owner Review | Required and pending |
+| Owner Review | Explicit Owner approval: Option A |
 
 ## Decision
 
-**Proposed only:** authorize a controlled local-knowledge pilot that admits a
+Authorize a controlled local-knowledge pilot that admits a
 fixed, allow-listed set of HAL governance and project-continuity documents into
 a HAL-owned, manifest-hashed retrieval pack. The retrieved representation is
 non-canonical context. The source documents remain the sole authorities under
 the hierarchy in `agents.md`.
 
-No approval is asserted by this proposed record. No source is ingested, no
-runtime access is enabled, and no implementation change is authorized until
-the Owner adopts a decision.
+This decision authorizes only the source-confined local pilot described here.
+It does not authorize a general filesystem capability, a runtime source path
+or handle, private/user-document ingestion, external sources, canonical
+knowledge promotion, or production use.
 
 ## Context
 
@@ -102,15 +103,14 @@ Agent Runtime Contract.
 
 ## Owner Review Assessment
 
-Owner Review is required. The current M9 boundary expressly excludes the
-proposed class of non-synthetic source. Selecting the source scope and its
+Owner Review was required. The current M9 boundary expressly excluded the
+new class of non-synthetic source. Selecting the source scope and its
 classification/provenance treatment affects governed knowledge semantics and
 the narrow resource boundary through which HAL—not the runtime—would read
 repository material.
 
-**Decision required:** whether to authorize Alternative 1, a fixed HAL Canon
-documentation pilot, and whether the stated source list is the complete
-approved source scope.
+**Owner disposition:** Option A is approved. The stated source list is the
+complete approved source scope for this pilot.
 
 **Recommendation:** Alternative 1. It is the smallest useful route to an
 informed local HAL assistant, retains direct-source authority, prevents runtime
@@ -136,8 +136,7 @@ constitutional mutation is required.
 
 ## Continuity Notes
 
-If adopted, create a recorded accepted disposition, define exact source
-selection and immutable-manifest procedures, implement the narrow M9 extension
+Define exact source selection and immutable-manifest procedures, implement the narrow M9 extension
 with deterministic negative tests, activate only the verified pack, run an
 end-to-end bounded inquiry through the existing DR 0027 route, and update
 `CURRENT_STATE.md` with evidence and remaining limitations.

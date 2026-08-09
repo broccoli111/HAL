@@ -1,3 +1,4 @@
 dist
 coverage
 node_modules
+fixtures/approved-knowledge-packs/hal_canon_v1

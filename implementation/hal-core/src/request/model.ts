@@ -1,6 +1,6 @@
 import type { CorrelationId, RequestId } from "../shared/types.js";
 
-export type SyntheticDataClassification = "synthetic_non_sensitive";
+export type LocalDataClassification = "synthetic_non_sensitive" | "owner_approved_repository_canon";
 
 export type LocalRequest = Readonly<{
   requestId: RequestId;
@@ -9,7 +9,7 @@ export type LocalRequest = Readonly<{
   declaredTarget: string;
   declaredPurpose: string;
   requestedAtIso8601: string;
-  dataClassification: SyntheticDataClassification;
+  dataClassification: LocalDataClassification;
 }>;
 
 export function createLocalRequest(input: {
@@ -19,7 +19,7 @@ export function createLocalRequest(input: {
   declaredTarget: string;
   declaredPurpose: string;
   requestedAtIso8601: string;
-  dataClassification: SyntheticDataClassification;
+  dataClassification: LocalDataClassification;
 }): LocalRequest {
   if (!input.declaredAction.trim()) {
     throw new Error("declaredAction must be non-empty.");

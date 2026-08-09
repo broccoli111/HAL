@@ -18,7 +18,11 @@ import type { FinalOutcomeStatus, OutcomeAttestationRecord } from "../m4/types.j
 import { M4TraceService } from "../m4/traceService.js";
 import { createImmutableIdentifier } from "../shared/id.js";
 import type { CorrelationId, ImmutableIdentifier } from "../shared/types.js";
-import { loadApprovedSyntheticCorpus, loadSyntheticCorpusFromRootForTest } from "./corpus.js";
+import {
+  loadApprovedSyntheticCorpus,
+  loadSyntheticCorpusFromFilesForTest,
+  loadSyntheticCorpusFromRootForTest
+} from "./corpus.js";
 import { LocalDeterministicInquiryProvider } from "./deterministicInquiryProvider.js";
 import { M6EvidenceJournal, computeM6IntegrityHash } from "./evidenceJournal.js";
 import { assessQuestionText } from "./inputPolicy.js";
@@ -340,7 +344,7 @@ function runM6ThroughM3(input: {
     capabilityId: M6_M3_CAPABILITY_ID,
     providerId: M6_M3_PROVIDER_ID,
     providerVersion: M6_PROVIDER_VERSION,
-    inputLimits: { maxItems: 20, maxDeadlineMs: 10_000 },
+    inputLimits: { maxItems: 64, maxDeadlineMs: 10_000 },
     outputLimits: { maxArtifactBytes: 64_000 },
     evidence: "corpusReference=default_synthetic_corpus_v1; deterministic synthetic inquiry"
   });
@@ -362,7 +366,7 @@ function runM6ThroughM3(input: {
     intentId: input.m2.intentId,
     planId: input.m2.planId,
     corpusReference: `m9:${input.m9ActivationContext.packId}@${input.m9ActivationContext.packVersion}:${input.m9ActivationContext.manifestHashSha256}`,
-    itemLimit: 20,
+    itemLimit: 64,
     deadlineMs: 5_000,
     providerInput: {
       questionNormalizedHashSha256: input.assessment.questionNormalizedHashSha256,
@@ -397,7 +401,11 @@ function runM6ThroughM3(input: {
   if (deterministic.selectedSectionIds.length !== outcome.providerResult.itemCount) {
     throw new Error("M6 deterministic inquiry item count mismatch.");
   }
-  const corpusSnapshot = loadSyntheticCorpusFromRootForTest(input.corpusRoot);
+  const corpusSnapshot = loadSyntheticCorpusFromFilesForTest(
+    input.corpusRoot,
+    outcome.providerResult.consumedFiles.map((file) => path.resolve(input.corpusRoot, file)),
+    input.m9ActivationContext.packId === "hal_canon_v1"
+  );
   if (corpusSnapshot.manifestHashSha256 !== deterministic.fixtureManifestHash) {
     throw new Error("M6 canonical manifest hash mismatch against approved corpus.");
   }
@@ -407,7 +415,9 @@ function runM6ThroughM3(input: {
   const match = hydrateMatchOutcomeFromDeterministic(corpusSnapshot, deterministic);
   const rendered = renderM6Response({
     match,
-    corpusManifestHashSha256: deterministic.fixtureManifestHash
+    corpusManifestHashSha256: deterministic.fixtureManifestHash,
+    corpusContext:
+      input.m9ActivationContext.packId === "hal_canon_v1" ? "owner_approved_hal_canon" : "synthetic"
   });
   const renderedHash = sha256(rendered.responseText);
   if (renderedHash !== deterministic.answerHashSha256) {

@@ -3,7 +3,10 @@ import { existsSync, lstatSync, readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
-import { containsSecretLikeContent } from "./inputPolicy.js";
+import {
+  containsSecretLikeContent,
+  containsUnredactedCredentialLikeContent
+} from "./inputPolicy.js";
 import { normalizeForM6, tokenizeForM6 } from "./tokenizer.js";
 import type { M6CorpusDocument, M6CorpusSection, M6CorpusSnapshot } from "./types.js";
 
@@ -169,6 +172,69 @@ function loadCorpusFromRoot(resolvedRoot: string): M6CorpusSnapshot {
   });
 }
 
+function loadCorpusFromFiles(
+  resolvedRoot: string,
+  files: readonly string[],
+  useCredentialValueOnlyGuard: boolean
+): M6CorpusSnapshot {
+  const normalizedRoot = path.resolve(resolvedRoot);
+  const relativeEntries = files
+    .map((file) => {
+      const absolute = path.resolve(file);
+      assertInsideRoot(normalizedRoot, absolute);
+      return path.relative(normalizedRoot, absolute);
+    })
+    .sort(compareByCodeUnitAscending);
+  const documents: M6CorpusDocument[] = [];
+  const seenIds = new Set<string>();
+  for (const entry of relativeEntries) {
+    const candidatePath = path.resolve(normalizedRoot, entry);
+    const stat = lstatSync(candidatePath);
+    if (stat.isSymbolicLink() || !stat.isFile() || !entry.endsWith(".json")) {
+      throw new Error(`Corpus entry rejected: ${entry}`);
+    }
+    const parsed = parseDocument(candidatePath);
+    if (seenIds.has(parsed.id))
+      throw new Error(`Duplicate corpus document id rejected: ${parsed.id}`);
+    seenIds.add(parsed.id);
+    const containsForbiddenContent = useCredentialValueOnlyGuard
+      ? containsUnredactedCredentialLikeContent
+      : containsSecretLikeContent;
+    const secretHit =
+      containsForbiddenContent(parsed.title) ||
+      parsed.tags.some((tag) => containsForbiddenContent(tag)) ||
+      parsed.paragraphs.some((paragraph) => containsForbiddenContent(paragraph));
+    if (secretHit) throw new Error(`Secret-like corpus content rejected: ${parsed.id}`);
+    const normalizedTitle = normalizeForM6(parsed.title);
+    const normalizedTags = Object.freeze(parsed.tags.map((tag) => normalizeForM6(tag)));
+    documents.push(
+      Object.freeze({
+        id: parsed.id,
+        title: parsed.title,
+        tags: parsed.tags,
+        paragraphs: parsed.paragraphs,
+        normalizedTitle,
+        normalizedTags,
+        titleTokens: tokenizeForM6(normalizedTitle),
+        tagTokens: tokenizeForM6(normalizedTags.join(" ")),
+        sections: buildSections(parsed.paragraphs)
+      })
+    );
+  }
+  const manifestSource = JSON.stringify(
+    documents.map((document) => ({
+      id: document.id,
+      title: document.title,
+      tags: document.tags,
+      paragraphs: document.paragraphs
+    }))
+  );
+  return Object.freeze({
+    manifestHashSha256: sha256(manifestSource),
+    documents: Object.freeze(documents)
+  });
+}
+
 export function loadApprovedSyntheticCorpus(): M6CorpusSnapshot {
   return loadCorpusFromRoot(resolveApprovedM6CorpusRoot());
 }
@@ -176,4 +242,12 @@ export function loadApprovedSyntheticCorpus(): M6CorpusSnapshot {
 // Test-only seam for corpus safety/determinism coverage.
 export function loadSyntheticCorpusFromRootForTest(corpusRoot: string): M6CorpusSnapshot {
   return loadCorpusFromRoot(path.resolve(corpusRoot));
+}
+
+export function loadSyntheticCorpusFromFilesForTest(
+  corpusRoot: string,
+  files: readonly string[],
+  useCredentialValueOnlyGuard = false
+): M6CorpusSnapshot {
+  return loadCorpusFromFiles(path.resolve(corpusRoot), files, useCredentialValueOnlyGuard);
 }
