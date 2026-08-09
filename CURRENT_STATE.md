@@ -143,6 +143,12 @@ The runtime-sovereignty clarification is recorded in the Book II Markdown workin
 
 ## Material Blocker
 
+The next usable-assistant step requires an Owner decision on the proposed
+[HAL-to-GX10 runtime transport](decisions/0027-proposed-hal-to-gx10-runtime-transport.md).
+DR 0026 authorizes a disposable local-only execution pilot but not a durable
+node transport. No persistent SSH, RPC, or other runtime route will be
+implemented until the Owner selects and authorizes an option.
+
 The formal independent AI technical-review scope, findings/disposition, date, and attestation are now stored in the repository with Pass with limitations. This status record does not decide whether an AI reviewer satisfies any human or professional qualification requirement and therefore does not itself claim or issue Book II recertification. The Owner has authorized the narrow, temporary [Engineering Exception 0010](decisions/0010-owner-authorized-independent-review-control-exception.md), which allows only provisional documentation and test-only work until 2026-08-16. If the recorded reviewer qualification is not accepted by the applicable Owner/Certification Service, a qualified human disposition remains required before expiry. The exception cannot authorize production integration or a certification claim.
 
 GX10-1 evaluation evidence remains strictly bounded to the approved isolated `hal_eval` account, rootless container profile, static validation, safe no-provider smoke result, synthetic line-driver probes, and the DR 0026 local-only Hermes/Qwen3 pilot. The pilot has demonstrated HAL-mediated local inference with zero runtime capabilities, but Hermes completion compatibility and HAL-custodied result/evidence integration remain incomplete. It does not authorize production activation, credentials, governed resources, a general provider route, or a production transport.
