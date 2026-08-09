@@ -2,7 +2,7 @@
 
 ## 1. Document control
 
-Status: Final. Control families: GOV-007 GOV-008 DOC-002 OPS-001. Version: 1.0. Source authority: Book I then Book II.
+Status: Owner-authorized working amendment; recertification pending. Control families: GOV-007 GOV-008 DOC-002 OPS-001. Version: 1.1. Source authority: Book I then Book II.
 
 ## 2. Purpose
 

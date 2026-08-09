@@ -2,7 +2,7 @@
 
 ## 1. Document control
 
-Status: Final. Control families: SRC-001 SRC-002 SRC-003 SRC-004 SRC-005 SRC-006. Version: 1.0. Source authority: Book I then Book II.
+Status: Owner-authorized working amendment; recertification pending. Control families: SRC-001 SRC-002 SRC-003 SRC-004 SRC-005 SRC-006. Version: 1.1. Source authority: Book I then Book II.
 
 ## 2. Purpose
 

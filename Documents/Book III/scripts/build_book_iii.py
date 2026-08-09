@@ -19,7 +19,9 @@ DELIV = ROOT / 'deliverables'
 TEMPLATES = ROOT / 'templates'
 CHECKLISTS = ROOT / 'checklists'
 TRACE = ROOT / 'traceability'
-TODAY = '2026-07-27'
+BASELINE_DATE = '2026-07-27'
+AMENDMENT_DATE = '2026-08-09'
+TODAY = BASELINE_DATE
 
 chapters = [
 ('01','Foundations, Authority, and Lifecycle','Purpose, normative language, roles, lifecycle, conformance, exceptions, ADRs, documentation, evidence','GOV-001 GOV-002 GOV-003 GOV-004 GOV-005','Book I Articles I-XII; Decisions 5, 25, 37, 43, 49, 58','Book II 01, 03, 05, 29, 35','Every consequential change MUST identify its Book I and Book II source, responsible role, risk class, verification method, durable evidence location, and active exception status before merge. A lower-order artifact MUST NOT weaken a higher-order source.','A change that lacks authority traceability, a review record, or required evidence MUST NOT merge or release.','Protected-path metadata checks; required PR fields; release gate.','Principal Engineer and designated reviewers verify authority mapping; Architecture Authority reviews deviations.','Source-linked change record, ADR, test result, review approval, exception record where applicable.'),
@@ -43,7 +45,7 @@ def md_chapter(n, title, scope, controls, bi, bii, norms, prohib, automated, rev
 
 ## 1. Document control
 
-Status: Draft for review. Control families: {controls}. Version: 0.1. Source authority: Book I then Book II.
+Status: Owner-authorized working amendment; recertification pending. Control families: {controls}. Version: 1.1. Source authority: Book I then Book II.
 
 ## 2. Purpose
 
@@ -157,6 +159,17 @@ def main():
     toc='\n'.join(f'{int(r[0])}. {r[1]}' for r in chapters)
     body='\n\n'.join(chapter_texts)
     book=f'''# HAL Book III - Engineering Standards\n\n**Version:** 0.1  \n**Status:** Draft for review  \n**Authority:** Book I - The Constitution is supreme. Book II - Architecture Specification is authoritative. Book III is subordinate to both and defines common engineering law; detailed subsystem requirements belong in Book IV.\n\n## Revision history\n\n| Version | Date | Status | Change |\n|---|---|---|---|\n| 0.1 | {TODAY} | Draft for review | Initial consolidated engineering standards |\n\n## Table of contents\n\n{toc}\n\n## Authority statement\n\nBook III MUST NOT alter, weaken, reinterpret, or contradict Book I or Book II. When a conflict is found, stop applying the conflicting Book III rule, preserve the higher-order requirement, record the conflict, and recommend a Book III correction.\n\n{body}\n\n# Appendix A - Glossary\n\n**Authority:** governed scope within which an action may be considered. **Permission:** the contextual policy-decision result for an exact action, target, purpose, constraints, and time. **Trust:** scoped, evidence-based confidence; it does not create Authority or Permission. **Evidence Candidate:** source material awaiting authoritative admission. **Evidence Object:** an admitted, provenance-bearing evidentiary record. **Reality Boundary:** the governed progression from Static Validation through Simulation, Digital Twin, Shadow Execution, Canary Operation, Controlled Reality, and Full Adoption. **Treaty:** an exact, scoped, time-bounded, revocable, auditable, Owner-authorized agreement with an External Trust Domain.\n\n# Appendix B - Exception model\n\nExceptions are time-bounded, scoped, evidenced, revocable, and reviewable. They MUST fail closed or explicitly escalate at expiry.\n\n# Appendix C - Certification statement\n\nThis draft establishes the engineering-law baseline. Certification requires all control mappings, review records, deliverables, and validated renderings to be complete.\n'''
+    book = book.replace(
+        '**Version:** 0.1  \n**Status:** Draft for review  ',
+        '**Version:** 1.1\n**Status:** Owner-authorized working amendment; recertification pending',
+    ).replace(
+        f'| 0.1 | {BASELINE_DATE} | Draft for review | Initial consolidated engineering standards |',
+        f'| 1.0 | {BASELINE_DATE} | Final | Initial consolidated engineering standards; constitutional and Owner-decision audit complete |\n'
+        f'| 1.1 | {AMENDMENT_DATE} | Owner-authorized working amendment; recertification pending | Adds the risk-scaled Solo-Owner Assurance Profile; no independent certification is claimed |',
+    ).replace(
+        'This draft establishes the engineering-law baseline. Certification requires all control mappings, review records, deliverables, and validated renderings to be complete.',
+        'This Owner-authorized working amendment is not certified. Certification requires all control mappings, review records, deliverables, validated renderings, and the required qualified independent review to be complete.',
+    )
     write_text(DELIV/'HAL_BOOK_III_ENGINEERING_STANDARDS.md', book)
     # control catalog
     controls=[]
@@ -192,7 +205,7 @@ def main():
     for s,size,color in [('Title',24,'17365D'),('Heading 1',16,'17365D'),('Heading 2',12,'1F4E79')]:
         styles[s].font.name='Aptos Display'; styles[s].font.size=Pt(size); styles[s].font.color.rgb=RGBColor.from_string(color)
     p=doc.add_paragraph(); p.style='Title'; p.alignment=WD_ALIGN_PARAGRAPH.CENTER; p.add_run('HAL Book III\nEngineering Standards')
-    p=doc.add_paragraph(); p.alignment=WD_ALIGN_PARAGRAPH.CENTER; p.add_run('Draft v0.1 | 27 July 2026\nBook I is supreme. Book II is authoritative.').italic=True
+    p=doc.add_paragraph(); p.alignment=WD_ALIGN_PARAGRAPH.CENTER; p.add_run('Owner-authorized working amendment v1.1 | 9 August 2026\nBook I is supreme. Book II is authoritative.').italic=True
     doc.add_page_break()
     for line in book.splitlines():
         if line.startswith('# '): doc.add_heading(line[2:],0)
@@ -202,7 +215,7 @@ def main():
         elif line and not line.startswith('|') and not line.startswith('**') and not line.startswith('---'): doc.add_paragraph(line)
     for section in doc.sections:
         h=section.header.paragraphs[0]; h.text='HAL Book III - Engineering Standards'; h.style='Caption'
-        f=section.footer.paragraphs[0]; f.alignment=WD_ALIGN_PARAGRAPH.CENTER; f.add_run('Draft v0.1 | Controlled engineering standard')
+        f=section.footer.paragraphs[0]; f.alignment=WD_ALIGN_PARAGRAPH.CENTER; f.add_run('Working amendment v1.1 | Recertification pending')
     doc.save(DELIV/'HAL_BOOK_III_ENGINEERING_STANDARDS.docx')
     # direct professional PDF as durable fallback
     pdf=SimpleDocTemplate(str(DELIV/'HAL_BOOK_III_ENGINEERING_STANDARDS.pdf'),pagesize=letter,rightMargin=.65*inch,leftMargin=.65*inch,topMargin=.65*inch,bottomMargin=.65*inch)

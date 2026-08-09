@@ -1,7 +1,7 @@
 # HAL Book III - Engineering Standards
 
-**Version:** 1.0  
-**Status:** Final  
+**Version:** 1.1
+**Status:** Owner-authorized working amendment; recertification pending
 **Authority:** Book I - The Constitution is supreme. Book II - Architecture Specification is authoritative. Book III is subordinate to both and defines common engineering law; detailed subsystem requirements belong in Book IV.
 
 ## Revision history
@@ -9,6 +9,7 @@
 | Version | Date | Status | Change |
 |---|---|---|---|
 | 1.0 | 2026-07-27 | Final | Initial consolidated engineering standards; constitutional and Owner-decision audit complete |
+| 1.1 | 2026-08-09 | Owner-authorized working amendment; recertification pending | Adds the risk-scaled Solo-Owner Assurance Profile; no independent certification is claimed |
 
 ## Table of contents
 

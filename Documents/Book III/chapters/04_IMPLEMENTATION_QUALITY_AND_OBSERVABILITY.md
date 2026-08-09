@@ -2,7 +2,7 @@
 
 ## 1. Document control
 
-Status: Final. Control families: OBS-001 OBS-002 OBS-003 OBS-004 DOC-001. Version: 1.0. Source authority: Book I then Book II.
+Status: Owner-authorized working amendment; recertification pending. Control families: OBS-001 OBS-002 OBS-003 OBS-004 DOC-001. Version: 1.1. Source authority: Book I then Book II.
 
 ## 2. Purpose
 

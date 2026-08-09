@@ -2,7 +2,7 @@
 
 ## 1. Document control
 
-Status: Final. Control families: BLD-001 BLD-002 BLD-003 RELSE-001 RELSE-002 RELSE-003. Version: 1.0. Source authority: Book I then Book II.
+Status: Owner-authorized working amendment; recertification pending. Control families: BLD-001 BLD-002 BLD-003 RELSE-001 RELSE-002 RELSE-003. Version: 1.1. Source authority: Book I then Book II.
 
 ## 2. Purpose
 

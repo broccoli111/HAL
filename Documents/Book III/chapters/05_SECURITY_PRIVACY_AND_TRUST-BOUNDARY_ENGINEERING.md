@@ -2,7 +2,7 @@
 
 ## 1. Document control
 
-Status: Final. Control families: SEC-001 SEC-002 SEC-003 SEC-004 SEC-005 SEC-006 PRV-001 PRV-002. Version: 1.0. Source authority: Book I then Book II.
+Status: Owner-authorized working amendment; recertification pending. Control families: SEC-001 SEC-002 SEC-003 SEC-004 SEC-005 SEC-006 PRV-001 PRV-002. Version: 1.1. Source authority: Book I then Book II.
 
 ## 2. Purpose
 

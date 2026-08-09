@@ -6,6 +6,8 @@
 
 This packet covers the Owner-authorized Book III working amendment recorded in [DR 0023](../../../decisions/0023-solo-owner-assurance-profile.md): the risk-scaled Solo-Owner Assurance Profile in Book III Chapter 8 §11.1–§11.2 and its consistent verification-method references across Chapters 1–9.
 
+The advisory technical review and its remediated nonconformance record are retained in [the review record](../reviews/BOOK_III_SOLO_OWNER_ASSURANCE_TECHNICAL_REVIEW_2026-08-09.md). It is not qualified independent certification.
+
 The change does not amend Book I or Book II. It permits documented Owner assurance only for eligible routine, reversible, non-production work; it retains independent review for production release and defined high-risk milestones.
 
 ## Reviewer Inputs Required

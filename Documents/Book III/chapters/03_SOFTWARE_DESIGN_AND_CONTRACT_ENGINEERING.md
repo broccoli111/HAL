@@ -2,7 +2,7 @@
 
 ## 1. Document control
 
-Status: Final. Control families: DES-001 DES-002 DES-003 DES-004 DES-005 DES-006. Version: 1.0. Source authority: Book I then Book II.
+Status: Owner-authorized working amendment; recertification pending. Control families: DES-001 DES-002 DES-003 DES-004 DES-005 DES-006. Version: 1.1. Source authority: Book I then Book II.
 
 ## 2. Purpose
 
