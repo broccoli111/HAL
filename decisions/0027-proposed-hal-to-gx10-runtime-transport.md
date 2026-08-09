@@ -2,15 +2,15 @@
 
 | Field | Value |
 | --- | --- |
-| Status | Proposed — Owner decision required |
+| Status | Accepted Owner decision |
 | Date | 2026-08-09 |
 | Scope | Persistent transport from HAL host to the isolated GX10-1 Hermes runtime |
-| Owner Review | Required: durable node-transport trust boundary |
+| Owner Review | Explicit Owner approval: Option 1 |
 
-## Decision Required
+## Decision
 
-Whether HAL may establish a persistent, least-privilege transport from the
-HAL host to GX10-1 for the already verified zero-capability Hermes stateless
+The Owner selected Option 1: establish a dedicated restricted SSH transport
+from the HAL host to GX10-1 for the verified zero-capability Hermes stateless
 execution path.
 
 ## Context
@@ -33,18 +33,19 @@ persistent node transport.
 
 ## Options
 
-1. **Dedicated restricted SSH transport (recommended).** Use the existing
-   dedicated key and `hal_eval` identity, constrained to the fixed rootless,
+1. **Dedicated restricted SSH transport (selected).** Use a separate
+   runtime-only key and `hal_eval` identity, constrained to the fixed rootless,
    network-none, read-only Hermes stateless runner. No interactive shell,
    forwarding, general command execution, secret, or resource-capability path
-   is available.
+   is available. The existing evaluation key remains a separate maintenance
+   credential and is not repurposed as the persistent runtime key.
 2. **HAL-owned local RPC service on GX10-1.** Introduce a new loopback/LAN
    service with mutual authentication and a narrowly defined execution API.
 3. **No persistent transport.** Retain only manual disposable evaluation runs.
 
 ## Recommendation
 
-Authorize Option 1 for the initial local assistant slice. It reuses the
+Option 1 is authorized for the initial local assistant slice. It reuses the
 already reviewed node identity and containment model, is narrowly revocable,
 and does not require a new listener, protocol, service account, or direct
 runtime resource access. The adapter transport remains outside HAL Core;
@@ -62,6 +63,18 @@ HAL Core continues to depend only on the Agent Runtime Contract.
 - HAL-owned result/evidence custody and explicit teardown verification;
 - transport authorization must be revocable without changing HAL identity,
   canonical knowledge, or Constitution.
+
+## Implementation Evidence
+
+The accepted transport was provisioned with a separate runtime-only key using
+OpenSSH `restrict` and the forced `hal_gx10_stateless_runtime.py` command. A
+fixed synthetic request returned `HAL_LOCAL_OK`; a normal text-only arithmetic
+request returned `4`. HAL's external composition harness passed each result
+through `RuntimeHost` and `RuntimeSubmissionRecorder`, producing an
+integrity-linked `result_report` whose canonical status remained
+`unaccepted_runtime_claim`. An attempted arbitrary `id` command using the
+runtime-only key was refused. Cleanup found no running container, mediator, or
+temporary runtime directory.
 
 ## Impact
 
