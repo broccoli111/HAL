@@ -6,6 +6,10 @@
 
 A new engineering session MUST read [agents.md](agents.md), this document, the relevant authoritative Canon material, and applicable accepted Decision Records before consequential work. Do not treat this status record or prior chat history as authority.
 
+## Active Working Location
+
+The active workspace is the Git repository rooted at `/Users/rosslauda/Documents/HAL`, on `main` tracking `origin/main`. The Canon’s physical source/publication workspace is `Documents/`; `docs/` provides repository-relative compatibility links for existing implementation paths and is not a second working copy.
+
 ## Current Phase
 
 **Agent Runtime Abstraction and Runtime Sovereignty**
@@ -31,6 +35,7 @@ Establish and verify the implementation-neutral Agent Runtime boundary before in
 - Test-only conformance cases ARTC-001 through ARTC-014 passed; see [test evidence](tests/agent_runtime_contract/TEST_EVIDENCE.md).
 - Local Canon baseline committed and merged with the existing GitHub `main` implementation history without conflicts.
 - Existing TypeScript implementation through M9 controlled local knowledge packs is now present under `implementation/hal-core`; its conformance to the runtime-sovereignty clarification has not yet been assessed.
+- Workspace reconciled into the repository root: verified duplicate `docs/` trees now link to their single physical `Documents/` sources, and generated render/cache output was removed.
 
 ## Important Current Architectural Boundaries
 

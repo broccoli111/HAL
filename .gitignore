@@ -27,3 +27,6 @@ temp/
 reports/
 artifacts/
 generated/
+work/
+CodexOutput/
+**/__pycache__/
