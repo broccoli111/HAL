@@ -202,10 +202,20 @@ class FakeUpstreamMediator:
         self.hal = hal
         self.upstream = upstream
 
-    def execute(self, binding_id: str, *, prompt: str, **request: object) -> RuntimeResultClaim:
+    def execute(
+        self,
+        binding_id: str,
+        *,
+        prompt: str,
+        capability_requests: tuple[str, ...] = (),
+        **request: object,
+    ) -> RuntimeResultClaim:
         if prompt != SYNTHETIC_PROMPT:
             self.hal.deny(binding_id)
             raise MediationDenied("prompt outside synthetic profile")
+        if capability_requests:
+            self.hal.deny(binding_id)
+            raise MediationDenied("zero-capability mediation profile")
         binding = self.hal.request(binding_id, **request)
         try:
             output = self.upstream(binding.profile.model, prompt, binding.profile)

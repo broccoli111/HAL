@@ -153,6 +153,25 @@ class LocalInferenceMediationContractTests(unittest.TestCase):
             )
         self.assertEqual(self.binding.state, BindingState.FAILED)
 
+    def test_mediation_010_capability_like_request_is_denied_before_upstream(self) -> None:
+        calls: list[object] = []
+        mediator = FakeUpstreamMediator(self.hal, lambda *args: calls.append(args) or "ok")
+        with self.assertRaisesRegex(MediationDenied, "zero-capability"):
+            mediator.execute(
+                self.binding.binding_id,
+                prompt=SYNTHETIC_PROMPT,
+                capability_requests=("hal.files.read",),
+                runtime_id=self.binding.runtime_id,
+                adapter_id=self.binding.adapter_id,
+                agent_id=self.binding.agent_id,
+                task_id=self.binding.task_id,
+                correlation_id=self.binding.correlation_id,
+                nonce=self.binding.nonce,
+                profile=self.binding.profile,
+            )
+        self.assertEqual(calls, [])
+        self.assertEqual(self.binding.state, BindingState.DENIED)
+
 
 if __name__ == "__main__":
     unittest.main()
