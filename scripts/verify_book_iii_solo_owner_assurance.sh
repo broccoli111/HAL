@@ -23,6 +23,9 @@ rg -q -F "AMENDMENT_DATE = '2026-08-09'" 'Documents/Book III/scripts/build_book_
 rg -q -F 'Owner-authorized working amendment; recertification pending' 'Documents/Book III/scripts/build_book_iii.py'
 test -f 'Documents/Book III/templates/SOLO_OWNER_ASSURANCE_TEMPLATE.md'
 test -f 'Documents/Book III/reviews/BOOK_III_SOLO_OWNER_ASSURANCE_TECHNICAL_REVIEW_2026-08-09.md'
+test -f 'decisions/0024-owner-authorized-book-iii-certification-control-exception.md'
+rg -q -F 'Owner-authorized exception-based technical certification' 'Documents/Book III/deliverables/HAL_BOOK_III_SOLO_OWNER_ASSURANCE_CERTIFICATION_PACKET.md'
+rg -q -F 'expires on 2026-08-16' 'decisions/0024-owner-authorized-book-iii-certification-control-exception.md'
 
 PYTHONPYCACHEPREFIX=/private/tmp/hal-pycache python3 -m py_compile 'Documents/Book III/scripts/build_book_iii.py'
 PYTHONPYCACHEPREFIX=/private/tmp/hal-pycache sh scripts/run_runtime_boundary_checks.sh

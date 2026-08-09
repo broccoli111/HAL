@@ -1,12 +1,12 @@
 # Book III Solo-Owner Assurance Amendment — Certification Packet
 
-> **Status:** Prepared for independent high-risk review. This packet is not a certification or release decision.
+> **Status:** Owner-authorized exception-based technical certification recorded for revision `add12ce`; this is not independent certification or a release decision.
 
 ## Scope
 
 This packet covers the Owner-authorized Book III working amendment recorded in [DR 0023](../../../decisions/0023-solo-owner-assurance-profile.md): the risk-scaled Solo-Owner Assurance Profile in Book III Chapter 8 §11.1–§11.2 and its consistent verification-method references across Chapters 1–9.
 
-The advisory technical review and its remediated nonconformance record are retained in [the review record](../reviews/BOOK_III_SOLO_OWNER_ASSURANCE_TECHNICAL_REVIEW_2026-08-09.md). It is not qualified independent certification.
+The advisory technical review and its remediated nonconformance record are retained in [the review record](../reviews/BOOK_III_SOLO_OWNER_ASSURANCE_INDEPENDENT_TECHNICAL_REVIEW_2026-08-09.md). The Owner technical review is retained in [its review record](../reviews/BOOK_III_SOLO_OWNER_ASSURANCE_OWNER_REVIEW_2026-08-09.md). Neither is independent certification.
 
 The complete reviewer-facing evidence and required attestation fields are in the [Independent Review Handoff](HAL_BOOK_III_SOLO_OWNER_ASSURANCE_INDEPENDENT_REVIEW_HANDOFF.md).
 
@@ -45,12 +45,14 @@ sh scripts/verify_book_iii_solo_owner_assurance.sh
 
 Expected outcome: `PASS: Book III Solo-Owner Assurance working-amendment verification completed.` The runner performs only local validation: static source consistency checks, Python compilation of the Book III generator, existing test gates, and whitespace/diff integrity checks. It opens no network connection, invokes no Hermes process, and changes no GX10 state.
 
-## Certification Boundary
+## Certification Disposition and Boundary
 
-Do not mark the amendment certified solely because this runner passes. A qualified independent reviewer must complete the inputs above and attest the defined scope. Only then may a controlled follow-up regenerate Book III formatted editions and update the certified baseline.
+[Engineering Exception 0024](../../../decisions/0024-owner-authorized-book-iii-certification-control-exception.md) clears the independent-review certification-control gate only for this exact amendment at revision `add12ce`. The resulting disposition is **Owner-authorized exception-based technical certification**. It must not be called independent certification and does not release, recertify, or replace the existing formatted Book III baseline.
+
+A controlled follow-up is still required to regenerate and release Book III formatted editions. Independent review remains the standing requirement for production and other high-risk milestones outside this narrow exception.
 
 ## Current Limitations
 
 - Existing Book III DOCX/PDF editions remain the prior certified baseline.
 - The Book III generator is not to be run as part of this packet; regeneration requires its own controlled release step because it writes formatted artifacts.
-- The Solo-Owner Assurance Profile cannot be used to self-certify this high-risk assurance-process amendment.
+- The Solo-Owner Assurance Profile did not self-certify this high-risk assurance-process amendment; the distinct, time-bounded Owner Exception 0024 supplies the limited certification-control disposition.
