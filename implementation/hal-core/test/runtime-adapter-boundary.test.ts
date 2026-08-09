@@ -49,6 +49,15 @@ async function executeHost(host: RuntimeHost): Promise<void> {
   });
 }
 
+async function executeZeroCapabilityHost(host: RuntimeHost): Promise<void> {
+  await host.execute({
+    createAgent: { agentId, taskId, correlationId },
+    context: { agentId, contextSummary: "bounded synthetic context" },
+    capabilityManifest: { agentId, capabilities: [] },
+    task: { agentId, taskId, correlationId }
+  });
+}
+
 describe("Agent Runtime adapter boundary", () => {
   test("HermesAdapter delegates only Contract operations to an injected driver", async () => {
     const driver = new TestRuntimeAdapter();
@@ -244,6 +253,25 @@ describe("Agent Runtime adapter boundary", () => {
       new RuntimeHost({ runtimeId, runtime: new HermesAdapter(driver), callbacks })
     );
     expect(received).toEqual(["progress:bounded", "result:complete"]);
+  });
+
+  test("zero-capability Hermes design path sends no capability grant", async () => {
+    const frames: Array<{ type: string; capabilities?: unknown }> = [];
+    const driver = new HermesLineDriver({
+      send: async (line) => {
+        const frame = JSON.parse(line) as { type: string; capabilities?: unknown };
+        frames.push(frame);
+        return [];
+      }
+    });
+    await executeZeroCapabilityHost(
+      new RuntimeHost({
+        runtimeId,
+        runtime: new HermesAdapter(driver),
+        callbacks: createCallbacks()
+      })
+    );
+    expect(frames.find((frame) => frame.type === "execute_task")?.capabilities).toEqual([]);
   });
 
   test("test-only Hermes line driver rejects malformed remote frames", async () => {
