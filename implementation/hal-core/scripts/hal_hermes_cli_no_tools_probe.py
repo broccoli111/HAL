@@ -103,7 +103,7 @@ def main() -> None:
             "-c",
             "python3 /opt/hal/relay.py >/tmp/relay.log 2>&1 & relay=$!; "
             "trap 'kill $relay 2>/dev/null || true; wait $relay 2>/dev/null || true' EXIT; "
-            f"hermes chat --ignore-rules --max-turns 1 --quiet --query '{PROMPT}'",
+            f"hermes chat --ignore-rules --max-turns 1 --verbose --query '{PROMPT}'",
         ]
         completed = subprocess.run(
             command,
