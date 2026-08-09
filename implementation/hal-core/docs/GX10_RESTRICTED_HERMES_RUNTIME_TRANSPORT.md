@@ -54,6 +54,22 @@ each turn remains a separately bounded, zero-capability request through the
 same HAL-owned result/evidence route. End-of-input is treated as a clean local
 session termination.
 
+## HAL Canon Terminal Assistant
+
+After activating the Owner-approved `hal_canon_v1` pack in the existing
+`HAL_KNOWLEDGE_STATE_DIRECTORY`, run:
+
+```sh
+npm run runtime:chat:knowledge
+```
+
+This has the same 20-turn and 8,192-character limits as `runtime:chat`, but
+each independent turn first obtains HAL-owned, source-labeled, non-canonical
+context from the active pack. A stale activation hash fails closed; regenerate
+the pack and activate its new tuple after an approved source changes. The
+runtime never receives a source path, filesystem handle, tool, capability, or
+canonical-knowledge write authority.
+
 ## Verified Evidence
 
 On 2026-08-09, the fixed synthetic request returned `HAL_LOCAL_OK`; a normal

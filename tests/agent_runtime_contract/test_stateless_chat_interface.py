@@ -13,6 +13,7 @@ SCRIPT = (
     / "scripts"
     / "chat-gx10-hermes.mjs"
 )
+KNOWLEDGE_SCRIPT = SCRIPT.with_name("chat-gx10-hermes-with-approved-knowledge.mjs")
 
 
 class StatelessChatInterfaceTests(unittest.TestCase):
@@ -26,6 +27,19 @@ class StatelessChatInterfaceTests(unittest.TestCase):
         self.assertIn('error?.code === "ERR_USE_AFTER_CLOSE"', source)
         self.assertIn("shell: false", source)
         self.assertNotIn("history", source.lower())
+        self.assertNotIn("writeFile", source)
+        self.assertNotIn("http://", source)
+        self.assertNotIn("https://", source)
+
+    def test_knowledge_chat_is_equally_bounded_and_has_no_direct_resource_path(self) -> None:
+        source = KNOWLEDGE_SCRIPT.read_text(encoding="utf-8")
+        self.assertIn("const MAX_TURNS = 20;", source)
+        self.assertIn("const MAX_PROMPT_CHARS = 8_192;", source)
+        self.assertIn('"ask-gx10-hermes-with-approved-knowledge.mjs"', source)
+        self.assertIn("Context is non-canonical", source)
+        self.assertIn("no tools or resource capabilities are available.", source)
+        self.assertIn('error?.code === "ERR_USE_AFTER_CLOSE"', source)
+        self.assertIn("shell: false", source)
         self.assertNotIn("writeFile", source)
         self.assertNotIn("http://", source)
         self.assertNotIn("https://", source)

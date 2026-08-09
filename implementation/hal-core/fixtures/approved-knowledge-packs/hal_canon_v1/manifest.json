@@ -44,8 +44,8 @@
     },
     {
       "sourcePath": "CURRENT_STATE.md",
-      "sha256": "f8af69a8b845fb7efaa559788cd8442c3a1b6fd215984f1a36244bc8e7604b4c",
-      "byteSize": 37115
+      "sha256": "3781fccdd015a9ffef01d776086aa5da566c55a107401b421ab6d2bbcfc3c2bb",
+      "byteSize": 37467
     },
     {
       "sourcePath": "decisions/0001-agent-runtime-sovereignty-and-replaceability.md",
@@ -5982,8 +5982,8 @@
     },
     {
       "relativePath": "content/source-06-chunk-000.json",
-      "sha256": "e2a30c52b2dba71be6fdd99f200a98dddf502f73bb2f3dde9e028ce3fc94229b",
-      "byteSize": 37622,
+      "sha256": "bc2c8e1895fbd891e9845c209952adb32fb8b0c9859434cdc3dd43a119fbbdb8",
+      "byteSize": 37974,
       "contentClass": "pack_content_json"
     },
     {
@@ -6014,6 +6014,6 @@
   "contentRoot": "content",
   "integrity": {
     "manifestHashAlgorithm": "sha256",
-    "manifestHashSha256": "2fdd8da226df2ff29488e62894884610ea6f2e8b9f9a941998a783ca7988f844"
+    "manifestHashSha256": "6d4c07f1f683016d1b9304d7299e8ac70be22ba2eb7477c074194feb24ab499b"
   }
 }

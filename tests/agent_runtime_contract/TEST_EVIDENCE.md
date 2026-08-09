@@ -103,6 +103,8 @@ The UI limits a process to 20 independent turns and each question to 8,192 chara
 
 The `hal_canon_v1` pack has 47 bounded content files and is generated only from the exact DR 0028 allowlist. Its source records are hash-verified by M9. The runtime receives bounded rendered context only; it receives no source path, filesystem handle, capability, tool, secret, canonical-knowledge write authority, or network egress. Result claims remain non-canonical.
 
+The bounded `runtime:chat:knowledge` UI passed a one-turn GX10 smoke test and cleanly terminated on EOF. It is stateless per turn and delegates only to the same governed knowledge composition.
+
 ## Limitations and Follow-up
 
 The harness verifies the defined semantic boundary only. It does not verify a production implementation, Hermes, a general Capability Gateway, real resources, secrets, external connectivity, deployment, or formatted Book II recertification. The existing local synthetic Gateway has exactly one permitted M3 inspection capability and returns no resource, credential, or execution handle to a runtime. Under [DR 0002](../../decisions/0002-runtime-contract-durable-record-model.md), the runtime journal retains only integrity-chained, non-canonical runtime claims and Gateway dispositions. The separate, test-only GX10 synthetic cancellation probe passed with a 15-minute harness limit; it is not a production transport. The next required activity is to store the independent reviewer’s scoped Book II conformance disposition, then regenerate authoritative formatted Book II editions.
