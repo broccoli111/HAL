@@ -104,7 +104,8 @@ class HermesLocalMediationTests(unittest.TestCase):
         }
         body = json.dumps(upstream).encode()
         response = b"HTTP/1.1 200 OK\r\nContent-Length: " + str(len(body)).encode() + b"\r\n\r\n" + body
-        normalized = self.mediator.normalize_upstream_response(response)
+        normalized, disposition = self.mediator.normalize_upstream_response(response)
+        self.assertEqual(disposition, "stripped")
         payload = json.loads(normalized.partition(b"\r\n\r\n")[2])
         self.assertEqual(payload["choices"][0]["message"], {"role": "assistant", "content": "HAL_LOCAL_OK"})
 
