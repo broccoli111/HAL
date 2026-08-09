@@ -44,9 +44,10 @@ The following are status pointers, not restatements or replacements of architect
 
 ## Next Planned Sequence
 
-1. Perform targeted Book II conformance recertification using the test-only conformance evidence.
-2. Regenerate authoritative formatted Book II editions.
-3. Begin HermesAdapter integration only after the boundary has been validated and the preceding steps are complete.
+1. Obtain an independent targeted Book II conformance review using the [recertification handoff](tests/agent_runtime_contract/RECERTIFICATION_HANDOFF.md) and test-only evidence.
+2. Record the resulting scoped conformance disposition; remediate any finding before certification.
+3. Regenerate authoritative formatted Book II editions after successful targeted recertification.
+4. Begin HermesAdapter integration only after the boundary has been validated and the preceding steps are complete.
 
 ## Explicitly Out of Scope
 
@@ -62,7 +63,11 @@ The following are status pointers, not restatements or replacements of architect
 
 ## Current Documentation and Certification Status
 
-The runtime-sovereignty clarification is recorded in the Book II Markdown working edition and [Book II Project Register](Documents/Book%20II/markdown/HAL_Book_II_Project_Register_v0.6.md). Test-only contract evidence is available in [tests/agent_runtime_contract/TEST_EVIDENCE.md](tests/agent_runtime_contract/TEST_EVIDENCE.md). Targeted Book II conformance recertification and regeneration of authoritative formatted Book II editions remain pending. The prior Book II certification applies to the preceding baseline only.
+The runtime-sovereignty clarification is recorded in the Book II Markdown working edition and [Book II Project Register](Documents/Book%20II/markdown/HAL_Book_II_Project_Register_v0.6.md). Test-only contract evidence is available in [tests/agent_runtime_contract/TEST_EVIDENCE.md](tests/agent_runtime_contract/TEST_EVIDENCE.md), with a bounded [recertification handoff](tests/agent_runtime_contract/RECERTIFICATION_HANDOFF.md). Targeted Book II conformance recertification and regeneration of authoritative formatted Book II editions remain pending. The prior Book II certification applies to the preceding baseline only.
+
+## Material Blocker
+
+Book II Chapter 35 requires independent review before a conformance certification can be issued. The required evidence package has been prepared, but this session cannot represent its own review as independent. No certification claim may be made until an independent targeted review records its disposition.
 
 ## Owner Review Status
 
