@@ -7,15 +7,19 @@ HAL-owned admission logic that stands in front of the local model route.
 from __future__ import annotations
 
 import asyncio
+import contextlib
+import io
 import importlib.util
 import json
 import os
 from pathlib import Path
+import sys
 import tempfile
 import unittest
 
 
 SCRIPT = Path(__file__).parents[2] / "implementation/hal-core/scripts/hal_hermes_local_mediation.py"
+RUNTIME_SCRIPT = Path(__file__).parents[2] / "implementation/hal-core/scripts/hal_gx10_stateless_runtime.py"
 
 
 def load_mediator():
@@ -41,6 +45,14 @@ def load_mediator():
                     os.environ.pop(key, None)
                 else:
                     os.environ[key] = value
+
+
+def load_runtime_entrypoint():
+    spec = importlib.util.spec_from_file_location("test_gx10_runtime", RUNTIME_SCRIPT)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 class HermesLocalMediationTests(unittest.TestCase):
@@ -84,6 +96,38 @@ class HermesLocalMediationTests(unittest.TestCase):
         head, body = asyncio.run(read())
         self.assertTrue(head.startswith(b"POST /v1/chat/completions"))
         self.assertEqual(body, b"test")
+
+
+class Gx10ForcedRuntimeEntrypointTests(unittest.TestCase):
+    def call_read_request(self, payload: bytes, original_command: str = "") -> tuple[str, str]:
+        module = load_runtime_entrypoint()
+        previous_stdin = sys.stdin
+        previous_command = os.environ.get("SSH_ORIGINAL_COMMAND")
+        sys.stdin = io.TextIOWrapper(io.BytesIO(payload), encoding="utf-8")
+        os.environ["SSH_ORIGINAL_COMMAND"] = original_command
+        try:
+            return module.read_request()
+        finally:
+            sys.stdin = previous_stdin
+            if previous_command is None:
+                os.environ.pop("SSH_ORIGINAL_COMMAND", None)
+            else:
+                os.environ["SSH_ORIGINAL_COMMAND"] = previous_command
+
+    def test_accepts_only_the_exact_bounded_request_shape(self) -> None:
+        correlation, prompt = self.call_read_request(
+            b'{"correlationId":"runtime-001","prompt":"synthetic"}\n'
+        )
+        self.assertEqual((correlation, prompt), ("runtime-001", "synthetic"))
+
+    def test_rejects_an_ssh_command_and_capability_like_input(self) -> None:
+        with contextlib.redirect_stdout(io.StringIO()):
+            with self.assertRaises(SystemExit):
+                self.call_read_request(b'{"correlationId":"runtime-001","prompt":"synthetic"}\n', "id")
+            with self.assertRaises(SystemExit):
+                self.call_read_request(
+                    b'{"correlationId":"runtime-001","prompt":"synthetic","capabilities":[]}\n'
+                )
 
 
 if __name__ == "__main__":
