@@ -67,6 +67,18 @@ The adapter-boundary tests verify HAL-owned lifecycle sequencing and linkage che
 
 ARTC-001 through ARTC-014 passed, covering lifecycle admission, bounded dispatch, permitted/denied/held capability requests, scope-expansion denial, evidence and report claim handling, subagent delegation bounds, checkpoint/cancellation/destruction, failure containment, runtime replacement, runtime-memory loss/reconstruction, and anti-coupling.
 
+## Fixed Read-Only Repository-Status Composition Evidence
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-08-09 |
+| Scope | HAL-local, fixed-composition status context for the zero-capability text-only assistant slice |
+| Command | `python3 -m unittest -v tests.agent_runtime_contract.test_readonly_shell_pilot` |
+| Result | PASS — 3 tests passed |
+| External resources | None used; the test suite never starts the GX10 transport, Hermes, Ollama, or a network service |
+
+The checks execute only the exact HAL-owned `git status --short` argument array in the repository workspace and bound its returned output to 16 KiB. They prove rejection of arbitrary commands, shell-like argument injection, and malformed request shapes before execution. Static assertions require the repository-status assistant to obtain the status only through that probe and to provide the result as text context with an explicit no-tools instruction; they forbid a direct Git subprocess or shell-enabled composition path. This evidence does not grant a runtime a shell capability, a general command interface, governed-resource access, or canonical-knowledge write authority.
+
 ## Limitations and Follow-up
 
 The harness verifies the defined semantic boundary only. It does not verify a production implementation, Hermes, a general Capability Gateway, real resources, secrets, external connectivity, deployment, or formatted Book II recertification. The existing local synthetic Gateway has exactly one permitted M3 inspection capability and returns no resource, credential, or execution handle to a runtime. Under [DR 0002](../../decisions/0002-runtime-contract-durable-record-model.md), the runtime journal retains only integrity-chained, non-canonical runtime claims and Gateway dispositions. The separate, test-only GX10 synthetic cancellation probe passed with a 15-minute harness limit; it is not a production transport. The next required activity is to store the independent reviewer’s scoped Book II conformance disposition, then regenerate authoritative formatted Book II editions.
