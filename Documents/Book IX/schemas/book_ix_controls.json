@@ -1,0 +1,245 @@
+{
+  "version": "1.0",
+  "controls": [
+    {
+      "control_id": "IX-GOV-001",
+      "title": "Authority hierarchy",
+      "requirement": "All contracts MUST preserve Books I-IV and X; conflict MUST fail closed and be recorded."
+    },
+    {
+      "control_id": "IX-GOV-002",
+      "title": "Contract registration",
+      "requirement": "Every machine interaction admitted to a declared live-effect environment and approved Reality Boundary stage MUST use a registered versioned contract."
+    },
+    {
+      "control_id": "IX-GOV-003",
+      "title": "No architectural redesign",
+      "requirement": "A contract MUST NOT move responsibility, state ownership, or authority between Book IV components."
+    },
+    {
+      "control_id": "IX-ENV-001",
+      "title": "Common envelope",
+      "requirement": "Every message MUST carry message, contract, schema, correlation, causation, producer, time, provenance, classification, and integrity metadata."
+    },
+    {
+      "control_id": "IX-ENV-002",
+      "title": "Freshness",
+      "requirement": "Receivers MUST enforce declared issued-at, expiry, and maximum-age constraints."
+    },
+    {
+      "control_id": "IX-ENV-003",
+      "title": "Canonical identifiers",
+      "requirement": "Identifiers MUST be opaque, stable, globally unambiguous, and MUST NOT embed mutable Authority or Permission claims."
+    },
+    {
+      "control_id": "IX-AUT-001",
+      "title": "Authenticated identity",
+      "requirement": "Every non-public interaction MUST authenticate sender and intended recipient."
+    },
+    {
+      "control_id": "IX-AUT-002",
+      "title": "Authority context",
+      "requirement": "Protected interactions MUST carry integrity-protected authority, delegation, policy, purpose, and constraint references."
+    },
+    {
+      "control_id": "IX-AUT-003",
+      "title": "No ambient authority",
+      "requirement": "Network location, credentials, data possession, or component execution MUST NOT independently confer authority."
+    },
+    {
+      "control_id": "IX-AUT-004",
+      "title": "Decision freshness",
+      "requirement": "Authority decisions MUST be current for the proposed action and invalidated by revocation, expiry, or material proposal change."
+    },
+    {
+      "control_id": "IX-AUT-005",
+      "title": "Denied means no effect",
+      "requirement": "A denial response MUST be terminal for the attempted action and MUST NOT be converted into success by a transport adapter."
+    },
+    {
+      "control_id": "IX-IDM-001",
+      "title": "Idempotency key",
+      "requirement": "Every retriable command MUST require a caller-stable idempotency key scoped to principal, operation, and semantic payload."
+    },
+    {
+      "control_id": "IX-IDM-002",
+      "title": "Duplicate disposition",
+      "requirement": "A duplicate command MUST return the recorded disposition and MUST NOT repeat the effect."
+    },
+    {
+      "control_id": "IX-IDM-003",
+      "title": "Reality ambiguity",
+      "requirement": "An ambiguous Reality Boundary outcome MUST enter reconciliation; automatic replay is prohibited until real-world state is verified."
+    },
+    {
+      "control_id": "IX-DLV-001",
+      "title": "Bounded retry",
+      "requirement": "Retry policy MUST declare attempts, elapsed-time budget, backoff, jitter, and retryable codes."
+    },
+    {
+      "control_id": "IX-DLV-002",
+      "title": "Deadline propagation",
+      "requirement": "Callers MUST propagate a monotonic remaining deadline; intermediaries MUST NOT extend it."
+    },
+    {
+      "control_id": "IX-DLV-003",
+      "title": "Cancellation",
+      "requirement": "Cancellation MUST be explicit and MUST NOT imply rollback of an already committed effect."
+    },
+    {
+      "control_id": "IX-DLV-004",
+      "title": "Backpressure",
+      "requirement": "Streams and event consumers MUST apply bounded buffering, demand signaling, and overload disposition."
+    },
+    {
+      "control_id": "IX-ORD-001",
+      "title": "Ordering scope",
+      "requirement": "Contracts MUST declare no ordering, per-key ordering, or total ordering; consumers MUST NOT infer stronger order."
+    },
+    {
+      "control_id": "IX-ORD-002",
+      "title": "Event immutability",
+      "requirement": "Events MUST describe completed facts and MUST NOT be rewritten; correction uses a new linked event."
+    },
+    {
+      "control_id": "IX-ERR-001",
+      "title": "Structured errors",
+      "requirement": "Errors MUST use the HAL error schema with stable code, category, retry disposition, correlation, and detail bounded by classification, privacy, and secret-disclosure controls."
+    },
+    {
+      "control_id": "IX-ERR-002",
+      "title": "No sensitive errors",
+      "requirement": "Error messages MUST NOT expose secrets, sensitive payloads, internal credentials, or prohibited inference."
+    },
+    {
+      "control_id": "IX-ERR-003",
+      "title": "Partial result",
+      "requirement": "Partial results MUST be explicitly marked with omitted scopes and MUST NOT be represented as complete."
+    },
+    {
+      "control_id": "IX-VER-001",
+      "title": "Semantic versioning",
+      "requirement": "Major versions indicate incompatible semantics; minor versions are backward-compatible additions; patches do not change semantics."
+    },
+    {
+      "control_id": "IX-VER-002",
+      "title": "Unknown schema",
+      "requirement": "Unknown or incompatible schemas MUST be rejected or handled by an explicitly approved compatibility adapter."
+    },
+    {
+      "control_id": "IX-VER-003",
+      "title": "Consumer tolerance",
+      "requirement": "Consumers MAY ignore declared extension fields but MUST reject unknown required semantics."
+    },
+    {
+      "control_id": "IX-VER-004",
+      "title": "Deprecation",
+      "requirement": "Deprecation MUST publish replacement, migration evidence, first notice, last supported version, and removal date."
+    },
+    {
+      "control_id": "IX-LIM-001",
+      "title": "Resource limits",
+      "requirement": "Contracts MUST publish payload, batch, rate, concurrency, and stream limits with deterministic exceedance errors."
+    },
+    {
+      "control_id": "IX-PAG-001",
+      "title": "Pagination",
+      "requirement": "List queries MUST use opaque, integrity-protected cursors bound to filter, sort, principal, and snapshot semantics."
+    },
+    {
+      "control_id": "IX-PAG-002",
+      "title": "Filtering",
+      "requirement": "Filterable and sortable fields MUST be allowlisted; unrecognized fields MUST fail validation."
+    },
+    {
+      "control_id": "IX-SEC-001",
+      "title": "Transport protection",
+      "requirement": "Confidentiality and integrity MUST protect every non-public hop with authenticated peer identity."
+    },
+    {
+      "control_id": "IX-SEC-002",
+      "title": "Input validation",
+      "requirement": "Receivers MUST validate structure, type, bounds, encoding, canonicalization, classification, current Authority, and the exact Permission decision before use."
+    },
+    {
+      "control_id": "IX-SEC-003",
+      "title": "Replay defense",
+      "requirement": "Protected requests MUST include nonce or idempotency identity, time bounds, and integrity evidence sufficient to detect replay."
+    },
+    {
+      "control_id": "IX-PRV-001",
+      "title": "Data minimization",
+      "requirement": "Schemas MUST include only fields necessary for the declared purpose and authorized consumer."
+    },
+    {
+      "control_id": "IX-PRV-002",
+      "title": "Field classification",
+      "requirement": "Sensitive fields MUST declare classification, purpose, retention, redaction, and logging rules."
+    },
+    {
+      "control_id": "IX-PRV-003",
+      "title": "Disclosure check",
+      "requirement": "Disclosure MUST be checked against identity, authority, audience, Presence, purpose, privacy policy, and Treaty where applicable."
+    },
+    {
+      "control_id": "IX-TRT-001",
+      "title": "Treaty required",
+      "requirement": "Cross-domain exchange MUST cite an active applicable Treaty and MUST fail closed if absent, expired, revoked, or materially drifted."
+    },
+    {
+      "control_id": "IX-TRT-002",
+      "title": "Firewall admission",
+      "requirement": "Every external ingress and egress MUST pass the Constitutional Firewall; direct bypass is prohibited."
+    },
+    {
+      "control_id": "IX-TRT-003",
+      "title": "Separate approvals",
+      "requirement": "Treaty approval MUST NOT substitute for capability-class or action authority approval."
+    },
+    {
+      "control_id": "IX-OBS-001",
+      "title": "Trace correlation",
+      "requirement": "Interactions MUST emit correlation, causation, contract version, outcome, latency, and policy-decision references."
+    },
+    {
+      "control_id": "IX-OBS-002",
+      "title": "Evidence integrity",
+      "requirement": "Audit evidence MUST be tamper-evident, access-controlled, retention-governed, and attributable."
+    },
+    {
+      "control_id": "IX-OBS-003",
+      "title": "Sensitive telemetry",
+      "requirement": "Telemetry MUST use redaction or references rather than unrestricted sensitive payload copies."
+    },
+    {
+      "control_id": "IX-STR-001",
+      "title": "Stream resume",
+      "requirement": "Resumable streams MUST use opaque cursors with declared retention and gap behavior."
+    },
+    {
+      "control_id": "IX-STR-002",
+      "title": "Stream termination",
+      "requirement": "Streams MUST define normal completion, cancellation, deadline, Authority or Permission loss, Treaty loss, overload, and integrity-failure closure."
+    },
+    {
+      "control_id": "IX-CNF-001",
+      "title": "Schema validation",
+      "requirement": "Every release MUST validate examples and artifacts against the registered schemas."
+    },
+    {
+      "control_id": "IX-CNF-002",
+      "title": "Contract tests",
+      "requirement": "Providers and consumers MUST pass positive, denial, malformed, incompatible, replay, timeout, duplicate, and limit tests."
+    },
+    {
+      "control_id": "IX-CNF-003",
+      "title": "Breaking-change gate",
+      "requirement": "Incompatible change MUST create a new major contract and coexist through the approved migration window."
+    },
+    {
+      "control_id": "IX-CNF-004",
+      "title": "Evidence manifest",
+      "requirement": "Certification MUST bind tested artifacts, hashes, versions, environment, results, and approving roles."
+    }
+  ]
+}

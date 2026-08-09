@@ -1,0 +1,17 @@
+# BOOK I to Book VIII Matrix
+
+| Source basis | Book VIII destination | Controls |
+| --- | --- | --- |
+| Book I Decisions 1-7, 47-51, 58; Book II Chapters 1, 3, 35; Book III Chapters 1, 8, 9; Book IV CMP-01, CMP-15, CMP-18 | Chapter 1 | GOV-01-001, GOV-01-002, GOV-01-003, GOV-01-004, GOV-01-005, GOV-01-006, GOV-01-007, GOV-01-008 |
+| Book I Decisions 26, 34, 40, 43, 55-58; Book II Chapters 17, 18, 35; Book III Chapters 6, 8, 9; Book IV CMP-15, CMP-18 | Chapter 2 | CLM-02-001, CLM-02-002, CLM-02-003, CLM-02-004, CLM-02-005, CLM-02-006, CLM-02-007, CLM-02-008 |
+| Book I Decisions 40, 43, 55-58; Book II Chapter 17; Book III Chapters 6, 8; Book IV CMP-15, CMP-16, CMP-18 | Chapter 3 | PLN-03-001, PLN-03-002, PLN-03-003, PLN-03-004, PLN-03-005, PLN-03-006, PLN-03-007, PLN-03-008 |
+| Book I Decisions 38-43, 47-50, 56, 58; Book II Chapters 16, 17, 35; Book III Chapters 3, 6, 7; Book IV CMP-14-16, CMP-25-26 | Chapter 4 | LAD-04-001, LAD-04-002, LAD-04-003, LAD-04-004, LAD-04-005, LAD-04-006, LAD-04-007, LAD-04-008 |
+| Book I Decisions 40, 43, 56, 58; Book II Chapters 17, 27, 35; Book III Chapters 6-8; Book IV CMP-15, CMP-16, CMP-26 | Chapter 5 | MTH-05-001, MTH-05-002, MTH-05-003, MTH-05-004, MTH-05-005, MTH-05-006, MTH-05-007, MTH-05-008 |
+| Book I Decisions 1-7, 24-29, 38-43, 47-51, 56, 58; Book II Chapters 3-5, 18-21, 29, 35; Book III Chapters 5, 6, 8; Book IV CMP-01-03, CMP-17-21 | Chapter 6 | DOM-06-001, DOM-06-002, DOM-06-003, DOM-06-004, DOM-06-005, DOM-06-006, DOM-06-007, DOM-06-008 |
+| Book I Decisions 40, 43, 47-50, 55-58; Book II Chapters 17, 25, 27, 35; Book III Chapters 4, 6-8; Book IV CMP-15, CMP-18, CMP-24-26, CMP-29 | Chapter 7 | CON-07-001, CON-07-002, CON-07-003, CON-07-004, CON-07-005, CON-07-006, CON-07-007, CON-07-008 |
+| Book I Decisions 35, 38-43, 47-51, 56, 58; Book II Chapters 15-17, 29, 35; Book III Chapters 3, 6-9; Book IV all components | Chapter 8 | OBJ-08-001, OBJ-08-002, OBJ-08-003, OBJ-08-004, OBJ-08-005, OBJ-08-006, OBJ-08-007, OBJ-08-008 |
+| Book I Decisions 35, 38-43, 47-51, 56, 58; Book II Chapters 27, 32-35; Book III Chapters 7-9; Book IV CMP-15, CMP-18, CMP-23-26 | Chapter 9 | RLS-09-001, RLS-09-002, RLS-09-003, RLS-09-004, RLS-09-005, RLS-09-006, RLS-09-007, RLS-09-008 |
+| Book I Decisions 24-29, 38-43, 47-50, 56, 58; Book II Chapters 18, 20, 21, 35; Book III Chapters 5-9; Book IV CMP-17-21 | Chapter 10 | TRT-10-001, TRT-10-002, TRT-10-003, TRT-10-004, TRT-10-005, TRT-10-006, TRT-10-007, TRT-10-008 |
+| Book I Decisions 40, 43, 47-50, 56, 58; Book II Chapters 17, 27, 35; Book III Chapters 1, 7-9; Book IV CMP-01, CMP-15, CMP-25-26 | Chapter 11 | DEC-11-001, DEC-11-002, DEC-11-003, DEC-11-004, DEC-11-005, DEC-11-006, DEC-11-007, DEC-11-008 |
+| Book I Decisions 26, 40, 43, 47-50, 55-58; Book II Chapters 18, 25, 35; Book III Chapters 1, 4-6, 8-9; Book IV CMP-18, CMP-19, CMP-24 | Chapter 12 | EVD-12-001, EVD-12-002, EVD-12-003, EVD-12-004, EVD-12-005, EVD-12-006, EVD-12-007, EVD-12-008 |
+| Book I Decisions 40, 43, 47-51, 56, 58; Book II Chapter 35; Book III Chapters 1, 8, 9; Book IV conformance model and all components | Chapter 13 | REF-13-001, REF-13-002, REF-13-003, REF-13-004, REF-13-005, REF-13-006, REF-13-007, REF-13-008 |

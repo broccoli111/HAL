@@ -1,0 +1,721 @@
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+HAL Book III
+Engineering Standards
+Final v1.0 | 27 July 2026
+Book I is supreme. Book II is authoritative.
+HAL Book III - Engineering Standards
+Revision history
+Table of contents
+1. Foundations, Authority, and Lifecycle
+2. Repository, Source, and Configguration Management
+3. Softw%are Design and Contract Engineering
+4. Implementation Quaality and Observability
+5. Security, Privacy, and Trust-Boundary Engineering
+6. Testing, Verifigcation, and Simulation
+7. Delivery, Change, and Release Governance
+8. Revie%, Assurance, and Technical Debt
+9. Control Operations, Exceptions, and Certifigcation
+Authority statement
+Book III MUST NOT alter, %eaken, reinterpret, or contradict Book I or Book II. When a confliict is found, stop applying the confliicting 
+Book III rule, preserve the higher-order requirement, record the confliict, and recommend a Book III correction.
+Chapter 1 - Foundations, Authority, and Lifecycle
+1. Document control
+Status: Final. Control families: GOV-001 GOV-002 GOV-003 GOV-004 GOV-005. Version: 1.0. Source authority: Book I then Book II.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+2. Purpose
+Thiis chapter defignes enforceable common engineering standards for purpose, normative language, roles, lifecycle, conformance, 
+exceptions, adrs, documentation, evidence.
+3. Scope
+Applies to every HAL contributor, change, component, provider adapter, interface, environment, and release %ithin this subject area.
+4. Authority and source requirements
+Book I Articles I-XII; Decisions 5, 25, 37, 43, 49, 58. Book II 01, 03, 05, 29, 35. If this chapter con fliicts %ith either source, the higher-
+order requirement governs; record the confliict and correct Book III.
+5. Definitions
+Conformance evidence is a durable, revie%able record. A consequential change affeects authority, identity, protected state, trust, 
+privacy, a Reality Boundary, availability, or a material outcome. A control exception is a time-bounded approval, never a silent 
+permission.
+6. Normative standards
+Every consequential change MUST identify its Book I and Book II source, responsible role, risk class, verifigcation method, durable 
+evidence location, and active exception status before merge. A lo%er-order artifact MUST NOT %eaken a higher-order source.
+7. Required engineering practices
+Teams MUST perform design, security, privacy, reliability, and verifigcation %ork in proportion to risk. Teams MUST retain evidence in 
+the change or release record and MUST update traceability %hen requirements, interfaces, controls, or evidence change.
+8. Prohibited practices
+A change that lacks authority traceability, a revie% record, or required evidence MUST NOT merge or release.
+9. Required evidence
+Source-linked change record, ADR, test result, revie% approval, exception record %here applicable.
+10. Automated enforcement
+Protected-path metadata checks; required PR figelds; release gate.
+11. Human review requirements
+Principal Engineer and designated revie%ers verify authority mapping; Architecture Authority revie%s deviations.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+12. Exceptions and waiver authority
+An exception MUST identify affeected control, justifigcation, scope, risk, compensating controls, approver, effeective date, expiration date, 
+revie% date, evidence, and revocation conditions. Constitutional invariants cannot be %aived. Architecture deviations follo% the 
+architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.
+13. Failure consequences
+A violated MUST control is a fignding. Critical or high figndings block merge or release until corrected, contained, or covered by an 
+active approved exception. A detected authority, privacy, or trust-boundary failure MUST be contained and investigated.
+14. Security considerations
+Controls MUST preserve explicit identity, authority, provenance, and least privilege; security controls protect HAL, %hile authority 
+controls also prevent HAL from exceeding its mandate.
+15. Privacy considerations
+Evidence and telemetry MUST minimize personal and sensitive data, use classifigcation-a%are access, and retain only %hat is required 
+for the stated purpose and governing obligation.
+16. Reliability considerations
+Critical behavior MUST defigne hazard-bounded degradation, containment, recovery, and evidence preservation. Applicable safety 
+invariants, authority controls, and audit standards MUST NOT be degraded under resource pressure.
+17. Verification method
+Verify through automated checks, independent revie%, and risk-scaled test/release evidence. Critical invariants require an identifiged 
+repeatable verifigcation method; critical failure modes require tested containment or recovery.
+18. Metrics
+Track control pass rate, fignding severity and age, exception count and age, verifigcation coverage by risk, rollback/recovery 
+performance, and post-release conformance defects.
+19. Traceability to Book I
+Book I Articles I-XII; Decisions 5, 25, 37, 43, 49, 58.
+20. Traceability to Book II
+Book II 01, 03, 05, 29, 35.
+21. Examples
+Example: the change record links the control IDs, source locators, test result, and approval before a protected action is released.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+22. Anti-patterns
+Anti-patteern: a technically successful change is released %ithout authority-path verifigcation because it appears operationally routine.
+23. Review findings
+Initial constitutional, architecture, enforceability, testability, security, privacy, reliability, usability, automation, exception-safety, 
+duplication, and contradiction revie%: no unresolved internally resolvable issue. Reassess %hen implementation evidence is available.
+24. Owner Review items
+None. Routine implementation choices are resolved through engineering judgment. Escalate only matteers reserved by Book I.
+25. Completion status
+Draftw complete; chapter revie% record required before certifigcation.
+Chapter 2 - Repository, Source, and Configuration  
+Management
+1. Document control
+Status: Final. Control families: SRC-001 SRC-002 SRC-003 SRC-004 SRC-005 SRC-006. Version: 1.0. Source authority: Book I then Book 
+II.
+2. Purpose
+Thiis chapter defignes enforceable common engineering standards for repository structure, source control, integration, commits, 
+o%nership, dependencies, generated artifacts, configguration, secrets.
+3. Scope
+Applies to every HAL contributor, change, component, provider adapter, interface, environment, and release %ithin this subject area.
+4. Authority and source requirements
+Book I Decisions 37, 39, 40, 43. Book II 03, 25, 26, 29. If this chapter confliicts %ith either source, the higher-order requirement governs; 
+record the confliict and correct Book III.
+5. Definitions
+Conformance evidence is a durable, revie%able record. A consequential change affeects authority, identity, protected state, trust, 
+privacy, a Reality Boundary, availability, or a material outcome. A control exception is a time-bounded approval, never a silent 
+permission.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+6. Normative standards
+Repositories MUST separate source, generated artifacts, configguration schemas, interfaces, tests, evidence, and deployment manifests. 
+Secrets MUST NOT enter source control, logs, figxtures, images, or build outputs. Each dependency MUST have an o%ner, version 
+constraint, provenance record, and vulnerability disposition.
+7. Required engineering practices
+Teams MUST perform design, security, privacy, reliability, and verifigcation %ork in proportion to risk. Teams MUST retain evidence in 
+the change or release record and MUST update traceability %hen requirements, interfaces, controls, or evidence change.
+8. Prohibited practices
+Direct protected-branch changes, unrevie%ed generated output, flioating dependencies admitteed to a declared live-effeect environment, 
+and ambient secrets are prohibited.
+9. Required evidence
+PR, SBOM, dependency atteestation, generated-artifact provenance, configguration validation result.
+10. Automated enforcement
+Secret scanning, signed-commit/provenance checks, dependency SBOM and vulnerability policy.
+11. Human review requirements
+Code o%ners revie% protected paths; security revie%s secret and dependency exceptions.
+12. Exceptions and waiver authority
+An exception MUST identify affeected control, justifigcation, scope, risk, compensating controls, approver, effeective date, expiration date, 
+revie% date, evidence, and revocation conditions. Constitutional invariants cannot be %aived. Architecture deviations follo% the 
+architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.
+13. Failure consequences
+A violated MUST control is a fignding. Critical or high figndings block merge or release until corrected, contained, or covered by an 
+active approved exception. A detected authority, privacy, or trust-boundary failure MUST be contained and investigated.
+14. Security considerations
+Controls MUST preserve explicit identity, authority, provenance, and least privilege; security controls protect HAL, %hile authority 
+controls also prevent HAL from exceeding its mandate.
+15. Privacy considerations
+Evidence and telemetry MUST minimize personal and sensitive data, use classifigcation-a%are access, and retain only %hat is required 
+for the stated purpose and governing obligation.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+16. Reliability considerations
+Critical behavior MUST defigne hazard-bounded degradation, containment, recovery, and evidence preservation. Applicable safety 
+invariants, authority controls, and audit standards MUST NOT be degraded under resource pressure.
+17. Verification method
+Verify through automated checks, independent revie%, and risk-scaled test/release evidence. Critical invariants require an identifiged 
+repeatable verifigcation method; critical failure modes require tested containment or recovery.
+18. Metrics
+Track control pass rate, fignding severity and age, exception count and age, verifigcation coverage by risk, rollback/recovery 
+performance, and post-release conformance defects.
+19. Traceability to Book I
+Book I Decisions 37, 39, 40, 43.
+20. Traceability to Book II
+Book II 03, 25, 26, 29.
+21. Examples
+Example: the change record links the control IDs, source locators, test result, and approval before a protected action is released.
+22. Anti-patterns
+Anti-patteern: a technically successful change is released %ithout authority-path verifigcation because it appears operationally routine.
+23. Review findings
+Initial constitutional, architecture, enforceability, testability, security, privacy, reliability, usability, automation, exception-safety, 
+duplication, and contradiction revie%: no unresolved internally resolvable issue. Reassess %hen implementation evidence is available.
+24. Owner Review items
+None. Routine implementation choices are resolved through engineering judgment. Escalate only matteers reserved by Book I.
+25. Completion status
+Draftw complete; chapter revie% record required before certifigcation.
+Chapter 3 - Software Design and Contract 
+Engineering
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+1. Document control
+Status: Final. Control families: DES-001 DES-002 DES-003 DES-004 DES-005 DES-006. Version: 1.0. Source authority: Book I then Book 
+II.
+2. Purpose
+Thiis chapter defignes enforceable common engineering standards for modularity, component boundaries, interfaces, compatibility, state, 
+events, concurrency, idempotency, time, errors, resources, degradation, rollback, reality boundary.
+3. Scope
+Applies to every HAL contributor, change, component, provider adapter, interface, environment, and release %ithin this subject area.
+4. Authority and source requirements
+Book I Decisions 2-5, 15-16, 20, 23-24, 35, 44, 50. Book II 01, 02, 15, 16, 22, 23, 24. If this chapter confliicts %ith either source, the higher-
+order requirement governs; record the confliict and correct Book III.
+5. Definitions
+Conformance evidence is a durable, revie%able record. A consequential change affeects authority, identity, protected state, trust, 
+privacy, a Reality Boundary, availability, or a material outcome. A control exception is a time-bounded approval, never a silent 
+permission.
+6. Normative standards
+Each durable state domain MUST have one mutation o%ner. Commands MUST request authoritative state change, queries MUST NOT 
+mutate, and events MUST represent completed facts. Public contracts MUST declare versioning, Authority scope, Permission-decision 
+context, idempotency, ordering scope, time semantics, error model, and compatibility policy.
+7. Required engineering practices
+Teams MUST perform design, security, privacy, reliability, and verifigcation %ork in proportion to risk. Teams MUST retain evidence in 
+the change or release record and MUST update traceability %hen requirements, interfaces, controls, or evidence change.
+8. Prohibited practices
+Last-%rite-%ins on authoritative state %ithout an approved invariant-preservation Verifigcation result, unscoped retries, and reality-
+affeecting %ork %ithout an explicit commit barrier are prohibited.
+9. Required evidence
+Contract defignitions, state-transition diagrams, ADR, compatibility report, test evidence, recovery plan.
+10. Automated enforcement
+Schema/contract compatibility, state-machine, idempotency, ordering, failure-injection, and rollback tests.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+11. Human review requirements
+Architecture revie% is required for state o%nership, cross-domain contracts, and Reality Boundary changes.
+12. Exceptions and waiver authority
+An exception MUST identify affeected control, justifigcation, scope, risk, compensating controls, approver, effeective date, expiration date, 
+revie% date, evidence, and revocation conditions. Constitutional invariants cannot be %aived. Architecture deviations follo% the 
+architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.
+13. Failure consequences
+A violated MUST control is a fignding. Critical or high figndings block merge or release until corrected, contained, or covered by an 
+active approved exception. A detected authority, privacy, or trust-boundary failure MUST be contained and investigated.
+14. Security considerations
+Controls MUST preserve explicit identity, authority, provenance, and least privilege; security controls protect HAL, %hile authority 
+controls also prevent HAL from exceeding its mandate.
+15. Privacy considerations
+Evidence and telemetry MUST minimize personal and sensitive data, use classifigcation-a%are access, and retain only %hat is required 
+for the stated purpose and governing obligation.
+16. Reliability considerations
+Critical behavior MUST defigne hazard-bounded degradation, containment, recovery, and evidence preservation. Applicable safety 
+invariants, authority controls, and audit standards MUST NOT be degraded under resource pressure.
+17. Verification method
+Verify through automated checks, independent revie%, and risk-scaled test/release evidence. Critical invariants require an identifiged 
+repeatable verifigcation method; critical failure modes require tested containment or recovery.
+18. Metrics
+Track control pass rate, fignding severity and age, exception count and age, verifigcation coverage by risk, rollback/recovery 
+performance, and post-release conformance defects.
+19. Traceability to Book I
+Book I Decisions 2-5, 15-16, 20, 23-24, 35, 44, 50.
+20. Traceability to Book II
+Book II 01, 02, 15, 16, 22, 23, 24.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+21. Examples
+Example: the change record links the control IDs, source locators, test result, and approval before a protected action is released.
+22. Anti-patterns
+Anti-patteern: a technically successful change is released %ithout authority-path verifigcation because it appears operationally routine.
+23. Review findings
+Initial constitutional, architecture, enforceability, testability, security, privacy, reliability, usability, automation, exception-safety, 
+duplication, and contradiction revie%: no unresolved internally resolvable issue. Reassess %hen implementation evidence is available.
+24. Owner Review items
+None. Routine implementation choices are resolved through engineering judgment. Escalate only matteers reserved by Book I.
+25. Completion status
+Draftw complete; chapter revie% record required before certifigcation.
+Chapter 4 - Implementation Quality and 
+Observability
+1. Document control
+Status: Final. Control families: OBS-001 OBS-002 OBS-003 OBS-004 DOC-001. Version: 1.0. Source authority: Book I then Book II.
+2. Purpose
+Thiis chapter defignes enforceable common engineering standards for language/runtime, readability, types, validation, error handling, 
+logging, metrics/tracing, performance, accessibility, localization, deprecation.
+3. Scope
+Applies to every HAL contributor, change, component, provider adapter, interface, environment, and release %ithin this subject area.
+4. Authority and source requirements
+Book I Articles II, VI, VII, XI, XII; Decisions 40, 43. Book II 25, 31, 32. If this chapter con fliicts %ith either source, the higher-order 
+requirement governs; record the confliict and correct Book III.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+5. Definitions
+Conformance evidence is a durable, revie%able record. A consequential change affeects authority, identity, protected state, trust, 
+privacy, a Reality Boundary, availability, or a material outcome. A control exception is a time-bounded approval, never a silent 
+permission.
+6. Normative standards
+Implementation MUST validate untrusted input at the boundary, preserve typed error categories, emit structured correlation-a%are 
+evidence, and keep security, privacy, and authority context separate. Performance %ork MUST state %orkload, budget, measurement 
+method, and regression threshold.
+7. Required engineering practices
+Teams MUST perform design, security, privacy, reliability, and verifigcation %ork in proportion to risk. Teams MUST retain evidence in 
+the change or release record and MUST update traceability %hen requirements, interfaces, controls, or evidence change.
+8. Prohibited practices
+Sensitive data in unrestricted logs; s%allo%ed errors; unbounded retries; breaking removal %ithout deprecation path; inaccessible 
+primary interaction paths are prohibited.
+9. Required evidence
+Lint/type results, log schema, trace sample, benchmark, accessibility report, deprecation notice.
+10. Automated enforcement
+Static analysis, type checks, log-schema checks, performance regression tests, accessibility tests.
+11. Human review requirements
+Peer revie%er checks readability and errors; observability and accessibility o%ners revie% high-risk changes.
+12. Exceptions and waiver authority
+An exception MUST identify affeected control, justifigcation, scope, risk, compensating controls, approver, effeective date, expiration date, 
+revie% date, evidence, and revocation conditions. Constitutional invariants cannot be %aived. Architecture deviations follo% the 
+architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.
+13. Failure consequences
+A violated MUST control is a fignding. Critical or high figndings block merge or release until corrected, contained, or covered by an 
+active approved exception. A detected authority, privacy, or trust-boundary failure MUST be contained and investigated.
+14. Security considerations
+Controls MUST preserve explicit identity, authority, provenance, and least privilege; security controls protect HAL, %hile authority 
+controls also prevent HAL from exceeding its mandate.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+15. Privacy considerations
+Evidence and telemetry MUST minimize personal and sensitive data, use classifigcation-a%are access, and retain only %hat is required 
+for the stated purpose and governing obligation.
+16. Reliability considerations
+Critical behavior MUST defigne hazard-bounded degradation, containment, recovery, and evidence preservation. Applicable safety 
+invariants, authority controls, and audit standards MUST NOT be degraded under resource pressure.
+17. Verification method
+Verify through automated checks, independent revie%, and risk-scaled test/release evidence. Critical invariants require an identifiged 
+repeatable verifigcation method; critical failure modes require tested containment or recovery.
+18. Metrics
+Track control pass rate, fignding severity and age, exception count and age, verifigcation coverage by risk, rollback/recovery 
+performance, and post-release conformance defects.
+19. Traceability to Book I
+Book I Articles II, VI, VII, XI, XII; Decisions 40, 43.
+20. Traceability to Book II
+Book II 25, 31, 32.
+21. Examples
+Example: the change record links the control IDs, source locators, test result, and approval before a protected action is released.
+22. Anti-patterns
+Anti-patteern: a technically successful change is released %ithout authority-path verifigcation because it appears operationally routine.
+23. Review findings
+Initial constitutional, architecture, enforceability, testability, security, privacy, reliability, usability, automation, exception-safety, 
+duplication, and contradiction revie%: no unresolved internally resolvable issue. Reassess %hen implementation evidence is available.
+24. Owner Review items
+None. Routine implementation choices are resolved through engineering judgment. Escalate only matteers reserved by Book I.
+25. Completion status
+Draftw complete; chapter revie% record required before certifigcation.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+Chapter 5 - Security, Privacy, and Trust-Boundary 
+Engineering
+1. Document control
+Status: Final. Control families: SEC-001 SEC-002 SEC-003 SEC-004 SEC-005 SEC-006 PRV-001 PRV-002. Version: 1.0. Source authority: 
+Book I then Book II.
+2. Purpose
+Thiis chapter defignes enforceable common engineering standards for sdl, threat models, identity, authentication, authority, permission, 
+least privilege, figre%all, crypto, classifigcation, privacy, treaties, supply chain, vulnerabilities.
+3. Scope
+Applies to every HAL contributor, change, component, provider adapter, interface, environment, and release %ithin this subject area.
+4. Authority and source requirements
+Book I Articles I, II, V, VI, VIII, XI, XII; Decisions 26-27, 32, 36-37, 39, 48-49. Book II 04, 05, 18, 19, 20, 21, 26. If this chapter con fliicts 
+%ith either source, the higher-order requirement governs; record the confliict and correct Book III.
+5. Definitions
+Conformance evidence is a durable, revie%able record. A consequential change affeects authority, identity, protected state, trust, 
+privacy, a Reality Boundary, availability, or a material outcome. A control exception is a time-bounded approval, never a silent 
+permission.
+6. Normative standards
+Every request crossing a trust boundary MUST carry authenticated identity, bounded Authority, purpose, provenance, and correlation 
+context. Permission MUST be evaluated by the authoritative policy path %ithin current Authority, not inferred from net%ork, role 
+label, secret possession, or provider usefulness. Data collection and disclosure MUST follo% a classifigcation, purpose, minimization, 
+retention, and deletion/archival rule.
+7. Required engineering practices
+Teams MUST perform design, security, privacy, reliability, and verifigcation %ork in proportion to risk. Teams MUST retain evidence in 
+the change or release record and MUST update traceability %hen requirements, interfaces, controls, or evidence change.
+8. Prohibited practices
+Treating trust as authority; cross-domain exchange outside the Constitutional Fire%all; long-lived ambient credentials; unapproved 
+Treaty or ne% capability class; plaintext sensitive data in transit or at rest are prohibited.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+9. Required evidence
+Thireat model, data inventory, access decision log, Treaty record, key-management record, SBOM, vulnerability disposition.
+10. Automated enforcement
+Thireat-model, negative Authority and Permission, figre%all, privacy, cryptographic, dependency-provenance, and penetration tests.
+11. Human review requirements
+Security Authority revie%s threats and exceptions; Privacy Authority revie%s data use; O%ner authority is required only %here Book I 
+reserves it.
+12. Exceptions and waiver authority
+An exception MUST identify affeected control, justifigcation, scope, risk, compensating controls, approver, effeective date, expiration date, 
+revie% date, evidence, and revocation conditions. Constitutional invariants cannot be %aived. Architecture deviations follo% the 
+architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.
+13. Failure consequences
+A violated MUST control is a fignding. Critical or high figndings block merge or release until corrected, contained, or covered by an 
+active approved exception. A detected authority, privacy, or trust-boundary failure MUST be contained and investigated.
+14. Security considerations
+Controls MUST preserve explicit identity, authority, provenance, and least privilege; security controls protect HAL, %hile authority 
+controls also prevent HAL from exceeding its mandate.
+15. Privacy considerations
+Evidence and telemetry MUST minimize personal and sensitive data, use classifigcation-a%are access, and retain only %hat is required 
+for the stated purpose and governing obligation.
+16. Reliability considerations
+Critical behavior MUST defigne hazard-bounded degradation, containment, recovery, and evidence preservation. Applicable safety 
+invariants, authority controls, and audit standards MUST NOT be degraded under resource pressure.
+17. Verification method
+Verify through automated checks, independent revie%, and risk-scaled test/release evidence. Critical invariants require an identifiged 
+repeatable verifigcation method; critical failure modes require tested containment or recovery.
+18. Metrics
+Track control pass rate, fignding severity and age, exception count and age, verifigcation coverage by risk, rollback/recovery 
+performance, and post-release conformance defects.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+19. Traceability to Book I
+Book I Articles I, II, V, VI, VIII, XI, XII; Decisions 26-27, 32, 36-37, 39, 48-49.
+20. Traceability to Book II
+Book II 04, 05, 18, 19, 20, 21, 26.
+21. Examples
+Example: the change record links the control IDs, source locators, test result, and approval before a protected action is released.
+22. Anti-patterns
+Anti-patteern: a technically successful change is released %ithout authority-path verifigcation because it appears operationally routine.
+23. Review findings
+Initial constitutional, architecture, enforceability, testability, security, privacy, reliability, usability, automation, exception-safety, 
+duplication, and contradiction revie%: no unresolved internally resolvable issue. Reassess %hen implementation evidence is available.
+24. Owner Review items
+None. Routine implementation choices are resolved through engineering judgment. Escalate only matteers reserved by Book I.
+25. Completion status
+Draftw complete; chapter revie% record required before certifigcation.
+Chapter 6 - Testing, Verification, and Simulation
+1. Document control
+Status: Final. Control families: TST-001 TST-002 TST-003 TST-004 VER-001 VER-002 VER-003. Version: 1.0. Source authority: Book I 
+then Book II.
+2. Purpose
+Thiis chapter defignes enforceable common engineering standards for test strategy, unit through system, property/security/privacy tests, 
+failure injection, recovery, simulation, shado%/canary, determinism, test data, risk coverage.
+3. Scope
+Applies to every HAL contributor, change, component, provider adapter, interface, environment, and release %ithin this subject area.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+4. Authority and source requirements
+Book I Decisions 22, 34-35, 42-43, 50, 56. Book II 16, 17, 27, 28, 35. If this chapter confliicts %ith either source, the higher-order 
+requirement governs; record the confliict and correct Book III.
+5. Definitions
+Conformance evidence is a durable, revie%able record. A consequential change affeects authority, identity, protected state, trust, 
+privacy, a Reality Boundary, availability, or a material outcome. A control exception is a time-bounded approval, never a silent 
+permission.
+6. Normative standards
+Verifigcation MUST be risk-based and MUST cover requirements, authority paths, trust boundaries, state transitions, failure and 
+recovery paths, privacy obligations, constitutional invariants, and Reality Boundary actions. Code coverage alone MUST NOT be used 
+as a release decision.
+7. Required engineering practices
+Teams MUST perform design, security, privacy, reliability, and verifigcation %ork in proportion to risk. Teams MUST retain evidence in 
+the change or release record and MUST update traceability %hen requirements, interfaces, controls, or evidence change.
+8. Prohibited practices
+Testing figrst in a declared live-effeect environment or effeect-capable Reality Boundary stage for a ne% or materially changed action, 
+ungoverned test data, and non-reproducible critical verifigcation are prohibited.
+9. Required evidence
+Verifigcation plan, risk matrix, test results, simulation/shado% report, recovery drill record, release decision.
+10. Automated enforcement
+CI test gates, deterministic replay, simulation figdelity records, canary analysis, test-data checks.
+11. Human review requirements
+Test lead approves verifigcation plans; security/privacy revie%ers approve relevant risk coverage.
+12. Exceptions and waiver authority
+An exception MUST identify affeected control, justifigcation, scope, risk, compensating controls, approver, effeective date, expiration date, 
+revie% date, evidence, and revocation conditions. Constitutional invariants cannot be %aived. Architecture deviations follo% the 
+architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.
+13. Failure consequences
+A violated MUST control is a fignding. Critical or high figndings block merge or release until corrected, contained, or covered by an 
+active approved exception. A detected authority, privacy, or trust-boundary failure MUST be contained and investigated.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+14. Security considerations
+Controls MUST preserve explicit identity, authority, provenance, and least privilege; security controls protect HAL, %hile authority 
+controls also prevent HAL from exceeding its mandate.
+15. Privacy considerations
+Evidence and telemetry MUST minimize personal and sensitive data, use classifigcation-a%are access, and retain only %hat is required 
+for the stated purpose and governing obligation.
+16. Reliability considerations
+Critical behavior MUST defigne hazard-bounded degradation, containment, recovery, and evidence preservation. Applicable safety 
+invariants, authority controls, and audit standards MUST NOT be degraded under resource pressure.
+17. Verification method
+Verify through automated checks, independent revie%, and risk-scaled test/release evidence. Critical invariants require an identifiged 
+repeatable verifigcation method; critical failure modes require tested containment or recovery.
+18. Metrics
+Track control pass rate, fignding severity and age, exception count and age, verifigcation coverage by risk, rollback/recovery 
+performance, and post-release conformance defects.
+19. Traceability to Book I
+Book I Decisions 22, 34-35, 42-43, 50, 56.
+20. Traceability to Book II
+Book II 16, 17, 27, 28, 35.
+21. Examples
+Example: the change record links the control IDs, source locators, test result, and approval before a protected action is released.
+22. Anti-patterns
+Anti-patteern: a technically successful change is released %ithout authority-path verifigcation because it appears operationally routine.
+23. Review findings
+Initial constitutional, architecture, enforceability, testability, security, privacy, reliability, usability, automation, exception-safety, 
+duplication, and contradiction revie%: no unresolved internally resolvable issue. Reassess %hen implementation evidence is available.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+24. Owner Review items
+None. Routine implementation choices are resolved through engineering judgment. Escalate only matteers reserved by Book I.
+25. Completion status
+Draftw complete; chapter revie% record required before certifigcation.
+Chapter 7 - Delivery, Change, and Release 
+Governance
+1. Document control
+Status: Final. Control families: BLD-001 BLD-002 BLD-003 RELSE-001 RELSE-002 RELSE-003. Version: 1.0. Source authority: Book I 
+then Book II.
+2. Purpose
+Thiis chapter defignes enforceable common engineering standards for ci/cd, reproducible builds, signing, qualifigcation, risk, migrations, 
+fliags, canary, rollback, emergency changes, capability/treaty control.
+3. Scope
+Applies to every HAL contributor, change, component, provider adapter, interface, environment, and release %ithin this subject area.
+4. Authority and source requirements
+Book I Decisions 35, 39, 43, 50, 58. Book II 17, 21, 29, 34, 35. If this chapter confliicts %ith either source, the higher-order requirement 
+governs; record the confliict and correct Book III.
+5. Definitions
+Conformance evidence is a durable, revie%able record. A consequential change affeects authority, identity, protected state, trust, 
+privacy, a Reality Boundary, availability, or a material outcome. A control exception is a time-bounded approval, never a silent 
+permission.
+6. Normative standards
+Every release MUST be reproducibly built from an identifiged source revision, signed or atteested, risk-classifiged, and qualifiged %ith 
+evidence appropriate to its affeected authority, trust, state, and Reality Boundary. Migrations MUST have for%ard, rollback, or 
+compensation behavior documented before execution.
+7. Required engineering practices
+Teams MUST perform design, security, privacy, reliability, and verifigcation %ork in proportion to risk. Teams MUST retain evidence in 
+the change or release record and MUST update traceability %hen requirements, interfaces, controls, or evidence change.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+8. Prohibited practices
+Unsigned artifacts, mutable release inputs, irreversible migration %ithout an approved commit barrier and recovery plan, or 
+emergency change %ithout aftwer-action revie% are prohibited.
+9. Required evidence
+Build record, SBOM, signature, release checklist, canary metrics, rollback/for%ard-recovery evidence.
+10. Automated enforcement
+Build atteestations, artifact signature verifigcation, migration rehearsal, deployment policy, post-release validation.
+11. Human review requirements
+Release Authority certifiges release; Architecture/Security/Privacy revie% based on risk classifigcation.
+12. Exceptions and waiver authority
+An exception MUST identify affeected control, justifigcation, scope, risk, compensating controls, approver, effeective date, expiration date, 
+revie% date, evidence, and revocation conditions. Constitutional invariants cannot be %aived. Architecture deviations follo% the 
+architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.
+13. Failure consequences
+A violated MUST control is a fignding. Critical or high figndings block merge or release until corrected, contained, or covered by an 
+active approved exception. A detected authority, privacy, or trust-boundary failure MUST be contained and investigated.
+14. Security considerations
+Controls MUST preserve explicit identity, authority, provenance, and least privilege; security controls protect HAL, %hile authority 
+controls also prevent HAL from exceeding its mandate.
+15. Privacy considerations
+Evidence and telemetry MUST minimize personal and sensitive data, use classifigcation-a%are access, and retain only %hat is required 
+for the stated purpose and governing obligation.
+16. Reliability considerations
+Critical behavior MUST defigne hazard-bounded degradation, containment, recovery, and evidence preservation. Applicable safety 
+invariants, authority controls, and audit standards MUST NOT be degraded under resource pressure.
+17. Verification method
+Verify through automated checks, independent revie%, and risk-scaled test/release evidence. Critical invariants require an identifiged 
+repeatable verifigcation method; critical failure modes require tested containment or recovery.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+18. Metrics
+Track control pass rate, fignding severity and age, exception count and age, verifigcation coverage by risk, rollback/recovery 
+performance, and post-release conformance defects.
+19. Traceability to Book I
+Book I Decisions 35, 39, 43, 50, 58.
+20. Traceability to Book II
+Book II 17, 21, 29, 34, 35.
+21. Examples
+Example: the change record links the control IDs, source locators, test result, and approval before a protected action is released.
+22. Anti-patterns
+Anti-patteern: a technically successful change is released %ithout authority-path verifigcation because it appears operationally routine.
+23. Review findings
+Initial constitutional, architecture, enforceability, testability, security, privacy, reliability, usability, automation, exception-safety, 
+duplication, and contradiction revie%: no unresolved internally resolvable issue. Reassess %hen implementation evidence is available.
+24. Owner Review items
+None. Routine implementation choices are resolved through engineering judgment. Escalate only matteers reserved by Book I.
+25. Completion status
+Draftw complete; chapter revie% record required before certifigcation.
+Chapter 8 - Review, Assurance, and Technical 
+Debt
+1. Document control
+Status: Final. Control families: VER-004 VER-005 VER-006 GOV-006. Version: 1.0. Source authority: Book I then Book II.
+2. Purpose
+Thiis chapter defignes enforceable common engineering standards for peer, architecture, security, privacy, reliability, traceability, 
+dor/dod, certifigcation, post-release, debt, retrospectives.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+3. Scope
+Applies to every HAL contributor, change, component, provider adapter, interface, environment, and release %ithin this subject area.
+4. Authority and source requirements
+Book I Articles VI, VII, X, XI; Decisions 28, 40, 50, 57. Book II 25, 29, 35. If this chapter con fliicts %ith either source, the higher-order 
+requirement governs; record the confliict and correct Book III.
+5. Definitions
+Conformance evidence is a durable, revie%able record. A consequential change affeects authority, identity, protected state, trust, 
+privacy, a Reality Boundary, availability, or a material outcome. A control exception is a time-bounded approval, never a silent 
+permission.
+6. Normative standards
+A revie% MUST test the change against claimed requirements and evidence, not merely style. Defignition of Ready MUST establish 
+authority, risk, interfaces, verifigcation, and rollback assumptions. Defignition of Done MUST include completed evidence, resolved 
+figndings, and release/post-release obligations.
+7. Required engineering practices
+Teams MUST perform design, security, privacy, reliability, and verifigcation %ork in proportion to risk. Teams MUST retain evidence in 
+the change or release record and MUST update traceability %hen requirements, interfaces, controls, or evidence change.
+8. Prohibited practices
+Approval by an author alone, unresolved high-severity fignding, or a debt item that conceals an authority or safety defect is prohibited.
+9. Required evidence
+PR revie%, revie% checklist, fignding disposition, certifigcation report, retrospective, debt register.
+10. Automated enforcement
+Revie% %orkflio% checks, fignding-age reports, certifigcation and post-release evidence gates.
+11. Human review requirements
+Independent revie%er for consequential changes; certifigcation revie%ers verify source traceability.
+12. Exceptions and waiver authority
+An exception MUST identify affeected control, justifigcation, scope, risk, compensating controls, approver, effeective date, expiration date, 
+revie% date, evidence, and revocation conditions. Constitutional invariants cannot be %aived. Architecture deviations follo% the 
+architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+13. Failure consequences
+A violated MUST control is a fignding. Critical or high figndings block merge or release until corrected, contained, or covered by an 
+active approved exception. A detected authority, privacy, or trust-boundary failure MUST be contained and investigated.
+14. Security considerations
+Controls MUST preserve explicit identity, authority, provenance, and least privilege; security controls protect HAL, %hile authority 
+controls also prevent HAL from exceeding its mandate.
+15. Privacy considerations
+Evidence and telemetry MUST minimize personal and sensitive data, use classifigcation-a%are access, and retain only %hat is required 
+for the stated purpose and governing obligation.
+16. Reliability considerations
+Critical behavior MUST defigne hazard-bounded degradation, containment, recovery, and evidence preservation. Applicable safety 
+invariants, authority controls, and audit standards MUST NOT be degraded under resource pressure.
+17. Verification method
+Verify through automated checks, independent revie%, and risk-scaled test/release evidence. Critical invariants require an identifiged 
+repeatable verifigcation method; critical failure modes require tested containment or recovery.
+18. Metrics
+Track control pass rate, fignding severity and age, exception count and age, verifigcation coverage by risk, rollback/recovery 
+performance, and post-release conformance defects.
+19. Traceability to Book I
+Book I Articles VI, VII, X, XI; Decisions 28, 40, 50, 57.
+20. Traceability to Book II
+Book II 25, 29, 35.
+21. Examples
+Example: the change record links the control IDs, source locators, test result, and approval before a protected action is released.
+22. Anti-patterns
+Anti-patteern: a technically successful change is released %ithout authority-path verifigcation because it appears operationally routine.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+23. Review findings
+Initial constitutional, architecture, enforceability, testability, security, privacy, reliability, usability, automation, exception-safety, 
+duplication, and contradiction revie%: no unresolved internally resolvable issue. Reassess %hen implementation evidence is available.
+24. Owner Review items
+None. Routine implementation choices are resolved through engineering judgment. Escalate only matteers reserved by Book I.
+25. Completion status
+Draftw complete; chapter revie% record required before certifigcation.
+Chapter 9 - Control Operations, Exceptions, and 
+Certification
+1. Document control
+Status: Final. Control families: GOV-007 GOV-008 DOC-002 OPS-001. Version: 1.0. Source authority: Book I then Book II.
+2. Purpose
+Thiis chapter defignes enforceable common engineering standards for control catalog, checklists, templates, retention, tooling, 
+automation, reporting, exception forms, engineering certifigcation.
+3. Scope
+Applies to every HAL contributor, change, component, provider adapter, interface, environment, and release %ithin this subject area.
+4. Authority and source requirements
+Book I Decisions 25, 40, 50, 58. Book II 25, 29, 30, 35. If this chapter confliicts %ith either source, the higher-order requirement governs; 
+record the confliict and correct Book III.
+5. Definitions
+Conformance evidence is a durable, revie%able record. A consequential change affeects authority, identity, protected state, trust, 
+privacy, a Reality Boundary, availability, or a material outcome. A control exception is a time-bounded approval, never a silent 
+permission.
+6. Normative standards
+Each consequential control MUST have a stable ID, o%ner, applicability, enforcement, evidence, severity, source mapping, and 
+automation status. Exceptions MUST be time-bounded and include justifigcation, scope, risk, compensating controls, approver, 
+effeective/expiry/revie% dates, evidence, and revocation conditions.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+7. Required engineering practices
+Teams MUST perform design, security, privacy, reliability, and verifigcation %ork in proportion to risk. Teams MUST retain evidence in 
+the change or release record and MUST update traceability %hen requirements, interfaces, controls, or evidence change.
+8. Prohibited practices
+Permanent silent exceptions, constitutional %aivers, and expired exceptions that continue to permit live-effeect behavior are prohibited.
+9. Required evidence
+Catalog record, exception record, control report, certifigcation report, retention index.
+10. Automated enforcement
+Control-as-code %here practical; exception-expiry detection; periodic certifigcation sampling.
+11. Human review requirements
+Control o%ner maintains controls; exception authority is limited by the catalog and never exceeds Book I.
+12. Exceptions and waiver authority
+An exception MUST identify affeected control, justifigcation, scope, risk, compensating controls, approver, effeective date, expiration date, 
+revie% date, evidence, and revocation conditions. Constitutional invariants cannot be %aived. Architecture deviations follo% the 
+architecture-governance process. Expiration MUST fail closed or trigger explicit escalation.
+13. Failure consequences
+A violated MUST control is a fignding. Critical or high figndings block merge or release until corrected, contained, or covered by an 
+active approved exception. A detected authority, privacy, or trust-boundary failure MUST be contained and investigated.
+14. Security considerations
+Controls MUST preserve explicit identity, authority, provenance, and least privilege; security controls protect HAL, %hile authority 
+controls also prevent HAL from exceeding its mandate.
+15. Privacy considerations
+Evidence and telemetry MUST minimize personal and sensitive data, use classifigcation-a%are access, and retain only %hat is required 
+for the stated purpose and governing obligation.
+16. Reliability considerations
+Critical behavior MUST defigne hazard-bounded degradation, containment, recovery, and evidence preservation. Applicable safety 
+invariants, authority controls, and audit standards MUST NOT be degraded under resource pressure.
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+17. Verification method
+Verify through automated checks, independent revie%, and risk-scaled test/release evidence. Critical invariants require an identifiged 
+repeatable verifigcation method; critical failure modes require tested containment or recovery.
+18. Metrics
+Track control pass rate, fignding severity and age, exception count and age, verifigcation coverage by risk, rollback/recovery 
+performance, and post-release conformance defects.
+19. Traceability to Book I
+Book I Decisions 25, 40, 50, 58.
+20. Traceability to Book II
+Book II 25, 29, 30, 35.
+21. Examples
+Example: the change record links the control IDs, source locators, test result, and approval before a protected action is released.
+22. Anti-patterns
+Anti-patteern: a technically successful change is released %ithout authority-path verifigcation because it appears operationally routine.
+23. Review findings
+Initial constitutional, architecture, enforceability, testability, security, privacy, reliability, usability, automation, exception-safety, 
+duplication, and contradiction revie%: no unresolved internally resolvable issue. Reassess %hen implementation evidence is available.
+24. Owner Review items
+None. Routine implementation choices are resolved through engineering judgment. Escalate only matteers reserved by Book I.
+25. Completion status
+Draftw complete; chapter revie% record required before certifigcation.
+Appendix A - Glossary
+Appendix B - Exception model
+Exceptions are time-bounded, scoped, evidenced, revocable, and revie%able. Thiey MUST fail closed or explicitly escalate at expiry.
+Appendix C - Certification statement
+
+HAL Book III - Engineering Standards
+Final v1.0 | Controlled engineering standard
+Thiis draftw establishes the engineering-la% baseline. Certifigcation requires all control mappings, revie% records, deliverables, and 
+validated renderings to be complete.

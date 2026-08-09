@@ -1,0 +1,1862 @@
+{
+  "asyncapi": "3.0.0",
+  "info": {
+    "title": "HAL Book IX Event API",
+    "version": "1.0"
+  },
+  "defaultContentType": "application/json",
+  "channels": {
+    "IX-C-0007": {
+      "address": "hal.cmp-01.protected.action.admitted.v1",
+      "messages": {
+        "IX-C-0007": {
+          "name": "protected_action_admitted",
+          "title": "Protected Action Admitted",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0007.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0008": {
+      "address": "hal.cmp-01.protected.action.denied.v1",
+      "messages": {
+        "IX-C-0008": {
+          "name": "protected_action_denied",
+          "title": "Protected Action Denied",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0008.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0009": {
+      "address": "hal.cmp-01.constitutional.mode.changed.v1",
+      "messages": {
+        "IX-C-0009": {
+          "name": "constitutional_mode_changed",
+          "title": "Constitutional Mode Changed",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0009.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0017": {
+      "address": "hal.cmp-02.identity.created.v1",
+      "messages": {
+        "IX-C-0017": {
+          "name": "identity_created",
+          "title": "Identity Created",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0017.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0018": {
+      "address": "hal.cmp-02.identity.suspended.v1",
+      "messages": {
+        "IX-C-0018": {
+          "name": "identity_suspended",
+          "title": "Identity Suspended",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0018.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0019": {
+      "address": "hal.cmp-02.continuity.reconciled.v1",
+      "messages": {
+        "IX-C-0019": {
+          "name": "continuity_reconciled",
+          "title": "Continuity Reconciled",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0019.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0027": {
+      "address": "hal.cmp-03.delegation.activated.v1",
+      "messages": {
+        "IX-C-0027": {
+          "name": "delegation_activated",
+          "title": "Delegation Activated",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0027.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0028": {
+      "address": "hal.cmp-03.delegation.revoked.v1",
+      "messages": {
+        "IX-C-0028": {
+          "name": "delegation_revoked",
+          "title": "Delegation Revoked",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0028.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0029": {
+      "address": "hal.cmp-03.permission.decided.v1",
+      "messages": {
+        "IX-C-0029": {
+          "name": "permission_decided",
+          "title": "Permission Decided",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0029.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0037": {
+      "address": "hal.cmp-04.intent.registered.v1",
+      "messages": {
+        "IX-C-0037": {
+          "name": "intent_registered",
+          "title": "Intent Registered",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0037.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0038": {
+      "address": "hal.cmp-04.intent.revised.v1",
+      "messages": {
+        "IX-C-0038": {
+          "name": "intent_revised",
+          "title": "Intent Revised",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0038.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0039": {
+      "address": "hal.cmp-04.objective.retired.v1",
+      "messages": {
+        "IX-C-0039": {
+          "name": "objective_retired",
+          "title": "Objective Retired",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0039.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0047": {
+      "address": "hal.cmp-05.run.started.v1",
+      "messages": {
+        "IX-C-0047": {
+          "name": "run_started",
+          "title": "Run Started",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0047.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0048": {
+      "address": "hal.cmp-05.node.completed.v1",
+      "messages": {
+        "IX-C-0048": {
+          "name": "node_completed",
+          "title": "Node Completed",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0048.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0049": {
+      "address": "hal.cmp-05.run.failed.v1",
+      "messages": {
+        "IX-C-0049": {
+          "name": "run_failed",
+          "title": "Run Failed",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0049.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0050": {
+      "address": "hal.cmp-05.result.assembled.v1",
+      "messages": {
+        "IX-C-0050": {
+          "name": "result_assembled",
+          "title": "Result Assembled",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0050.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0058": {
+      "address": "hal.cmp-06.work.admitted.v1",
+      "messages": {
+        "IX-C-0058": {
+          "name": "work_admitted",
+          "title": "Work Admitted",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0058.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0059": {
+      "address": "hal.cmp-06.work.preempted.v1",
+      "messages": {
+        "IX-C-0059": {
+          "name": "work_preempted",
+          "title": "Work Preempted",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0059.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0060": {
+      "address": "hal.cmp-06.placement.released.v1",
+      "messages": {
+        "IX-C-0060": {
+          "name": "placement_released",
+          "title": "Placement Released",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0060.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0068": {
+      "address": "hal.cmp-07.decision.recorded.v1",
+      "messages": {
+        "IX-C-0068": {
+          "name": "decision_recorded",
+          "title": "Decision Recorded",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0068.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0069": {
+      "address": "hal.cmp-07.decision.reconsidered.v1",
+      "messages": {
+        "IX-C-0069": {
+          "name": "decision_reconsidered",
+          "title": "Decision Reconsidered",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0069.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0070": {
+      "address": "hal.cmp-07.decision.withdrawn.v1",
+      "messages": {
+        "IX-C-0070": {
+          "name": "decision_withdrawn",
+          "title": "Decision Withdrawn",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0070.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0078": {
+      "address": "hal.cmp-08.knowledge.admitted.v1",
+      "messages": {
+        "IX-C-0078": {
+          "name": "knowledge_admitted",
+          "title": "Knowledge Admitted",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0078.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0079": {
+      "address": "hal.cmp-08.assertion.invalidated.v1",
+      "messages": {
+        "IX-C-0079": {
+          "name": "assertion_invalidated",
+          "title": "Assertion Invalidated",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0079.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0080": {
+      "address": "hal.cmp-08.index.rebuilt.v1",
+      "messages": {
+        "IX-C-0080": {
+          "name": "index_rebuilt",
+          "title": "Index Rebuilt",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0080.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0088": {
+      "address": "hal.cmp-09.memory.associated.v1",
+      "messages": {
+        "IX-C-0088": {
+          "name": "memory_associated",
+          "title": "Memory Associated",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0088.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0089": {
+      "address": "hal.cmp-09.memory.forgotten.v1",
+      "messages": {
+        "IX-C-0089": {
+          "name": "memory_forgotten",
+          "title": "Memory Forgotten",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0089.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0090": {
+      "address": "hal.cmp-09.conversation.reconciled.v1",
+      "messages": {
+        "IX-C-0090": {
+          "name": "conversation_reconciled",
+          "title": "Conversation Reconciled",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0090.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0098": {
+      "address": "hal.cmp-10.experience.recorded.v1",
+      "messages": {
+        "IX-C-0098": {
+          "name": "experience_recorded",
+          "title": "Experience Recorded",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0098.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0099": {
+      "address": "hal.cmp-10.pattern.promoted.v1",
+      "messages": {
+        "IX-C-0099": {
+          "name": "pattern_promoted",
+          "title": "Pattern Promoted",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0099.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0100": {
+      "address": "hal.cmp-10.wisdom.retired.v1",
+      "messages": {
+        "IX-C-0100": {
+          "name": "wisdom_retired",
+          "title": "Wisdom Retired",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0100.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0108": {
+      "address": "hal.cmp-11.lease.issued.v1",
+      "messages": {
+        "IX-C-0108": {
+          "name": "lease_issued",
+          "title": "Lease Issued",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0108.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0109": {
+      "address": "hal.cmp-11.lease.expired.v1",
+      "messages": {
+        "IX-C-0109": {
+          "name": "lease_expired",
+          "title": "Lease Expired",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0109.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0110": {
+      "address": "hal.cmp-11.time.source.degraded.v1",
+      "messages": {
+        "IX-C-0110": {
+          "name": "time_source_degraded",
+          "title": "Time Source Degraded",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0110.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0118": {
+      "address": "hal.cmp-12.presence.created.v1",
+      "messages": {
+        "IX-C-0118": {
+          "name": "presence_created",
+          "title": "Presence Created",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0118.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0119": {
+      "address": "hal.cmp-12.embodiment.bound.v1",
+      "messages": {
+        "IX-C-0119": {
+          "name": "embodiment_bound",
+          "title": "Embodiment Bound",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0119.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0120": {
+      "address": "hal.cmp-12.presence.handed.off.v1",
+      "messages": {
+        "IX-C-0120": {
+          "name": "presence_handed_off",
+          "title": "Presence Handed Off",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0120.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0128": {
+      "address": "hal.cmp-13.capability.registered.v1",
+      "messages": {
+        "IX-C-0128": {
+          "name": "capability_registered",
+          "title": "Capability Registered",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0128.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0129": {
+      "address": "hal.cmp-13.provider.qualified.v1",
+      "messages": {
+        "IX-C-0129": {
+          "name": "provider_qualified",
+          "title": "Provider Qualified",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0129.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0130": {
+      "address": "hal.cmp-13.provider.quarantined.v1",
+      "messages": {
+        "IX-C-0130": {
+          "name": "provider_quarantined",
+          "title": "Provider Quarantined",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0130.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0139": {
+      "address": "hal.cmp-14.action.authorized.v1",
+      "messages": {
+        "IX-C-0139": {
+          "name": "action_authorized",
+          "title": "Action Authorized",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0139.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0140": {
+      "address": "hal.cmp-14.transaction.committed.v1",
+      "messages": {
+        "IX-C-0140": {
+          "name": "transaction_committed",
+          "title": "Transaction Committed",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0140.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0141": {
+      "address": "hal.cmp-14.transaction.rolled.back.v1",
+      "messages": {
+        "IX-C-0141": {
+          "name": "transaction_rolled_back",
+          "title": "Transaction Rolled Back",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0141.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0142": {
+      "address": "hal.cmp-14.compensation.started.v1",
+      "messages": {
+        "IX-C-0142": {
+          "name": "compensation_started",
+          "title": "Compensation Started",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0142.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0150": {
+      "address": "hal.cmp-15.verification.started.v1",
+      "messages": {
+        "IX-C-0150": {
+          "name": "verification_started",
+          "title": "Verification Started",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0150.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0151": {
+      "address": "hal.cmp-15.claim.verified.v1",
+      "messages": {
+        "IX-C-0151": {
+          "name": "claim_verified",
+          "title": "Claim Verified",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0151.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0152": {
+      "address": "hal.cmp-15.claim.falsified.v1",
+      "messages": {
+        "IX-C-0152": {
+          "name": "claim_falsified",
+          "title": "Claim Falsified",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0152.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0153": {
+      "address": "hal.cmp-15.result.invalidated.v1",
+      "messages": {
+        "IX-C-0153": {
+          "name": "result_invalidated",
+          "title": "Result Invalidated",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0153.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0162": {
+      "address": "hal.cmp-16.simulation.started.v1",
+      "messages": {
+        "IX-C-0162": {
+          "name": "simulation_started",
+          "title": "Simulation Started",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0162.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0163": {
+      "address": "hal.cmp-16.scenario.completed.v1",
+      "messages": {
+        "IX-C-0163": {
+          "name": "scenario_completed",
+          "title": "Scenario Completed",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0163.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0164": {
+      "address": "hal.cmp-16.isolation.breach.detected.v1",
+      "messages": {
+        "IX-C-0164": {
+          "name": "isolation_breach_detected",
+          "title": "Isolation Breach Detected",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0164.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0171": {
+      "address": "hal.cmp-17.trust.assessed.v1",
+      "messages": {
+        "IX-C-0171": {
+          "name": "trust_assessed",
+          "title": "Trust Assessed",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0171.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0172": {
+      "address": "hal.cmp-17.trust.degraded.v1",
+      "messages": {
+        "IX-C-0172": {
+          "name": "trust_degraded",
+          "title": "Trust Degraded",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0172.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0173": {
+      "address": "hal.cmp-17.assessment.expired.v1",
+      "messages": {
+        "IX-C-0173": {
+          "name": "assessment_expired",
+          "title": "Assessment Expired",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0173.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0181": {
+      "address": "hal.cmp-18.evidence.admitted.v1",
+      "messages": {
+        "IX-C-0181": {
+          "name": "evidence_admitted",
+          "title": "Evidence Admitted",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0181.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0182": {
+      "address": "hal.cmp-18.evidence.challenged.v1",
+      "messages": {
+        "IX-C-0182": {
+          "name": "evidence_challenged",
+          "title": "Evidence Challenged",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0182.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0183": {
+      "address": "hal.cmp-18.evidence.superseded.v1",
+      "messages": {
+        "IX-C-0183": {
+          "name": "evidence_superseded",
+          "title": "Evidence Superseded",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0183.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0192": {
+      "address": "hal.cmp-19.data.classified.v1",
+      "messages": {
+        "IX-C-0192": {
+          "name": "data_classified",
+          "title": "Data Classified",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0192.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0193": {
+      "address": "hal.cmp-19.purpose.authorized.v1",
+      "messages": {
+        "IX-C-0193": {
+          "name": "purpose_authorized",
+          "title": "Purpose Authorized",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0193.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0194": {
+      "address": "hal.cmp-19.deletion.completed.v1",
+      "messages": {
+        "IX-C-0194": {
+          "name": "deletion_completed",
+          "title": "Deletion Completed",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0194.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0195": {
+      "address": "hal.cmp-19.use.denied.v1",
+      "messages": {
+        "IX-C-0195": {
+          "name": "use_denied",
+          "title": "Use Denied",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0195.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0203": {
+      "address": "hal.cmp-20.exchange.allowed.v1",
+      "messages": {
+        "IX-C-0203": {
+          "name": "exchange_allowed",
+          "title": "Exchange Allowed",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0203.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0204": {
+      "address": "hal.cmp-20.exchange.denied.v1",
+      "messages": {
+        "IX-C-0204": {
+          "name": "exchange_denied",
+          "title": "Exchange Denied",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0204.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0205": {
+      "address": "hal.cmp-20.domain.session.terminated.v1",
+      "messages": {
+        "IX-C-0205": {
+          "name": "domain_session_terminated",
+          "title": "Domain Session Terminated",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0205.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0214": {
+      "address": "hal.cmp-21.treaty.proposed.v1",
+      "messages": {
+        "IX-C-0214": {
+          "name": "treaty_proposed",
+          "title": "Treaty Proposed",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0214.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0215": {
+      "address": "hal.cmp-21.treaty.activated.v1",
+      "messages": {
+        "IX-C-0215": {
+          "name": "treaty_activated",
+          "title": "Treaty Activated",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0215.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0216": {
+      "address": "hal.cmp-21.treaty.suspended.v1",
+      "messages": {
+        "IX-C-0216": {
+          "name": "treaty_suspended",
+          "title": "Treaty Suspended",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0216.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0217": {
+      "address": "hal.cmp-21.treaty.revoked.v1",
+      "messages": {
+        "IX-C-0217": {
+          "name": "treaty_revoked",
+          "title": "Treaty Revoked",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0217.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0225": {
+      "address": "hal.cmp-22.message.accepted.v1",
+      "messages": {
+        "IX-C-0225": {
+          "name": "message_accepted",
+          "title": "Message Accepted",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0225.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0226": {
+      "address": "hal.cmp-22.event.published.v1",
+      "messages": {
+        "IX-C-0226": {
+          "name": "event_published",
+          "title": "Event Published",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0226.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0227": {
+      "address": "hal.cmp-22.delivery.failed.v1",
+      "messages": {
+        "IX-C-0227": {
+          "name": "delivery_failed",
+          "title": "Delivery Failed",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0227.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0228": {
+      "address": "hal.cmp-22.message.quarantined.v1",
+      "messages": {
+        "IX-C-0228": {
+          "name": "message_quarantined",
+          "title": "Message Quarantined",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0228.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0237": {
+      "address": "hal.cmp-23.state.committed.v1",
+      "messages": {
+        "IX-C-0237": {
+          "name": "state_committed",
+          "title": "State Committed",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0237.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0238": {
+      "address": "hal.cmp-23.snapshot.created.v1",
+      "messages": {
+        "IX-C-0238": {
+          "name": "snapshot_created",
+          "title": "Snapshot Created",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0238.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0239": {
+      "address": "hal.cmp-23.migration.completed.v1",
+      "messages": {
+        "IX-C-0239": {
+          "name": "migration_completed",
+          "title": "Migration Completed",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0239.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0240": {
+      "address": "hal.cmp-23.replica.diverged.v1",
+      "messages": {
+        "IX-C-0240": {
+          "name": "replica_diverged",
+          "title": "Replica Diverged",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0240.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0249": {
+      "address": "hal.cmp-24.audit.record.appended.v1",
+      "messages": {
+        "IX-C-0249": {
+          "name": "audit_record_appended",
+          "title": "Audit Record Appended",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0249.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0250": {
+      "address": "hal.cmp-24.alert.raised.v1",
+      "messages": {
+        "IX-C-0250": {
+          "name": "alert_raised",
+          "title": "Alert Raised",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0250.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0251": {
+      "address": "hal.cmp-24.audit.chain.broken.v1",
+      "messages": {
+        "IX-C-0251": {
+          "name": "audit_chain_broken",
+          "title": "Audit Chain Broken",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0251.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0260": {
+      "address": "hal.cmp-25.service.ready.v1",
+      "messages": {
+        "IX-C-0260": {
+          "name": "service_ready",
+          "title": "Service Ready",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0260.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0261": {
+      "address": "hal.cmp-25.service.degraded.v1",
+      "messages": {
+        "IX-C-0261": {
+          "name": "service_degraded",
+          "title": "Service Degraded",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0261.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0262": {
+      "address": "hal.cmp-25.service.quarantined.v1",
+      "messages": {
+        "IX-C-0262": {
+          "name": "service_quarantined",
+          "title": "Service Quarantined",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0262.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0263": {
+      "address": "hal.cmp-25.service.stopped.v1",
+      "messages": {
+        "IX-C-0263": {
+          "name": "service_stopped",
+          "title": "Service Stopped",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0263.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0272": {
+      "address": "hal.cmp-26.recovery.started.v1",
+      "messages": {
+        "IX-C-0272": {
+          "name": "recovery_started",
+          "title": "Recovery Started",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0272.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0273": {
+      "address": "hal.cmp-26.state.restored.v1",
+      "messages": {
+        "IX-C-0273": {
+          "name": "state_restored",
+          "title": "State Restored",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0273.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0274": {
+      "address": "hal.cmp-26.partition.reconciled.v1",
+      "messages": {
+        "IX-C-0274": {
+          "name": "partition_reconciled",
+          "title": "Partition Reconciled",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0274.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0275": {
+      "address": "hal.cmp-26.recovery.failed.v1",
+      "messages": {
+        "IX-C-0275": {
+          "name": "recovery_failed",
+          "title": "Recovery Failed",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0275.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0283": {
+      "address": "hal.cmp-27.interaction.started.v1",
+      "messages": {
+        "IX-C-0283": {
+          "name": "interaction_started",
+          "title": "Interaction Started",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0283.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0284": {
+      "address": "hal.cmp-27.clarification.requested.v1",
+      "messages": {
+        "IX-C-0284": {
+          "name": "clarification_requested",
+          "title": "Clarification Requested",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0284.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0285": {
+      "address": "hal.cmp-27.confirmation.recorded.v1",
+      "messages": {
+        "IX-C-0285": {
+          "name": "confirmation_recorded",
+          "title": "Confirmation Recorded",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0285.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0286": {
+      "address": "hal.cmp-27.interaction.ended.v1",
+      "messages": {
+        "IX-C-0286": {
+          "name": "interaction_ended",
+          "title": "Interaction Ended",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0286.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0293": {
+      "address": "hal.cmp-28.self.model.refreshed.v1",
+      "messages": {
+        "IX-C-0293": {
+          "name": "self_model_refreshed",
+          "title": "Self Model Refreshed",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0293.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0294": {
+      "address": "hal.cmp-28.mirror.published.v1",
+      "messages": {
+        "IX-C-0294": {
+          "name": "mirror_published",
+          "title": "Mirror Published",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0294.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0295": {
+      "address": "hal.cmp-28.projection.invalidated.v1",
+      "messages": {
+        "IX-C-0295": {
+          "name": "projection_invalidated",
+          "title": "Projection Invalidated",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0295.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0303": {
+      "address": "hal.cmp-29.outcome.recorded.v1",
+      "messages": {
+        "IX-C-0303": {
+          "name": "outcome_recorded",
+          "title": "Outcome Recorded",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0303.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0304": {
+      "address": "hal.cmp-29.success.evaluated.v1",
+      "messages": {
+        "IX-C-0304": {
+          "name": "success_evaluated",
+          "title": "Success Evaluated",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0304.schema.json"
+          }
+        }
+      }
+    },
+    "IX-C-0305": {
+      "address": "hal.cmp-29.review.required.v1",
+      "messages": {
+        "IX-C-0305": {
+          "name": "review_required",
+          "title": "Review Required",
+          "payload": {
+            "$ref": "../json-schema/operations/ix-c-0305.schema.json"
+          }
+        }
+      }
+    }
+  },
+  "operations": {
+    "receiveIXC0007": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0007"
+      },
+      "summary": "Event `Protected Action Admitted` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0008": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0008"
+      },
+      "summary": "Event `Protected Action Denied` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0009": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0009"
+      },
+      "summary": "Event `Constitutional Mode Changed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0017": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0017"
+      },
+      "summary": "Event `Identity Created` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0018": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0018"
+      },
+      "summary": "Event `Identity Suspended` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0019": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0019"
+      },
+      "summary": "Event `Continuity Reconciled` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0027": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0027"
+      },
+      "summary": "Event `Delegation Activated` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0028": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0028"
+      },
+      "summary": "Event `Delegation Revoked` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0029": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0029"
+      },
+      "summary": "Event `Permission Decided` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0037": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0037"
+      },
+      "summary": "Event `Intent Registered` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0038": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0038"
+      },
+      "summary": "Event `Intent Revised` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0039": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0039"
+      },
+      "summary": "Event `Objective Retired` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0047": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0047"
+      },
+      "summary": "Event `Run Started` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0048": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0048"
+      },
+      "summary": "Event `Node Completed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0049": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0049"
+      },
+      "summary": "Event `Run Failed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0050": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0050"
+      },
+      "summary": "Event `Result Assembled` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0058": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0058"
+      },
+      "summary": "Event `Work Admitted` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0059": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0059"
+      },
+      "summary": "Event `Work Preempted` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0060": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0060"
+      },
+      "summary": "Event `Placement Released` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0068": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0068"
+      },
+      "summary": "Event `Decision Recorded` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0069": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0069"
+      },
+      "summary": "Event `Decision Reconsidered` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0070": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0070"
+      },
+      "summary": "Event `Decision Withdrawn` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0078": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0078"
+      },
+      "summary": "Event `Knowledge Admitted` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0079": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0079"
+      },
+      "summary": "Event `Assertion Invalidated` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0080": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0080"
+      },
+      "summary": "Event `Index Rebuilt` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0088": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0088"
+      },
+      "summary": "Event `Memory Associated` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0089": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0089"
+      },
+      "summary": "Event `Memory Forgotten` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0090": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0090"
+      },
+      "summary": "Event `Conversation Reconciled` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0098": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0098"
+      },
+      "summary": "Event `Experience Recorded` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0099": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0099"
+      },
+      "summary": "Event `Pattern Promoted` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0100": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0100"
+      },
+      "summary": "Event `Wisdom Retired` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0108": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0108"
+      },
+      "summary": "Event `Lease Issued` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0109": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0109"
+      },
+      "summary": "Event `Lease Expired` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0110": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0110"
+      },
+      "summary": "Event `Time Source Degraded` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0118": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0118"
+      },
+      "summary": "Event `Presence Created` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0119": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0119"
+      },
+      "summary": "Event `Embodiment Bound` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0120": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0120"
+      },
+      "summary": "Event `Presence Handed Off` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0128": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0128"
+      },
+      "summary": "Event `Capability Registered` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0129": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0129"
+      },
+      "summary": "Event `Provider Qualified` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0130": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0130"
+      },
+      "summary": "Event `Provider Quarantined` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0139": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0139"
+      },
+      "summary": "Event `Action Authorized` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0140": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0140"
+      },
+      "summary": "Event `Transaction Committed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0141": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0141"
+      },
+      "summary": "Event `Transaction Rolled Back` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0142": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0142"
+      },
+      "summary": "Event `Compensation Started` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0150": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0150"
+      },
+      "summary": "Event `Verification Started` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0151": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0151"
+      },
+      "summary": "Event `Claim Verified` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0152": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0152"
+      },
+      "summary": "Event `Claim Falsified` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0153": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0153"
+      },
+      "summary": "Event `Result Invalidated` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0162": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0162"
+      },
+      "summary": "Event `Simulation Started` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0163": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0163"
+      },
+      "summary": "Event `Scenario Completed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0164": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0164"
+      },
+      "summary": "Event `Isolation Breach Detected` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0171": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0171"
+      },
+      "summary": "Event `Trust Assessed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0172": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0172"
+      },
+      "summary": "Event `Trust Degraded` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0173": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0173"
+      },
+      "summary": "Event `Assessment Expired` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0181": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0181"
+      },
+      "summary": "Event `Evidence Admitted` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0182": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0182"
+      },
+      "summary": "Event `Evidence Challenged` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0183": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0183"
+      },
+      "summary": "Event `Evidence Superseded` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0192": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0192"
+      },
+      "summary": "Event `Data Classified` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0193": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0193"
+      },
+      "summary": "Event `Purpose Authorized` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0194": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0194"
+      },
+      "summary": "Event `Deletion Completed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0195": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0195"
+      },
+      "summary": "Event `Use Denied` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0203": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0203"
+      },
+      "summary": "Event `Exchange Allowed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0204": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0204"
+      },
+      "summary": "Event `Exchange Denied` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0205": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0205"
+      },
+      "summary": "Event `Domain Session Terminated` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0214": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0214"
+      },
+      "summary": "Event `Treaty Proposed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0215": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0215"
+      },
+      "summary": "Event `Treaty Activated` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0216": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0216"
+      },
+      "summary": "Event `Treaty Suspended` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0217": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0217"
+      },
+      "summary": "Event `Treaty Revoked` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0225": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0225"
+      },
+      "summary": "Event `Message Accepted` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0226": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0226"
+      },
+      "summary": "Event `Event Published` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0227": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0227"
+      },
+      "summary": "Event `Delivery Failed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0228": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0228"
+      },
+      "summary": "Event `Message Quarantined` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0237": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0237"
+      },
+      "summary": "Event `State Committed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0238": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0238"
+      },
+      "summary": "Event `Snapshot Created` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0239": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0239"
+      },
+      "summary": "Event `Migration Completed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0240": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0240"
+      },
+      "summary": "Event `Replica Diverged` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0249": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0249"
+      },
+      "summary": "Event `Audit Record Appended` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0250": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0250"
+      },
+      "summary": "Event `Alert Raised` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0251": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0251"
+      },
+      "summary": "Event `Audit Chain Broken` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0260": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0260"
+      },
+      "summary": "Event `Service Ready` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0261": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0261"
+      },
+      "summary": "Event `Service Degraded` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0262": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0262"
+      },
+      "summary": "Event `Service Quarantined` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0263": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0263"
+      },
+      "summary": "Event `Service Stopped` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0272": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0272"
+      },
+      "summary": "Event `Recovery Started` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0273": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0273"
+      },
+      "summary": "Event `State Restored` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0274": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0274"
+      },
+      "summary": "Event `Partition Reconciled` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0275": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0275"
+      },
+      "summary": "Event `Recovery Failed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0283": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0283"
+      },
+      "summary": "Event `Interaction Started` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0284": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0284"
+      },
+      "summary": "Event `Clarification Requested` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0285": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0285"
+      },
+      "summary": "Event `Confirmation Recorded` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0286": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0286"
+      },
+      "summary": "Event `Interaction Ended` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0293": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0293"
+      },
+      "summary": "Event `Self Model Refreshed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0294": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0294"
+      },
+      "summary": "Event `Mirror Published` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0295": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0295"
+      },
+      "summary": "Event `Projection Invalidated` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0303": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0303"
+      },
+      "summary": "Event `Outcome Recorded` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0304": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0304"
+      },
+      "summary": "Event `Success Evaluated` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    },
+    "receiveIXC0305": {
+      "action": "receive",
+      "channel": {
+        "$ref": "#/channels/IX-C-0305"
+      },
+      "summary": "Event `Review Required` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics."
+    }
+  },
+  "components": {
+    "schemas": {
+      "Envelope": {
+        "$ref": "../json-schema/hal-envelope.schema.json"
+      }
+    }
+  }
+}

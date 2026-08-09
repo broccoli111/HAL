@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HAL Book IV Component Catalog",
+  "type": "object",
+  "required": [
+    "book",
+    "version",
+    "components"
+  ],
+  "properties": {
+    "book": {
+      "const": "HAL Book IV"
+    },
+    "version": {
+      "type": "string"
+    },
+    "components": {
+      "type": "array",
+      "minItems": 29,
+      "items": {
+        "$ref": "#/$defs/component"
+      }
+    }
+  },
+  "$defs": {
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "component_id",
+        "number",
+        "name",
+        "book_ii_basis",
+        "purpose",
+        "authoritative_state",
+        "non_owned_state",
+        "commands",
+        "queries",
+        "events",
+        "lifecycle",
+        "dependencies",
+        "critical_invariant",
+        "failure_modes",
+        "status",
+        "book_i_basis",
+        "book_iii_basis",
+        "book_x_terms",
+        "requirements",
+        "interfaces",
+        "tests"
+      ],
+      "properties": {
+        "component_id": {
+          "type": "string",
+          "pattern": "^CMP-[0-9]{2}$"
+        },
+        "number": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 29
+        },
+        "name": {
+          "type": "string"
+        },
+        "book_ii_basis": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "authoritative_state": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "non_owned_state": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "commands": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "queries": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "events": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "lifecycle": {
+          "type": "string"
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "critical_invariant": {
+          "type": "string"
+        },
+        "failure_modes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "const": "Final"
+        },
+        "book_i_basis": {
+          "type": "string"
+        },
+        "book_iii_basis": {
+          "type": "string"
+        },
+        "book_x_terms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requirements": {
+          "type": "array",
+          "minItems": 12
+        },
+        "interfaces": {
+          "type": "array",
+          "minItems": 1
+        },
+        "tests": {
+          "type": "array",
+          "minItems": 10
+        }
+      }
+    }
+  }
+}

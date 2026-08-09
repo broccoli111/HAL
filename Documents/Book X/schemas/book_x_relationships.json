@@ -1,0 +1,491 @@
+{
+  "version": "1.0",
+  "relationships": [
+    {
+      "relationship_id": "HAL-REL-0001",
+      "source": "Owner",
+      "predicate": "owns constitutionally",
+      "target": "HAL",
+      "source_cardinality": "1",
+      "target_cardinality": "1",
+      "constraint": "Book I-reserved ownership; infrastructure possession is insufficient."
+    },
+    {
+      "relationship_id": "HAL-REL-0002",
+      "source": "Constitution",
+      "predicate": "governs",
+      "target": "HAL",
+      "source_cardinality": "1",
+      "target_cardinality": "1",
+      "constraint": "Supreme authority."
+    },
+    {
+      "relationship_id": "HAL-REL-0003",
+      "source": "Constitutional Kernel",
+      "predicate": "enforces",
+      "target": "Constitutional Invariant",
+      "source_cardinality": "1",
+      "target_cardinality": "many",
+      "constraint": "Only at Book II-designated enforcement points."
+    },
+    {
+      "relationship_id": "HAL-REL-0004",
+      "source": "Constitutional Mirror",
+      "predicate": "describes",
+      "target": "HAL",
+      "source_cardinality": "1",
+      "target_cardinality": "1",
+      "constraint": "Evidence-linked and non-self-authorizing."
+    },
+    {
+      "relationship_id": "HAL-REL-0005",
+      "source": "HAL",
+      "predicate": "manifests through",
+      "target": "Presence",
+      "source_cardinality": "1",
+      "target_cardinality": "many",
+      "constraint": "All Presences share one HAL identity."
+    },
+    {
+      "relationship_id": "HAL-REL-0006",
+      "source": "Presence",
+      "predicate": "binds to",
+      "target": "Embodiment",
+      "source_cardinality": "many",
+      "target_cardinality": "0..many",
+      "constraint": "Within explicit context and lifecycle."
+    },
+    {
+      "relationship_id": "HAL-REL-0007",
+      "source": "Identity Record",
+      "predicate": "represents",
+      "target": "Identity",
+      "source_cardinality": "1",
+      "target_cardinality": "1",
+      "constraint": "Record and entity remain distinct."
+    },
+    {
+      "relationship_id": "HAL-REL-0008",
+      "source": "Identifier",
+      "predicate": "references",
+      "target": "Identity",
+      "source_cardinality": "many",
+      "target_cardinality": "1",
+      "constraint": "Within a declared namespace."
+    },
+    {
+      "relationship_id": "HAL-REL-0009",
+      "source": "Identity Attribute",
+      "predicate": "describes",
+      "target": "Identity",
+      "source_cardinality": "many",
+      "target_cardinality": "1",
+      "constraint": "Does not establish authority."
+    },
+    {
+      "relationship_id": "HAL-REL-0010",
+      "source": "Authentication Evidence",
+      "predicate": "supports",
+      "target": "Authentication",
+      "source_cardinality": "many",
+      "target_cardinality": "many",
+      "constraint": "Evidence role, not authorization."
+    },
+    {
+      "relationship_id": "HAL-REL-0011",
+      "source": "Delegation",
+      "predicate": "grants bounded",
+      "target": "Authority",
+      "source_cardinality": "many",
+      "target_cardinality": "1",
+      "constraint": "Cannot exceed delegator authority."
+    },
+    {
+      "relationship_id": "HAL-REL-0012",
+      "source": "Policy",
+      "predicate": "evaluates for",
+      "target": "Permission",
+      "source_cardinality": "many",
+      "target_cardinality": "many",
+      "constraint": "Result is contextual and scoped."
+    },
+    {
+      "relationship_id": "HAL-REL-0013",
+      "source": "Authority",
+      "predicate": "constrains",
+      "target": "Permission",
+      "source_cardinality": "many",
+      "target_cardinality": "many",
+      "constraint": "Authority is not the decision result."
+    },
+    {
+      "relationship_id": "HAL-REL-0014",
+      "source": "Trust",
+      "predicate": "informs",
+      "target": "Policy Decision Record",
+      "source_cardinality": "many",
+      "target_cardinality": "many",
+      "constraint": "Never sole authority."
+    },
+    {
+      "relationship_id": "HAL-REL-0015",
+      "source": "Intent",
+      "predicate": "decomposes into",
+      "target": "Goal",
+      "source_cardinality": "1",
+      "target_cardinality": "many",
+      "constraint": "Traceability is retained."
+    },
+    {
+      "relationship_id": "HAL-REL-0016",
+      "source": "Goal",
+      "predicate": "decomposes into",
+      "target": "Objective",
+      "source_cardinality": "1",
+      "target_cardinality": "many",
+      "constraint": "Criteria remain explicit."
+    },
+    {
+      "relationship_id": "HAL-REL-0017",
+      "source": "Objective",
+      "predicate": "is pursued by",
+      "target": "Plan",
+      "source_cardinality": "many",
+      "target_cardinality": "many",
+      "constraint": "Plans do not confer authority."
+    },
+    {
+      "relationship_id": "HAL-REL-0018",
+      "source": "Plan",
+      "predicate": "contains",
+      "target": "Task",
+      "source_cardinality": "1",
+      "target_cardinality": "many",
+      "constraint": "Execution may diverge with evidence."
+    },
+    {
+      "relationship_id": "HAL-REL-0019",
+      "source": "Decision Object",
+      "predicate": "records",
+      "target": "Judgment",
+      "source_cardinality": "many",
+      "target_cardinality": "1",
+      "constraint": "Includes alternatives and uncertainty."
+    },
+    {
+      "relationship_id": "HAL-REL-0020",
+      "source": "Outcome Object",
+      "predicate": "evaluates",
+      "target": "Goal",
+      "source_cardinality": "many",
+      "target_cardinality": "many",
+      "constraint": "Against evidence and side effects."
+    },
+    {
+      "relationship_id": "HAL-REL-0021",
+      "source": "Capability Contract",
+      "predicate": "defines",
+      "target": "Capability",
+      "source_cardinality": "many",
+      "target_cardinality": "1",
+      "constraint": "Versioned semantic contract."
+    },
+    {
+      "relationship_id": "HAL-REL-0022",
+      "source": "Provider",
+      "predicate": "fulfills",
+      "target": "Capability",
+      "source_cardinality": "many",
+      "target_cardinality": "many",
+      "constraint": "Selection remains governed."
+    },
+    {
+      "relationship_id": "HAL-REL-0023",
+      "source": "Adapter",
+      "predicate": "connects",
+      "target": "Provider",
+      "source_cardinality": "many",
+      "target_cardinality": "1",
+      "constraint": "Preserves canonical capability semantics."
+    },
+    {
+      "relationship_id": "HAL-REL-0024",
+      "source": "Transaction",
+      "predicate": "coordinates",
+      "target": "Action",
+      "source_cardinality": "1",
+      "target_cardinality": "many",
+      "constraint": "Includes commit and recovery state."
+    },
+    {
+      "relationship_id": "HAL-REL-0025",
+      "source": "Canary",
+      "predicate": "is governed stage within",
+      "target": "Reality Boundary",
+      "source_cardinality": "many",
+      "target_cardinality": "1",
+      "constraint": "A Canary is a limited real-operation stage; it is not a kind of boundary."
+    },
+    {
+      "relationship_id": "HAL-REL-0026",
+      "source": "Evidence Candidate",
+      "predicate": "may be admitted as",
+      "target": "Evidence Object",
+      "source_cardinality": "many",
+      "target_cardinality": "0..1",
+      "constraint": "Only through the authoritative evidence process."
+    },
+    {
+      "relationship_id": "HAL-REL-0027",
+      "source": "Evidence Object",
+      "predicate": "supports or opposes",
+      "target": "Claim",
+      "source_cardinality": "many",
+      "target_cardinality": "many",
+      "constraint": "Relation and weight are explicit."
+    },
+    {
+      "relationship_id": "HAL-REL-0028",
+      "source": "Evidence Graph",
+      "predicate": "contains",
+      "target": "Evidence Object",
+      "source_cardinality": "1",
+      "target_cardinality": "many",
+      "constraint": "Objects remain immutable."
+    },
+    {
+      "relationship_id": "HAL-REL-0029",
+      "source": "Verification",
+      "predicate": "evaluates",
+      "target": "Claim",
+      "source_cardinality": "many",
+      "target_cardinality": "many",
+      "constraint": "Against explicit criteria."
+    },
+    {
+      "relationship_id": "HAL-REL-0030",
+      "source": "Assurance Case",
+      "predicate": "organizes",
+      "target": "Claim",
+      "source_cardinality": "1",
+      "target_cardinality": "many",
+      "constraint": "Includes reasoning and defeaters."
+    },
+    {
+      "relationship_id": "HAL-REL-0031",
+      "source": "Certification",
+      "predicate": "depends on",
+      "target": "Assurance Case",
+      "source_cardinality": "many",
+      "target_cardinality": "1..many",
+      "constraint": "Scoped and time-bounded."
+    },
+    {
+      "relationship_id": "HAL-REL-0032",
+      "source": "Experience Ledger",
+      "predicate": "contains",
+      "target": "Experience",
+      "source_cardinality": "1",
+      "target_cardinality": "many",
+      "constraint": "Append-oriented and governed."
+    },
+    {
+      "relationship_id": "HAL-REL-0033",
+      "source": "Memory Graph",
+      "predicate": "associates",
+      "target": "Memory",
+      "source_cardinality": "1",
+      "target_cardinality": "many",
+      "constraint": "Association is not causation."
+    },
+    {
+      "relationship_id": "HAL-REL-0034",
+      "source": "Knowledge Graph",
+      "predicate": "represents",
+      "target": "Knowledge",
+      "source_cardinality": "1",
+      "target_cardinality": "many",
+      "constraint": "Preserves provenance and validity."
+    },
+    {
+      "relationship_id": "HAL-REL-0035",
+      "source": "Pattern",
+      "predicate": "is derived from",
+      "target": "Experience",
+      "source_cardinality": "many",
+      "target_cardinality": "many",
+      "constraint": "Reproducibly supported."
+    },
+    {
+      "relationship_id": "HAL-REL-0036",
+      "source": "Wisdom",
+      "predicate": "informs",
+      "target": "Judgment",
+      "source_cardinality": "many",
+      "target_cardinality": "many",
+      "constraint": "Does not grant authority."
+    },
+    {
+      "relationship_id": "HAL-REL-0037",
+      "source": "Command",
+      "predicate": "may cause",
+      "target": "Event",
+      "source_cardinality": "many",
+      "target_cardinality": "0..many",
+      "constraint": "Only after authoritative handling."
+    },
+    {
+      "relationship_id": "HAL-REL-0038",
+      "source": "Projection",
+      "predicate": "is derived from",
+      "target": "Event Journal",
+      "source_cardinality": "many",
+      "target_cardinality": "1..many",
+      "constraint": "Not authoritative unless designated."
+    },
+    {
+      "relationship_id": "HAL-REL-0039",
+      "source": "Transactional Outbox",
+      "predicate": "publishes",
+      "target": "Event",
+      "source_cardinality": "1",
+      "target_cardinality": "many",
+      "constraint": "After local authoritative commit."
+    },
+    {
+      "relationship_id": "HAL-REL-0040",
+      "source": "Message Envelope",
+      "predicate": "carries",
+      "target": "Command",
+      "source_cardinality": "many",
+      "target_cardinality": "0..1",
+      "constraint": "Also may carry Query or Event."
+    },
+    {
+      "relationship_id": "HAL-REL-0041",
+      "source": "Treaty",
+      "predicate": "governs exchange with",
+      "target": "External Trust Domain",
+      "source_cardinality": "many",
+      "target_cardinality": "1",
+      "constraint": "Revocable and constitutionally bounded."
+    },
+    {
+      "relationship_id": "HAL-REL-0042",
+      "source": "Constitutional Firewall",
+      "predicate": "enforces",
+      "target": "Treaty",
+      "source_cardinality": "1",
+      "target_cardinality": "many",
+      "constraint": "At external exchange paths."
+    },
+    {
+      "relationship_id": "HAL-REL-0043",
+      "source": "Data Classification",
+      "predicate": "constrains",
+      "target": "Retention Class",
+      "source_cardinality": "many",
+      "target_cardinality": "many",
+      "constraint": "Alongside purpose and authority."
+    },
+    {
+      "relationship_id": "HAL-REL-0044",
+      "source": "Supervisor",
+      "predicate": "controls lifecycle of",
+      "target": "Service",
+      "source_cardinality": "many",
+      "target_cardinality": "many",
+      "constraint": "Within declared authority."
+    },
+    {
+      "relationship_id": "HAL-REL-0045",
+      "source": "Reservation",
+      "predicate": "allocates",
+      "target": "Resource",
+      "source_cardinality": "many",
+      "target_cardinality": "1",
+      "constraint": "Time-bounded and purpose-bound."
+    },
+    {
+      "relationship_id": "HAL-REL-0046",
+      "source": "Recovery",
+      "predicate": "restores toward",
+      "target": "Desired State",
+      "source_cardinality": "many",
+      "target_cardinality": "1",
+      "constraint": "Validated against Observed State."
+    },
+    {
+      "relationship_id": "HAL-REL-0047",
+      "source": "Architecture Decision Record",
+      "predicate": "documents",
+      "target": "Semantic Change",
+      "source_cardinality": "many",
+      "target_cardinality": "0..many",
+      "constraint": "When architectural consequence exists."
+    },
+    {
+      "relationship_id": "HAL-REL-0048",
+      "source": "Exception",
+      "predicate": "applies to",
+      "target": "Control",
+      "source_cardinality": "many",
+      "target_cardinality": "1",
+      "constraint": "Time-bounded; never constitutional."
+    },
+    {
+      "relationship_id": "HAL-REL-0049",
+      "source": "Cross-Book Term Index",
+      "predicate": "indexes",
+      "target": "Canonical Term",
+      "source_cardinality": "1",
+      "target_cardinality": "many",
+      "constraint": "Does not replace governing source."
+    },
+    {
+      "relationship_id": "HAL-REL-0050",
+      "source": "External Trust Domain",
+      "predicate": "specializes",
+      "target": "Trust Domain",
+      "source_cardinality": "many",
+      "target_cardinality": "1",
+      "constraint": "Externality changes governance assumptions and requires controlled exchange."
+    },
+    {
+      "relationship_id": "HAL-REL-0051",
+      "source": "Owner",
+      "predicate": "performs",
+      "target": "Owner Authorization Ceremony",
+      "source_cardinality": "1",
+      "target_cardinality": "many",
+      "constraint": "Each ceremony is bound to one exact immutable decision identifier, scope, and validity period."
+    },
+    {
+      "relationship_id": "HAL-REL-0052",
+      "source": "Owner Authorization Ceremony",
+      "predicate": "authorizes exact",
+      "target": "Protected Action",
+      "source_cardinality": "many",
+      "target_cardinality": "1",
+      "constraint": "Authorization is non-transferable and cannot be reused for a different action, Treaty, capability class, or mutation."
+    },
+    {
+      "relationship_id": "HAL-REL-0053",
+      "source": "Evidence Service",
+      "predicate": "admits and governs",
+      "target": "Evidence Object",
+      "source_cardinality": "1",
+      "target_cardinality": "many",
+      "constraint": "Only the authoritative admission process may create governed Evidence Objects or change their verification state through new linked evidence."
+    },
+    {
+      "relationship_id": "HAL-REL-0054",
+      "source": "Release Authority",
+      "predicate": "certifies",
+      "target": "Release",
+      "source_cardinality": "many",
+      "target_cardinality": "many",
+      "constraint": "Certification is evidence-based, attributable, scoped, and cannot exceed the qualified release or deployment scope."
+    }
+  ]
+}

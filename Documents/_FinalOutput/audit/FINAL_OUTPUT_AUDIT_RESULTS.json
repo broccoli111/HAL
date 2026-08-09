@@ -1,0 +1,662 @@
+{
+  "audit_date": "2026-07-28",
+  "scope": "/Users/rosslauda/Documents/HAL/Documents/_FinalOutput/PDF",
+  "expected_pdf_count": 10,
+  "actual_pdf_count": 10,
+  "collection_errors": [],
+  "books": [
+    {
+      "book": "I",
+      "file": "HAL_BOOK_1_CONSTITUTION.pdf",
+      "source": "/Users/rosslauda/Documents/HAL/Documents/Book I/_Consolidated/BOOK_I_CONSTITUTION.pdf",
+      "exists": true,
+      "source_exists": true,
+      "source_parity_required": true,
+      "errors": [],
+      "hard_contradiction_candidates": [],
+      "ambiguous_term_counts": {
+        "user": 6,
+        "agent": 4,
+        "authorization": 9,
+        "proof": 2,
+        "truth": 5,
+        "memory": 8,
+        "production": 1,
+        "rollback": 5,
+        "exactly once": 0,
+        "real time": 0,
+        "secure": 2,
+        "safe": 8,
+        "trusted": 3,
+        "owner": 47,
+        "HAL instance": 0,
+        "evidence": 60,
+        "Founder": 3
+      },
+      "required_term_presence": {
+        "Owner": true,
+        "Authority": true,
+        "Permission": true,
+        "Trust": true,
+        "Delegation": true,
+        "Capability": true,
+        "Constitutional Firewall": true,
+        "Reality Boundary": true,
+        "Evidence": true,
+        "Verification": true
+      },
+      "pages": 73,
+      "characters": 63083,
+      "empty_or_near_empty_pages": [],
+      "sha256": "fd71a272f3eaead6ee3ec864ae8b2b2786f4ce76f724468366886387b7dcdb49",
+      "source_sha256": "fd71a272f3eaead6ee3ec864ae8b2b2786f4ce76f724468366886387b7dcdb49",
+      "byte_identical_to_source": true,
+      "placeholder_candidates": []
+    },
+    {
+      "book": "II",
+      "file": "HAL_BOOK_2_ARCHITECTURE_SPECIFICATION.pdf",
+      "source": "/Users/rosslauda/Documents/HAL/Documents/Book II/_Consolidated/BOOK_II_ARCHITECTURE_SPECIFICATION.pdf",
+      "exists": true,
+      "source_exists": true,
+      "source_parity_required": false,
+      "errors": [],
+      "hard_contradiction_candidates": [
+        {
+          "rule": "authentication grants authority",
+          "contexts": [
+            "Identity is durable and universal: people, devices, services, nodes, providers, Presences, agents, sensors, and HAL subsystems all have identities. Authentication evaluates the present session; delegation grants bounded authority; trust evaluates credibility; none automatically substitutes for another. 2. Identity Model Concept Definition May change? Identity A stable, immutab",
+            "system that consumes identity, authentication, delegation, context, evidence, and transaction facts. Trust, capability, relationship, ownership, and authentication may inform evaluation, but none automatically grants permission. 2. Authority Sources and Precedence Source Meaning Limit Constitutional Owner The sole holder of constitutional authority. Protected actions still require policy"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        },
+        {
+          "rule": "capability grants authority",
+          "contexts": [
+            "es, never competing constitutional instances. \uf0b7 Dynamic leadership applies to execution tasks, not constitutional governance. \uf0b7 Partitions may reduce capability but cannot create new authority or canonical state. \uf0b7 Rejoining is earned through evidence and staged verification, never assumed from prior membership. 8. Prohibited Behaviors \uf0b7 No"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        }
+      ],
+      "ambiguous_term_counts": {
+        "user": 2,
+        "agent": 0,
+        "authorization": 109,
+        "proof": 10,
+        "truth": 5,
+        "memory": 14,
+        "production": 5,
+        "rollback": 22,
+        "exactly once": 0,
+        "real time": 0,
+        "secure": 6,
+        "safe": 35,
+        "trusted": 5,
+        "owner": 281,
+        "HAL instance": 0,
+        "evidence": 356,
+        "Founder": 0
+      },
+      "required_term_presence": {
+        "Owner": true,
+        "Authority": true,
+        "Permission": true,
+        "Trust": true,
+        "Delegation": true,
+        "Capability": true,
+        "Constitutional Firewall": true,
+        "Reality Boundary": true,
+        "Evidence": true,
+        "Verification": true
+      },
+      "pages": 121,
+      "characters": 218036,
+      "empty_or_near_empty_pages": [],
+      "sha256": "7600b8c06f0eb5f979f771d67e5842b5364689415e5a7302e76fe80f51b67c31",
+      "source_sha256": "c202abc8f9cc7393e76df6e7b11f8f97310153b12e69202984a88a20922e8f72",
+      "byte_identical_to_source": false,
+      "placeholder_candidates": []
+    },
+    {
+      "book": "III",
+      "file": "HAL_BOOK_3_ENGINEERING_STANDARDS.pdf",
+      "source": "/Users/rosslauda/Documents/HAL/Documents/Book III/deliverables/HAL_BOOK_III_ENGINEERING_STANDARDS.pdf",
+      "exists": true,
+      "source_exists": true,
+      "source_parity_required": true,
+      "errors": [],
+      "hard_contradiction_candidates": [],
+      "ambiguous_term_counts": {
+        "user": 0,
+        "agent": 0,
+        "authorization": 0,
+        "proof": 0,
+        "truth": 0,
+        "memory": 0,
+        "production": 0,
+        "rollback": 15,
+        "exactly once": 0,
+        "real time": 0,
+        "secure": 0,
+        "safe": 0,
+        "trusted": 0,
+        "owner": 9,
+        "HAL instance": 0,
+        "evidence": 94,
+        "Founder": 0
+      },
+      "required_term_presence": {
+        "Owner": true,
+        "Authority": true,
+        "Permission": true,
+        "Trust": true,
+        "Delegation": false,
+        "Capability": true,
+        "Constitutional Firewall": false,
+        "Reality Boundary": true,
+        "Evidence": true,
+        "Verification": true
+      },
+      "pages": 25,
+      "characters": 49304,
+      "empty_or_near_empty_pages": [],
+      "sha256": "7c3854a7eaef4fa1aae6709a08a53c81610392cfe156e047fcd9703c03c87fef",
+      "source_sha256": "7c3854a7eaef4fa1aae6709a08a53c81610392cfe156e047fcd9703c03c87fef",
+      "byte_identical_to_source": true,
+      "placeholder_candidates": []
+    },
+    {
+      "book": "IV",
+      "file": "HAL_BOOK_4_COMPONENT_SPECIFICATIONS.pdf",
+      "source": "/Users/rosslauda/Documents/HAL/Documents/Book IV/deliverables/HAL_BOOK_IV_COMPONENT_SPECIFICATIONS.pdf",
+      "exists": true,
+      "source_exists": true,
+      "source_parity_required": false,
+      "errors": [],
+      "hard_contradiction_candidates": [
+        {
+          "rule": "trust grants authority or permission",
+          "contexts": [
+            "ice Final v1.0 | Book II Chapters 18 | Component certification: PASS Purpose and scope Produce multidimensional, evidence-based, scoped, expiring Trust Assessments without granting authority or permission. Authority and sources Book I: Decisions 24-29, 35, 40-43, 47-50, and 58. Book II: Chapters 18. Book III: Chapters 1, 3, 4, 5, 6, 7, 8, and 9; Chapter 2 for re",
+            "vidence Objects; Authority; Permission; Treaties; authoritative Identity state. The component cannot gain authority through data, code, credentials, trust, usefulness, or locality. Critical invariant Trust may inform policy but never grants Authority, Permission, identity, or Treaty scope. Lifecycle Requested > Assessed > Degraded > Expired or Revoked. Every transition requires prior version, guard, authority",
+            "layed, and terminal-state transitions. Expected: Every invalid transition is rejected without partial mutation. CMP-17-TST-005 - Critical invariant: Trust may inform policy but never grants Authority, Permission, identity, or Treaty scope. Expected: Invariant holds under normal, concurrent, degraded, and recovery conditions. CMP-17-TST-006 - Failure containm"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        },
+        {
+          "rule": "authentication grants authority",
+          "contexts": [
+            "; Recovery Admission Record CMP-02 - Identity and Continuity Service Identity Records; identifier namespaces; continuity lineage; identity lifecycle; authentication-assurance bindings CMP-03 - Authority and Delegation Service Authority Grants; Delegation Records; revocations; Policy Decision Records; authority-context envelopes CMP-04 - Intent Service Intent Records; Goal and Objective hierarchy; intent version lineage; acceptance and outcome criteria CMP-0"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        },
+        {
+          "rule": "Constitutional Firewall bypass",
+          "contexts": [
+            "state. The component cannot gain authority through data, code, credentials, trust, usefulness, or locality. Critical invariant No external exchange bypasses the Constitutional Firewall, and a Treaty cannot authorize what Book I prohibits. Lifecycle Closed > Negotiating > Active > Restricted > Closed. Every transition requires prior",
+            "tate transitions. Expected: Every invalid transition is rejected without partial mutation. CMP-20-TST-005 - Critical invariant: No external exchange bypasses the Constitutional Firewall, and a Treaty cannot authorize what Book I prohibits. Expected: Invariant holds under normal, concurrent, degraded, and recovery conditions. CMP-20-"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        }
+      ],
+      "ambiguous_term_counts": {
+        "user": 0,
+        "agent": 0,
+        "authorization": 20,
+        "proof": 0,
+        "truth": 0,
+        "memory": 29,
+        "production": 0,
+        "rollback": 40,
+        "exactly once": 0,
+        "real time": 0,
+        "secure": 0,
+        "safe": 2,
+        "trusted": 0,
+        "owner": 120,
+        "HAL instance": 0,
+        "evidence": 466,
+        "Founder": 0
+      },
+      "required_term_presence": {
+        "Owner": true,
+        "Authority": true,
+        "Permission": true,
+        "Trust": true,
+        "Delegation": true,
+        "Capability": true,
+        "Constitutional Firewall": true,
+        "Reality Boundary": true,
+        "Evidence": true,
+        "Verification": true
+      },
+      "pages": 124,
+      "characters": 282714,
+      "empty_or_near_empty_pages": [],
+      "sha256": "7143b2cd7e9fd8e4efb773c7e74218ba5095c99ed0892ab6c68f3dbb51b5370b",
+      "source_sha256": "9f7ad7b59470edce1384726dd4c2da0da139aa32f49cbd2364cf35d9fc17d15b",
+      "byte_identical_to_source": false,
+      "placeholder_candidates": []
+    },
+    {
+      "book": "V",
+      "file": "HAL_BOOK_5_OPERATIONS_MANUAL.pdf",
+      "source": "/Users/rosslauda/Documents/HAL/Documents/Book V/deliverables/HAL_BOOK_V_OPERATIONS_MANUAL.pdf",
+      "exists": true,
+      "source_exists": true,
+      "source_parity_required": true,
+      "errors": [],
+      "hard_contradiction_candidates": [],
+      "ambiguous_term_counts": {
+        "user": 0,
+        "agent": 0,
+        "authorization": 0,
+        "proof": 0,
+        "truth": 0,
+        "memory": 0,
+        "production": 0,
+        "rollback": 59,
+        "exactly once": 0,
+        "real time": 0,
+        "secure": 0,
+        "safe": 0,
+        "trusted": 0,
+        "owner": 29,
+        "HAL instance": 0,
+        "evidence": 453,
+        "Founder": 0
+      },
+      "required_term_presence": {
+        "Owner": true,
+        "Authority": true,
+        "Permission": false,
+        "Trust": true,
+        "Delegation": true,
+        "Capability": true,
+        "Constitutional Firewall": true,
+        "Reality Boundary": true,
+        "Evidence": true,
+        "Verification": true
+      },
+      "pages": 57,
+      "characters": 138184,
+      "empty_or_near_empty_pages": [],
+      "sha256": "c353451663baf97523579fae914d27293235fd46617c80f9a260498568a29cbf",
+      "source_sha256": "c353451663baf97523579fae914d27293235fd46617c80f9a260498568a29cbf",
+      "byte_identical_to_source": true,
+      "placeholder_candidates": []
+    },
+    {
+      "book": "VI",
+      "file": "HAL_BOOK_6_SECURITY_PRIVACY_AND_TRUST_MANUAL.pdf",
+      "source": "/Users/rosslauda/Documents/HAL/Documents/Book VI/deliverables/HAL_BOOK_VI_SECURITY_PRIVACY_AND_TRUST_MANUAL.pdf",
+      "exists": true,
+      "source_exists": true,
+      "source_parity_required": false,
+      "errors": [],
+      "hard_contradiction_candidates": [
+        {
+          "rule": "trust grants authority or permission",
+          "contexts": [
+            "erns engineering practice. Book IV defines component responsibilities. Book X governs semantics. Book VI governs the ongoing security, privacy, and trust program. Book VI does not create Authority, machine contracts, component responsibilities, or certification authority. Revision history | Version | Date | Status | Change | |---|---|---|---|",
+            "evidence: Trust Domain record \uf0b7Severity: Critical \uf0b7Exception authority: Security and Trust Executive \uf0b7Protection objective: Both VI-TRU-09-002 \u2014 Keep trust distinct Trust Assessment MAY inform decisions but MUST NOT create Identity, Permission, Authority, capability, Treaty scope, or authoritative state; current Permission remains independently required. \uf0b7Applicability: all trust use \uf0b7Responsible rol"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        },
+        {
+          "rule": "capability grants authority",
+          "contexts": [
+            "VI-CRY-04-003 \u2014 Keep secrets out of ambient authority Secrets MUST be referenced through governed secret services, scoped to the least audience and capability, short-lived where practical, auditable, and incapable of independently granting Authority. \uf0b7Applicability: all secrets \uf0b7Responsible role: Key Custodian \uf0b7Enforcement: secret broker and authority tests \uf0b7Required evidence: secret access evide"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        },
+        {
+          "rule": "Reality Boundary bypass",
+          "contexts": [
+            "age 66 VI-DET-11-004 \u2014 Detect authority violations separately Detection content MUST identify attempted or actual excess Authority, stale delegation, bypassed Kernel or Firewall, foreign state mutation, and unauthorized Reality Boundary effects separately from compromise indicators. \uf0b7Applicability: authority paths \uf0b7Responsible role: Detection Engineering Owner \uf0b7Enforcement: authorit"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        }
+      ],
+      "ambiguous_term_counts": {
+        "user": 0,
+        "agent": 0,
+        "authorization": 2,
+        "proof": 0,
+        "truth": 0,
+        "memory": 0,
+        "production": 0,
+        "rollback": 2,
+        "exactly once": 0,
+        "real time": 0,
+        "secure": 0,
+        "safe": 0,
+        "trusted": 0,
+        "owner": 140,
+        "HAL instance": 0,
+        "evidence": 360,
+        "Founder": 0
+      },
+      "required_term_presence": {
+        "Owner": true,
+        "Authority": true,
+        "Permission": true,
+        "Trust": true,
+        "Delegation": true,
+        "Capability": true,
+        "Constitutional Firewall": true,
+        "Reality Boundary": true,
+        "Evidence": true,
+        "Verification": true
+      },
+      "pages": 88,
+      "characters": 124195,
+      "empty_or_near_empty_pages": [],
+      "sha256": "3990f58cc73e0f0993675863479d617567eef1b94e2aef03396a1f13413643cb",
+      "source_sha256": "27f122379aa5cba1b7e26d793d598d13bfd635a240f2bac62de2d771f26843aa",
+      "byte_identical_to_source": false,
+      "placeholder_candidates": []
+    },
+    {
+      "book": "VII",
+      "file": "HAL_BOOK_7_GOVERNANCE_AND_STEWARDSHIP_MANUAL.pdf",
+      "source": "/Users/rosslauda/Documents/HAL/Documents/Book VII/deliverables/HAL_BOOK_VII_GOVERNANCE_AND_STEWARDSHIP_MANUAL.pdf",
+      "exists": true,
+      "source_exists": true,
+      "source_parity_required": true,
+      "errors": [],
+      "hard_contradiction_candidates": [
+        {
+          "rule": "constitutional invariant may be waived",
+          "contexts": [
+            "GOVERNANCE AND STEWARDSHIP \u2022 CERTIFIED FINAL v1.0 \u2022 CERTIFIED FINAL \u2022 27 \uf0b7 Severity: Critical \uf0b7 Exception authority: none RSK-07-003 \u2014 Protect constitutional invariants No exception, waiver, deviation, risk acceptance, emergency act, or certifiecate condition MAY waive a constitutional invariant or expand Owner authority. \uf0b7 Applicability: all departures \uf0b7 Responsible role: Constitutional Steward \uf0b7 Enforcement: wor"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        },
+        {
+          "rule": "capability grants authority",
+          "contexts": [
+            "and sovereign, bounded external cooperation. 2. Scope Thiis chapter governs Treaties, active Treaties, capability proposals, external assurance, new capability classes, providers. It defienes institutional procedure and does not create constitutional, technical, operational, or security authority. 3. Authority and source requirements Book I Decisions 48-50; Book II Trust/Firewall/Treaty architecture; Books IV, VIII, IX. Book I prevails. Final"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        },
+        {
+          "rule": "certificate creates authority",
+          "contexts": [
+            "II \u2022 GOVERNANCE AND STEWARDSHIP \u2022 CERTIFIED FINAL v1.0 \u2022 CERTIFIED FINAL \u2022 31 \uf0b7 Exception authority: Appointing Authority CER-08-003 \u2014 Forbid certificate authority expansion A certifiecate MUST NOT create Authority, Permission, Owner approval, capability class, Treaty scope, or broader operational eligibility than its exact claims support. \uf0b7 Applicability: all"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        },
+        {
+          "rule": "Constitutional Firewall bypass",
+          "contexts": [
+            "y: Critical \uf0b7 Exception authority: Owner TRT-06-005 \u2014 Preserve sovereignty A Treaty MUST NOT merge constitutional identity, transfer Owner authority, bypass the Constitutional Firewall, or make trust equivalent to permission. \uf0b7 Applicability: Treaties \uf0b7 Responsible role: Constitutional Steward \uf0b7 Enforcement: workfliow gate, registe"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        }
+      ],
+      "ambiguous_term_counts": {
+        "user": 0,
+        "agent": 0,
+        "authorization": 7,
+        "proof": 0,
+        "truth": 0,
+        "memory": 1,
+        "production": 0,
+        "rollback": 3,
+        "exactly once": 0,
+        "real time": 0,
+        "secure": 0,
+        "safe": 0,
+        "trusted": 0,
+        "owner": 113,
+        "HAL instance": 0,
+        "evidence": 216,
+        "Founder": 0
+      },
+      "required_term_presence": {
+        "Owner": true,
+        "Authority": true,
+        "Permission": true,
+        "Trust": true,
+        "Delegation": true,
+        "Capability": true,
+        "Constitutional Firewall": true,
+        "Reality Boundary": true,
+        "Evidence": true,
+        "Verification": true
+      },
+      "pages": 50,
+      "characters": 96166,
+      "empty_or_near_empty_pages": [],
+      "sha256": "bee833d73a278ed48a68563f433092aed10d206474402c57fb9f839acb1253a7",
+      "source_sha256": "bee833d73a278ed48a68563f433092aed10d206474402c57fb9f839acb1253a7",
+      "byte_identical_to_source": true,
+      "placeholder_candidates": []
+    },
+    {
+      "book": "VIII",
+      "file": "HAL_BOOK_8_VERIFICATION_AND_CERTIFICATION_MANUAL.pdf",
+      "source": "/Users/rosslauda/Documents/HAL/Documents/Book VIII/deliverables/HAL_BOOK_VIII_VERIFICATION_AND_CERTIFICATION_MANUAL.pdf",
+      "exists": true,
+      "source_exists": true,
+      "source_parity_required": true,
+      "errors": [],
+      "hard_contradiction_candidates": [
+        {
+          "rule": "trust grants authority or permission",
+          "contexts": [
+            "ifincation Decision \uf0b7 Severity: Critical \uf0b7 Exception authority: Assurance Governor GOV-01-004 \u2014 Forbid authority creation Verifincation, confindence, trust, or certifincation MUST NOT create Authority, Permission, Owner approval, or Treaty scope. \uf0b7 Applicability: all targets \uf0b7 Responsible role: Certifincation Authority \uf0b7 Enforcement: policy invariant test \uf0b7 Re"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        },
+        {
+          "rule": "capability grants authority",
+          "contexts": [
+            "ority: Certifincation Authority DOM-06-007 \u2014 Keep trust separate from permission Tests MUST demonstrate that Trust Assessment, identity, credentials, capability, confindence, or certifincate possession cannot independently create Permission or Authority. HAL BOOK VIII \u2022 VERIFICATION AND CERTIFICATION Controlled edition \u2022 v1.0 \u2022 24 \uf0b7 Applicability: trust decisions \uf0b7 Responsible role: Trust Asse"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        },
+        {
+          "rule": "Treaty activation without Owner",
+          "contexts": [
+            "completeness gate \uf0b7 Required evidence: Treaty Assurance Case \uf0b7 Severity: Critical \uf0b7 Exception authority: none TRT-10-002 \u2014 Preserve Owner approval A Treaty certifincate MUST NOT activate, extend, renew, or reinterpret a Treaty without the Owner approval required by Book I. \uf0b7 Applicability: Treaties \uf0b7 Responsible role: Certifincation Authority \uf0b7 Enforcement: Owner-approval gate HAL BOOK VIII"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        }
+      ],
+      "ambiguous_term_counts": {
+        "user": 0,
+        "agent": 0,
+        "authorization": 0,
+        "proof": 1,
+        "truth": 0,
+        "memory": 0,
+        "production": 0,
+        "rollback": 23,
+        "exactly once": 0,
+        "real time": 0,
+        "secure": 0,
+        "safe": 1,
+        "trusted": 0,
+        "owner": 117,
+        "HAL instance": 0,
+        "evidence": 357,
+        "Founder": 0
+      },
+      "required_term_presence": {
+        "Owner": true,
+        "Authority": true,
+        "Permission": true,
+        "Trust": true,
+        "Delegation": false,
+        "Capability": true,
+        "Constitutional Firewall": true,
+        "Reality Boundary": true,
+        "Evidence": true,
+        "Verification": true
+      },
+      "pages": 55,
+      "characters": 117064,
+      "empty_or_near_empty_pages": [],
+      "sha256": "2987c9403d410604a5ef744e7b340bb69b1340f8b1ef8a86f3d001889d890211",
+      "source_sha256": "2987c9403d410604a5ef744e7b340bb69b1340f8b1ef8a86f3d001889d890211",
+      "byte_identical_to_source": true,
+      "placeholder_candidates": []
+    },
+    {
+      "book": "IX",
+      "file": "HAL_BOOK_9_INTERFACE_AND_PROTOCOL_REFERENCE.pdf",
+      "source": "/Users/rosslauda/Documents/HAL/Documents/Book IX/deliverables/HAL_BOOK_IX_INTERFACE_AND_PROTOCOL_REFERENCE.pdf",
+      "exists": true,
+      "source_exists": true,
+      "source_parity_required": false,
+      "errors": [],
+      "hard_contradiction_candidates": [],
+      "ambiguous_term_counts": {
+        "user": 0,
+        "agent": 0,
+        "authorization": 2,
+        "proof": 0,
+        "truth": 0,
+        "memory": 16,
+        "production": 0,
+        "rollback": 2,
+        "exactly once": 0,
+        "real time": 0,
+        "secure": 0,
+        "safe": 0,
+        "trusted": 0,
+        "owner": 100,
+        "HAL instance": 0,
+        "evidence": 199,
+        "Founder": 0
+      },
+      "required_term_presence": {
+        "Owner": true,
+        "Authority": true,
+        "Permission": true,
+        "Trust": true,
+        "Delegation": true,
+        "Capability": true,
+        "Constitutional Firewall": true,
+        "Reality Boundary": true,
+        "Evidence": true,
+        "Verification": true
+      },
+      "pages": 44,
+      "characters": 87391,
+      "empty_or_near_empty_pages": [],
+      "sha256": "061c924c3166773fa3317227d4329ec8595737f76e47a233137553c03088661a",
+      "source_sha256": "a28913b37d496d53daadff505d9e0e5e907a92c5ea3ce69893ebde288a514d5a",
+      "byte_identical_to_source": false,
+      "placeholder_candidates": []
+    },
+    {
+      "book": "X",
+      "file": "HAL_BOOK_10_CANONICAL_TERMINOLOGY_AND_INFORMATION_MODEL.pdf",
+      "source": "/Users/rosslauda/Documents/HAL/Documents/Book X/deliverables/HAL_BOOK_X_CANONICAL_TERMINOLOGY_AND_INFORMATION_MODEL.pdf",
+      "exists": true,
+      "source_exists": true,
+      "source_parity_required": true,
+      "errors": [],
+      "hard_contradiction_candidates": [
+        {
+          "rule": "trust grants authority or permission",
+          "contexts": [
+            "on MUST be represented as a contextual decision result, while Authority MUST be represented as the governed scope that constrains that decision. 15. Trust MUST NOT grant Authority, and Capability MUST NOT imply Permission. 16. A Delegation MUST be attributable, scoped, conditional, expiring, revocable, and bounded by the delegator's Authority. Canonical term set HAL-T",
+            "n. Required distinction: Activation requires the Owner Authorization Ceremony bound to the exact Treaty. Conversation, delegated ordinary authority, trust, usefulness, prior access, or the Treaty itself cannot grant authority prohibited by Book I or bypass the Constitutional Firewall. Type: Governed trust agreement | Category: Trust | Status: Approved | Aliases: Ext",
+            "ts required distinction: Activation requires the Owner Authorization Ceremony bound to the exact Treaty. Conversation, delegated ordinary authority, trust, usefulness, prior access, or the Treaty itself cannot grant authority prohibited by Book I or bypass the Constitutional Firewall. Relationships: HAL-REL-0041, HAL-REL-0042 | Lifecycle: HAL-TRANS-0018, HAL-TRANS-0019,",
+            "L-TRANS-0020 Constraint: Activation requires the Owner Authorization Ceremony bound to the exact Treaty. Conversation, delegated ordinary authority, trust, usefulness, prior access, or the Treaty itself cannot grant authority prohibited by Book I or bypass the Constitutional Firewall. HAL-TERM-0118 \u2014 Constitutional Firewall The Book II boundary that mediates and enforces c"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        },
+        {
+          "rule": "authentication grants authority",
+          "contexts": [
+            "ERM-0038 \u2014 Authentication Evidence One or more Evidence Objects used to assess whether a claimed Identity is presently genuine. Required distinction: Authentication Evidence informs assurance but does not itself grant authority. Type: Evidence role | Category: Evidence | Status: Approved | Aliases: None Source basis: Direct source normalization Book I: Book I Decisions",
+            "Identity is presently genuine. Counterexample: A dependent artifact uses **Authentication Evidence** in a way that violates its required distinction: Authentication Evidence informs assurance but does not itself grant authority. Relationships: HAL-REL-0010 | Lifecycle: None registered Constraint: Authentication Evidence informs assurance but does not itself grant authority",
+            "uthentication Evidence informs assurance but does not itself grant authority. Relationships: HAL-REL-0010 | Lifecycle: None registered Constraint: Authentication Evidence informs assurance but does not itself grant authority. HAL-TERM-0039 \u2014 Trust Multidimensional, domain-specific confidence derived from evidence about an entity, claim, process, or relationship. Required"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        },
+        {
+          "rule": "capability grants authority",
+          "contexts": [
+            "tcomes, inputs, outputs, constraints, required authority and permission classes, risks, side effects, and evaluation criteria. Required distinction: Capability does not identify an implementation and does not grant authority to use the ability. Type: Implementation-independent contract | Category: Capability | Status: Approved | Aliases: None Source basis: Direct so",
+            "ks, side effects, and evaluation criteria. Counterexample: A dependent artifact uses **Capability** in a way that violates its required distinction: Capability does not identify an implementation and does not grant authority to use the ability. Relationships: HAL-REL-0021, HAL-REL-0022 | Lifecycle: None registered HAL CANON | BOOK X Final v1.0 \u2022 Controlled semantic",
+            "hips: HAL-REL-0021, HAL-REL-0022 | Lifecycle: None registered HAL CANON | BOOK X Final v1.0 \u2022 Controlled semantic reference \u2022 38 Constraint: Capability does not identify an implementation and does not grant authority to use the ability. HAL-TERM-0063 \u2014 Capability Contract The versioned specification of a Capability's semantic inputs, outputs, preconditions, effect"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        },
+        {
+          "rule": "certificate creates authority",
+          "contexts": [
+            "III \u2192 X Purpose and scope Defines the evidence admission boundary, claims, provenance, custody, trust assessment, verification, assurance cases, and certification. It governs shared meaning and does not independently create component behavior or interface syntax. Source authority Book I: Book I Articles II and XI; Decisions 22, 26, 34, 35, 40, 42, 43, 50, and 56. Book II: Book II Chapters 17, 18, 25, and 35. Book III: Book III"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        },
+        {
+          "rule": "Constitutional Firewall bypass",
+          "contexts": [
+            "y. Conversation, delegated ordinary authority, trust, usefulness, prior access, or the Treaty itself cannot grant authority prohibited by Book I or bypass the Constitutional Firewall. Type: Governed trust agreement | Category: Trust | Status: Approved | Aliases: External Trust Treaty Source basis: Direct source normalization",
+            "ty. Conversation, delegated ordinary authority, trust, usefulness, prior access, or the Treaty itself cannot grant authority prohibited by Book I or bypass the Constitutional Firewall. Relationships: HAL-REL-0041, HAL-REL-0042 | Lifecycle: HAL-TRANS-0018, HAL-TRANS-0019, HAL-TRANS-0020 Constraint: Activation requires the Owner Au",
+            "ty. Conversation, delegated ordinary authority, trust, usefulness, prior access, or the Treaty itself cannot grant authority prohibited by Book I or bypass the Constitutional Firewall. HAL-TERM-0118 \u2014 Constitutional Firewall The Book II boundary that mediates and enforces constitutionally governed exchange between HAL and External Trust Domains. Required distinction: It"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        },
+        {
+          "rule": "Evidence Candidate treated as authoritative",
+          "contexts": [
+            "OOK X Final v1.0 \u2022 Controlled semantic reference \u2022 104 evidence Use: Use Evidence Object when authoritative admission is meant; otherwise qualify Evidence Candidate or source material. Reason: Not every record or observation is authoritative Evidence. Founder Use: Use Owner in new canon text; Founder is permitted only as a historical source alias for that same role. Reason: Book I states"
+          ],
+          "manual_disposition": "PASS \u2014 reviewed in context as a prohibitive/negative safeguard, distinction, or canonical definition; it does not affirm the prohibited proposition."
+        }
+      ],
+      "ambiguous_term_counts": {
+        "user": 2,
+        "agent": 5,
+        "authorization": 25,
+        "proof": 25,
+        "truth": 15,
+        "memory": 23,
+        "production": 12,
+        "rollback": 22,
+        "exactly once": 1,
+        "real time": 1,
+        "secure": 2,
+        "safe": 9,
+        "trusted": 1,
+        "owner": 86,
+        "HAL instance": 1,
+        "evidence": 284,
+        "Founder": 8
+      },
+      "required_term_presence": {
+        "Owner": true,
+        "Authority": true,
+        "Permission": true,
+        "Trust": true,
+        "Delegation": true,
+        "Capability": true,
+        "Constitutional Firewall": true,
+        "Reality Boundary": true,
+        "Evidence": true,
+        "Verification": true
+      },
+      "pages": 105,
+      "characters": 257012,
+      "empty_or_near_empty_pages": [],
+      "sha256": "efb67c87f2690ad3a6c8d93877b1a357a2aa70b1d5ab83a4d089728f1913ac28",
+      "source_sha256": "efb67c87f2690ad3a6c8d93877b1a357a2aa70b1d5ab83a4d089728f1913ac28",
+      "byte_identical_to_source": true,
+      "placeholder_candidates": []
+    }
+  ],
+  "automated_status": "PASS",
+  "semantic_candidate_review": {
+    "status": "PASS",
+    "method": "Every hard-contradiction pattern match was read in context. Each match is a negative safeguard, an explicit distinction, or a canonical definition rather than an affirmative contradiction."
+  },
+  "final_status": "PASS"
+}

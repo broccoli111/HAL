@@ -1,0 +1,30 @@
+Component ID,Component,Book II basis,Authoritative state domains,Interfaces,Requirements,Tests,Status
+CMP-01,Constitutional Kernel,"01, 03, 05, 20, 29, 35",Constitutional Identity Record; Constitution and Invariant Registry; protected-policy admission metadata; Owner Authorization Ceremony Registry; Protected Audit Anchor; Recovery Admission Record,9,12,10,Final
+CMP-02,Identity and Continuity Service,"04, 28",Identity Records; identifier namespaces; continuity lineage; identity lifecycle; authentication-assurance bindings,10,12,10,Final
+CMP-03,Authority and Delegation Service,05,Authority Grants; Delegation Records; revocations; Policy Decision Records; authority-context envelopes,10,12,10,Final
+CMP-04,Intent Service,06,Intent Records; Goal and Objective hierarchy; intent version lineage; acceptance and outcome criteria,10,12,10,Final
+CMP-05,Cognitive Orchestrator,07,Execution Graphs; orchestration runs; provider-selection records; result assembly state,11,12,10,Final
+CMP-06,Attention Manager,08,Attention Objects; work-admission decisions; priority and preemption records; placement leases,10,12,10,Final
+CMP-07,Judgment Service,09,Decision Objects; alternative evaluations; uncertainty assessments; review conditions,10,12,10,Final
+CMP-08,Knowledge Service,10,Knowledge Graph; knowledge assertions; provenance links; validity and confidence metadata; retrieval indexes,10,12,10,Final
+CMP-09,Memory System,12,Memory Graph; memory associations; retention and access metadata; Conversation Objects where assigned,10,12,10,Final
+CMP-10,Learning and Wisdom System,"11, 12",Experience Ledger; Pattern Records; Wisdom Records; learning-run records; promotion decisions,10,12,10,Final
+CMP-11,Temporal Service,13,Time Facts; Logical clocks; lease records; time-source assessments; Temporal Commitment Records; scheduling constraints; deadline and freshness policies,10,12,10,Final
+CMP-12,Presence and Embodiment Layer,"14, 31",Presence Objects; Embodiment Bindings; Audience Context; Presence Handoffs; modality availability,10,12,10,Final
+CMP-13,Capability Registry,15,Capability Contracts; Provider Records; Adapter Records; qualification and health metadata,10,12,10,Final
+CMP-14,Action and Transaction Engine,16,Action Records; Transaction Records; Commit Barrier decisions; idempotency records; rollback and compensation state,12,12,10,Final
+CMP-15,Verification Service,"17, 35",Verification Plans; Verification Results; claim-evaluation state; fidelity and confidence records,11,12,10,Final
+CMP-16,Simulation and Digital Twin Platform,17,Simulation Runs; Digital Twin State; fidelity models; scenario and isolation records,11,12,10,Final
+CMP-17,Trust Service,18,Trust Assessments; trust dimensions; confidence and expiry metadata; trust-policy inputs,9,12,10,Final
+CMP-18,Evidence Service,"18, 25",Evidence Objects; custody chains; admission decisions; signature and verification state,10,12,10,Final
+CMP-19,Privacy and Data Governance Service,19,Data Classification Records; purpose bindings; retention classes; consent and authority records; deletion obligations,12,12,10,Final
+CMP-20,Constitutional Firewall,"20, 21",firewall decisions; cross-domain session state; Treaty enforcement cache; exchange audit bindings; cross-domain incident records,10,12,10,Final
+CMP-21,Treaty Manager,21,"Treaty Records; proposal versions; Owner Authorization Ceremony bindings; activation, suspension, and revocation state",12,12,10,Final
+CMP-22,Event and Messaging Platform,"22, 23",Event Journal; message envelopes; deduplication records; delivery and subscription state; Thread Delivery Records; Transactional Outbox publication state,11,12,10,Final
+CMP-23,State and Persistence Platform,24,storage engines; commit logs; snapshots; replication metadata; projection and migration state,12,12,10,Final
+CMP-24,Observability and Audit Platform,25,Audit Ledger; Audit Records; telemetry pipelines; metric and trace stores; alert state,11,12,10,Final
+CMP-25,Runtime Supervisor,"02, 27, 29, 34",Current Runtime Mode; Service Instance Records; Desired and Observed State; health and readiness state; resource assignments; quarantine state,12,12,10,Final
+CMP-26,Recovery Coordinator,"27, 28",Recovery Cases; recovery plans; reconciliation decisions; restoration progress; RPO and RTO evidence,12,12,10,Final
+CMP-27,Human Interaction Layer,"14, 31",Interaction Sessions; turn and modality state; clarification and confirmation records; accessibility preferences,11,12,10,Final
+CMP-28,Self-Model and Constitutional Mirror,"30, 33",Self-Model Records; Constitutional Mirror versions; capability and limitation projections; conformance summaries,9,12,10,Final
+CMP-29,Outcome and Success Evaluation Service,32,Outcome Objects; success evaluations; side-effect records; review and learning referrals,10,12,10,Final

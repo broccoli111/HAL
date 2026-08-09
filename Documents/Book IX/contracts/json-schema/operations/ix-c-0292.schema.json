@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hal:book-ix:ix-c-0292:1.0",
+  "title": "IX-C-0292 Get Declared Limitation Envelope",
+  "allOf": [
+    {
+      "$ref": "../hal-envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "contract_id": {
+          "const": "IX-C-0292"
+        },
+        "payload": {
+          "type": "object",
+          "required": [
+            "operation",
+            "query",
+            "projection",
+            "consistency"
+          ],
+          "properties": {
+            "operation": {
+              "const": "Get Declared Limitation"
+            },
+            "query": {
+              "type": "object"
+            },
+            "projection": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            },
+            "consistency": {
+              "enum": [
+                "AUTHORITATIVE",
+                "SNAPSHOT",
+                "BOUNDED_STALE"
+              ]
+            },
+            "cursor": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    }
+  ]
+}

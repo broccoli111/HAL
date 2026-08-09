@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hal:book-ix:authority-context:1.0",
+  "title": "HAL Authority Context",
+  "type": "object",
+  "required": [
+    "principal_id",
+    "purpose",
+    "decision_id",
+    "issued_at",
+    "expires_at",
+    "integrity"
+  ],
+  "properties": {
+    "principal_id": {
+      "type": "string"
+    },
+    "delegation_chain": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 32
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decision_id": {
+      "type": "string"
+    },
+    "policy_version": {
+      "type": "string"
+    },
+    "constraints": {
+      "type": "object"
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "integrity": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

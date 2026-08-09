@@ -1,0 +1,155 @@
+{
+  "version": "1.0",
+  "alerts": [
+    {
+      "alert_id": "ALT-001",
+      "condition": "Constitutional readiness unknown",
+      "severity": "Critical",
+      "immediate_action": "Immediately stop protected admission"
+    },
+    {
+      "alert_id": "ALT-002",
+      "condition": "Authority decision stale or unavailable",
+      "severity": "Critical",
+      "immediate_action": "Fail closed and enter authority-safe degradation"
+    },
+    {
+      "alert_id": "ALT-003",
+      "condition": "Certificate suspended, revoked, expired, or unverifiable",
+      "severity": "Critical",
+      "immediate_action": "Deny scoped reliance"
+    },
+    {
+      "alert_id": "ALT-004",
+      "condition": "Treaty inactive or drifted during exchange",
+      "severity": "Critical",
+      "immediate_action": "Stop exchange and reconcile in-flight work"
+    },
+    {
+      "alert_id": "ALT-005",
+      "condition": "Constitutional Firewall bypass or rejection spike",
+      "severity": "Critical",
+      "immediate_action": "Contain external paths"
+    },
+    {
+      "alert_id": "ALT-006",
+      "condition": "Identity continuity conflict",
+      "severity": "Critical",
+      "immediate_action": "Fence competing identity/state writers"
+    },
+    {
+      "alert_id": "ALT-007",
+      "condition": "Reality Boundary outcome indeterminate",
+      "severity": "Critical",
+      "immediate_action": "Block retry and reconcile reality"
+    },
+    {
+      "alert_id": "ALT-008",
+      "condition": "Audit/evidence integrity failure",
+      "severity": "Critical",
+      "immediate_action": "Preserve sources and suspend dependent reliance"
+    },
+    {
+      "alert_id": "ALT-009",
+      "condition": "Unauthorized protected-state mutation",
+      "severity": "Critical",
+      "immediate_action": "Fence writer and declare incident"
+    },
+    {
+      "alert_id": "ALT-010",
+      "condition": "Backup restore verification failure",
+      "severity": "High",
+      "immediate_action": "Quarantine restore and investigate"
+    },
+    {
+      "alert_id": "ALT-011",
+      "condition": "Replication lag exceeds recovery objective",
+      "severity": "High",
+      "immediate_action": "Throttle risk and escalate"
+    },
+    {
+      "alert_id": "ALT-012",
+      "condition": "Queue age exceeds deadline budget",
+      "severity": "High",
+      "immediate_action": "Apply backpressure/degradation"
+    },
+    {
+      "alert_id": "ALT-013",
+      "condition": "Dead-letter growth",
+      "severity": "High",
+      "immediate_action": "Contain producer/consumer path"
+    },
+    {
+      "alert_id": "ALT-014",
+      "condition": "Contract incompatibility",
+      "severity": "High",
+      "immediate_action": "Reject version and route only approved adapter"
+    },
+    {
+      "alert_id": "ALT-015",
+      "condition": "Configuration drift",
+      "severity": "High",
+      "immediate_action": "Freeze normalization and classify"
+    },
+    {
+      "alert_id": "ALT-016",
+      "condition": "Secret exposure signal",
+      "severity": "Critical",
+      "immediate_action": "Revoke, rotate, contain, preserve evidence"
+    },
+    {
+      "alert_id": "ALT-017",
+      "condition": "Certificate nearing expiry",
+      "severity": "High",
+      "immediate_action": "Initiate verified rotation"
+    },
+    {
+      "alert_id": "ALT-018",
+      "condition": "Capacity saturation",
+      "severity": "High",
+      "immediate_action": "Bound admission and scale safely"
+    },
+    {
+      "alert_id": "ALT-019",
+      "condition": "Recovery objective threatened",
+      "severity": "High",
+      "immediate_action": "Activate continuity plan"
+    },
+    {
+      "alert_id": "ALT-020",
+      "condition": "Privacy retention breach risk",
+      "severity": "High",
+      "immediate_action": "Hold processing and notify privacy lead"
+    },
+    {
+      "alert_id": "ALT-021",
+      "condition": "Telemetry freshness unknown",
+      "severity": "High",
+      "immediate_action": "Mark health unknown"
+    },
+    {
+      "alert_id": "ALT-022",
+      "condition": "Canary harm threshold exceeded",
+      "severity": "Critical",
+      "immediate_action": "Stop and regress verification rung"
+    },
+    {
+      "alert_id": "ALT-023",
+      "condition": "Migration reconciliation mismatch",
+      "severity": "Critical",
+      "immediate_action": "Abort cutover and preserve source authority"
+    },
+    {
+      "alert_id": "ALT-024",
+      "condition": "Temporary access nearing expiry",
+      "severity": "High",
+      "immediate_action": "Revoke unless explicitly reapproved"
+    },
+    {
+      "alert_id": "ALT-025",
+      "condition": "Corrective action overdue",
+      "severity": "High",
+      "immediate_action": "Escalate to accountable owner"
+    }
+  ]
+}

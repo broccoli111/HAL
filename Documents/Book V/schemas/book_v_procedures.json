@@ -1,0 +1,1049 @@
+{
+  "version": "1.0",
+  "procedures": [
+    {
+      "runbook_id": "RB-01",
+      "chapter": "01",
+      "title": "Authority, Environments, Roles, and Operational Governance",
+      "owner": "Operations Manager",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Pre-authorize",
+          "action": "Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment."
+        },
+        {
+          "step": 2,
+          "name": "Baseline",
+          "action": "Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions."
+        },
+        {
+          "step": 3,
+          "name": "Validate inputs",
+          "action": "Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state."
+        },
+        {
+          "step": 4,
+          "name": "Establish safety",
+          "action": "Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions."
+        },
+        {
+          "step": 5,
+          "name": "Execute",
+          "action": "Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest."
+        },
+        {
+          "step": 6,
+          "name": "Observe",
+          "action": "Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds."
+        },
+        {
+          "step": 7,
+          "name": "Decide",
+          "action": "Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery."
+        },
+        {
+          "step": 8,
+          "name": "Reconcile",
+          "action": "Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality."
+        },
+        {
+          "step": 9,
+          "name": "Verify",
+          "action": "Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk."
+        },
+        {
+          "step": 10,
+          "name": "Close",
+          "action": "Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority."
+        }
+      ]
+    },
+    {
+      "runbook_id": "RB-02",
+      "chapter": "02",
+      "title": "Installation, Bootstrap, Startup, Shutdown, and Runtime Modes",
+      "owner": "Runtime Operator",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Pre-authorize",
+          "action": "Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment."
+        },
+        {
+          "step": 2,
+          "name": "Baseline",
+          "action": "Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions."
+        },
+        {
+          "step": 3,
+          "name": "Validate inputs",
+          "action": "Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state."
+        },
+        {
+          "step": 4,
+          "name": "Establish safety",
+          "action": "Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions."
+        },
+        {
+          "step": 5,
+          "name": "Execute",
+          "action": "Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest."
+        },
+        {
+          "step": 6,
+          "name": "Observe",
+          "action": "Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds."
+        },
+        {
+          "step": 7,
+          "name": "Decide",
+          "action": "Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery."
+        },
+        {
+          "step": 8,
+          "name": "Reconcile",
+          "action": "Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality."
+        },
+        {
+          "step": 9,
+          "name": "Verify",
+          "action": "Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk."
+        },
+        {
+          "step": 10,
+          "name": "Close",
+          "action": "Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority."
+        }
+      ]
+    },
+    {
+      "runbook_id": "RB-03",
+      "chapter": "03",
+      "title": "Configuration, Credentials, Secrets, Certificates, and Keys",
+      "owner": "Platform Operator",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Pre-authorize",
+          "action": "Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment."
+        },
+        {
+          "step": 2,
+          "name": "Baseline",
+          "action": "Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions."
+        },
+        {
+          "step": 3,
+          "name": "Validate inputs",
+          "action": "Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state."
+        },
+        {
+          "step": 4,
+          "name": "Establish safety",
+          "action": "Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions."
+        },
+        {
+          "step": 5,
+          "name": "Execute",
+          "action": "Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest."
+        },
+        {
+          "step": 6,
+          "name": "Observe",
+          "action": "Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds."
+        },
+        {
+          "step": 7,
+          "name": "Decide",
+          "action": "Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery."
+        },
+        {
+          "step": 8,
+          "name": "Reconcile",
+          "action": "Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality."
+        },
+        {
+          "step": 9,
+          "name": "Verify",
+          "action": "Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk."
+        },
+        {
+          "step": 10,
+          "name": "Close",
+          "action": "Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority."
+        }
+      ]
+    },
+    {
+      "runbook_id": "RB-04",
+      "chapter": "04",
+      "title": "Deployment, Release Admission, Change Windows, and Rollout",
+      "owner": "Release Manager",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Pre-authorize",
+          "action": "Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment."
+        },
+        {
+          "step": 2,
+          "name": "Baseline",
+          "action": "Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions."
+        },
+        {
+          "step": 3,
+          "name": "Validate inputs",
+          "action": "Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state."
+        },
+        {
+          "step": 4,
+          "name": "Establish safety",
+          "action": "Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions."
+        },
+        {
+          "step": 5,
+          "name": "Execute",
+          "action": "Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest."
+        },
+        {
+          "step": 6,
+          "name": "Observe",
+          "action": "Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds."
+        },
+        {
+          "step": 7,
+          "name": "Decide",
+          "action": "Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery."
+        },
+        {
+          "step": 8,
+          "name": "Reconcile",
+          "action": "Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality."
+        },
+        {
+          "step": 9,
+          "name": "Verify",
+          "action": "Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk."
+        },
+        {
+          "step": 10,
+          "name": "Close",
+          "action": "Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority."
+        }
+      ]
+    },
+    {
+      "runbook_id": "RB-05",
+      "chapter": "05",
+      "title": "Cluster, Workload, Messaging, State, and Persistence Operations",
+      "owner": "Platform Operator",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Pre-authorize",
+          "action": "Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment."
+        },
+        {
+          "step": 2,
+          "name": "Baseline",
+          "action": "Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions."
+        },
+        {
+          "step": 3,
+          "name": "Validate inputs",
+          "action": "Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state."
+        },
+        {
+          "step": 4,
+          "name": "Establish safety",
+          "action": "Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions."
+        },
+        {
+          "step": 5,
+          "name": "Execute",
+          "action": "Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest."
+        },
+        {
+          "step": 6,
+          "name": "Observe",
+          "action": "Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds."
+        },
+        {
+          "step": 7,
+          "name": "Decide",
+          "action": "Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery."
+        },
+        {
+          "step": 8,
+          "name": "Reconcile",
+          "action": "Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality."
+        },
+        {
+          "step": 9,
+          "name": "Verify",
+          "action": "Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk."
+        },
+        {
+          "step": 10,
+          "name": "Close",
+          "action": "Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority."
+        }
+      ]
+    },
+    {
+      "runbook_id": "RB-06",
+      "chapter": "06",
+      "title": "Capacity, Scaling, Performance, and Resource Governance",
+      "owner": "Capacity Manager",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Pre-authorize",
+          "action": "Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment."
+        },
+        {
+          "step": 2,
+          "name": "Baseline",
+          "action": "Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions."
+        },
+        {
+          "step": 3,
+          "name": "Validate inputs",
+          "action": "Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state."
+        },
+        {
+          "step": 4,
+          "name": "Establish safety",
+          "action": "Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions."
+        },
+        {
+          "step": 5,
+          "name": "Execute",
+          "action": "Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest."
+        },
+        {
+          "step": 6,
+          "name": "Observe",
+          "action": "Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds."
+        },
+        {
+          "step": 7,
+          "name": "Decide",
+          "action": "Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery."
+        },
+        {
+          "step": 8,
+          "name": "Reconcile",
+          "action": "Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality."
+        },
+        {
+          "step": 9,
+          "name": "Verify",
+          "action": "Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk."
+        },
+        {
+          "step": 10,
+          "name": "Close",
+          "action": "Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority."
+        }
+      ]
+    },
+    {
+      "runbook_id": "RB-07",
+      "chapter": "07",
+      "title": "Monitoring, Alerting, Health, Evidence, and Operational Records",
+      "owner": "Observability Lead",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Pre-authorize",
+          "action": "Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment."
+        },
+        {
+          "step": 2,
+          "name": "Baseline",
+          "action": "Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions."
+        },
+        {
+          "step": 3,
+          "name": "Validate inputs",
+          "action": "Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state."
+        },
+        {
+          "step": 4,
+          "name": "Establish safety",
+          "action": "Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions."
+        },
+        {
+          "step": 5,
+          "name": "Execute",
+          "action": "Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest."
+        },
+        {
+          "step": 6,
+          "name": "Observe",
+          "action": "Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds."
+        },
+        {
+          "step": 7,
+          "name": "Decide",
+          "action": "Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery."
+        },
+        {
+          "step": 8,
+          "name": "Reconcile",
+          "action": "Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality."
+        },
+        {
+          "step": 9,
+          "name": "Verify",
+          "action": "Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk."
+        },
+        {
+          "step": 10,
+          "name": "Close",
+          "action": "Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority."
+        }
+      ]
+    },
+    {
+      "runbook_id": "RB-08",
+      "chapter": "08",
+      "title": "Incident Classification, Command, Response, and Escalation",
+      "owner": "Incident Commander",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Pre-authorize",
+          "action": "Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment."
+        },
+        {
+          "step": 2,
+          "name": "Baseline",
+          "action": "Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions."
+        },
+        {
+          "step": 3,
+          "name": "Validate inputs",
+          "action": "Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state."
+        },
+        {
+          "step": 4,
+          "name": "Establish safety",
+          "action": "Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions."
+        },
+        {
+          "step": 5,
+          "name": "Execute",
+          "action": "Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest."
+        },
+        {
+          "step": 6,
+          "name": "Observe",
+          "action": "Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds."
+        },
+        {
+          "step": 7,
+          "name": "Decide",
+          "action": "Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery."
+        },
+        {
+          "step": 8,
+          "name": "Reconcile",
+          "action": "Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality."
+        },
+        {
+          "step": 9,
+          "name": "Verify",
+          "action": "Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk."
+        },
+        {
+          "step": 10,
+          "name": "Close",
+          "action": "Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority."
+        }
+      ]
+    },
+    {
+      "runbook_id": "RB-09",
+      "chapter": "09",
+      "title": "Backup, Restoration, and Data-Recovery Operations",
+      "owner": "Recovery Operator",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Pre-authorize",
+          "action": "Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment."
+        },
+        {
+          "step": 2,
+          "name": "Baseline",
+          "action": "Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions."
+        },
+        {
+          "step": 3,
+          "name": "Validate inputs",
+          "action": "Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state."
+        },
+        {
+          "step": 4,
+          "name": "Establish safety",
+          "action": "Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions."
+        },
+        {
+          "step": 5,
+          "name": "Execute",
+          "action": "Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest."
+        },
+        {
+          "step": 6,
+          "name": "Observe",
+          "action": "Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds."
+        },
+        {
+          "step": 7,
+          "name": "Decide",
+          "action": "Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery."
+        },
+        {
+          "step": 8,
+          "name": "Reconcile",
+          "action": "Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality."
+        },
+        {
+          "step": 9,
+          "name": "Verify",
+          "action": "Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk."
+        },
+        {
+          "step": 10,
+          "name": "Close",
+          "action": "Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority."
+        }
+      ]
+    },
+    {
+      "runbook_id": "RB-10",
+      "chapter": "10",
+      "title": "Disaster Recovery, Business Continuity, and Identity Continuity",
+      "owner": "Recovery Coordinator",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Pre-authorize",
+          "action": "Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment."
+        },
+        {
+          "step": 2,
+          "name": "Baseline",
+          "action": "Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions."
+        },
+        {
+          "step": 3,
+          "name": "Validate inputs",
+          "action": "Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state."
+        },
+        {
+          "step": 4,
+          "name": "Establish safety",
+          "action": "Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions."
+        },
+        {
+          "step": 5,
+          "name": "Execute",
+          "action": "Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest."
+        },
+        {
+          "step": 6,
+          "name": "Observe",
+          "action": "Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds."
+        },
+        {
+          "step": 7,
+          "name": "Decide",
+          "action": "Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery."
+        },
+        {
+          "step": 8,
+          "name": "Reconcile",
+          "action": "Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality."
+        },
+        {
+          "step": 9,
+          "name": "Verify",
+          "action": "Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk."
+        },
+        {
+          "step": 10,
+          "name": "Close",
+          "action": "Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority."
+        }
+      ]
+    },
+    {
+      "runbook_id": "RB-11",
+      "chapter": "11",
+      "title": "Maintenance, Upgrade, Patch, Deprecation, and Removal",
+      "owner": "Service Owner",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Pre-authorize",
+          "action": "Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment."
+        },
+        {
+          "step": 2,
+          "name": "Baseline",
+          "action": "Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions."
+        },
+        {
+          "step": 3,
+          "name": "Validate inputs",
+          "action": "Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state."
+        },
+        {
+          "step": 4,
+          "name": "Establish safety",
+          "action": "Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions."
+        },
+        {
+          "step": 5,
+          "name": "Execute",
+          "action": "Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest."
+        },
+        {
+          "step": 6,
+          "name": "Observe",
+          "action": "Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds."
+        },
+        {
+          "step": 7,
+          "name": "Decide",
+          "action": "Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery."
+        },
+        {
+          "step": 8,
+          "name": "Reconcile",
+          "action": "Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality."
+        },
+        {
+          "step": 9,
+          "name": "Verify",
+          "action": "Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk."
+        },
+        {
+          "step": 10,
+          "name": "Close",
+          "action": "Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority."
+        }
+      ]
+    },
+    {
+      "runbook_id": "RB-12",
+      "chapter": "12",
+      "title": "Database, State, and Contract Migration Operations",
+      "owner": "Migration Lead",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Pre-authorize",
+          "action": "Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment."
+        },
+        {
+          "step": 2,
+          "name": "Baseline",
+          "action": "Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions."
+        },
+        {
+          "step": 3,
+          "name": "Validate inputs",
+          "action": "Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state."
+        },
+        {
+          "step": 4,
+          "name": "Establish safety",
+          "action": "Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions."
+        },
+        {
+          "step": 5,
+          "name": "Execute",
+          "action": "Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest."
+        },
+        {
+          "step": 6,
+          "name": "Observe",
+          "action": "Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds."
+        },
+        {
+          "step": 7,
+          "name": "Decide",
+          "action": "Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery."
+        },
+        {
+          "step": 8,
+          "name": "Reconcile",
+          "action": "Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality."
+        },
+        {
+          "step": 9,
+          "name": "Verify",
+          "action": "Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk."
+        },
+        {
+          "step": 10,
+          "name": "Close",
+          "action": "Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority."
+        }
+      ]
+    },
+    {
+      "runbook_id": "RB-13",
+      "chapter": "13",
+      "title": "External Domains, Constitutional Firewall, and Treaty Operations",
+      "owner": "Trust Operator",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Pre-authorize",
+          "action": "Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment."
+        },
+        {
+          "step": 2,
+          "name": "Baseline",
+          "action": "Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions."
+        },
+        {
+          "step": 3,
+          "name": "Validate inputs",
+          "action": "Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state."
+        },
+        {
+          "step": 4,
+          "name": "Establish safety",
+          "action": "Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions."
+        },
+        {
+          "step": 5,
+          "name": "Execute",
+          "action": "Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest."
+        },
+        {
+          "step": 6,
+          "name": "Observe",
+          "action": "Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds."
+        },
+        {
+          "step": 7,
+          "name": "Decide",
+          "action": "Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery."
+        },
+        {
+          "step": 8,
+          "name": "Reconcile",
+          "action": "Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality."
+        },
+        {
+          "step": 9,
+          "name": "Verify",
+          "action": "Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk."
+        },
+        {
+          "step": 10,
+          "name": "Close",
+          "action": "Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority."
+        }
+      ]
+    },
+    {
+      "runbook_id": "RB-14",
+      "chapter": "14",
+      "title": "Degraded Modes, Failure Containment, and Service Restoration",
+      "owner": "Runtime Operator",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Pre-authorize",
+          "action": "Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment."
+        },
+        {
+          "step": 2,
+          "name": "Baseline",
+          "action": "Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions."
+        },
+        {
+          "step": 3,
+          "name": "Validate inputs",
+          "action": "Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state."
+        },
+        {
+          "step": 4,
+          "name": "Establish safety",
+          "action": "Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions."
+        },
+        {
+          "step": 5,
+          "name": "Execute",
+          "action": "Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest."
+        },
+        {
+          "step": 6,
+          "name": "Observe",
+          "action": "Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds."
+        },
+        {
+          "step": 7,
+          "name": "Decide",
+          "action": "Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery."
+        },
+        {
+          "step": 8,
+          "name": "Reconcile",
+          "action": "Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality."
+        },
+        {
+          "step": 9,
+          "name": "Verify",
+          "action": "Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk."
+        },
+        {
+          "step": 10,
+          "name": "Close",
+          "action": "Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority."
+        }
+      ]
+    },
+    {
+      "runbook_id": "RB-15",
+      "chapter": "15",
+      "title": "Emergency Changes and Constitutional Shutdown",
+      "owner": "Incident Commander",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Pre-authorize",
+          "action": "Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment."
+        },
+        {
+          "step": 2,
+          "name": "Baseline",
+          "action": "Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions."
+        },
+        {
+          "step": 3,
+          "name": "Validate inputs",
+          "action": "Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state."
+        },
+        {
+          "step": 4,
+          "name": "Establish safety",
+          "action": "Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions."
+        },
+        {
+          "step": 5,
+          "name": "Execute",
+          "action": "Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest."
+        },
+        {
+          "step": 6,
+          "name": "Observe",
+          "action": "Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds."
+        },
+        {
+          "step": 7,
+          "name": "Decide",
+          "action": "Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery."
+        },
+        {
+          "step": 8,
+          "name": "Reconcile",
+          "action": "Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality."
+        },
+        {
+          "step": 9,
+          "name": "Verify",
+          "action": "Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk."
+        },
+        {
+          "step": 10,
+          "name": "Close",
+          "action": "Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority."
+        }
+      ]
+    },
+    {
+      "runbook_id": "RB-16",
+      "chapter": "16",
+      "title": "Post-Incident Review, Corrective Action, and Recertification",
+      "owner": "Problem Manager",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Pre-authorize",
+          "action": "Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment."
+        },
+        {
+          "step": 2,
+          "name": "Baseline",
+          "action": "Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions."
+        },
+        {
+          "step": 3,
+          "name": "Validate inputs",
+          "action": "Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state."
+        },
+        {
+          "step": 4,
+          "name": "Establish safety",
+          "action": "Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions."
+        },
+        {
+          "step": 5,
+          "name": "Execute",
+          "action": "Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest."
+        },
+        {
+          "step": 6,
+          "name": "Observe",
+          "action": "Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds."
+        },
+        {
+          "step": 7,
+          "name": "Decide",
+          "action": "Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery."
+        },
+        {
+          "step": 8,
+          "name": "Reconcile",
+          "action": "Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality."
+        },
+        {
+          "step": 9,
+          "name": "Verify",
+          "action": "Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk."
+        },
+        {
+          "step": 10,
+          "name": "Close",
+          "action": "Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority."
+        }
+      ]
+    },
+    {
+      "runbook_id": "RB-17",
+      "chapter": "17",
+      "title": "Operational Evidence Retention, Audit, and Reporting",
+      "owner": "Evidence Custodian",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Pre-authorize",
+          "action": "Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment."
+        },
+        {
+          "step": 2,
+          "name": "Baseline",
+          "action": "Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions."
+        },
+        {
+          "step": 3,
+          "name": "Validate inputs",
+          "action": "Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state."
+        },
+        {
+          "step": 4,
+          "name": "Establish safety",
+          "action": "Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions."
+        },
+        {
+          "step": 5,
+          "name": "Execute",
+          "action": "Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest."
+        },
+        {
+          "step": 6,
+          "name": "Observe",
+          "action": "Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds."
+        },
+        {
+          "step": 7,
+          "name": "Decide",
+          "action": "Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery."
+        },
+        {
+          "step": 8,
+          "name": "Reconcile",
+          "action": "Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality."
+        },
+        {
+          "step": 9,
+          "name": "Verify",
+          "action": "Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk."
+        },
+        {
+          "step": 10,
+          "name": "Close",
+          "action": "Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority."
+        }
+      ]
+    },
+    {
+      "runbook_id": "RB-18",
+      "chapter": "18",
+      "title": "Operational Readiness, Verification, Certification, and Continuous Assurance",
+      "owner": "Operations Assurance Lead",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Pre-authorize",
+          "action": "Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment."
+        },
+        {
+          "step": 2,
+          "name": "Baseline",
+          "action": "Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions."
+        },
+        {
+          "step": 3,
+          "name": "Validate inputs",
+          "action": "Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state."
+        },
+        {
+          "step": 4,
+          "name": "Establish safety",
+          "action": "Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions."
+        },
+        {
+          "step": 5,
+          "name": "Execute",
+          "action": "Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest."
+        },
+        {
+          "step": 6,
+          "name": "Observe",
+          "action": "Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds."
+        },
+        {
+          "step": 7,
+          "name": "Decide",
+          "action": "Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery."
+        },
+        {
+          "step": 8,
+          "name": "Reconcile",
+          "action": "Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality."
+        },
+        {
+          "step": 9,
+          "name": "Verify",
+          "action": "Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk."
+        },
+        {
+          "step": 10,
+          "name": "Close",
+          "action": "Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority."
+        }
+      ]
+    }
+  ]
+}

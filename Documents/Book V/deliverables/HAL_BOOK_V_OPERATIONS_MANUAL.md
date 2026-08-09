@@ -1,0 +1,1449 @@
+# HAL Book V — Operations Manual
+
+
+
+**Version:** 1.0  
+
+**Status:** CERTIFIED FINAL  
+
+**Date:** 2026-07-27
+
+
+
+## Authority Statement
+
+Book I is supreme. Books II-IV define architecture, engineering, and components. Book IX defines contracts. Book VIII governs verification and certification. Book VI governs the continuing security, privacy, and trust program. Book X controls terminology. Book V defines repeatable operations and creates none of those authorities.
+
+
+
+## Revision History
+
+| Version | Date | Status |
+
+|---|---|---|
+
+| 1.0 | 2026-07-27 | Certified final after Books VI, VIII, and IX reconciliation |
+
+
+
+## Contents
+
+1. Authority, Environments, Roles, and Operational Governance
+
+2. Installation, Bootstrap, Startup, Shutdown, and Runtime Modes
+
+3. Configuration, Credentials, Secrets, Certificates, and Keys
+
+4. Deployment, Release Admission, Change Windows, and Rollout
+
+5. Cluster, Workload, Messaging, State, and Persistence Operations
+
+6. Capacity, Scaling, Performance, and Resource Governance
+
+7. Monitoring, Alerting, Health, Evidence, and Operational Records
+
+8. Incident Classification, Command, Response, and Escalation
+
+9. Backup, Restoration, and Data-Recovery Operations
+
+10. Disaster Recovery, Business Continuity, and Identity Continuity
+
+11. Maintenance, Upgrade, Patch, Deprecation, and Removal
+
+12. Database, State, and Contract Migration Operations
+
+13. External Domains, Constitutional Firewall, and Treaty Operations
+
+14. Degraded Modes, Failure Containment, and Service Restoration
+
+15. Emergency Changes and Constitutional Shutdown
+
+16. Post-Incident Review, Corrective Action, and Recertification
+
+17. Operational Evidence Retention, Audit, and Reporting
+
+18. Operational Readiness, Verification, Certification, and Continuous Assurance
+
+
+
+## Conformance model
+
+A procedure conforms only when its preconditions, ordered actions, stop conditions, evidence, recovery, verification, and approvals pass. Critical control failure blocks the action or continued reliance. Higher-order requirements cannot be waived.
+
+
+
+# Chapter 1 — Authority, Environments, Roles, and Operational Governance
+
+**Status:** FINAL  
+**Responsible role:** Operations Manager  
+**Owner Review items:** None
+
+## Purpose
+Establish controlled operational authority, environment classes, role separation, handoffs, evidence, and stop-work rules.
+
+## Scope
+This chapter applies across development, test, staging, recovery, degraded environments, and every declared live-effect environment and approved Reality Boundary stage when the described operational condition exists.
+
+## Authority and prerequisites
+Books I-IV, IX, and X govern. Book VIII controls verification and certification. Book VI controls the continuing security, privacy, and trust program after reconciliation. Required prerequisites are authenticated operator identity, explicit Authority, exact target identification, an approved change or incident record, current certification, evidence capture, and a tested containment or recovery path.
+
+## Normative controls
+
+### OPS-GOV-01-01 — Every operational action
+
+Every operational action MUST identify the accountable role, acting identity, authority source, scope, environment, and evidence record.
+
+**Applicability:** Authority, Environments, Roles, and Operational Governance. **Responsible:** Operations Manager. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-GOV-01-02 — Duties in the declared live-effect environment and approved Reality Boun
+
+Duties in the declared live-effect environment and approved Reality Boundary stage MUST separate request, approval, execution, and verification for protected or high-risk changes.
+
+**Applicability:** Authority, Environments, Roles, and Operational Governance. **Responsible:** Operations Manager. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-GOV-01-03 — Operators
+
+Operators MUST stop when identity, authority, certification, Treaty, integrity, target, or real-world state is uncertain.
+
+**Applicability:** Authority, Environments, Roles, and Operational Governance. **Responsible:** Operations Manager. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-GOV-01-04 — Operational exceptions
+
+Operational exceptions MUST be explicit, risk-assessed, compensating, approved, expiring, reviewable, and automatically invalid after expiry.
+
+**Applicability:** Authority, Environments, Roles, and Operational Governance. **Responsible:** Operations Manager. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+## Mandatory procedure
+
+1. **Pre-authorize.** Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment.
+2. **Baseline.** Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions.
+3. **Validate inputs.** Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state.
+4. **Establish safety.** Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions.
+5. **Execute.** Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest.
+6. **Observe.** Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds.
+7. **Decide.** Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery.
+8. **Reconcile.** Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality.
+9. **Verify.** Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk.
+10. **Close.** Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority.
+
+## Stop conditions
+
+Stop immediately on identity or authority uncertainty, certificate suspension/revocation/expiry, source or target mismatch, integrity failure, unapproved Treaty or Firewall rejection, unexpected protected-state mutation, unbounded queue/resource growth, privacy exposure, ambiguous external effect, failed invariant, or loss of evidence capture.
+
+## Rollback, forward recovery, and escalation
+
+Use rollback only when its preconditions are proven and it cannot repeat or hide a committed Reality Boundary effect. Otherwise contain, preserve evidence, reconcile actual state, and use the approved forward-recovery path. Escalate Critical conditions immediately to the Incident Commander, Security Incident Commander, Certification Authority, and constitutional steward as applicable.
+
+## Evidence and completion criteria
+
+Completion requires reconciled authoritative state and external effects, satisfied health and outcome gates, closed temporary access, current certification disposition, retained evidence manifest, independent verifier approval, communication to affected Principals, humans, and stakeholders when material, and recorded follow-up ownership.
+
+## Examples and anti-patterns
+
+**Example:** the operator halts a rollout when authority-decision latency rises and evidence gaps appear, preserves the canary, and requests targeted reverification. **Anti-pattern:** declaring success because processes are live while certification is suspended or state remains unreconciled.
+
+## Traceability and review
+
+Constitutional, architecture, engineering, interface, verification, semantic, security/privacy/trust, reliability, and practicability reviews: PASS after final Books VI, VIII, and IX reconciliation. This chapter does not redefine components, contracts, certification authority, or canonical meaning.
+
+
+# Chapter 2 — Installation, Bootstrap, Startup, Shutdown, and Runtime Modes
+
+**Status:** FINAL  
+**Responsible role:** Runtime Operator  
+**Owner Review items:** None
+
+## Purpose
+Operate installation and lifecycle transitions without bypassing identity, authority, certification, or constitutional admission.
+
+## Scope
+This chapter applies across development, test, staging, recovery, degraded environments, and every declared live-effect environment and approved Reality Boundary stage when the described operational condition exists.
+
+## Authority and prerequisites
+Books I-IV, IX, and X govern. Book VIII controls verification and certification. Book VI controls the continuing security, privacy, and trust program after reconciliation. Required prerequisites are authenticated operator identity, explicit Authority, exact target identification, an approved change or incident record, current certification, evidence capture, and a tested containment or recovery path.
+
+## Normative controls
+
+### OPS-LIF-02-01 — Installation
+
+Installation MUST verify artifact signatures, provenance, compatibility, approved topology, secrets references, and environment classification before execution.
+
+**Applicability:** Installation, Bootstrap, Startup, Shutdown, and Runtime Modes. **Responsible:** Runtime Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-LIF-02-02 — Bootstrap
+
+Bootstrap MUST establish Constitutional Kernel, identity, authority, time, evidence, policy, and trust prerequisites before admitting ordinary workloads.
+
+**Applicability:** Installation, Bootstrap, Startup, Shutdown, and Runtime Modes. **Responsible:** Runtime Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-LIF-02-03 — Startup
+
+Startup MUST verify required dependencies, state integrity, contract compatibility, certification status, and an authorized runtime mode with declared entry criteria before traffic admission.
+
+**Applicability:** Installation, Bootstrap, Startup, Shutdown, and Runtime Modes. **Responsible:** Runtime Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-LIF-02-04 — Shutdown
+
+Shutdown MUST quiesce new work, reconcile in-flight effects, persist required evidence, preserve identity continuity, and verify bounded termination.
+
+**Applicability:** Installation, Bootstrap, Startup, Shutdown, and Runtime Modes. **Responsible:** Runtime Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+## Mandatory procedure
+
+1. **Pre-authorize.** Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment.
+2. **Baseline.** Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions.
+3. **Validate inputs.** Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state.
+4. **Establish safety.** Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions.
+5. **Execute.** Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest.
+6. **Observe.** Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds.
+7. **Decide.** Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery.
+8. **Reconcile.** Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality.
+9. **Verify.** Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk.
+10. **Close.** Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority.
+
+## Stop conditions
+
+Stop immediately on identity or authority uncertainty, certificate suspension/revocation/expiry, source or target mismatch, integrity failure, unapproved Treaty or Firewall rejection, unexpected protected-state mutation, unbounded queue/resource growth, privacy exposure, ambiguous external effect, failed invariant, or loss of evidence capture.
+
+## Rollback, forward recovery, and escalation
+
+Use rollback only when its preconditions are proven and it cannot repeat or hide a committed Reality Boundary effect. Otherwise contain, preserve evidence, reconcile actual state, and use the approved forward-recovery path. Escalate Critical conditions immediately to the Incident Commander, Security Incident Commander, Certification Authority, and constitutional steward as applicable.
+
+## Evidence and completion criteria
+
+Completion requires reconciled authoritative state and external effects, satisfied health and outcome gates, closed temporary access, current certification disposition, retained evidence manifest, independent verifier approval, communication to affected Principals, humans, and stakeholders when material, and recorded follow-up ownership.
+
+## Examples and anti-patterns
+
+**Example:** the operator halts a rollout when authority-decision latency rises and evidence gaps appear, preserves the canary, and requests targeted reverification. **Anti-pattern:** declaring success because processes are live while certification is suspended or state remains unreconciled.
+
+## Traceability and review
+
+Constitutional, architecture, engineering, interface, verification, semantic, security/privacy/trust, reliability, and practicability reviews: PASS after final Books VI, VIII, and IX reconciliation. This chapter does not redefine components, contracts, certification authority, or canonical meaning.
+
+
+# Chapter 3 — Configuration, Credentials, Secrets, Certificates, and Keys
+
+**Status:** FINAL  
+**Responsible role:** Platform Operator  
+**Owner Review items:** None
+
+## Purpose
+Control configuration and protected material through authorized, attributable, reversible, and tested procedures.
+
+## Scope
+This chapter applies across development, test, staging, recovery, degraded environments, and every declared live-effect environment and approved Reality Boundary stage when the described operational condition exists.
+
+## Authority and prerequisites
+Books I-IV, IX, and X govern. Book VIII controls verification and certification. Book VI controls the continuing security, privacy, and trust program after reconciliation. Required prerequisites are authenticated operator identity, explicit Authority, exact target identification, an approved change or incident record, current certification, evidence capture, and a tested containment or recovery path.
+
+## Normative controls
+
+### OPS-CFG-03-01 — Configuration
+
+Configuration MUST be versioned, reviewed, signed where required, environment-scoped, schema-valid, and attributable.
+
+**Applicability:** Configuration, Credentials, Secrets, Certificates, and Keys. **Responsible:** Platform Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-CFG-03-02 — Secrets
+
+Secrets MUST never appear in source, logs, tickets, chat, command history, images, metrics, or unrestricted evidence.
+
+**Applicability:** Configuration, Credentials, Secrets, Certificates, and Keys. **Responsible:** Platform Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-CFG-03-03 — Key and certificate operations
+
+Key and certificate operations MUST use dual control, approved algorithms, protected custody, rotation overlap, revocation, and verification.
+
+**Applicability:** Configuration, Credentials, Secrets, Certificates, and Keys. **Responsible:** Platform Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-CFG-03-04 — Configuration drift
+
+Configuration drift MUST trigger detection, classification, reconciliation, and certification-impact review before normalization.
+
+**Applicability:** Configuration, Credentials, Secrets, Certificates, and Keys. **Responsible:** Platform Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+## Mandatory procedure
+
+1. **Pre-authorize.** Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment.
+2. **Baseline.** Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions.
+3. **Validate inputs.** Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state.
+4. **Establish safety.** Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions.
+5. **Execute.** Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest.
+6. **Observe.** Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds.
+7. **Decide.** Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery.
+8. **Reconcile.** Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality.
+9. **Verify.** Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk.
+10. **Close.** Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority.
+
+## Stop conditions
+
+Stop immediately on identity or authority uncertainty, certificate suspension/revocation/expiry, source or target mismatch, integrity failure, unapproved Treaty or Firewall rejection, unexpected protected-state mutation, unbounded queue/resource growth, privacy exposure, ambiguous external effect, failed invariant, or loss of evidence capture.
+
+## Rollback, forward recovery, and escalation
+
+Use rollback only when its preconditions are proven and it cannot repeat or hide a committed Reality Boundary effect. Otherwise contain, preserve evidence, reconcile actual state, and use the approved forward-recovery path. Escalate Critical conditions immediately to the Incident Commander, Security Incident Commander, Certification Authority, and constitutional steward as applicable.
+
+## Evidence and completion criteria
+
+Completion requires reconciled authoritative state and external effects, satisfied health and outcome gates, closed temporary access, current certification disposition, retained evidence manifest, independent verifier approval, communication to affected Principals, humans, and stakeholders when material, and recorded follow-up ownership.
+
+## Examples and anti-patterns
+
+**Example:** the operator halts a rollout when authority-decision latency rises and evidence gaps appear, preserves the canary, and requests targeted reverification. **Anti-pattern:** declaring success because processes are live while certification is suspended or state remains unreconciled.
+
+## Traceability and review
+
+Constitutional, architecture, engineering, interface, verification, semantic, security/privacy/trust, reliability, and practicability reviews: PASS after final Books VI, VIII, and IX reconciliation. This chapter does not redefine components, contracts, certification authority, or canonical meaning.
+
+
+# Chapter 4 — Deployment, Release Admission, Change Windows, and Rollout
+
+**Status:** FINAL  
+**Responsible role:** Release Manager  
+**Owner Review items:** None
+
+## Purpose
+Admit only signed, compatible, certified artifacts and execute bounded progressive delivery.
+
+## Scope
+This chapter applies across development, test, staging, recovery, degraded environments, and every declared live-effect environment and approved Reality Boundary stage when the described operational condition exists.
+
+## Authority and prerequisites
+Books I-IV, IX, and X govern. Book VIII controls verification and certification. Book VI controls the continuing security, privacy, and trust program after reconciliation. Required prerequisites are authenticated operator identity, explicit Authority, exact target identification, an approved change or incident record, current certification, evidence capture, and a tested containment or recovery path.
+
+## Normative controls
+
+### OPS-DEP-04-01 — A release
+
+A release MUST be signed, provenance-verifiable, vulnerability-disposed, contract-compatible, migration-ready, rollback-capable, and currently certified.
+
+**Applicability:** Deployment, Release Admission, Change Windows, and Rollout. **Responsible:** Release Manager. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-DEP-04-02 — Deployment
+
+Deployment MUST use a declared change window, risk class, blast-radius bound, observation gates, stop conditions, and accountable commander.
+
+**Applicability:** Deployment, Release Admission, Change Windows, and Rollout. **Responsible:** Release Manager. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-DEP-04-03 — Traffic progression
+
+Traffic progression MUST follow the approved verification rung and MUST halt or regress when success, harm, authority, evidence, or health criteria fail.
+
+**Applicability:** Deployment, Release Admission, Change Windows, and Rollout. **Responsible:** Release Manager. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-DEP-04-04 — Deployment success
+
+Deployment success MUST require post-release validation of outcomes, invariants, authority paths, trust boundaries, privacy duties, and recovery readiness.
+
+**Applicability:** Deployment, Release Admission, Change Windows, and Rollout. **Responsible:** Release Manager. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+## Mandatory procedure
+
+1. **Pre-authorize.** Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment.
+2. **Baseline.** Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions.
+3. **Validate inputs.** Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state.
+4. **Establish safety.** Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions.
+5. **Execute.** Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest.
+6. **Observe.** Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds.
+7. **Decide.** Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery.
+8. **Reconcile.** Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality.
+9. **Verify.** Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk.
+10. **Close.** Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority.
+
+## Stop conditions
+
+Stop immediately on identity or authority uncertainty, certificate suspension/revocation/expiry, source or target mismatch, integrity failure, unapproved Treaty or Firewall rejection, unexpected protected-state mutation, unbounded queue/resource growth, privacy exposure, ambiguous external effect, failed invariant, or loss of evidence capture.
+
+## Rollback, forward recovery, and escalation
+
+Use rollback only when its preconditions are proven and it cannot repeat or hide a committed Reality Boundary effect. Otherwise contain, preserve evidence, reconcile actual state, and use the approved forward-recovery path. Escalate Critical conditions immediately to the Incident Commander, Security Incident Commander, Certification Authority, and constitutional steward as applicable.
+
+## Evidence and completion criteria
+
+Completion requires reconciled authoritative state and external effects, satisfied health and outcome gates, closed temporary access, current certification disposition, retained evidence manifest, independent verifier approval, communication to affected Principals, humans, and stakeholders when material, and recorded follow-up ownership.
+
+## Examples and anti-patterns
+
+**Example:** the operator halts a rollout when authority-decision latency rises and evidence gaps appear, preserves the canary, and requests targeted reverification. **Anti-pattern:** declaring success because processes are live while certification is suspended or state remains unreconciled.
+
+## Traceability and review
+
+Constitutional, architecture, engineering, interface, verification, semantic, security/privacy/trust, reliability, and practicability reviews: PASS after final Books VI, VIII, and IX reconciliation. This chapter does not redefine components, contracts, certification authority, or canonical meaning.
+
+
+# Chapter 5 — Cluster, Workload, Messaging, State, and Persistence Operations
+
+**Status:** FINAL  
+**Responsible role:** Platform Operator  
+**Owner Review items:** None
+
+## Purpose
+Operate distributed placement, messaging, state, and persistence while preserving Book IV ownership and Book IX contracts.
+
+## Scope
+This chapter applies across development, test, staging, recovery, degraded environments, and every declared live-effect environment and approved Reality Boundary stage when the described operational condition exists.
+
+## Authority and prerequisites
+Books I-IV, IX, and X govern. Book VIII controls verification and certification. Book VI controls the continuing security, privacy, and trust program after reconciliation. Required prerequisites are authenticated operator identity, explicit Authority, exact target identification, an approved change or incident record, current certification, evidence capture, and a tested containment or recovery path.
+
+## Normative controls
+
+### OPS-CLU-05-01 — Placement
+
+Placement MUST respect identity, trust zone, capability, data classification, resource, locality, resilience, and certification constraints.
+
+**Applicability:** Cluster, Workload, Messaging, State, and Persistence Operations. **Responsible:** Platform Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-CLU-05-02 — Operators
+
+Operators MUST NOT bypass the Event and Messaging Platform or State and Persistence Platform to mutate another component's authoritative state.
+
+**Applicability:** Cluster, Workload, Messaging, State, and Persistence Operations. **Responsible:** Platform Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-CLU-05-03 — Messaging operations
+
+Messaging operations MUST preserve Book IX contract, ordering, idempotency, deadline, retry, provenance, and dead-letter semantics.
+
+**Applicability:** Cluster, Workload, Messaging, State, and Persistence Operations. **Responsible:** Platform Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-CLU-05-04 — Cluster repair
+
+Cluster repair MUST prevent split-brain identity, authority, state ownership, duplicate Reality Boundary effects, and unverified member admission.
+
+**Applicability:** Cluster, Workload, Messaging, State, and Persistence Operations. **Responsible:** Platform Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+## Mandatory procedure
+
+1. **Pre-authorize.** Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment.
+2. **Baseline.** Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions.
+3. **Validate inputs.** Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state.
+4. **Establish safety.** Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions.
+5. **Execute.** Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest.
+6. **Observe.** Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds.
+7. **Decide.** Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery.
+8. **Reconcile.** Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality.
+9. **Verify.** Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk.
+10. **Close.** Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority.
+
+## Stop conditions
+
+Stop immediately on identity or authority uncertainty, certificate suspension/revocation/expiry, source or target mismatch, integrity failure, unapproved Treaty or Firewall rejection, unexpected protected-state mutation, unbounded queue/resource growth, privacy exposure, ambiguous external effect, failed invariant, or loss of evidence capture.
+
+## Rollback, forward recovery, and escalation
+
+Use rollback only when its preconditions are proven and it cannot repeat or hide a committed Reality Boundary effect. Otherwise contain, preserve evidence, reconcile actual state, and use the approved forward-recovery path. Escalate Critical conditions immediately to the Incident Commander, Security Incident Commander, Certification Authority, and constitutional steward as applicable.
+
+## Evidence and completion criteria
+
+Completion requires reconciled authoritative state and external effects, satisfied health and outcome gates, closed temporary access, current certification disposition, retained evidence manifest, independent verifier approval, communication to affected Principals, humans, and stakeholders when material, and recorded follow-up ownership.
+
+## Examples and anti-patterns
+
+**Example:** the operator halts a rollout when authority-decision latency rises and evidence gaps appear, preserves the canary, and requests targeted reverification. **Anti-pattern:** declaring success because processes are live while certification is suspended or state remains unreconciled.
+
+## Traceability and review
+
+Constitutional, architecture, engineering, interface, verification, semantic, security/privacy/trust, reliability, and practicability reviews: PASS after final Books VI, VIII, and IX reconciliation. This chapter does not redefine components, contracts, certification authority, or canonical meaning.
+
+
+# Chapter 6 — Capacity, Scaling, Performance, and Resource Governance
+
+**Status:** FINAL  
+**Responsible role:** Capacity Manager  
+**Owner Review items:** None
+
+## Purpose
+Maintain declared service budgets and scale without creating unsafe authority, privacy, or ordering behavior.
+
+## Scope
+This chapter applies across development, test, staging, recovery, degraded environments, and every declared live-effect environment and approved Reality Boundary stage when the described operational condition exists.
+
+## Authority and prerequisites
+Books I-IV, IX, and X govern. Book VIII controls verification and certification. Book VI controls the continuing security, privacy, and trust program after reconciliation. Required prerequisites are authenticated operator identity, explicit Authority, exact target identification, an approved change or incident record, current certification, evidence capture, and a tested containment or recovery path.
+
+## Normative controls
+
+### OPS-CAP-06-01 — Every service
+
+Every service MUST have declared capacity, latency, concurrency, queue, storage, and evidence-retention budgets tied to representative workloads.
+
+**Applicability:** Capacity, Scaling, Performance, and Resource Governance. **Responsible:** Capacity Manager. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-CAP-06-02 — Scaling
+
+Scaling MUST preserve single-owner state, authority checks, ordering scope, rate limits, privacy constraints, and certified topology assumptions.
+
+**Applicability:** Capacity, Scaling, Performance, and Resource Governance. **Responsible:** Capacity Manager. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-CAP-06-03 — Overload controls
+
+Overload controls MUST apply bounded admission, backpressure, prioritization, deferral, degradation, or rejection without silent loss.
+
+**Applicability:** Capacity, Scaling, Performance, and Resource Governance. **Responsible:** Capacity Manager. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-CAP-06-04 — Capacity exhaustion affecting protected decisions, evidence, authority, 
+
+Capacity exhaustion affecting protected decisions, evidence, authority, or recovery MUST be treated as an incident and may suspend operation.
+
+**Applicability:** Capacity, Scaling, Performance, and Resource Governance. **Responsible:** Capacity Manager. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+## Mandatory procedure
+
+1. **Pre-authorize.** Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment.
+2. **Baseline.** Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions.
+3. **Validate inputs.** Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state.
+4. **Establish safety.** Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions.
+5. **Execute.** Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest.
+6. **Observe.** Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds.
+7. **Decide.** Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery.
+8. **Reconcile.** Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality.
+9. **Verify.** Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk.
+10. **Close.** Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority.
+
+## Stop conditions
+
+Stop immediately on identity or authority uncertainty, certificate suspension/revocation/expiry, source or target mismatch, integrity failure, unapproved Treaty or Firewall rejection, unexpected protected-state mutation, unbounded queue/resource growth, privacy exposure, ambiguous external effect, failed invariant, or loss of evidence capture.
+
+## Rollback, forward recovery, and escalation
+
+Use rollback only when its preconditions are proven and it cannot repeat or hide a committed Reality Boundary effect. Otherwise contain, preserve evidence, reconcile actual state, and use the approved forward-recovery path. Escalate Critical conditions immediately to the Incident Commander, Security Incident Commander, Certification Authority, and constitutional steward as applicable.
+
+## Evidence and completion criteria
+
+Completion requires reconciled authoritative state and external effects, satisfied health and outcome gates, closed temporary access, current certification disposition, retained evidence manifest, independent verifier approval, communication to affected Principals, humans, and stakeholders when material, and recorded follow-up ownership.
+
+## Examples and anti-patterns
+
+**Example:** the operator halts a rollout when authority-decision latency rises and evidence gaps appear, preserves the canary, and requests targeted reverification. **Anti-pattern:** declaring success because processes are live while certification is suspended or state remains unreconciled.
+
+## Traceability and review
+
+Constitutional, architecture, engineering, interface, verification, semantic, security/privacy/trust, reliability, and practicability reviews: PASS after final Books VI, VIII, and IX reconciliation. This chapter does not redefine components, contracts, certification authority, or canonical meaning.
+
+
+# Chapter 7 — Monitoring, Alerting, Health, Evidence, and Operational Records
+
+**Status:** FINAL  
+**Responsible role:** Observability Lead  
+**Owner Review items:** None
+
+## Purpose
+Detect material state accurately and preserve attributable, tamper-evident operational evidence under declared privacy, classification, integrity, and retention controls.
+
+## Scope
+This chapter applies across development, test, staging, recovery, degraded environments, and every declared live-effect environment and approved Reality Boundary stage when the described operational condition exists.
+
+## Authority and prerequisites
+Books I-IV, IX, and X govern. Book VIII controls verification and certification. Book VI controls the continuing security, privacy, and trust program after reconciliation. Required prerequisites are authenticated operator identity, explicit Authority, exact target identification, an approved change or incident record, current certification, evidence capture, and a tested containment or recovery path.
+
+## Normative controls
+
+### OPS-OBS-07-01 — Health
+
+Health MUST distinguish process liveness, functional readiness, dependency readiness, authority readiness, evidence readiness, and constitutional readiness.
+
+**Applicability:** Monitoring, Alerting, Health, Evidence, and Operational Records. **Responsible:** Observability Lead. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-OBS-07-02 — Alerts
+
+Alerts MUST name condition, severity, owner, evidence query, immediate safety action, escalation clock, and resolution signal.
+
+**Applicability:** Monitoring, Alerting, Health, Evidence, and Operational Records. **Responsible:** Observability Lead. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-OBS-07-03 — Telemetry
+
+Telemetry MUST preserve correlation and causation while minimizing and redacting sensitive content; unrestricted payload logging is prohibited.
+
+**Applicability:** Monitoring, Alerting, Health, Evidence, and Operational Records. **Responsible:** Observability Lead. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-OBS-07-04 — Missing, stale, contradictory, or integrity-failed telemetry
+
+Missing, stale, contradictory, or integrity-failed telemetry MUST be represented as unknown and MUST NOT be converted to healthy.
+
+**Applicability:** Monitoring, Alerting, Health, Evidence, and Operational Records. **Responsible:** Observability Lead. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+## Mandatory procedure
+
+1. **Pre-authorize.** Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment.
+2. **Baseline.** Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions.
+3. **Validate inputs.** Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state.
+4. **Establish safety.** Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions.
+5. **Execute.** Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest.
+6. **Observe.** Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds.
+7. **Decide.** Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery.
+8. **Reconcile.** Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality.
+9. **Verify.** Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk.
+10. **Close.** Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority.
+
+## Stop conditions
+
+Stop immediately on identity or authority uncertainty, certificate suspension/revocation/expiry, source or target mismatch, integrity failure, unapproved Treaty or Firewall rejection, unexpected protected-state mutation, unbounded queue/resource growth, privacy exposure, ambiguous external effect, failed invariant, or loss of evidence capture.
+
+## Rollback, forward recovery, and escalation
+
+Use rollback only when its preconditions are proven and it cannot repeat or hide a committed Reality Boundary effect. Otherwise contain, preserve evidence, reconcile actual state, and use the approved forward-recovery path. Escalate Critical conditions immediately to the Incident Commander, Security Incident Commander, Certification Authority, and constitutional steward as applicable.
+
+## Evidence and completion criteria
+
+Completion requires reconciled authoritative state and external effects, satisfied health and outcome gates, closed temporary access, current certification disposition, retained evidence manifest, independent verifier approval, communication to affected Principals, humans, and stakeholders when material, and recorded follow-up ownership.
+
+## Examples and anti-patterns
+
+**Example:** the operator halts a rollout when authority-decision latency rises and evidence gaps appear, preserves the canary, and requests targeted reverification. **Anti-pattern:** declaring success because processes are live while certification is suspended or state remains unreconciled.
+
+## Traceability and review
+
+Constitutional, architecture, engineering, interface, verification, semantic, security/privacy/trust, reliability, and practicability reviews: PASS after final Books VI, VIII, and IX reconciliation. This chapter does not redefine components, contracts, certification authority, or canonical meaning.
+
+
+# Chapter 8 — Incident Classification, Command, Response, and Escalation
+
+**Status:** FINAL  
+**Responsible role:** Incident Commander  
+**Owner Review items:** None
+
+## Purpose
+Contain incidents with explicit authority, priority, communications, evidence, and recovery gates.
+
+## Scope
+This chapter applies across development, test, staging, recovery, degraded environments, and every declared live-effect environment and approved Reality Boundary stage when the described operational condition exists.
+
+## Authority and prerequisites
+Books I-IV, IX, and X govern. Book VIII controls verification and certification. Book VI controls the continuing security, privacy, and trust program after reconciliation. Required prerequisites are authenticated operator identity, explicit Authority, exact target identification, an approved change or incident record, current certification, evidence capture, and a tested containment or recovery path.
+
+## Normative controls
+
+### OPS-INC-08-01 — Incidents
+
+Incidents MUST be classified by human harm, constitutional impact, authority loss, privacy/security exposure, trust-domain impact, evidence loss, and service effect.
+
+**Applicability:** Incident Classification, Command, Response, and Escalation. **Responsible:** Incident Commander. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-INC-08-02 — The Incident Commander
+
+The Incident Commander MUST establish scope, authority, priorities, communication cadence, evidence custody, and stop conditions at declaration.
+
+**Applicability:** Incident Classification, Command, Response, and Escalation. **Responsible:** Incident Commander. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-INC-08-03 — Containment
+
+Containment MUST prioritize people, constitutional invariants, authority boundaries, evidence, and reversibility over availability or schedule.
+
+**Applicability:** Incident Classification, Command, Response, and Escalation. **Responsible:** Incident Commander. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-INC-08-04 — Recovery
+
+Recovery MUST not restore reliance until containment, state reconciliation, integrity, targeted verification, and certification consequences are resolved.
+
+**Applicability:** Incident Classification, Command, Response, and Escalation. **Responsible:** Incident Commander. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+## Mandatory procedure
+
+1. **Pre-authorize.** Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment.
+2. **Baseline.** Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions.
+3. **Validate inputs.** Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state.
+4. **Establish safety.** Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions.
+5. **Execute.** Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest.
+6. **Observe.** Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds.
+7. **Decide.** Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery.
+8. **Reconcile.** Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality.
+9. **Verify.** Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk.
+10. **Close.** Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority.
+
+## Stop conditions
+
+Stop immediately on identity or authority uncertainty, certificate suspension/revocation/expiry, source or target mismatch, integrity failure, unapproved Treaty or Firewall rejection, unexpected protected-state mutation, unbounded queue/resource growth, privacy exposure, ambiguous external effect, failed invariant, or loss of evidence capture.
+
+## Rollback, forward recovery, and escalation
+
+Use rollback only when its preconditions are proven and it cannot repeat or hide a committed Reality Boundary effect. Otherwise contain, preserve evidence, reconcile actual state, and use the approved forward-recovery path. Escalate Critical conditions immediately to the Incident Commander, Security Incident Commander, Certification Authority, and constitutional steward as applicable.
+
+## Evidence and completion criteria
+
+Completion requires reconciled authoritative state and external effects, satisfied health and outcome gates, closed temporary access, current certification disposition, retained evidence manifest, independent verifier approval, communication to affected Principals, humans, and stakeholders when material, and recorded follow-up ownership.
+
+## Examples and anti-patterns
+
+**Example:** the operator halts a rollout when authority-decision latency rises and evidence gaps appear, preserves the canary, and requests targeted reverification. **Anti-pattern:** declaring success because processes are live while certification is suspended or state remains unreconciled.
+
+## Traceability and review
+
+Constitutional, architecture, engineering, interface, verification, semantic, security/privacy/trust, reliability, and practicability reviews: PASS after final Books VI, VIII, and IX reconciliation. This chapter does not redefine components, contracts, certification authority, or canonical meaning.
+
+
+# Chapter 9 — Backup, Restoration, and Data-Recovery Operations
+
+**Status:** FINAL  
+**Responsible role:** Recovery Operator  
+**Owner Review items:** None
+
+## Purpose
+Protect and restore state with integrity, identity continuity, ownership, privacy, and compatibility assurance.
+
+## Scope
+This chapter applies across development, test, staging, recovery, degraded environments, and every declared live-effect environment and approved Reality Boundary stage when the described operational condition exists.
+
+## Authority and prerequisites
+Books I-IV, IX, and X govern. Book VIII controls verification and certification. Book VI controls the continuing security, privacy, and trust program after reconciliation. Required prerequisites are authenticated operator identity, explicit Authority, exact target identification, an approved change or incident record, current certification, evidence capture, and a tested containment or recovery path.
+
+## Normative controls
+
+### OPS-BAK-09-01 — Backup scope
+
+Backup scope MUST cover authoritative state, identity continuity, configuration, policies, evidence, keys by protected reference, schemas, and recovery metadata.
+
+**Applicability:** Backup, Restoration, and Data-Recovery Operations. **Responsible:** Recovery Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-BAK-09-02 — Backups
+
+Backups MUST be encrypted, integrity-protected, access-controlled, geographically appropriate, retention-governed, and regularly restorable.
+
+**Applicability:** Backup, Restoration, and Data-Recovery Operations. **Responsible:** Recovery Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-BAK-09-03 — Restore
+
+Restore MUST use an isolated target, verified chain of custody, compatible software/schema, authoritative ownership, and reconciliation before promotion.
+
+**Applicability:** Backup, Restoration, and Data-Recovery Operations. **Responsible:** Recovery Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-BAK-09-04 — Restoration success
+
+Restoration success MUST prove identity continuity, state integrity, authority validity, privacy obligations, contract compatibility, and recovery objectives.
+
+**Applicability:** Backup, Restoration, and Data-Recovery Operations. **Responsible:** Recovery Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+## Mandatory procedure
+
+1. **Pre-authorize.** Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment.
+2. **Baseline.** Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions.
+3. **Validate inputs.** Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state.
+4. **Establish safety.** Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions.
+5. **Execute.** Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest.
+6. **Observe.** Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds.
+7. **Decide.** Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery.
+8. **Reconcile.** Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality.
+9. **Verify.** Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk.
+10. **Close.** Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority.
+
+## Stop conditions
+
+Stop immediately on identity or authority uncertainty, certificate suspension/revocation/expiry, source or target mismatch, integrity failure, unapproved Treaty or Firewall rejection, unexpected protected-state mutation, unbounded queue/resource growth, privacy exposure, ambiguous external effect, failed invariant, or loss of evidence capture.
+
+## Rollback, forward recovery, and escalation
+
+Use rollback only when its preconditions are proven and it cannot repeat or hide a committed Reality Boundary effect. Otherwise contain, preserve evidence, reconcile actual state, and use the approved forward-recovery path. Escalate Critical conditions immediately to the Incident Commander, Security Incident Commander, Certification Authority, and constitutional steward as applicable.
+
+## Evidence and completion criteria
+
+Completion requires reconciled authoritative state and external effects, satisfied health and outcome gates, closed temporary access, current certification disposition, retained evidence manifest, independent verifier approval, communication to affected Principals, humans, and stakeholders when material, and recorded follow-up ownership.
+
+## Examples and anti-patterns
+
+**Example:** the operator halts a rollout when authority-decision latency rises and evidence gaps appear, preserves the canary, and requests targeted reverification. **Anti-pattern:** declaring success because processes are live while certification is suspended or state remains unreconciled.
+
+## Traceability and review
+
+Constitutional, architecture, engineering, interface, verification, semantic, security/privacy/trust, reliability, and practicability reviews: PASS after final Books VI, VIII, and IX reconciliation. This chapter does not redefine components, contracts, certification authority, or canonical meaning.
+
+
+# Chapter 10 — Disaster Recovery, Business Continuity, and Identity Continuity
+
+**Status:** FINAL  
+**Responsible role:** Recovery Coordinator  
+**Owner Review items:** None
+
+## Purpose
+Recover HAL across site or systemic failure without forking identity, authority, or protected state.
+
+## Scope
+This chapter applies across development, test, staging, recovery, degraded environments, and every declared live-effect environment and approved Reality Boundary stage when the described operational condition exists.
+
+## Authority and prerequisites
+Books I-IV, IX, and X govern. Book VIII controls verification and certification. Book VI controls the continuing security, privacy, and trust program after reconciliation. Required prerequisites are authenticated operator identity, explicit Authority, exact target identification, an approved change or incident record, current certification, evidence capture, and a tested containment or recovery path.
+
+## Normative controls
+
+### OPS-DR-10-01 — Disaster declarations
+
+Disaster declarations MUST identify affected identities, state domains, trust boundaries, certifications, Treaties, and Reality Boundary actions.
+
+**Applicability:** Disaster Recovery, Business Continuity, and Identity Continuity. **Responsible:** Recovery Coordinator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-DR-10-02 — Failover
+
+Failover MUST preserve one authoritative identity and mutation owner per state domain and MUST fence superseded writers before admission.
+
+**Applicability:** Disaster Recovery, Business Continuity, and Identity Continuity. **Responsible:** Recovery Coordinator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-DR-10-03 — Continuity modes
+
+Continuity modes MUST state unavailable capabilities, reduced assurances, time bounds, human notification, and prohibited protected actions.
+
+**Applicability:** Disaster Recovery, Business Continuity, and Identity Continuity. **Responsible:** Recovery Coordinator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-DR-10-04 — Return to primary operation
+
+Return to primary operation MUST reconcile state and effects, close gaps, verify invariants, revoke temporary access, and obtain recovery admission.
+
+**Applicability:** Disaster Recovery, Business Continuity, and Identity Continuity. **Responsible:** Recovery Coordinator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+## Mandatory procedure
+
+1. **Pre-authorize.** Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment.
+2. **Baseline.** Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions.
+3. **Validate inputs.** Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state.
+4. **Establish safety.** Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions.
+5. **Execute.** Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest.
+6. **Observe.** Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds.
+7. **Decide.** Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery.
+8. **Reconcile.** Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality.
+9. **Verify.** Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk.
+10. **Close.** Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority.
+
+## Stop conditions
+
+Stop immediately on identity or authority uncertainty, certificate suspension/revocation/expiry, source or target mismatch, integrity failure, unapproved Treaty or Firewall rejection, unexpected protected-state mutation, unbounded queue/resource growth, privacy exposure, ambiguous external effect, failed invariant, or loss of evidence capture.
+
+## Rollback, forward recovery, and escalation
+
+Use rollback only when its preconditions are proven and it cannot repeat or hide a committed Reality Boundary effect. Otherwise contain, preserve evidence, reconcile actual state, and use the approved forward-recovery path. Escalate Critical conditions immediately to the Incident Commander, Security Incident Commander, Certification Authority, and constitutional steward as applicable.
+
+## Evidence and completion criteria
+
+Completion requires reconciled authoritative state and external effects, satisfied health and outcome gates, closed temporary access, current certification disposition, retained evidence manifest, independent verifier approval, communication to affected Principals, humans, and stakeholders when material, and recorded follow-up ownership.
+
+## Examples and anti-patterns
+
+**Example:** the operator halts a rollout when authority-decision latency rises and evidence gaps appear, preserves the canary, and requests targeted reverification. **Anti-pattern:** declaring success because processes are live while certification is suspended or state remains unreconciled.
+
+## Traceability and review
+
+Constitutional, architecture, engineering, interface, verification, semantic, security/privacy/trust, reliability, and practicability reviews: PASS after final Books VI, VIII, and IX reconciliation. This chapter does not redefine components, contracts, certification authority, or canonical meaning.
+
+
+# Chapter 11 — Maintenance, Upgrade, Patch, Deprecation, and Removal
+
+**Status:** FINAL  
+**Responsible role:** Service Owner  
+**Owner Review items:** None
+
+## Purpose
+Perform maintenance and lifecycle change through risk classification, compatibility, verification, and rollback.
+
+## Scope
+This chapter applies across development, test, staging, recovery, degraded environments, and every declared live-effect environment and approved Reality Boundary stage when the described operational condition exists.
+
+## Authority and prerequisites
+Books I-IV, IX, and X govern. Book VIII controls verification and certification. Book VI controls the continuing security, privacy, and trust program after reconciliation. Required prerequisites are authenticated operator identity, explicit Authority, exact target identification, an approved change or incident record, current certification, evidence capture, and a tested containment or recovery path.
+
+## Normative controls
+
+### OPS-MNT-11-01 — Maintenance
+
+Maintenance MUST declare affected components, contracts, state, certificates, dependencies, observation windows, and rollback or forward-recovery plan.
+
+**Applicability:** Maintenance, Upgrade, Patch, Deprecation, and Removal. **Responsible:** Service Owner. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-MNT-11-02 — Patches
+
+Patches MUST pass risk-proportionate verification and current security disposition before admission to the declared live-effect environment and approved Reality Boundary stage.
+
+**Applicability:** Maintenance, Upgrade, Patch, Deprecation, and Removal. **Responsible:** Service Owner. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-MNT-11-03 — Deprecation
+
+Deprecation MUST preserve supported coexistence, consumer notice, migration evidence, removal criteria, and rollback until the approved end date.
+
+**Applicability:** Maintenance, Upgrade, Patch, Deprecation, and Removal. **Responsible:** Service Owner. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-MNT-11-04 — Removal
+
+Removal MUST verify no authorized consumer, retained evidence, recovery path, Treaty, certificate, or state obligation depends on the target.
+
+**Applicability:** Maintenance, Upgrade, Patch, Deprecation, and Removal. **Responsible:** Service Owner. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+## Mandatory procedure
+
+1. **Pre-authorize.** Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment.
+2. **Baseline.** Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions.
+3. **Validate inputs.** Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state.
+4. **Establish safety.** Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions.
+5. **Execute.** Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest.
+6. **Observe.** Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds.
+7. **Decide.** Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery.
+8. **Reconcile.** Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality.
+9. **Verify.** Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk.
+10. **Close.** Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority.
+
+## Stop conditions
+
+Stop immediately on identity or authority uncertainty, certificate suspension/revocation/expiry, source or target mismatch, integrity failure, unapproved Treaty or Firewall rejection, unexpected protected-state mutation, unbounded queue/resource growth, privacy exposure, ambiguous external effect, failed invariant, or loss of evidence capture.
+
+## Rollback, forward recovery, and escalation
+
+Use rollback only when its preconditions are proven and it cannot repeat or hide a committed Reality Boundary effect. Otherwise contain, preserve evidence, reconcile actual state, and use the approved forward-recovery path. Escalate Critical conditions immediately to the Incident Commander, Security Incident Commander, Certification Authority, and constitutional steward as applicable.
+
+## Evidence and completion criteria
+
+Completion requires reconciled authoritative state and external effects, satisfied health and outcome gates, closed temporary access, current certification disposition, retained evidence manifest, independent verifier approval, communication to affected Principals, humans, and stakeholders when material, and recorded follow-up ownership.
+
+## Examples and anti-patterns
+
+**Example:** the operator halts a rollout when authority-decision latency rises and evidence gaps appear, preserves the canary, and requests targeted reverification. **Anti-pattern:** declaring success because processes are live while certification is suspended or state remains unreconciled.
+
+## Traceability and review
+
+Constitutional, architecture, engineering, interface, verification, semantic, security/privacy/trust, reliability, and practicability reviews: PASS after final Books VI, VIII, and IX reconciliation. This chapter does not redefine components, contracts, certification authority, or canonical meaning.
+
+
+# Chapter 12 — Database, State, and Contract Migration Operations
+
+**Status:** FINAL  
+**Responsible role:** Migration Lead  
+**Owner Review items:** None
+
+## Purpose
+Migrate authoritative state and contracts with single-writer ownership, reconciliation, coexistence, and evidence.
+
+## Scope
+This chapter applies across development, test, staging, recovery, degraded environments, and every declared live-effect environment and approved Reality Boundary stage when the described operational condition exists.
+
+## Authority and prerequisites
+Books I-IV, IX, and X govern. Book VIII controls verification and certification. Book VI controls the continuing security, privacy, and trust program after reconciliation. Required prerequisites are authenticated operator identity, explicit Authority, exact target identification, an approved change or incident record, current certification, evidence capture, and a tested containment or recovery path.
+
+## Normative controls
+
+### OPS-MIG-12-01 — Migration
+
+Migration MUST identify the sole mutation owner, source and target schemas, invariants, transformation, checkpoints, reconciliation, and abort threshold.
+
+**Applicability:** Database, State, and Contract Migration Operations. **Responsible:** Migration Lead. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-MIG-12-02 — Dual writes are prohibited unless an approved consistency protocol names
+
+Dual writes are prohibited unless an approved consistency protocol names the authority, ordering, conflict, replay, and recovery semantics.
+
+**Applicability:** Database, State, and Contract Migration Operations. **Responsible:** Migration Lead. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-MIG-12-03 — Migration execution
+
+Migration execution MUST be idempotent or checkpointed and MUST preserve provenance, classification, retention, and evidence linkage.
+
+**Applicability:** Database, State, and Contract Migration Operations. **Responsible:** Migration Lead. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-MIG-12-04 — Cutover
+
+Cutover MUST require validated counts and invariants, consumer compatibility, quiescence or ordered handoff, and explicit state-owner acceptance.
+
+**Applicability:** Database, State, and Contract Migration Operations. **Responsible:** Migration Lead. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+## Mandatory procedure
+
+1. **Pre-authorize.** Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment.
+2. **Baseline.** Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions.
+3. **Validate inputs.** Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state.
+4. **Establish safety.** Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions.
+5. **Execute.** Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest.
+6. **Observe.** Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds.
+7. **Decide.** Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery.
+8. **Reconcile.** Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality.
+9. **Verify.** Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk.
+10. **Close.** Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority.
+
+## Stop conditions
+
+Stop immediately on identity or authority uncertainty, certificate suspension/revocation/expiry, source or target mismatch, integrity failure, unapproved Treaty or Firewall rejection, unexpected protected-state mutation, unbounded queue/resource growth, privacy exposure, ambiguous external effect, failed invariant, or loss of evidence capture.
+
+## Rollback, forward recovery, and escalation
+
+Use rollback only when its preconditions are proven and it cannot repeat or hide a committed Reality Boundary effect. Otherwise contain, preserve evidence, reconcile actual state, and use the approved forward-recovery path. Escalate Critical conditions immediately to the Incident Commander, Security Incident Commander, Certification Authority, and constitutional steward as applicable.
+
+## Evidence and completion criteria
+
+Completion requires reconciled authoritative state and external effects, satisfied health and outcome gates, closed temporary access, current certification disposition, retained evidence manifest, independent verifier approval, communication to affected Principals, humans, and stakeholders when material, and recorded follow-up ownership.
+
+## Examples and anti-patterns
+
+**Example:** the operator halts a rollout when authority-decision latency rises and evidence gaps appear, preserves the canary, and requests targeted reverification. **Anti-pattern:** declaring success because processes are live while certification is suspended or state remains unreconciled.
+
+## Traceability and review
+
+Constitutional, architecture, engineering, interface, verification, semantic, security/privacy/trust, reliability, and practicability reviews: PASS after final Books VI, VIII, and IX reconciliation. This chapter does not redefine components, contracts, certification authority, or canonical meaning.
+
+
+# Chapter 13 — External Domains, Constitutional Firewall, and Treaty Operations
+
+**Status:** FINAL  
+**Responsible role:** Trust Operator  
+**Owner Review items:** None
+
+## Purpose
+Operate external exchanges only through active applicable Treaties and Constitutional Firewall admission.
+
+## Scope
+This chapter applies across development, test, staging, recovery, degraded environments, and every declared live-effect environment and approved Reality Boundary stage when the described operational condition exists.
+
+## Authority and prerequisites
+Books I-IV, IX, and X govern. Book VIII controls verification and certification. Book VI controls the continuing security, privacy, and trust program after reconciliation. Required prerequisites are authenticated operator identity, explicit Authority, exact target identification, an approved change or incident record, current certification, evidence capture, and a tested containment or recovery path.
+
+## Normative controls
+
+### OPS-TRT-13-01 — No external exchange may begin without authenticated domain identity, an
+
+No external exchange may begin without authenticated domain identity, an active applicable Treaty, current authority, and Constitutional Firewall admission.
+
+**Applicability:** External Domains, Constitutional Firewall, and Treaty Operations. **Responsible:** Trust Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-TRT-13-02 — Treaty activation
+
+Treaty activation MUST verify exact approved text, parties, purpose, capability, data, duration, audit, revocation, and Firewall policy binding.
+
+**Applicability:** External Domains, Constitutional Firewall, and Treaty Operations. **Responsible:** Trust Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-TRT-13-03 — Treaty suspension, expiry, revocation, drift, or external compromise
+
+Treaty suspension, expiry, revocation, drift, or external compromise MUST stop new exchange and safely contain or reconcile in-flight work.
+
+**Applicability:** External Domains, Constitutional Firewall, and Treaty Operations. **Responsible:** Trust Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-TRT-13-04 — Firewall bypass, direct external credentials, and ungoverned side channe
+
+Firewall bypass, direct external credentials, and ungoverned side channels are prohibited even during incidents or degraded operation.
+
+**Applicability:** External Domains, Constitutional Firewall, and Treaty Operations. **Responsible:** Trust Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+## Mandatory procedure
+
+1. **Pre-authorize.** Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment.
+2. **Baseline.** Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions.
+3. **Validate inputs.** Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state.
+4. **Establish safety.** Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions.
+5. **Execute.** Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest.
+6. **Observe.** Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds.
+7. **Decide.** Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery.
+8. **Reconcile.** Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality.
+9. **Verify.** Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk.
+10. **Close.** Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority.
+
+## Stop conditions
+
+Stop immediately on identity or authority uncertainty, certificate suspension/revocation/expiry, source or target mismatch, integrity failure, unapproved Treaty or Firewall rejection, unexpected protected-state mutation, unbounded queue/resource growth, privacy exposure, ambiguous external effect, failed invariant, or loss of evidence capture.
+
+## Rollback, forward recovery, and escalation
+
+Use rollback only when its preconditions are proven and it cannot repeat or hide a committed Reality Boundary effect. Otherwise contain, preserve evidence, reconcile actual state, and use the approved forward-recovery path. Escalate Critical conditions immediately to the Incident Commander, Security Incident Commander, Certification Authority, and constitutional steward as applicable.
+
+## Evidence and completion criteria
+
+Completion requires reconciled authoritative state and external effects, satisfied health and outcome gates, closed temporary access, current certification disposition, retained evidence manifest, independent verifier approval, communication to affected Principals, humans, and stakeholders when material, and recorded follow-up ownership.
+
+## Examples and anti-patterns
+
+**Example:** the operator halts a rollout when authority-decision latency rises and evidence gaps appear, preserves the canary, and requests targeted reverification. **Anti-pattern:** declaring success because processes are live while certification is suspended or state remains unreconciled.
+
+## Traceability and review
+
+Constitutional, architecture, engineering, interface, verification, semantic, security/privacy/trust, reliability, and practicability reviews: PASS after final Books VI, VIII, and IX reconciliation. This chapter does not redefine components, contracts, certification authority, or canonical meaning.
+
+
+# Chapter 14 — Degraded Modes, Failure Containment, and Service Restoration
+
+**Status:** FINAL  
+**Responsible role:** Runtime Operator  
+**Owner Review items:** None
+
+## Purpose
+Enter, operate, and exit degraded modes safely with disclosed limitations and bounded authority.
+
+## Scope
+This chapter applies across development, test, staging, recovery, degraded environments, and every declared live-effect environment and approved Reality Boundary stage when the described operational condition exists.
+
+## Authority and prerequisites
+Books I-IV, IX, and X govern. Book VIII controls verification and certification. Book VI controls the continuing security, privacy, and trust program after reconciliation. Required prerequisites are authenticated operator identity, explicit Authority, exact target identification, an approved change or incident record, current certification, evidence capture, and a tested containment or recovery path.
+
+## Normative controls
+
+### OPS-DEG-14-01 — Every degraded mode
+
+Every degraded mode MUST be predefined with entry triggers, available and prohibited capabilities, authority ceiling, evidence, time bound, and exit criteria.
+
+**Applicability:** Degraded Modes, Failure Containment, and Service Restoration. **Responsible:** Runtime Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-DEG-14-02 — Degradation
+
+Degradation MUST fail closed for uncertain authority, Treaty, privacy, integrity, or Reality Boundary state unless a higher rule explicitly requires a safer human-protective action.
+
+**Applicability:** Degraded Modes, Failure Containment, and Service Restoration. **Responsible:** Runtime Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-DEG-14-03 — Users and operators
+
+Users and operators MUST receive accurate limitation and uncertainty disclosure without claiming unavailable capability or evidence.
+
+**Applicability:** Degraded Modes, Failure Containment, and Service Restoration. **Responsible:** Runtime Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-DEG-14-04 — Restoration
+
+Restoration MUST verify repaired dependencies, reconcile queued and in-flight work, clear temporary controls, and re-establish required certification.
+
+**Applicability:** Degraded Modes, Failure Containment, and Service Restoration. **Responsible:** Runtime Operator. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+## Mandatory procedure
+
+1. **Pre-authorize.** Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment.
+2. **Baseline.** Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions.
+3. **Validate inputs.** Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state.
+4. **Establish safety.** Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions.
+5. **Execute.** Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest.
+6. **Observe.** Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds.
+7. **Decide.** Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery.
+8. **Reconcile.** Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality.
+9. **Verify.** Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk.
+10. **Close.** Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority.
+
+## Stop conditions
+
+Stop immediately on identity or authority uncertainty, certificate suspension/revocation/expiry, source or target mismatch, integrity failure, unapproved Treaty or Firewall rejection, unexpected protected-state mutation, unbounded queue/resource growth, privacy exposure, ambiguous external effect, failed invariant, or loss of evidence capture.
+
+## Rollback, forward recovery, and escalation
+
+Use rollback only when its preconditions are proven and it cannot repeat or hide a committed Reality Boundary effect. Otherwise contain, preserve evidence, reconcile actual state, and use the approved forward-recovery path. Escalate Critical conditions immediately to the Incident Commander, Security Incident Commander, Certification Authority, and constitutional steward as applicable.
+
+## Evidence and completion criteria
+
+Completion requires reconciled authoritative state and external effects, satisfied health and outcome gates, closed temporary access, current certification disposition, retained evidence manifest, independent verifier approval, communication to affected Principals, humans, and stakeholders when material, and recorded follow-up ownership.
+
+## Examples and anti-patterns
+
+**Example:** the operator halts a rollout when authority-decision latency rises and evidence gaps appear, preserves the canary, and requests targeted reverification. **Anti-pattern:** declaring success because processes are live while certification is suspended or state remains unreconciled.
+
+## Traceability and review
+
+Constitutional, architecture, engineering, interface, verification, semantic, security/privacy/trust, reliability, and practicability reviews: PASS after final Books VI, VIII, and IX reconciliation. This chapter does not redefine components, contracts, certification authority, or canonical meaning.
+
+
+# Chapter 15 — Emergency Changes and Constitutional Shutdown
+
+**Status:** FINAL  
+**Responsible role:** Incident Commander  
+**Owner Review items:** None
+
+## Purpose
+Execute emergency change or constitutional shutdown under narrow, attributable, time-bounded authority.
+
+## Scope
+This chapter applies across development, test, staging, recovery, degraded environments, and every declared live-effect environment and approved Reality Boundary stage when the described operational condition exists.
+
+## Authority and prerequisites
+Books I-IV, IX, and X govern. Book VIII controls verification and certification. Book VI controls the continuing security, privacy, and trust program after reconciliation. Required prerequisites are authenticated operator identity, explicit Authority, exact target identification, an approved change or incident record, current certification, evidence capture, and a tested containment or recovery path.
+
+## Normative controls
+
+### OPS-EMG-15-01 — Emergency change authority
+
+Emergency change authority MUST be narrow, attributable, time-bounded, independently reviewed, and unable to waive constitutional invariants.
+
+**Applicability:** Emergency Changes and Constitutional Shutdown. **Responsible:** Incident Commander. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-EMG-15-02 — Emergency changes
+
+Emergency changes MUST preserve evidence, predefine containment and rollback, minimize scope, and receive retrospective verification before continued use.
+
+**Applicability:** Emergency Changes and Constitutional Shutdown. **Responsible:** Incident Commander. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-EMG-15-03 — Constitutional shutdown
+
+Constitutional shutdown MUST stop protected action admission, external exchange, hazardous mutation, and new delegation while preserving harm-bounded human communication and evidence.
+
+**Applicability:** Emergency Changes and Constitutional Shutdown. **Responsible:** Incident Commander. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-EMG-15-04 — Restart after constitutional shutdown
+
+Restart after constitutional shutdown MUST require root-cause containment, integrity and identity Verification results, Book VIII reverification, and explicit recovery admission.
+
+**Applicability:** Emergency Changes and Constitutional Shutdown. **Responsible:** Incident Commander. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+## Mandatory procedure
+
+1. **Pre-authorize.** Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment.
+2. **Baseline.** Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions.
+3. **Validate inputs.** Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state.
+4. **Establish safety.** Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions.
+5. **Execute.** Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest.
+6. **Observe.** Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds.
+7. **Decide.** Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery.
+8. **Reconcile.** Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality.
+9. **Verify.** Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk.
+10. **Close.** Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority.
+
+## Stop conditions
+
+Stop immediately on identity or authority uncertainty, certificate suspension/revocation/expiry, source or target mismatch, integrity failure, unapproved Treaty or Firewall rejection, unexpected protected-state mutation, unbounded queue/resource growth, privacy exposure, ambiguous external effect, failed invariant, or loss of evidence capture.
+
+## Rollback, forward recovery, and escalation
+
+Use rollback only when its preconditions are proven and it cannot repeat or hide a committed Reality Boundary effect. Otherwise contain, preserve evidence, reconcile actual state, and use the approved forward-recovery path. Escalate Critical conditions immediately to the Incident Commander, Security Incident Commander, Certification Authority, and constitutional steward as applicable.
+
+## Evidence and completion criteria
+
+Completion requires reconciled authoritative state and external effects, satisfied health and outcome gates, closed temporary access, current certification disposition, retained evidence manifest, independent verifier approval, communication to affected Principals, humans, and stakeholders when material, and recorded follow-up ownership.
+
+## Examples and anti-patterns
+
+**Example:** the operator halts a rollout when authority-decision latency rises and evidence gaps appear, preserves the canary, and requests targeted reverification. **Anti-pattern:** declaring success because processes are live while certification is suspended or state remains unreconciled.
+
+## Traceability and review
+
+Constitutional, architecture, engineering, interface, verification, semantic, security/privacy/trust, reliability, and practicability reviews: PASS after final Books VI, VIII, and IX reconciliation. This chapter does not redefine components, contracts, certification authority, or canonical meaning.
+
+
+# Chapter 16 — Post-Incident Review, Corrective Action, and Recertification
+
+**Status:** FINAL  
+**Responsible role:** Problem Manager  
+**Owner Review items:** None
+
+## Purpose
+Turn incidents into verified corrections while preserving negative evidence and certification consequences.
+
+## Scope
+This chapter applies across development, test, staging, recovery, degraded environments, and every declared live-effect environment and approved Reality Boundary stage when the described operational condition exists.
+
+## Authority and prerequisites
+Books I-IV, IX, and X govern. Book VIII controls verification and certification. Book VI controls the continuing security, privacy, and trust program after reconciliation. Required prerequisites are authenticated operator identity, explicit Authority, exact target identification, an approved change or incident record, current certification, evidence capture, and a tested containment or recovery path.
+
+## Normative controls
+
+### OPS-PIR-16-01 — Every material incident
+
+Every material incident MUST receive a blameless evidence-based review covering timeline, authority, decisions, contributing conditions, controls, harms, and outcomes.
+
+**Applicability:** Post-Incident Review, Corrective Action, and Recertification. **Responsible:** Problem Manager. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-PIR-16-02 — Corrective actions
+
+Corrective actions MUST have owners, risk, due dates, verification methods, evidence, and closure authority; administrative closure without an admitted Evidence Object and accepted Verification result is prohibited.
+
+**Applicability:** Post-Incident Review, Corrective Action, and Recertification. **Responsible:** Problem Manager. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-PIR-16-03 — Incident impact on claims and certificates
+
+Incident impact on claims and certificates MUST be assessed immediately; affected reliance MUST remain suspended until targeted reverification passes.
+
+**Applicability:** Post-Incident Review, Corrective Action, and Recertification. **Responsible:** Problem Manager. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-PIR-16-04 — Lessons
+
+Lessons MUST update controls, runbooks, alerts, tests, capacity models, training, and risk registers without erasing negative evidence.
+
+**Applicability:** Post-Incident Review, Corrective Action, and Recertification. **Responsible:** Problem Manager. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+## Mandatory procedure
+
+1. **Pre-authorize.** Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment.
+2. **Baseline.** Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions.
+3. **Validate inputs.** Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state.
+4. **Establish safety.** Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions.
+5. **Execute.** Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest.
+6. **Observe.** Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds.
+7. **Decide.** Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery.
+8. **Reconcile.** Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality.
+9. **Verify.** Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk.
+10. **Close.** Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority.
+
+## Stop conditions
+
+Stop immediately on identity or authority uncertainty, certificate suspension/revocation/expiry, source or target mismatch, integrity failure, unapproved Treaty or Firewall rejection, unexpected protected-state mutation, unbounded queue/resource growth, privacy exposure, ambiguous external effect, failed invariant, or loss of evidence capture.
+
+## Rollback, forward recovery, and escalation
+
+Use rollback only when its preconditions are proven and it cannot repeat or hide a committed Reality Boundary effect. Otherwise contain, preserve evidence, reconcile actual state, and use the approved forward-recovery path. Escalate Critical conditions immediately to the Incident Commander, Security Incident Commander, Certification Authority, and constitutional steward as applicable.
+
+## Evidence and completion criteria
+
+Completion requires reconciled authoritative state and external effects, satisfied health and outcome gates, closed temporary access, current certification disposition, retained evidence manifest, independent verifier approval, communication to affected Principals, humans, and stakeholders when material, and recorded follow-up ownership.
+
+## Examples and anti-patterns
+
+**Example:** the operator halts a rollout when authority-decision latency rises and evidence gaps appear, preserves the canary, and requests targeted reverification. **Anti-pattern:** declaring success because processes are live while certification is suspended or state remains unreconciled.
+
+## Traceability and review
+
+Constitutional, architecture, engineering, interface, verification, semantic, security/privacy/trust, reliability, and practicability reviews: PASS after final Books VI, VIII, and IX reconciliation. This chapter does not redefine components, contracts, certification authority, or canonical meaning.
+
+
+# Chapter 17 — Operational Evidence Retention, Audit, and Reporting
+
+**Status:** FINAL  
+**Responsible role:** Evidence Custodian  
+**Owner Review items:** None
+
+## Purpose
+Retain, protect, disclose, and dispose operational evidence according to purpose, classification, and certification needs.
+
+## Scope
+This chapter applies across development, test, staging, recovery, degraded environments, and every declared live-effect environment and approved Reality Boundary stage when the described operational condition exists.
+
+## Authority and prerequisites
+Books I-IV, IX, and X govern. Book VIII controls verification and certification. Book VI controls the continuing security, privacy, and trust program after reconciliation. Required prerequisites are authenticated operator identity, explicit Authority, exact target identification, an approved change or incident record, current certification, evidence capture, and a tested containment or recovery path.
+
+## Normative controls
+
+### OPS-EVD-17-01 — Operational evidence
+
+Operational evidence MUST be attributable, time-bound, integrity-protected, classified, purpose-linked, access-controlled, and retention-governed.
+
+**Applicability:** Operational Evidence Retention, Audit, and Reporting. **Responsible:** Evidence Custodian. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-EVD-17-02 — Evidence retention
+
+Evidence retention MUST satisfy constitutional, certification, security, privacy, incident, Treaty, and recovery needs without indefinite collection by default.
+
+**Applicability:** Operational Evidence Retention, Audit, and Reporting. **Responsible:** Evidence Custodian. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-EVD-17-03 — Audit access and export
+
+Audit access and export MUST be separately authorized, minimized, logged, and subject to Treaty and Firewall controls across trust domains.
+
+**Applicability:** Operational Evidence Retention, Audit, and Reporting. **Responsible:** Evidence Custodian. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-EVD-17-04 — Disposition
+
+Disposition MUST verify holds, dependent claims, active incidents, recovery needs, and deletion evidence before irreversible destruction.
+
+**Applicability:** Operational Evidence Retention, Audit, and Reporting. **Responsible:** Evidence Custodian. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+## Mandatory procedure
+
+1. **Pre-authorize.** Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment.
+2. **Baseline.** Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions.
+3. **Validate inputs.** Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state.
+4. **Establish safety.** Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions.
+5. **Execute.** Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest.
+6. **Observe.** Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds.
+7. **Decide.** Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery.
+8. **Reconcile.** Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality.
+9. **Verify.** Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk.
+10. **Close.** Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority.
+
+## Stop conditions
+
+Stop immediately on identity or authority uncertainty, certificate suspension/revocation/expiry, source or target mismatch, integrity failure, unapproved Treaty or Firewall rejection, unexpected protected-state mutation, unbounded queue/resource growth, privacy exposure, ambiguous external effect, failed invariant, or loss of evidence capture.
+
+## Rollback, forward recovery, and escalation
+
+Use rollback only when its preconditions are proven and it cannot repeat or hide a committed Reality Boundary effect. Otherwise contain, preserve evidence, reconcile actual state, and use the approved forward-recovery path. Escalate Critical conditions immediately to the Incident Commander, Security Incident Commander, Certification Authority, and constitutional steward as applicable.
+
+## Evidence and completion criteria
+
+Completion requires reconciled authoritative state and external effects, satisfied health and outcome gates, closed temporary access, current certification disposition, retained evidence manifest, independent verifier approval, communication to affected Principals, humans, and stakeholders when material, and recorded follow-up ownership.
+
+## Examples and anti-patterns
+
+**Example:** the operator halts a rollout when authority-decision latency rises and evidence gaps appear, preserves the canary, and requests targeted reverification. **Anti-pattern:** declaring success because processes are live while certification is suspended or state remains unreconciled.
+
+## Traceability and review
+
+Constitutional, architecture, engineering, interface, verification, semantic, security/privacy/trust, reliability, and practicability reviews: PASS after final Books VI, VIII, and IX reconciliation. This chapter does not redefine components, contracts, certification authority, or canonical meaning.
+
+
+# Chapter 18 — Operational Readiness, Verification, Certification, and Continuous Assurance
+
+**Status:** FINAL  
+**Responsible role:** Operations Assurance Lead  
+**Owner Review items:** None
+
+## Purpose
+Prove readiness and keep operational reliance aligned with Book VIII certification, suspension, and revocation states.
+
+## Scope
+This chapter applies across development, test, staging, recovery, degraded environments, and every declared live-effect environment and approved Reality Boundary stage when the described operational condition exists.
+
+## Authority and prerequisites
+Books I-IV, IX, and X govern. Book VIII controls verification and certification. Book VI controls the continuing security, privacy, and trust program after reconciliation. Required prerequisites are authenticated operator identity, explicit Authority, exact target identification, an approved change or incident record, current certification, evidence capture, and a tested containment or recovery path.
+
+## Normative controls
+
+### OPS-RDY-18-01 — Operational readiness
+
+Operational readiness MUST prove people, authority, dependencies, capacity, monitoring, response, backup, recovery, security, privacy, contracts, and evidence.
+
+**Applicability:** Operational Readiness, Verification, Certification, and Continuous Assurance. **Responsible:** Operations Assurance Lead. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-RDY-18-02 — Runtime admission
+
+Runtime admission MUST check current Book VIII certification scope and MUST fail closed on suspension, revocation, expiry, missing evidence, or material drift.
+
+**Applicability:** Operational Readiness, Verification, Certification, and Continuous Assurance. **Responsible:** Operations Assurance Lead. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** High. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-RDY-18-03 — Continuous assurance
+
+Continuous assurance MUST correlate changes, incidents, drift, dependency state, Treaty state, outcomes, and evidence validity to recertification triggers.
+
+**Applicability:** Operational Readiness, Verification, Certification, and Continuous Assurance. **Responsible:** Operations Assurance Lead. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+### OPS-RDY-18-04 — Readiness approval
+
+Readiness approval MUST be time- and scope-bounded and MUST NOT itself create operational or constitutional authority.
+
+**Applicability:** Operational Readiness, Verification, Certification, and Continuous Assurance. **Responsible:** Operations Assurance Lead. **Enforcement:** procedure gate, policy check, monitoring, and independent evidence review. **Evidence:** signed operation record, correlated telemetry, decision log, verification result, and exception record where applicable. **Severity:** Critical. **Exception authority:** Operations Manager with Security and Assurance concurrence; higher-order requirements are not waivable. **Verification:** precondition test, negative-path exercise, runtime evidence, and independent closure review.
+
+## Mandatory procedure
+
+1. **Pre-authorize.** Confirm ticket, risk class, acting identity, authority, separation of duties, current certification, approved window, target, and rollback/containment.
+2. **Baseline.** Capture health, state versions, queues, capacity, active transactions, Treaties, alerts, evidence integrity, and human-visible conditions.
+3. **Validate inputs.** Verify signed artifacts/configuration, Book IX compatibility, dependencies, credentials by reference, privacy classification, and expected state.
+4. **Establish safety.** Enable observation, freeze conflicting work, bound blast radius, assign commander and verifier, and announce stop conditions.
+5. **Execute.** Perform the approved action one checkpoint at a time; record operator, timestamp, command or contract, target, result, and evidence digest.
+6. **Observe.** Compare health, outcomes, invariants, authority decisions, privacy signals, queue behavior, and resource use to approved thresholds.
+7. **Decide.** Continue only when success criteria pass and no stop condition fires; otherwise halt, contain, roll back, or enter forward recovery.
+8. **Reconcile.** Resolve state, messages, external effects, in-flight transactions, evidence gaps, and temporary access; do not guess ambiguous reality.
+9. **Verify.** Run targeted Book VIII verification, contract tests, recovery checks, and independent review appropriate to risk.
+10. **Close.** Record final state, limitations, certificate impact, follow-up actions, approvers, evidence manifest, and communication; revoke temporary authority.
+
+## Stop conditions
+
+Stop immediately on identity or authority uncertainty, certificate suspension/revocation/expiry, source or target mismatch, integrity failure, unapproved Treaty or Firewall rejection, unexpected protected-state mutation, unbounded queue/resource growth, privacy exposure, ambiguous external effect, failed invariant, or loss of evidence capture.
+
+## Rollback, forward recovery, and escalation
+
+Use rollback only when its preconditions are proven and it cannot repeat or hide a committed Reality Boundary effect. Otherwise contain, preserve evidence, reconcile actual state, and use the approved forward-recovery path. Escalate Critical conditions immediately to the Incident Commander, Security Incident Commander, Certification Authority, and constitutional steward as applicable.
+
+## Evidence and completion criteria
+
+Completion requires reconciled authoritative state and external effects, satisfied health and outcome gates, closed temporary access, current certification disposition, retained evidence manifest, independent verifier approval, communication to affected Principals, humans, and stakeholders when material, and recorded follow-up ownership.
+
+## Examples and anti-patterns
+
+**Example:** the operator halts a rollout when authority-decision latency rises and evidence gaps appear, preserves the canary, and requests targeted reverification. **Anti-pattern:** declaring success because processes are live while certification is suspended or state remains unreconciled.
+
+## Traceability and review
+
+Constitutional, architecture, engineering, interface, verification, semantic, security/privacy/trust, reliability, and practicability reviews: PASS after final Books VI, VIII, and IX reconciliation. This chapter does not redefine components, contracts, certification authority, or canonical meaning.
+
+
+# Appendix A — Runbook and Companion Artifact Index
+
+
+
+- Formal chapter runbooks: 18.
+
+- On-call and escalation guidance: 2.
+
+- Playbooks: 8.
+
+- Dashboard specifications: 5.
+
+- Alerts: 25.
+
+- Templates: 6.
+
+- Checklists: 6.
+
+
+
+# Appendix B — Certification Status
+
+
+
+Book V v1.0 is certified final. Books VI, VIII, and IX are reconciled with no unresolved conflict or Owner Review item.

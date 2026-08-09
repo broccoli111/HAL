@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hal:book-ix:treaty-context:1.0",
+  "title": "HAL Treaty Context",
+  "type": "object",
+  "required": [
+    "treaty_id",
+    "version",
+    "external_domain_id",
+    "purpose",
+    "state",
+    "expires_at",
+    "integrity"
+  ],
+  "properties": {
+    "treaty_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "external_domain_id": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "state": {
+      "const": "ACTIVE"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "integrity": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

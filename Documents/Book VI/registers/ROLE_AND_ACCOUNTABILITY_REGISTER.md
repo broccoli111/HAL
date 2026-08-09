@@ -1,0 +1,48 @@
+# Role and Accountability Register
+
+- **Access Administrator:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Asset Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Audit Lead:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Authority Service Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Book IX Liaison:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Book VIII Liaison:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Build Custodian:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Certificate Operator:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Certification Liaison:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Constitutional Firewall Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Control Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Credential Custodian:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Cryptography Authority:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Data Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Dependency Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Detection Engineering Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Domain Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Evidence Custodian:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Human Interaction Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Identity Service Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Incident Commander:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Independent Assessor:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Key Custodian:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Metrics Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Model Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Network Security Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Observability Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Patch Authority:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Platform Security Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Privacy Steward:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Privileged Access Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Purpose Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Recovery Coordinator:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Red Team Lead:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Resource Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Retention Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Risk Steward:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Security Assessor:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Security Operations:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Security and Trust Executive:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Service Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Third-Party Risk Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Treaty Steward:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Trust Steward:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Vulnerability Program Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.
+- **Workload Owner:** accountable for controls assigned in the catalog; MUST maintain delegation, succession, competence, evidence, and conflict-of-interest records.

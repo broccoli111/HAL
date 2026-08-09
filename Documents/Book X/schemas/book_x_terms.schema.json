@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hal.canon/schemas/book-x-terms.schema.json",
+  "title": "HAL Book X Canonical Term Catalog",
+  "type": "object",
+  "required": [
+    "book",
+    "version",
+    "status",
+    "terms"
+  ],
+  "properties": {
+    "book": {
+      "const": "HAL Book X"
+    },
+    "version": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "Draft",
+        "Final"
+      ]
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "terms": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/term"
+      }
+    }
+  },
+  "$defs": {
+    "term": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "term_id",
+        "canonical_label",
+        "chapter",
+        "category",
+        "semantic_type",
+        "definition",
+        "distinction",
+        "allowed_aliases",
+        "status",
+        "book_i_source",
+        "book_ii_source",
+        "book_iii_source",
+        "source_basis",
+        "version_introduced",
+        "examples",
+        "counterexamples",
+        "relationship_ids",
+        "constraints",
+        "lifecycle_transition_ids"
+      ],
+      "properties": {
+        "term_id": {
+          "type": "string",
+          "pattern": "^HAL-TERM-[0-9]{4}$"
+        },
+        "canonical_label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "chapter": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
+        },
+        "category": {
+          "type": "string"
+        },
+        "semantic_type": {
+          "type": "string"
+        },
+        "definition": {
+          "type": "string"
+        },
+        "distinction": {
+          "type": "string"
+        },
+        "allowed_aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "enum": [
+            "Proposed",
+            "Candidate",
+            "Approved",
+            "Deprecated",
+            "Retired",
+            "Rejected"
+          ]
+        },
+        "book_i_source": {
+          "type": "string"
+        },
+        "book_ii_source": {
+          "type": "string"
+        },
+        "book_iii_source": {
+          "type": "string"
+        },
+        "source_basis": {
+          "enum": [
+            "Direct source normalization",
+            "Derived semantic synthesis",
+            "Book X semantic-governance choice constrained by higher-order sources",
+            "Derived semantic synthesis required by the Book X scope",
+            "Engineering term normalized under Books I\u2013III"
+          ]
+        },
+        "version_introduced": {
+          "type": "string"
+        },
+        "examples": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "counterexamples": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "relationship_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^HAL-REL-[0-9]{4}$"
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "lifecycle_transition_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^HAL-TRANS-[0-9]{4}$"
+          }
+        }
+      }
+    }
+  }
+}

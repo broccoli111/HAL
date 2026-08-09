@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hal:book-ix:ix-c-0119:1.0",
+  "title": "IX-C-0119 Embodiment Bound Envelope",
+  "allOf": [
+    {
+      "$ref": "../hal-envelope.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "contract_id": {
+          "const": "IX-C-0119"
+        },
+        "payload": {
+          "type": "object",
+          "required": [
+            "operation",
+            "fact_id",
+            "subject_refs",
+            "occurred_at",
+            "attributes"
+          ],
+          "properties": {
+            "operation": {
+              "const": "Embodiment Bound"
+            },
+            "fact_id": {
+              "type": "string"
+            },
+            "subject_refs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "occurred_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "state_version": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "attributes": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    }
+  ]
+}

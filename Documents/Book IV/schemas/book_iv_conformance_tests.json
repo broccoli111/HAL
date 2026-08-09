@@ -1,0 +1,3195 @@
+{
+  "version": "1.0",
+  "tests": [
+    {
+      "test_id": "CMP-01-TST-001",
+      "component_id": "CMP-01",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-01-REQ-001",
+        "CMP-01-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-01-TST-002",
+      "component_id": "CMP-01",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-01-REQ-001",
+        "CMP-01-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-01-TST-003",
+      "component_id": "CMP-01",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-01-REQ-001",
+        "CMP-01-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-01-TST-004",
+      "component_id": "CMP-01",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-01-REQ-001",
+        "CMP-01-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-01-TST-005",
+      "component_id": "CMP-01",
+      "title": "Critical invariant",
+      "method": "No protected effect occurs without current identity, authority, policy, evidence, verification, and exact-change checks.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-01-REQ-001",
+        "CMP-01-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-01-TST-006",
+      "component_id": "CMP-01",
+      "title": "Failure containment",
+      "method": "Inject root-state uncertainty, Owner identity conflict, replayed Authority or Permission decision, audit-anchor mismatch, replica disagreement.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-01-REQ-001",
+        "CMP-01-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-01-TST-007",
+      "component_id": "CMP-01",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-01-REQ-001",
+        "CMP-01-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-01-TST-008",
+      "component_id": "CMP-01",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-01-REQ-001",
+        "CMP-01-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-01-TST-009",
+      "component_id": "CMP-01",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-01-REQ-001",
+        "CMP-01-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-01-TST-010",
+      "component_id": "CMP-01",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-01-REQ-001",
+        "CMP-01-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-02-TST-001",
+      "component_id": "CMP-02",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-02-REQ-001",
+        "CMP-02-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-02-TST-002",
+      "component_id": "CMP-02",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-02-REQ-001",
+        "CMP-02-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-02-TST-003",
+      "component_id": "CMP-02",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-02-REQ-001",
+        "CMP-02-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-02-TST-004",
+      "component_id": "CMP-02",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-02-REQ-001",
+        "CMP-02-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-02-TST-005",
+      "component_id": "CMP-02",
+      "title": "Critical invariant",
+      "method": "One constitutional HAL identity persists across all Presences, runtimes, models, services, and recovery events.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-02-REQ-001",
+        "CMP-02-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-02-TST-006",
+      "component_id": "CMP-02",
+      "title": "Failure containment",
+      "method": "Inject duplicate HAL identity, identifier collision, lineage break, stale authentication binding, identity-source disagreement.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-02-REQ-001",
+        "CMP-02-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-02-TST-007",
+      "component_id": "CMP-02",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-02-REQ-001",
+        "CMP-02-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-02-TST-008",
+      "component_id": "CMP-02",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-02-REQ-001",
+        "CMP-02-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-02-TST-009",
+      "component_id": "CMP-02",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-02-REQ-001",
+        "CMP-02-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-02-TST-010",
+      "component_id": "CMP-02",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-02-REQ-001",
+        "CMP-02-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-03-TST-001",
+      "component_id": "CMP-03",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-03-REQ-001",
+        "CMP-03-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-03-TST-002",
+      "component_id": "CMP-03",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-03-REQ-001",
+        "CMP-03-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-03-TST-003",
+      "component_id": "CMP-03",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-03-REQ-001",
+        "CMP-03-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-03-TST-004",
+      "component_id": "CMP-03",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-03-REQ-001",
+        "CMP-03-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-03-TST-005",
+      "component_id": "CMP-03",
+      "title": "Critical invariant",
+      "method": "Every delegation is attributable, scoped, conditional, expiring, revocable, and bounded by the delegator's current authority.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-03-REQ-001",
+        "CMP-03-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-03-TST-006",
+      "component_id": "CMP-03",
+      "title": "Failure containment",
+      "method": "Inject delegation cycle, scope escalation, stale revocation, policy-version mismatch, authority-context loss.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-03-REQ-001",
+        "CMP-03-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-03-TST-007",
+      "component_id": "CMP-03",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-03-REQ-001",
+        "CMP-03-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-03-TST-008",
+      "component_id": "CMP-03",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-03-REQ-001",
+        "CMP-03-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-03-TST-009",
+      "component_id": "CMP-03",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-03-REQ-001",
+        "CMP-03-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-03-TST-010",
+      "component_id": "CMP-03",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-03-REQ-001",
+        "CMP-03-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-04-TST-001",
+      "component_id": "CMP-04",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-04-REQ-001",
+        "CMP-04-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-04-TST-002",
+      "component_id": "CMP-04",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-04-REQ-001",
+        "CMP-04-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-04-TST-003",
+      "component_id": "CMP-04",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-04-REQ-001",
+        "CMP-04-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-04-TST-004",
+      "component_id": "CMP-04",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-04-REQ-001",
+        "CMP-04-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-04-TST-005",
+      "component_id": "CMP-04",
+      "title": "Critical invariant",
+      "method": "Execution artifacts remain attributable to an authorized Intent and cannot silently broaden its scope.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-04-REQ-001",
+        "CMP-04-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-04-TST-006",
+      "component_id": "CMP-04",
+      "title": "Failure containment",
+      "method": "Inject ambiguous principal, goal drift, orphan objective, conflicting intent version, untraceable task.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-04-REQ-001",
+        "CMP-04-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-04-TST-007",
+      "component_id": "CMP-04",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-04-REQ-001",
+        "CMP-04-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-04-TST-008",
+      "component_id": "CMP-04",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-04-REQ-001",
+        "CMP-04-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-04-TST-009",
+      "component_id": "CMP-04",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-04-REQ-001",
+        "CMP-04-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-04-TST-010",
+      "component_id": "CMP-04",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-04-REQ-001",
+        "CMP-04-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-05-TST-001",
+      "component_id": "CMP-05",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-05-REQ-001",
+        "CMP-05-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-05-TST-002",
+      "component_id": "CMP-05",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-05-REQ-001",
+        "CMP-05-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-05-TST-003",
+      "component_id": "CMP-05",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-05-REQ-001",
+        "CMP-05-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-05-TST-004",
+      "component_id": "CMP-05",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-05-REQ-001",
+        "CMP-05-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-05-TST-005",
+      "component_id": "CMP-05",
+      "title": "Critical invariant",
+      "method": "Orchestration coordinates work but never converts provider availability, model output, or useful results into authority.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-05-REQ-001",
+        "CMP-05-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-05-TST-006",
+      "component_id": "CMP-05",
+      "title": "Failure containment",
+      "method": "Inject provider hallucination, graph deadlock, unbounded recursion, result provenance loss, cancel failure.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-05-REQ-001",
+        "CMP-05-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-05-TST-007",
+      "component_id": "CMP-05",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-05-REQ-001",
+        "CMP-05-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-05-TST-008",
+      "component_id": "CMP-05",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-05-REQ-001",
+        "CMP-05-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-05-TST-009",
+      "component_id": "CMP-05",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-05-REQ-001",
+        "CMP-05-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-05-TST-010",
+      "component_id": "CMP-05",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-05-REQ-001",
+        "CMP-05-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-06-TST-001",
+      "component_id": "CMP-06",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-06-REQ-001",
+        "CMP-06-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-06-TST-002",
+      "component_id": "CMP-06",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-06-REQ-001",
+        "CMP-06-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-06-TST-003",
+      "component_id": "CMP-06",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-06-REQ-001",
+        "CMP-06-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-06-TST-004",
+      "component_id": "CMP-06",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-06-REQ-001",
+        "CMP-06-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-06-TST-005",
+      "component_id": "CMP-06",
+      "title": "Critical invariant",
+      "method": "The Attention Manager is the sole authority for work admission and placement; urgency cannot bypass constitutional or authority controls.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-06-REQ-001",
+        "CMP-06-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-06-TST-006",
+      "component_id": "CMP-06",
+      "title": "Failure containment",
+      "method": "Inject priority inversion, starvation, resource overcommit, stale lease, unbounded queue.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-06-REQ-001",
+        "CMP-06-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-06-TST-007",
+      "component_id": "CMP-06",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-06-REQ-001",
+        "CMP-06-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-06-TST-008",
+      "component_id": "CMP-06",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-06-REQ-001",
+        "CMP-06-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-06-TST-009",
+      "component_id": "CMP-06",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-06-REQ-001",
+        "CMP-06-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-06-TST-010",
+      "component_id": "CMP-06",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-06-REQ-001",
+        "CMP-06-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-07-TST-001",
+      "component_id": "CMP-07",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-07-REQ-001",
+        "CMP-07-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-07-TST-002",
+      "component_id": "CMP-07",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-07-REQ-001",
+        "CMP-07-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-07-TST-003",
+      "component_id": "CMP-07",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-07-REQ-001",
+        "CMP-07-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-07-TST-004",
+      "component_id": "CMP-07",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-07-REQ-001",
+        "CMP-07-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-07-TST-005",
+      "component_id": "CMP-07",
+      "title": "Critical invariant",
+      "method": "A Decision Object records judgment but does not itself create Permission, Authority, or a real-world effect.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-07-REQ-001",
+        "CMP-07-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-07-TST-006",
+      "component_id": "CMP-07",
+      "title": "Failure containment",
+      "method": "Inject missing alternative, hidden uncertainty, authority laundering, stale evidence, irreproducible rationale.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-07-REQ-001",
+        "CMP-07-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-07-TST-007",
+      "component_id": "CMP-07",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-07-REQ-001",
+        "CMP-07-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-07-TST-008",
+      "component_id": "CMP-07",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-07-REQ-001",
+        "CMP-07-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-07-TST-009",
+      "component_id": "CMP-07",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-07-REQ-001",
+        "CMP-07-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-07-TST-010",
+      "component_id": "CMP-07",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-07-REQ-001",
+        "CMP-07-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-08-TST-001",
+      "component_id": "CMP-08",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-08-REQ-001",
+        "CMP-08-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-08-TST-002",
+      "component_id": "CMP-08",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-08-REQ-001",
+        "CMP-08-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-08-TST-003",
+      "component_id": "CMP-08",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-08-REQ-001",
+        "CMP-08-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-08-TST-004",
+      "component_id": "CMP-08",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-08-REQ-001",
+        "CMP-08-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-08-TST-005",
+      "component_id": "CMP-08",
+      "title": "Critical invariant",
+      "method": "No assertion becomes Knowledge without provenance, domain, time, confidence, and challenge semantics.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-08-REQ-001",
+        "CMP-08-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-08-TST-006",
+      "component_id": "CMP-08",
+      "title": "Failure containment",
+      "method": "Inject provenance loss, stale assertion, index-authority confusion, causation inference, unbounded disclosure.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-08-REQ-001",
+        "CMP-08-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-08-TST-007",
+      "component_id": "CMP-08",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-08-REQ-001",
+        "CMP-08-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-08-TST-008",
+      "component_id": "CMP-08",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-08-REQ-001",
+        "CMP-08-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-08-TST-009",
+      "component_id": "CMP-08",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-08-REQ-001",
+        "CMP-08-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-08-TST-010",
+      "component_id": "CMP-08",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-08-REQ-001",
+        "CMP-08-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-09-TST-001",
+      "component_id": "CMP-09",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-09-REQ-001",
+        "CMP-09-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-09-TST-002",
+      "component_id": "CMP-09",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-09-REQ-001",
+        "CMP-09-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-09-TST-003",
+      "component_id": "CMP-09",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-09-REQ-001",
+        "CMP-09-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-09-TST-004",
+      "component_id": "CMP-09",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-09-REQ-001",
+        "CMP-09-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-09-TST-005",
+      "component_id": "CMP-09",
+      "title": "Critical invariant",
+      "method": "Memory is provenance-linked, purpose-bound, and never silently promoted to knowledge or evidence.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-09-REQ-001",
+        "CMP-09-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-09-TST-006",
+      "component_id": "CMP-09",
+      "title": "Failure containment",
+      "method": "Inject cross-principal leakage, retention violation, false association, conversation split, deletion failure.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-09-REQ-001",
+        "CMP-09-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-09-TST-007",
+      "component_id": "CMP-09",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-09-REQ-001",
+        "CMP-09-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-09-TST-008",
+      "component_id": "CMP-09",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-09-REQ-001",
+        "CMP-09-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-09-TST-009",
+      "component_id": "CMP-09",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-09-REQ-001",
+        "CMP-09-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-09-TST-010",
+      "component_id": "CMP-09",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-09-REQ-001",
+        "CMP-09-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-10-TST-001",
+      "component_id": "CMP-10",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-10-REQ-001",
+        "CMP-10-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-10-TST-002",
+      "component_id": "CMP-10",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-10-REQ-001",
+        "CMP-10-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-10-TST-003",
+      "component_id": "CMP-10",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-10-REQ-001",
+        "CMP-10-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-10-TST-004",
+      "component_id": "CMP-10",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-10-REQ-001",
+        "CMP-10-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-10-TST-005",
+      "component_id": "CMP-10",
+      "title": "Critical invariant",
+      "method": "Learning cannot silently modify constitutional meaning, authority, protected behavior, or authoritative live-effect state.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-10-REQ-001",
+        "CMP-10-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-10-TST-006",
+      "component_id": "CMP-10",
+      "title": "Failure containment",
+      "method": "Inject training-data poisoning, pattern overgeneralization, silent promotion, feedback loop, unbounded self-modification.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-10-REQ-001",
+        "CMP-10-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-10-TST-007",
+      "component_id": "CMP-10",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-10-REQ-001",
+        "CMP-10-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-10-TST-008",
+      "component_id": "CMP-10",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-10-REQ-001",
+        "CMP-10-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-10-TST-009",
+      "component_id": "CMP-10",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-10-REQ-001",
+        "CMP-10-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-10-TST-010",
+      "component_id": "CMP-10",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-10-REQ-001",
+        "CMP-10-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-11-TST-001",
+      "component_id": "CMP-11",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-11-REQ-001",
+        "CMP-11-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-11-TST-002",
+      "component_id": "CMP-11",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-11-REQ-001",
+        "CMP-11-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-11-TST-003",
+      "component_id": "CMP-11",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-11-REQ-001",
+        "CMP-11-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-11-TST-004",
+      "component_id": "CMP-11",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-11-REQ-001",
+        "CMP-11-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-11-TST-005",
+      "component_id": "CMP-11",
+      "title": "Critical invariant",
+      "method": "Ordering and freshness claims always state scope, mechanism, uncertainty, and source health.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-11-REQ-001",
+        "CMP-11-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-11-TST-006",
+      "component_id": "CMP-11",
+      "title": "Failure containment",
+      "method": "Inject clock regression, split-brain lease, expired authority use, causality ambiguity, time-source compromise.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-11-REQ-001",
+        "CMP-11-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-11-TST-007",
+      "component_id": "CMP-11",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-11-REQ-001",
+        "CMP-11-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-11-TST-008",
+      "component_id": "CMP-11",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-11-REQ-001",
+        "CMP-11-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-11-TST-009",
+      "component_id": "CMP-11",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-11-REQ-001",
+        "CMP-11-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-11-TST-010",
+      "component_id": "CMP-11",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-11-REQ-001",
+        "CMP-11-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-12-TST-001",
+      "component_id": "CMP-12",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-12-REQ-001",
+        "CMP-12-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-12-TST-002",
+      "component_id": "CMP-12",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-12-REQ-001",
+        "CMP-12-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-12-TST-003",
+      "component_id": "CMP-12",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-12-REQ-001",
+        "CMP-12-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-12-TST-004",
+      "component_id": "CMP-12",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-12-REQ-001",
+        "CMP-12-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-12-TST-005",
+      "component_id": "CMP-12",
+      "title": "Critical invariant",
+      "method": "Every Presence is a bounded manifestation of one HAL identity and cannot independently hold Owner authority.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-12-REQ-001",
+        "CMP-12-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-12-TST-006",
+      "component_id": "CMP-12",
+      "title": "Failure containment",
+      "method": "Inject presence duplication, audience confusion, sensor spoofing, handoff loss, context leakage.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-12-REQ-001",
+        "CMP-12-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-12-TST-007",
+      "component_id": "CMP-12",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-12-REQ-001",
+        "CMP-12-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-12-TST-008",
+      "component_id": "CMP-12",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-12-REQ-001",
+        "CMP-12-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-12-TST-009",
+      "component_id": "CMP-12",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-12-REQ-001",
+        "CMP-12-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-12-TST-010",
+      "component_id": "CMP-12",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-12-REQ-001",
+        "CMP-12-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-13-TST-001",
+      "component_id": "CMP-13",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-13-REQ-001",
+        "CMP-13-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-13-TST-002",
+      "component_id": "CMP-13",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-13-REQ-001",
+        "CMP-13-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-13-TST-003",
+      "component_id": "CMP-13",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-13-REQ-001",
+        "CMP-13-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-13-TST-004",
+      "component_id": "CMP-13",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-13-REQ-001",
+        "CMP-13-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-13-TST-005",
+      "component_id": "CMP-13",
+      "title": "Critical invariant",
+      "method": "Capability availability, provider health, or credential possession never implies Permission or Authority.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-13-REQ-001",
+        "CMP-13-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-13-TST-006",
+      "component_id": "CMP-13",
+      "title": "Failure containment",
+      "method": "Inject semantic mismatch, provider substitution, stale qualification, adapter bypass, capability shadowing.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-13-REQ-001",
+        "CMP-13-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-13-TST-007",
+      "component_id": "CMP-13",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-13-REQ-001",
+        "CMP-13-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-13-TST-008",
+      "component_id": "CMP-13",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-13-REQ-001",
+        "CMP-13-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-13-TST-009",
+      "component_id": "CMP-13",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-13-REQ-001",
+        "CMP-13-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-13-TST-010",
+      "component_id": "CMP-13",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-13-REQ-001",
+        "CMP-13-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-14-TST-001",
+      "component_id": "CMP-14",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-14-REQ-001",
+        "CMP-14-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-14-TST-002",
+      "component_id": "CMP-14",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-14-REQ-001",
+        "CMP-14-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-14-TST-003",
+      "component_id": "CMP-14",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-14-REQ-001",
+        "CMP-14-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-14-TST-004",
+      "component_id": "CMP-14",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-14-REQ-001",
+        "CMP-14-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-14-TST-005",
+      "component_id": "CMP-14",
+      "title": "Critical invariant",
+      "method": "No real effect crosses the Commit Barrier without current authority, verification, exact state, evidence, and Reality Boundary approval.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-14-REQ-001",
+        "CMP-14-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-14-TST-006",
+      "component_id": "CMP-14",
+      "title": "Failure containment",
+      "method": "Inject duplicate effect, partial commit, stale Permission decision, rollback lie, uncontained external effect.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-14-REQ-001",
+        "CMP-14-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-14-TST-007",
+      "component_id": "CMP-14",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-14-REQ-001",
+        "CMP-14-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-14-TST-008",
+      "component_id": "CMP-14",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-14-REQ-001",
+        "CMP-14-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-14-TST-009",
+      "component_id": "CMP-14",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-14-REQ-001",
+        "CMP-14-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-14-TST-010",
+      "component_id": "CMP-14",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-14-REQ-001",
+        "CMP-14-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-15-TST-001",
+      "component_id": "CMP-15",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-15-REQ-001",
+        "CMP-15-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-15-TST-002",
+      "component_id": "CMP-15",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-15-REQ-001",
+        "CMP-15-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-15-TST-003",
+      "component_id": "CMP-15",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-15-REQ-001",
+        "CMP-15-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-15-TST-004",
+      "component_id": "CMP-15",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-15-REQ-001",
+        "CMP-15-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-15-TST-005",
+      "component_id": "CMP-15",
+      "title": "Critical invariant",
+      "method": "Verification is scoped and evidence-based; it never converts an unsupported claim into authority or certification.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-15-REQ-001",
+        "CMP-15-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-15-TST-006",
+      "component_id": "CMP-15",
+      "title": "Failure containment",
+      "method": "Inject criterion drift, environment mismatch, evidence substitution, irreproducible result, confidence inflation.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-15-REQ-001",
+        "CMP-15-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-15-TST-007",
+      "component_id": "CMP-15",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-15-REQ-001",
+        "CMP-15-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-15-TST-008",
+      "component_id": "CMP-15",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-15-REQ-001",
+        "CMP-15-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-15-TST-009",
+      "component_id": "CMP-15",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-15-REQ-001",
+        "CMP-15-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-15-TST-010",
+      "component_id": "CMP-15",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-15-REQ-001",
+        "CMP-15-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-16-TST-001",
+      "component_id": "CMP-16",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-16-REQ-001",
+        "CMP-16-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-16-TST-002",
+      "component_id": "CMP-16",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-16-REQ-001",
+        "CMP-16-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-16-TST-003",
+      "component_id": "CMP-16",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-16-REQ-001",
+        "CMP-16-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-16-TST-004",
+      "component_id": "CMP-16",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-16-REQ-001",
+        "CMP-16-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-16-TST-005",
+      "component_id": "CMP-16",
+      "title": "Critical invariant",
+      "method": "Simulation, Digital Twin, and Shadow Execution remain technically incapable of ungoverned real effects.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-16-REQ-001",
+        "CMP-16-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-16-TST-006",
+      "component_id": "CMP-16",
+      "title": "Failure containment",
+      "method": "Inject reality leakage, stale twin, fidelity misstatement, unsafe fixture, resource escape.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-16-REQ-001",
+        "CMP-16-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-16-TST-007",
+      "component_id": "CMP-16",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-16-REQ-001",
+        "CMP-16-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-16-TST-008",
+      "component_id": "CMP-16",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-16-REQ-001",
+        "CMP-16-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-16-TST-009",
+      "component_id": "CMP-16",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-16-REQ-001",
+        "CMP-16-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-16-TST-010",
+      "component_id": "CMP-16",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-16-REQ-001",
+        "CMP-16-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-17-TST-001",
+      "component_id": "CMP-17",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-17-REQ-001",
+        "CMP-17-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-17-TST-002",
+      "component_id": "CMP-17",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-17-REQ-001",
+        "CMP-17-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-17-TST-003",
+      "component_id": "CMP-17",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-17-REQ-001",
+        "CMP-17-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-17-TST-004",
+      "component_id": "CMP-17",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-17-REQ-001",
+        "CMP-17-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-17-TST-005",
+      "component_id": "CMP-17",
+      "title": "Critical invariant",
+      "method": "Trust may inform policy but never grants Authority, Permission, identity, or Treaty scope.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-17-REQ-001",
+        "CMP-17-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-17-TST-006",
+      "component_id": "CMP-17",
+      "title": "Failure containment",
+      "method": "Inject trust-as-authority, stale evidence, dimension collapse, reputation contagion, expiry bypass.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-17-REQ-001",
+        "CMP-17-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-17-TST-007",
+      "component_id": "CMP-17",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-17-REQ-001",
+        "CMP-17-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-17-TST-008",
+      "component_id": "CMP-17",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-17-REQ-001",
+        "CMP-17-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-17-TST-009",
+      "component_id": "CMP-17",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-17-REQ-001",
+        "CMP-17-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-17-TST-010",
+      "component_id": "CMP-17",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-17-REQ-001",
+        "CMP-17-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-18-TST-001",
+      "component_id": "CMP-18",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-18-REQ-001",
+        "CMP-18-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-18-TST-002",
+      "component_id": "CMP-18",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-18-REQ-001",
+        "CMP-18-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-18-TST-003",
+      "component_id": "CMP-18",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-18-REQ-001",
+        "CMP-18-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-18-TST-004",
+      "component_id": "CMP-18",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-18-REQ-001",
+        "CMP-18-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-18-TST-005",
+      "component_id": "CMP-18",
+      "title": "Critical invariant",
+      "method": "An admitted Evidence Object is immutable; correction occurs only through linked later objects.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-18-REQ-001",
+        "CMP-18-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-18-TST-006",
+      "component_id": "CMP-18",
+      "title": "Failure containment",
+      "method": "Inject custody break, provenance forgery, mutable evidence, signature failure, unauthorized disclosure.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-18-REQ-001",
+        "CMP-18-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-18-TST-007",
+      "component_id": "CMP-18",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-18-REQ-001",
+        "CMP-18-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-18-TST-008",
+      "component_id": "CMP-18",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-18-REQ-001",
+        "CMP-18-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-18-TST-009",
+      "component_id": "CMP-18",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-18-REQ-001",
+        "CMP-18-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-18-TST-010",
+      "component_id": "CMP-18",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-18-REQ-001",
+        "CMP-18-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-19-TST-001",
+      "component_id": "CMP-19",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-19-REQ-001",
+        "CMP-19-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-19-TST-002",
+      "component_id": "CMP-19",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-19-REQ-001",
+        "CMP-19-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-19-TST-003",
+      "component_id": "CMP-19",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-19-REQ-001",
+        "CMP-19-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-19-TST-004",
+      "component_id": "CMP-19",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-19-REQ-001",
+        "CMP-19-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-19-TST-005",
+      "component_id": "CMP-19",
+      "title": "Critical invariant",
+      "method": "Data use is permitted only for declared authorized purpose with minimization, retention, disclosure, and disposal controls.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-19-REQ-001",
+        "CMP-19-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-19-TST-006",
+      "component_id": "CMP-19",
+      "title": "Failure containment",
+      "method": "Inject purpose drift, overcollection, retention breach, inference leakage, deletion incompleteness.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-19-REQ-001",
+        "CMP-19-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-19-TST-007",
+      "component_id": "CMP-19",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-19-REQ-001",
+        "CMP-19-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-19-TST-008",
+      "component_id": "CMP-19",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-19-REQ-001",
+        "CMP-19-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-19-TST-009",
+      "component_id": "CMP-19",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-19-REQ-001",
+        "CMP-19-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-19-TST-010",
+      "component_id": "CMP-19",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-19-REQ-001",
+        "CMP-19-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-20-TST-001",
+      "component_id": "CMP-20",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-20-REQ-001",
+        "CMP-20-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-20-TST-002",
+      "component_id": "CMP-20",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-20-REQ-001",
+        "CMP-20-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-20-TST-003",
+      "component_id": "CMP-20",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-20-REQ-001",
+        "CMP-20-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-20-TST-004",
+      "component_id": "CMP-20",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-20-REQ-001",
+        "CMP-20-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-20-TST-005",
+      "component_id": "CMP-20",
+      "title": "Critical invariant",
+      "method": "No external exchange bypasses the Constitutional Firewall, and a Treaty cannot authorize what Book I prohibits.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-20-REQ-001",
+        "CMP-20-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-20-TST-006",
+      "component_id": "CMP-20",
+      "title": "Failure containment",
+      "method": "Inject Treaty mismatch, identity substitution, policy-cache staleness, exfiltration attempt, domain compromise.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-20-REQ-001",
+        "CMP-20-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-20-TST-007",
+      "component_id": "CMP-20",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-20-REQ-001",
+        "CMP-20-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-20-TST-008",
+      "component_id": "CMP-20",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-20-REQ-001",
+        "CMP-20-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-20-TST-009",
+      "component_id": "CMP-20",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-20-REQ-001",
+        "CMP-20-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-20-TST-010",
+      "component_id": "CMP-20",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-20-REQ-001",
+        "CMP-20-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-21-TST-001",
+      "component_id": "CMP-21",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-21-REQ-001",
+        "CMP-21-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-21-TST-002",
+      "component_id": "CMP-21",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-21-REQ-001",
+        "CMP-21-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-21-TST-003",
+      "component_id": "CMP-21",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-21-REQ-001",
+        "CMP-21-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-21-TST-004",
+      "component_id": "CMP-21",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-21-REQ-001",
+        "CMP-21-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-21-TST-005",
+      "component_id": "CMP-21",
+      "title": "Critical invariant",
+      "method": "Activation requires an Owner Authorization Ceremony bound to the exact Treaty; conversation or ordinary delegation is insufficient.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-21-REQ-001",
+        "CMP-21-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-21-TST-006",
+      "component_id": "CMP-21",
+      "title": "Failure containment",
+      "method": "Inject Owner Authorization Ceremony mismatch, scope ambiguity, expired Treaty use, revocation lag, external-domain repudiation.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-21-REQ-001",
+        "CMP-21-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-21-TST-007",
+      "component_id": "CMP-21",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-21-REQ-001",
+        "CMP-21-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-21-TST-008",
+      "component_id": "CMP-21",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-21-REQ-001",
+        "CMP-21-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-21-TST-009",
+      "component_id": "CMP-21",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-21-REQ-001",
+        "CMP-21-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-21-TST-010",
+      "component_id": "CMP-21",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-21-REQ-001",
+        "CMP-21-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-22-TST-001",
+      "component_id": "CMP-22",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-22-REQ-001",
+        "CMP-22-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-22-TST-002",
+      "component_id": "CMP-22",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-22-REQ-001",
+        "CMP-22-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-22-TST-003",
+      "component_id": "CMP-22",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-22-REQ-001",
+        "CMP-22-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-22-TST-004",
+      "component_id": "CMP-22",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-22-REQ-001",
+        "CMP-22-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-22-TST-005",
+      "component_id": "CMP-22",
+      "title": "Critical invariant",
+      "method": "Commands request possible change, Events record completed facts, and Queries do not intentionally mutate authoritative state.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-22-REQ-001",
+        "CMP-22-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-22-TST-006",
+      "component_id": "CMP-22",
+      "title": "Failure containment",
+      "method": "Inject duplicate delivery, causation loss, poison message, ordering overclaim, outbox divergence.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-22-REQ-001",
+        "CMP-22-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-22-TST-007",
+      "component_id": "CMP-22",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-22-REQ-001",
+        "CMP-22-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-22-TST-008",
+      "component_id": "CMP-22",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-22-REQ-001",
+        "CMP-22-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-22-TST-009",
+      "component_id": "CMP-22",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-22-REQ-001",
+        "CMP-22-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-22-TST-010",
+      "component_id": "CMP-22",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-22-REQ-001",
+        "CMP-22-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-23-TST-001",
+      "component_id": "CMP-23",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-23-REQ-001",
+        "CMP-23-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-23-TST-002",
+      "component_id": "CMP-23",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-23-REQ-001",
+        "CMP-23-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-23-TST-003",
+      "component_id": "CMP-23",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-23-REQ-001",
+        "CMP-23-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-23-TST-004",
+      "component_id": "CMP-23",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-23-REQ-001",
+        "CMP-23-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-23-TST-005",
+      "component_id": "CMP-23",
+      "title": "Critical invariant",
+      "method": "Each authoritative state domain has exactly one mutation owner; replicas, caches, and projections remain explicitly derived.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-23-REQ-001",
+        "CMP-23-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-23-TST-006",
+      "component_id": "CMP-23",
+      "title": "Failure containment",
+      "method": "Inject split brain, lost update, snapshot corruption, migration partial failure, projection treated as authority.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-23-REQ-001",
+        "CMP-23-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-23-TST-007",
+      "component_id": "CMP-23",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-23-REQ-001",
+        "CMP-23-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-23-TST-008",
+      "component_id": "CMP-23",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-23-REQ-001",
+        "CMP-23-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-23-TST-009",
+      "component_id": "CMP-23",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-23-REQ-001",
+        "CMP-23-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-23-TST-010",
+      "component_id": "CMP-23",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-23-REQ-001",
+        "CMP-23-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-24-TST-001",
+      "component_id": "CMP-24",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-24-REQ-001",
+        "CMP-24-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-24-TST-002",
+      "component_id": "CMP-24",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-24-REQ-001",
+        "CMP-24-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-24-TST-003",
+      "component_id": "CMP-24",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-24-REQ-001",
+        "CMP-24-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-24-TST-004",
+      "component_id": "CMP-24",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-24-REQ-001",
+        "CMP-24-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-24-TST-005",
+      "component_id": "CMP-24",
+      "title": "Critical invariant",
+      "method": "Observability may produce Evidence Candidates, but only Evidence Service admits Evidence Objects or changes evidentiary meaning.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-24-REQ-001",
+        "CMP-24-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-24-TST-006",
+      "component_id": "CMP-24",
+      "title": "Failure containment",
+      "method": "Inject sensitive logging, audit gap, trace spoofing, telemetry loss, ledger tampering.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-24-REQ-001",
+        "CMP-24-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-24-TST-007",
+      "component_id": "CMP-24",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-24-REQ-001",
+        "CMP-24-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-24-TST-008",
+      "component_id": "CMP-24",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-24-REQ-001",
+        "CMP-24-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-24-TST-009",
+      "component_id": "CMP-24",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-24-REQ-001",
+        "CMP-24-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-24-TST-010",
+      "component_id": "CMP-24",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-24-REQ-001",
+        "CMP-24-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-25-TST-001",
+      "component_id": "CMP-25",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-25-REQ-001",
+        "CMP-25-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-25-TST-002",
+      "component_id": "CMP-25",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-25-REQ-001",
+        "CMP-25-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-25-TST-003",
+      "component_id": "CMP-25",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-25-REQ-001",
+        "CMP-25-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-25-TST-004",
+      "component_id": "CMP-25",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-25-REQ-001",
+        "CMP-25-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-25-TST-005",
+      "component_id": "CMP-25",
+      "title": "Critical invariant",
+      "method": "Restart, locality, or process liveness never establishes readiness, correctness, authority, or recovery.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-25-REQ-001",
+        "CMP-25-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-25-TST-006",
+      "component_id": "CMP-25",
+      "title": "Failure containment",
+      "method": "Inject restart loop, health false positive, resource exhaustion, quarantine bypass, configuration drift.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-25-REQ-001",
+        "CMP-25-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-25-TST-007",
+      "component_id": "CMP-25",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-25-REQ-001",
+        "CMP-25-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-25-TST-008",
+      "component_id": "CMP-25",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-25-REQ-001",
+        "CMP-25-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-25-TST-009",
+      "component_id": "CMP-25",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-25-REQ-001",
+        "CMP-25-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-25-TST-010",
+      "component_id": "CMP-25",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-25-REQ-001",
+        "CMP-25-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-26-TST-001",
+      "component_id": "CMP-26",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-26-REQ-001",
+        "CMP-26-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-26-TST-002",
+      "component_id": "CMP-26",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-26-REQ-001",
+        "CMP-26-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-26-TST-003",
+      "component_id": "CMP-26",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-26-REQ-001",
+        "CMP-26-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-26-TST-004",
+      "component_id": "CMP-26",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-26-REQ-001",
+        "CMP-26-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-26-TST-005",
+      "component_id": "CMP-26",
+      "title": "Critical invariant",
+      "method": "Recovery restores verified identity, authority, state, evidence, and trust; restart alone is not Recovery.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-26-REQ-001",
+        "CMP-26-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-26-TST-006",
+      "component_id": "CMP-26",
+      "title": "Failure containment",
+      "method": "Inject wrong recovery point, identity discontinuity, partition conflict, evidence loss, premature service return.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-26-REQ-001",
+        "CMP-26-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-26-TST-007",
+      "component_id": "CMP-26",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-26-REQ-001",
+        "CMP-26-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-26-TST-008",
+      "component_id": "CMP-26",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-26-REQ-001",
+        "CMP-26-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-26-TST-009",
+      "component_id": "CMP-26",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-26-REQ-001",
+        "CMP-26-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-26-TST-010",
+      "component_id": "CMP-26",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-26-REQ-001",
+        "CMP-26-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-27-TST-001",
+      "component_id": "CMP-27",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-27-REQ-001",
+        "CMP-27-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-27-TST-002",
+      "component_id": "CMP-27",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-27-REQ-001",
+        "CMP-27-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-27-TST-003",
+      "component_id": "CMP-27",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-27-REQ-001",
+        "CMP-27-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-27-TST-004",
+      "component_id": "CMP-27",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-27-REQ-001",
+        "CMP-27-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-27-TST-005",
+      "component_id": "CMP-27",
+      "title": "Critical invariant",
+      "method": "Human-facing language, convenience, or conversational assent never substitutes for governed identity, Authority, or the exact protected Permission decision.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-27-REQ-001",
+        "CMP-27-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-27-TST-006",
+      "component_id": "CMP-27",
+      "title": "Failure containment",
+      "method": "Inject identity confusion, dark pattern, inaccessible output, consent ambiguity, stale action status.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-27-REQ-001",
+        "CMP-27-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-27-TST-007",
+      "component_id": "CMP-27",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-27-REQ-001",
+        "CMP-27-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-27-TST-008",
+      "component_id": "CMP-27",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-27-REQ-001",
+        "CMP-27-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-27-TST-009",
+      "component_id": "CMP-27",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-27-REQ-001",
+        "CMP-27-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-27-TST-010",
+      "component_id": "CMP-27",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-27-REQ-001",
+        "CMP-27-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-28-TST-001",
+      "component_id": "CMP-28",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-28-REQ-001",
+        "CMP-28-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-28-TST-002",
+      "component_id": "CMP-28",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-28-REQ-001",
+        "CMP-28-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-28-TST-003",
+      "component_id": "CMP-28",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-28-REQ-001",
+        "CMP-28-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-28-TST-004",
+      "component_id": "CMP-28",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-28-REQ-001",
+        "CMP-28-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-28-TST-005",
+      "component_id": "CMP-28",
+      "title": "Critical invariant",
+      "method": "Self-description is descriptive, evidence-linked, and non-self-authorizing; it cannot create identity, authority, or capability.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-28-REQ-001",
+        "CMP-28-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-28-TST-006",
+      "component_id": "CMP-28",
+      "title": "Failure containment",
+      "method": "Inject self-issued Authority or Permission, stale capability claim, missing limitation, evidence disconnect, identity fragmentation.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-28-REQ-001",
+        "CMP-28-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-28-TST-007",
+      "component_id": "CMP-28",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-28-REQ-001",
+        "CMP-28-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-28-TST-008",
+      "component_id": "CMP-28",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-28-REQ-001",
+        "CMP-28-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-28-TST-009",
+      "component_id": "CMP-28",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-28-REQ-001",
+        "CMP-28-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-28-TST-010",
+      "component_id": "CMP-28",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-28-REQ-001",
+        "CMP-28-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-29-TST-001",
+      "component_id": "CMP-29",
+      "title": "Sole-owner mutation",
+      "method": "Attempt mutation through a consumer, replica, cache, operator path, and direct datastore route.",
+      "expected": "Every unauthorized path is denied and evidenced.",
+      "requirement_ids": [
+        "CMP-29-REQ-001",
+        "CMP-29-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-29-TST-002",
+      "component_id": "CMP-29",
+      "title": "Authority denial",
+      "method": "Invoke every command with absent, expired, revoked, mismatched, and over-broad authority context.",
+      "expected": "No state changes; denial reason and evidence are complete.",
+      "requirement_ids": [
+        "CMP-29-REQ-001",
+        "CMP-29-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-29-TST-003",
+      "component_id": "CMP-29",
+      "title": "Valid lifecycle",
+      "method": "Exercise every declared transition with valid guards and fresh versions.",
+      "expected": "One transition Evidence Object is admitted per transition identifier; duplicate attempts produce no additional state mutation or admitted Evidence Object.",
+      "requirement_ids": [
+        "CMP-29-REQ-001",
+        "CMP-29-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-29-TST-004",
+      "component_id": "CMP-29",
+      "title": "Invalid lifecycle",
+      "method": "Attempt skipped, stale, replayed, and terminal-state transitions.",
+      "expected": "Every invalid transition is rejected without partial mutation.",
+      "requirement_ids": [
+        "CMP-29-REQ-001",
+        "CMP-29-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-29-TST-005",
+      "component_id": "CMP-29",
+      "title": "Critical invariant",
+      "method": "Success is evaluated from declared outcomes and constitutional costs, never from activity, completion, or self-reported confidence alone.",
+      "expected": "Invariant holds under normal, concurrent, degraded, and recovery conditions.",
+      "requirement_ids": [
+        "CMP-29-REQ-001",
+        "CMP-29-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-29-TST-006",
+      "component_id": "CMP-29",
+      "title": "Failure containment",
+      "method": "Inject vanity metric, missing side effect, premature evaluation, evidence cherry-pick, goal substitution.",
+      "expected": "Unsafe work stops, evidence is preserved, and declared containment state is observable.",
+      "requirement_ids": [
+        "CMP-29-REQ-001",
+        "CMP-29-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-29-TST-007",
+      "component_id": "CMP-29",
+      "title": "Recovery",
+      "method": "Restore from a verified checkpoint, reconcile dependencies, and resume after validation.",
+      "expected": "Identity, state, authority, provenance, and evidence continuity are proven.",
+      "requirement_ids": [
+        "CMP-29-REQ-001",
+        "CMP-29-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-29-TST-008",
+      "component_id": "CMP-29",
+      "title": "Contract compatibility",
+      "method": "Run current and prior supported contract versions plus an unsupported version.",
+      "expected": "Supported behavior remains compatible; unsupported input fails explicitly.",
+      "requirement_ids": [
+        "CMP-29-REQ-001",
+        "CMP-29-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-29-TST-009",
+      "component_id": "CMP-29",
+      "title": "Privacy and security",
+      "method": "Inject secrets, personal data, malicious input, confused-deputy requests, and log-exfiltration probes.",
+      "expected": "Least privilege and data controls hold; prohibited data is absent from telemetry.",
+      "requirement_ids": [
+        "CMP-29-REQ-001",
+        "CMP-29-REQ-002"
+      ]
+    },
+    {
+      "test_id": "CMP-29-TST-010",
+      "component_id": "CMP-29",
+      "title": "Topology independence",
+      "method": "Repeat critical tests under permitted single-node, replicated, partitioned, and restored topologies.",
+      "expected": "Topology does not multiply authority or mutation ownership.",
+      "requirement_ids": [
+        "CMP-29-REQ-001",
+        "CMP-29-REQ-002"
+      ]
+    }
+  ]
+}

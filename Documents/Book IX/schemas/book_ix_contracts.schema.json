@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "version",
+    "contracts"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "contracts": {
+      "type": "array",
+      "minItems": 305,
+      "items": {
+        "type": "object",
+        "required": [
+          "contract_id",
+          "interface_id",
+          "component_id",
+          "kind",
+          "name",
+          "provider",
+          "route",
+          "schema_id",
+          "security_profile",
+          "delivery_profile",
+          "status"
+        ]
+      }
+    }
+  }
+}

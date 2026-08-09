@@ -1,0 +1,33 @@
+{
+  "message_id": "01HXEXAMPLE0000001",
+  "contract_id": "IX-C-0001",
+  "contract_version": "1.0.0",
+  "schema_id": "urn:hal:book-ix:ix-c-0001:1.0",
+  "correlation_id": "corr-example-1",
+  "causation_id": null,
+  "producer": "cmp-14-instance-a",
+  "intended_recipient": "cmp-01-instance-a",
+  "issued_at": "2026-07-27T12:00:00Z",
+  "expires_at": "2026-07-27T12:00:05Z",
+  "sequence": null,
+  "idempotency_key": "principal:operation:digest",
+  "provenance": {
+    "source": "signed-runtime",
+    "integrity": "sha256:example"
+  },
+  "classification": "INTERNAL",
+  "authority_context": {
+    "principal_id": "principal-123",
+    "delegation_chain": [],
+    "purpose": "protected-action-evaluation",
+    "decision_id": "decision-123",
+    "policy_version": "1.0",
+    "constraints": {},
+    "issued_at": "2026-07-27T11:59:59Z",
+    "expires_at": "2026-07-27T12:00:05Z",
+    "integrity": "signature:example"
+  },
+  "payload": {
+    "proposal_ref": "proposal-123"
+  }
+}

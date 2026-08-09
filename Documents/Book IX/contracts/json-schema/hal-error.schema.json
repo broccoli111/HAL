@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hal:book-ix:error:1.0",
+  "title": "HAL Error",
+  "type": "object",
+  "required": [
+    "code",
+    "category",
+    "message",
+    "retry_disposition",
+    "correlation_id"
+  ],
+  "properties": {
+    "code": {
+      "type": "string",
+      "pattern": "^HAL-[A-Z]+-[0-9]{4}$"
+    },
+    "category": {
+      "enum": [
+        "VALIDATION",
+        "AUTHENTICATION",
+        "AUTHORIZATION",
+        "POLICY_DENIAL",
+        "CONFLICT",
+        "NOT_FOUND",
+        "RATE_LIMIT",
+        "TIMEOUT",
+        "DEPENDENCY",
+        "INTEGRITY",
+        "COMPATIBILITY",
+        "TREATY",
+        "INTERNAL"
+      ]
+    },
+    "message": {
+      "type": "string",
+      "maxLength": 512
+    },
+    "retry_disposition": {
+      "enum": [
+        "NEVER",
+        "AFTER_BACKOFF",
+        "AFTER_REAUTHORIZATION",
+        "AFTER_RECONCILIATION",
+        "AFTER_UPGRADE"
+      ]
+    },
+    "correlation_id": {
+      "type": "string"
+    },
+    "details": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

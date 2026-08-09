@@ -1,0 +1,32 @@
+[
+  {
+    "book": "I",
+    "source": "BOOK_I.txt",
+    "sha256": "792f7429b77f7f6991d06125f0fde24836ac7bfeaae4167f71a46ebb414f1820",
+    "bytes": 65583
+  },
+  {
+    "book": "II",
+    "source": "BOOK_II.txt",
+    "sha256": "f1b50d97996d62bba55cf3edf9bf4c47af43de6c617594d763808b785a40475e",
+    "bytes": 218683
+  },
+  {
+    "book": "III",
+    "source": "BOOK_III.txt",
+    "sha256": "434d8243bc5e96b32d7c2d4e986f1185097dd88ea78c8dac60ebaae1780adc9c",
+    "bytes": 49123
+  },
+  {
+    "book": "IV",
+    "source": "BOOK_IV.txt",
+    "sha256": "dd47a94dde2de105eb77c4d55cf269c7ee7c4f1accf690e57296c510e3a3b36e",
+    "bytes": 282010
+  },
+  {
+    "book": "X",
+    "source": "BOOK_X.txt",
+    "sha256": "ae7b551f065d0013955947f5bfae53842524a0fe2e3178016be0aa40871e522f",
+    "bytes": 260072
+  }
+]

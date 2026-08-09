@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hal:book-ix:envelope:1.0",
+  "title": "HAL Message Envelope",
+  "type": "object",
+  "required": [
+    "message_id",
+    "contract_id",
+    "contract_version",
+    "schema_id",
+    "correlation_id",
+    "producer",
+    "issued_at",
+    "provenance",
+    "classification",
+    "payload"
+  ],
+  "properties": {
+    "message_id": {
+      "type": "string",
+      "minLength": 16,
+      "maxLength": 128
+    },
+    "contract_id": {
+      "pattern": "^IX-C-[0-9]{4}$"
+    },
+    "contract_version": {
+      "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$"
+    },
+    "schema_id": {
+      "type": "string"
+    },
+    "correlation_id": {
+      "type": "string"
+    },
+    "causation_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "producer": {
+      "type": "string"
+    },
+    "intended_recipient": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "sequence": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "idempotency_key": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 256
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "source",
+        "integrity"
+      ],
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "integrity": {
+          "type": "string"
+        }
+      }
+    },
+    "classification": {
+      "enum": [
+        "PUBLIC",
+        "INTERNAL",
+        "CONFIDENTIAL",
+        "RESTRICTED",
+        "OWNER-PROTECTED"
+      ]
+    },
+    "authority_context": {
+      "$ref": "authority-context.schema.json"
+    },
+    "treaty_context": {
+      "$ref": "treaty-context.schema.json"
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

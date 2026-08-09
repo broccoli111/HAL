@@ -1,0 +1,3055 @@
+{
+  "version": "1.0",
+  "interfaces": [
+    {
+      "interface_id": "CMP-01-IF-01",
+      "component_id": "CMP-01",
+      "kind": "Command",
+      "name": "Evaluate Protected Action",
+      "provider": "Constitutional Kernel",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Evaluate Protected Action` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-01-IF-02",
+      "component_id": "CMP-01",
+      "kind": "Command",
+      "name": "Commit Protected Mutation",
+      "provider": "Constitutional Kernel",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Commit Protected Mutation` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-01-IF-03",
+      "component_id": "CMP-01",
+      "kind": "Command",
+      "name": "Validate Owner Authorization",
+      "provider": "Constitutional Kernel",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Validate Owner Authorization` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-01-IF-04",
+      "component_id": "CMP-01",
+      "kind": "Command",
+      "name": "Admit Constitutional Recovery",
+      "provider": "Constitutional Kernel",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Admit Constitutional Recovery` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-01-IF-05",
+      "component_id": "CMP-01",
+      "kind": "Query",
+      "name": "Get Constitutional State",
+      "provider": "Constitutional Kernel",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Constitutional State` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-01-IF-06",
+      "component_id": "CMP-01",
+      "kind": "Query",
+      "name": "Get Protected Decision",
+      "provider": "Constitutional Kernel",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Protected Decision` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-01-IF-07",
+      "component_id": "CMP-01",
+      "kind": "Event",
+      "name": "Protected Action Admitted",
+      "provider": "Constitutional Kernel",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Protected Action Admitted` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-01-IF-08",
+      "component_id": "CMP-01",
+      "kind": "Event",
+      "name": "Protected Action Denied",
+      "provider": "Constitutional Kernel",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Protected Action Denied` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-01-IF-09",
+      "component_id": "CMP-01",
+      "kind": "Event",
+      "name": "Constitutional Mode Changed",
+      "provider": "Constitutional Kernel",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Constitutional Mode Changed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-02-IF-01",
+      "component_id": "CMP-02",
+      "kind": "Command",
+      "name": "Create Identity",
+      "provider": "Identity and Continuity Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Create Identity` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-02-IF-02",
+      "component_id": "CMP-02",
+      "kind": "Command",
+      "name": "Bind Identifier",
+      "provider": "Identity and Continuity Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Bind Identifier` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-02-IF-03",
+      "component_id": "CMP-02",
+      "kind": "Command",
+      "name": "Suspend Identity",
+      "provider": "Identity and Continuity Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Suspend Identity` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-02-IF-04",
+      "component_id": "CMP-02",
+      "kind": "Command",
+      "name": "Reconcile Continuity",
+      "provider": "Identity and Continuity Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Reconcile Continuity` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-02-IF-05",
+      "component_id": "CMP-02",
+      "kind": "Query",
+      "name": "Resolve Identity",
+      "provider": "Identity and Continuity Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Resolve Identity` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-02-IF-06",
+      "component_id": "CMP-02",
+      "kind": "Query",
+      "name": "Get Continuity Lineage",
+      "provider": "Identity and Continuity Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Continuity Lineage` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-02-IF-07",
+      "component_id": "CMP-02",
+      "kind": "Query",
+      "name": "Get Authentication Context",
+      "provider": "Identity and Continuity Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Authentication Context` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-02-IF-08",
+      "component_id": "CMP-02",
+      "kind": "Event",
+      "name": "Identity Created",
+      "provider": "Identity and Continuity Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Identity Created` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-02-IF-09",
+      "component_id": "CMP-02",
+      "kind": "Event",
+      "name": "Identity Suspended",
+      "provider": "Identity and Continuity Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Identity Suspended` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-02-IF-10",
+      "component_id": "CMP-02",
+      "kind": "Event",
+      "name": "Continuity Reconciled",
+      "provider": "Identity and Continuity Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Continuity Reconciled` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-03-IF-01",
+      "component_id": "CMP-03",
+      "kind": "Command",
+      "name": "Grant Delegation",
+      "provider": "Authority and Delegation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Grant Delegation` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-03-IF-02",
+      "component_id": "CMP-03",
+      "kind": "Command",
+      "name": "Revoke Delegation",
+      "provider": "Authority and Delegation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Revoke Delegation` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-03-IF-03",
+      "component_id": "CMP-03",
+      "kind": "Command",
+      "name": "Evaluate Permission",
+      "provider": "Authority and Delegation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Evaluate Permission` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-03-IF-04",
+      "component_id": "CMP-03",
+      "kind": "Command",
+      "name": "Expire Delegation",
+      "provider": "Authority and Delegation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Expire Delegation` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-03-IF-05",
+      "component_id": "CMP-03",
+      "kind": "Query",
+      "name": "Get Effective Authority",
+      "provider": "Authority and Delegation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Effective Authority` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-03-IF-06",
+      "component_id": "CMP-03",
+      "kind": "Query",
+      "name": "Explain Policy Decision",
+      "provider": "Authority and Delegation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Explain Policy Decision` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-03-IF-07",
+      "component_id": "CMP-03",
+      "kind": "Query",
+      "name": "List Active Delegations",
+      "provider": "Authority and Delegation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `List Active Delegations` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-03-IF-08",
+      "component_id": "CMP-03",
+      "kind": "Event",
+      "name": "Delegation Activated",
+      "provider": "Authority and Delegation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Delegation Activated` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-03-IF-09",
+      "component_id": "CMP-03",
+      "kind": "Event",
+      "name": "Delegation Revoked",
+      "provider": "Authority and Delegation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Delegation Revoked` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-03-IF-10",
+      "component_id": "CMP-03",
+      "kind": "Event",
+      "name": "Permission Decided",
+      "provider": "Authority and Delegation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Permission Decided` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-04-IF-01",
+      "component_id": "CMP-04",
+      "kind": "Command",
+      "name": "Register Intent",
+      "provider": "Intent Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Register Intent` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-04-IF-02",
+      "component_id": "CMP-04",
+      "kind": "Command",
+      "name": "Revise Intent",
+      "provider": "Intent Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Revise Intent` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-04-IF-03",
+      "component_id": "CMP-04",
+      "kind": "Command",
+      "name": "Decompose Goal",
+      "provider": "Intent Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Decompose Goal` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-04-IF-04",
+      "component_id": "CMP-04",
+      "kind": "Command",
+      "name": "Retire Intent",
+      "provider": "Intent Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Retire Intent` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-04-IF-05",
+      "component_id": "CMP-04",
+      "kind": "Query",
+      "name": "Get Intent Graph",
+      "provider": "Intent Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Intent Graph` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-04-IF-06",
+      "component_id": "CMP-04",
+      "kind": "Query",
+      "name": "Trace Objective",
+      "provider": "Intent Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Trace Objective` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-04-IF-07",
+      "component_id": "CMP-04",
+      "kind": "Query",
+      "name": "List Outcome Criteria",
+      "provider": "Intent Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `List Outcome Criteria` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-04-IF-08",
+      "component_id": "CMP-04",
+      "kind": "Event",
+      "name": "Intent Registered",
+      "provider": "Intent Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Intent Registered` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-04-IF-09",
+      "component_id": "CMP-04",
+      "kind": "Event",
+      "name": "Intent Revised",
+      "provider": "Intent Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Intent Revised` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-04-IF-10",
+      "component_id": "CMP-04",
+      "kind": "Event",
+      "name": "Objective Retired",
+      "provider": "Intent Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Objective Retired` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-05-IF-01",
+      "component_id": "CMP-05",
+      "kind": "Command",
+      "name": "Start Orchestration",
+      "provider": "Cognitive Orchestrator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Start Orchestration` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-05-IF-02",
+      "component_id": "CMP-05",
+      "kind": "Command",
+      "name": "Advance Execution Graph",
+      "provider": "Cognitive Orchestrator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Advance Execution Graph` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-05-IF-03",
+      "component_id": "CMP-05",
+      "kind": "Command",
+      "name": "Cancel Run",
+      "provider": "Cognitive Orchestrator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Cancel Run` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-05-IF-04",
+      "component_id": "CMP-05",
+      "kind": "Command",
+      "name": "Request Provider Work",
+      "provider": "Cognitive Orchestrator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Request Provider Work` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-05-IF-05",
+      "component_id": "CMP-05",
+      "kind": "Query",
+      "name": "Get Run State",
+      "provider": "Cognitive Orchestrator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Run State` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-05-IF-06",
+      "component_id": "CMP-05",
+      "kind": "Query",
+      "name": "Explain Routing",
+      "provider": "Cognitive Orchestrator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Explain Routing` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-05-IF-07",
+      "component_id": "CMP-05",
+      "kind": "Query",
+      "name": "Get Execution Graph",
+      "provider": "Cognitive Orchestrator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Execution Graph` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-05-IF-08",
+      "component_id": "CMP-05",
+      "kind": "Event",
+      "name": "Run Started",
+      "provider": "Cognitive Orchestrator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Run Started` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-05-IF-09",
+      "component_id": "CMP-05",
+      "kind": "Event",
+      "name": "Node Completed",
+      "provider": "Cognitive Orchestrator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Node Completed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-05-IF-10",
+      "component_id": "CMP-05",
+      "kind": "Event",
+      "name": "Run Failed",
+      "provider": "Cognitive Orchestrator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Run Failed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-05-IF-11",
+      "component_id": "CMP-05",
+      "kind": "Event",
+      "name": "Result Assembled",
+      "provider": "Cognitive Orchestrator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Result Assembled` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-06-IF-01",
+      "component_id": "CMP-06",
+      "kind": "Command",
+      "name": "Submit Attention Request",
+      "provider": "Attention Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Submit Attention Request` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-06-IF-02",
+      "component_id": "CMP-06",
+      "kind": "Command",
+      "name": "Admit Work",
+      "provider": "Attention Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Admit Work` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-06-IF-03",
+      "component_id": "CMP-06",
+      "kind": "Command",
+      "name": "Preempt Work",
+      "provider": "Attention Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Preempt Work` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-06-IF-04",
+      "component_id": "CMP-06",
+      "kind": "Command",
+      "name": "Release Placement",
+      "provider": "Attention Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Release Placement` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-06-IF-05",
+      "component_id": "CMP-06",
+      "kind": "Query",
+      "name": "Get Queue State",
+      "provider": "Attention Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Queue State` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-06-IF-06",
+      "component_id": "CMP-06",
+      "kind": "Query",
+      "name": "Explain Priority",
+      "provider": "Attention Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Explain Priority` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-06-IF-07",
+      "component_id": "CMP-06",
+      "kind": "Query",
+      "name": "Get Placement",
+      "provider": "Attention Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Placement` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-06-IF-08",
+      "component_id": "CMP-06",
+      "kind": "Event",
+      "name": "Work Admitted",
+      "provider": "Attention Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Work Admitted` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-06-IF-09",
+      "component_id": "CMP-06",
+      "kind": "Event",
+      "name": "Work Preempted",
+      "provider": "Attention Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Work Preempted` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-06-IF-10",
+      "component_id": "CMP-06",
+      "kind": "Event",
+      "name": "Placement Released",
+      "provider": "Attention Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Placement Released` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-07-IF-01",
+      "component_id": "CMP-07",
+      "kind": "Command",
+      "name": "Request Judgment",
+      "provider": "Judgment Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Request Judgment` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-07-IF-02",
+      "component_id": "CMP-07",
+      "kind": "Command",
+      "name": "Record Decision",
+      "provider": "Judgment Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Record Decision` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-07-IF-03",
+      "component_id": "CMP-07",
+      "kind": "Command",
+      "name": "Reconsider Decision",
+      "provider": "Judgment Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Reconsider Decision` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-07-IF-04",
+      "component_id": "CMP-07",
+      "kind": "Command",
+      "name": "Withdraw Decision",
+      "provider": "Judgment Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Withdraw Decision` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-07-IF-05",
+      "component_id": "CMP-07",
+      "kind": "Query",
+      "name": "Get Decision Object",
+      "provider": "Judgment Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Decision Object` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-07-IF-06",
+      "component_id": "CMP-07",
+      "kind": "Query",
+      "name": "Explain Rationale",
+      "provider": "Judgment Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Explain Rationale` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-07-IF-07",
+      "component_id": "CMP-07",
+      "kind": "Query",
+      "name": "List Alternatives",
+      "provider": "Judgment Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `List Alternatives` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-07-IF-08",
+      "component_id": "CMP-07",
+      "kind": "Event",
+      "name": "Decision Recorded",
+      "provider": "Judgment Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Decision Recorded` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-07-IF-09",
+      "component_id": "CMP-07",
+      "kind": "Event",
+      "name": "Decision Reconsidered",
+      "provider": "Judgment Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Decision Reconsidered` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-07-IF-10",
+      "component_id": "CMP-07",
+      "kind": "Event",
+      "name": "Decision Withdrawn",
+      "provider": "Judgment Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Decision Withdrawn` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-08-IF-01",
+      "component_id": "CMP-08",
+      "kind": "Command",
+      "name": "Admit Knowledge Assertion",
+      "provider": "Knowledge Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Admit Knowledge Assertion` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-08-IF-02",
+      "component_id": "CMP-08",
+      "kind": "Command",
+      "name": "Revise Knowledge Link",
+      "provider": "Knowledge Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Revise Knowledge Link` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-08-IF-03",
+      "component_id": "CMP-08",
+      "kind": "Command",
+      "name": "Invalidate Assertion",
+      "provider": "Knowledge Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Invalidate Assertion` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-08-IF-04",
+      "component_id": "CMP-08",
+      "kind": "Command",
+      "name": "Rebuild Index",
+      "provider": "Knowledge Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Rebuild Index` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-08-IF-05",
+      "component_id": "CMP-08",
+      "kind": "Query",
+      "name": "Query Knowledge",
+      "provider": "Knowledge Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Query Knowledge` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-08-IF-06",
+      "component_id": "CMP-08",
+      "kind": "Query",
+      "name": "Trace Provenance",
+      "provider": "Knowledge Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Trace Provenance` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-08-IF-07",
+      "component_id": "CMP-08",
+      "kind": "Query",
+      "name": "Get Validity Context",
+      "provider": "Knowledge Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Validity Context` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-08-IF-08",
+      "component_id": "CMP-08",
+      "kind": "Event",
+      "name": "Knowledge Admitted",
+      "provider": "Knowledge Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Knowledge Admitted` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-08-IF-09",
+      "component_id": "CMP-08",
+      "kind": "Event",
+      "name": "Assertion Invalidated",
+      "provider": "Knowledge Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Assertion Invalidated` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-08-IF-10",
+      "component_id": "CMP-08",
+      "kind": "Event",
+      "name": "Index Rebuilt",
+      "provider": "Knowledge Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Index Rebuilt` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-09-IF-01",
+      "component_id": "CMP-09",
+      "kind": "Command",
+      "name": "Store Memory Association",
+      "provider": "Memory System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Store Memory Association` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-09-IF-02",
+      "component_id": "CMP-09",
+      "kind": "Command",
+      "name": "Revise Association",
+      "provider": "Memory System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Revise Association` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-09-IF-03",
+      "component_id": "CMP-09",
+      "kind": "Command",
+      "name": "Forget Memory",
+      "provider": "Memory System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Forget Memory` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-09-IF-04",
+      "component_id": "CMP-09",
+      "kind": "Command",
+      "name": "Reconcile Conversation",
+      "provider": "Memory System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Reconcile Conversation` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-09-IF-05",
+      "component_id": "CMP-09",
+      "kind": "Query",
+      "name": "Recall Memory",
+      "provider": "Memory System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Recall Memory` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-09-IF-06",
+      "component_id": "CMP-09",
+      "kind": "Query",
+      "name": "Trace Memory Source",
+      "provider": "Memory System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Trace Memory Source` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-09-IF-07",
+      "component_id": "CMP-09",
+      "kind": "Query",
+      "name": "Get Retention Status",
+      "provider": "Memory System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Retention Status` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-09-IF-08",
+      "component_id": "CMP-09",
+      "kind": "Event",
+      "name": "Memory Associated",
+      "provider": "Memory System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Memory Associated` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-09-IF-09",
+      "component_id": "CMP-09",
+      "kind": "Event",
+      "name": "Memory Forgotten",
+      "provider": "Memory System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Memory Forgotten` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-09-IF-10",
+      "component_id": "CMP-09",
+      "kind": "Event",
+      "name": "Conversation Reconciled",
+      "provider": "Memory System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Conversation Reconciled` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-10-IF-01",
+      "component_id": "CMP-10",
+      "kind": "Command",
+      "name": "Record Experience",
+      "provider": "Learning and Wisdom System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Record Experience` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-10-IF-02",
+      "component_id": "CMP-10",
+      "kind": "Command",
+      "name": "Propose Pattern",
+      "provider": "Learning and Wisdom System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Propose Pattern` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-10-IF-03",
+      "component_id": "CMP-10",
+      "kind": "Command",
+      "name": "Promote Pattern",
+      "provider": "Learning and Wisdom System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Promote Pattern` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-10-IF-04",
+      "component_id": "CMP-10",
+      "kind": "Command",
+      "name": "Retire Wisdom",
+      "provider": "Learning and Wisdom System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Retire Wisdom` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-10-IF-05",
+      "component_id": "CMP-10",
+      "kind": "Query",
+      "name": "Get Experience",
+      "provider": "Learning and Wisdom System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Experience` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-10-IF-06",
+      "component_id": "CMP-10",
+      "kind": "Query",
+      "name": "Explain Pattern",
+      "provider": "Learning and Wisdom System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Explain Pattern` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-10-IF-07",
+      "component_id": "CMP-10",
+      "kind": "Query",
+      "name": "Get Wisdom Limits",
+      "provider": "Learning and Wisdom System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Wisdom Limits` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-10-IF-08",
+      "component_id": "CMP-10",
+      "kind": "Event",
+      "name": "Experience Recorded",
+      "provider": "Learning and Wisdom System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Experience Recorded` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-10-IF-09",
+      "component_id": "CMP-10",
+      "kind": "Event",
+      "name": "Pattern Promoted",
+      "provider": "Learning and Wisdom System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Pattern Promoted` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-10-IF-10",
+      "component_id": "CMP-10",
+      "kind": "Event",
+      "name": "Wisdom Retired",
+      "provider": "Learning and Wisdom System",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Wisdom Retired` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-11-IF-01",
+      "component_id": "CMP-11",
+      "kind": "Command",
+      "name": "Issue Lease",
+      "provider": "Temporal Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Issue Lease` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-11-IF-02",
+      "component_id": "CMP-11",
+      "kind": "Command",
+      "name": "Renew Lease",
+      "provider": "Temporal Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Renew Lease` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-11-IF-03",
+      "component_id": "CMP-11",
+      "kind": "Command",
+      "name": "Record Logical Time",
+      "provider": "Temporal Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Record Logical Time` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-11-IF-04",
+      "component_id": "CMP-11",
+      "kind": "Command",
+      "name": "Declare Time Source Degraded",
+      "provider": "Temporal Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Declare Time Source Degraded` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-11-IF-05",
+      "component_id": "CMP-11",
+      "kind": "Query",
+      "name": "Get Current Time Context",
+      "provider": "Temporal Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Current Time Context` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-11-IF-06",
+      "component_id": "CMP-11",
+      "kind": "Query",
+      "name": "Compare Causality",
+      "provider": "Temporal Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Compare Causality` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-11-IF-07",
+      "component_id": "CMP-11",
+      "kind": "Query",
+      "name": "Get Freshness",
+      "provider": "Temporal Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Freshness` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-11-IF-08",
+      "component_id": "CMP-11",
+      "kind": "Event",
+      "name": "Lease Issued",
+      "provider": "Temporal Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Lease Issued` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-11-IF-09",
+      "component_id": "CMP-11",
+      "kind": "Event",
+      "name": "Lease Expired",
+      "provider": "Temporal Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Lease Expired` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-11-IF-10",
+      "component_id": "CMP-11",
+      "kind": "Event",
+      "name": "Time Source Degraded",
+      "provider": "Temporal Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Time Source Degraded` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-12-IF-01",
+      "component_id": "CMP-12",
+      "kind": "Command",
+      "name": "Create Presence",
+      "provider": "Presence and Embodiment Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Create Presence` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-12-IF-02",
+      "component_id": "CMP-12",
+      "kind": "Command",
+      "name": "Bind Embodiment",
+      "provider": "Presence and Embodiment Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Bind Embodiment` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-12-IF-03",
+      "component_id": "CMP-12",
+      "kind": "Command",
+      "name": "Handoff Presence",
+      "provider": "Presence and Embodiment Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Handoff Presence` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-12-IF-04",
+      "component_id": "CMP-12",
+      "kind": "Command",
+      "name": "End Presence",
+      "provider": "Presence and Embodiment Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `End Presence` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-12-IF-05",
+      "component_id": "CMP-12",
+      "kind": "Query",
+      "name": "Get Presence Context",
+      "provider": "Presence and Embodiment Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Presence Context` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-12-IF-06",
+      "component_id": "CMP-12",
+      "kind": "Query",
+      "name": "List Embodiments",
+      "provider": "Presence and Embodiment Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `List Embodiments` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-12-IF-07",
+      "component_id": "CMP-12",
+      "kind": "Query",
+      "name": "Get Audience Context",
+      "provider": "Presence and Embodiment Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Audience Context` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-12-IF-08",
+      "component_id": "CMP-12",
+      "kind": "Event",
+      "name": "Presence Created",
+      "provider": "Presence and Embodiment Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Presence Created` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-12-IF-09",
+      "component_id": "CMP-12",
+      "kind": "Event",
+      "name": "Embodiment Bound",
+      "provider": "Presence and Embodiment Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Embodiment Bound` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-12-IF-10",
+      "component_id": "CMP-12",
+      "kind": "Event",
+      "name": "Presence Handed Off",
+      "provider": "Presence and Embodiment Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Presence Handed Off` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-13-IF-01",
+      "component_id": "CMP-13",
+      "kind": "Command",
+      "name": "Register Capability",
+      "provider": "Capability Registry",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Register Capability` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-13-IF-02",
+      "component_id": "CMP-13",
+      "kind": "Command",
+      "name": "Register Provider",
+      "provider": "Capability Registry",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Register Provider` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-13-IF-03",
+      "component_id": "CMP-13",
+      "kind": "Command",
+      "name": "Qualify Provider",
+      "provider": "Capability Registry",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Qualify Provider` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-13-IF-04",
+      "component_id": "CMP-13",
+      "kind": "Command",
+      "name": "Retire Adapter",
+      "provider": "Capability Registry",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Retire Adapter` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-13-IF-05",
+      "component_id": "CMP-13",
+      "kind": "Query",
+      "name": "Discover Capability",
+      "provider": "Capability Registry",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Discover Capability` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-13-IF-06",
+      "component_id": "CMP-13",
+      "kind": "Query",
+      "name": "Get Provider Qualification",
+      "provider": "Capability Registry",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Provider Qualification` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-13-IF-07",
+      "component_id": "CMP-13",
+      "kind": "Query",
+      "name": "Resolve Adapter",
+      "provider": "Capability Registry",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Resolve Adapter` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-13-IF-08",
+      "component_id": "CMP-13",
+      "kind": "Event",
+      "name": "Capability Registered",
+      "provider": "Capability Registry",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Capability Registered` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-13-IF-09",
+      "component_id": "CMP-13",
+      "kind": "Event",
+      "name": "Provider Qualified",
+      "provider": "Capability Registry",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Provider Qualified` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-13-IF-10",
+      "component_id": "CMP-13",
+      "kind": "Event",
+      "name": "Provider Quarantined",
+      "provider": "Capability Registry",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Provider Quarantined` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-14-IF-01",
+      "component_id": "CMP-14",
+      "kind": "Command",
+      "name": "Propose Action",
+      "provider": "Action and Transaction Engine",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Propose Action` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-14-IF-02",
+      "component_id": "CMP-14",
+      "kind": "Command",
+      "name": "Prepare Transaction",
+      "provider": "Action and Transaction Engine",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Prepare Transaction` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-14-IF-03",
+      "component_id": "CMP-14",
+      "kind": "Command",
+      "name": "Commit Transaction",
+      "provider": "Action and Transaction Engine",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Commit Transaction` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-14-IF-04",
+      "component_id": "CMP-14",
+      "kind": "Command",
+      "name": "Rollback Transaction",
+      "provider": "Action and Transaction Engine",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Rollback Transaction` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-14-IF-05",
+      "component_id": "CMP-14",
+      "kind": "Command",
+      "name": "Begin Compensation",
+      "provider": "Action and Transaction Engine",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Begin Compensation` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-14-IF-06",
+      "component_id": "CMP-14",
+      "kind": "Query",
+      "name": "Get Transaction State",
+      "provider": "Action and Transaction Engine",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Transaction State` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-14-IF-07",
+      "component_id": "CMP-14",
+      "kind": "Query",
+      "name": "Explain Commit Decision",
+      "provider": "Action and Transaction Engine",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Explain Commit Decision` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-14-IF-08",
+      "component_id": "CMP-14",
+      "kind": "Query",
+      "name": "Get Idempotency Result",
+      "provider": "Action and Transaction Engine",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Idempotency Result` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-14-IF-09",
+      "component_id": "CMP-14",
+      "kind": "Event",
+      "name": "Action Authorized",
+      "provider": "Action and Transaction Engine",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Action Authorized` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-14-IF-10",
+      "component_id": "CMP-14",
+      "kind": "Event",
+      "name": "Transaction Committed",
+      "provider": "Action and Transaction Engine",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Transaction Committed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-14-IF-11",
+      "component_id": "CMP-14",
+      "kind": "Event",
+      "name": "Transaction Rolled Back",
+      "provider": "Action and Transaction Engine",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Transaction Rolled Back` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-14-IF-12",
+      "component_id": "CMP-14",
+      "kind": "Event",
+      "name": "Compensation Started",
+      "provider": "Action and Transaction Engine",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Compensation Started` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-15-IF-01",
+      "component_id": "CMP-15",
+      "kind": "Command",
+      "name": "Start Verification",
+      "provider": "Verification Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Start Verification` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-15-IF-02",
+      "component_id": "CMP-15",
+      "kind": "Command",
+      "name": "Record Verification Result",
+      "provider": "Verification Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Record Verification Result` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-15-IF-03",
+      "component_id": "CMP-15",
+      "kind": "Command",
+      "name": "Invalidate Result",
+      "provider": "Verification Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Invalidate Result` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-15-IF-04",
+      "component_id": "CMP-15",
+      "kind": "Command",
+      "name": "Request Reproduction",
+      "provider": "Verification Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Request Reproduction` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-15-IF-05",
+      "component_id": "CMP-15",
+      "kind": "Query",
+      "name": "Get Verification Result",
+      "provider": "Verification Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Verification Result` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-15-IF-06",
+      "component_id": "CMP-15",
+      "kind": "Query",
+      "name": "Explain Confidence",
+      "provider": "Verification Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Explain Confidence` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-15-IF-07",
+      "component_id": "CMP-15",
+      "kind": "Query",
+      "name": "List Defeaters",
+      "provider": "Verification Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `List Defeaters` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-15-IF-08",
+      "component_id": "CMP-15",
+      "kind": "Event",
+      "name": "Verification Started",
+      "provider": "Verification Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Verification Started` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-15-IF-09",
+      "component_id": "CMP-15",
+      "kind": "Event",
+      "name": "Claim Verified",
+      "provider": "Verification Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Claim Verified` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-15-IF-10",
+      "component_id": "CMP-15",
+      "kind": "Event",
+      "name": "Claim Falsified",
+      "provider": "Verification Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Claim Falsified` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-15-IF-11",
+      "component_id": "CMP-15",
+      "kind": "Event",
+      "name": "Result Invalidated",
+      "provider": "Verification Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Result Invalidated` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-16-IF-01",
+      "component_id": "CMP-16",
+      "kind": "Command",
+      "name": "Create Simulation",
+      "provider": "Simulation and Digital Twin Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Create Simulation` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-16-IF-02",
+      "component_id": "CMP-16",
+      "kind": "Command",
+      "name": "Load Twin State",
+      "provider": "Simulation and Digital Twin Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Load Twin State` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-16-IF-03",
+      "component_id": "CMP-16",
+      "kind": "Command",
+      "name": "Run Scenario",
+      "provider": "Simulation and Digital Twin Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Run Scenario` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-16-IF-04",
+      "component_id": "CMP-16",
+      "kind": "Command",
+      "name": "Inject Failure",
+      "provider": "Simulation and Digital Twin Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Inject Failure` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-16-IF-05",
+      "component_id": "CMP-16",
+      "kind": "Command",
+      "name": "Terminate Simulation",
+      "provider": "Simulation and Digital Twin Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Terminate Simulation` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-16-IF-06",
+      "component_id": "CMP-16",
+      "kind": "Query",
+      "name": "Get Scenario Result",
+      "provider": "Simulation and Digital Twin Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Scenario Result` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-16-IF-07",
+      "component_id": "CMP-16",
+      "kind": "Query",
+      "name": "Get Fidelity Score",
+      "provider": "Simulation and Digital Twin Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Fidelity Score` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-16-IF-08",
+      "component_id": "CMP-16",
+      "kind": "Query",
+      "name": "Get Isolation Status",
+      "provider": "Simulation and Digital Twin Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Isolation Status` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-16-IF-09",
+      "component_id": "CMP-16",
+      "kind": "Event",
+      "name": "Simulation Started",
+      "provider": "Simulation and Digital Twin Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Simulation Started` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-16-IF-10",
+      "component_id": "CMP-16",
+      "kind": "Event",
+      "name": "Scenario Completed",
+      "provider": "Simulation and Digital Twin Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Scenario Completed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-16-IF-11",
+      "component_id": "CMP-16",
+      "kind": "Event",
+      "name": "Isolation Breach Detected",
+      "provider": "Simulation and Digital Twin Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Isolation Breach Detected` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-17-IF-01",
+      "component_id": "CMP-17",
+      "kind": "Command",
+      "name": "Request Trust Assessment",
+      "provider": "Trust Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Request Trust Assessment` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-17-IF-02",
+      "component_id": "CMP-17",
+      "kind": "Command",
+      "name": "Update Trust Dimension",
+      "provider": "Trust Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Update Trust Dimension` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-17-IF-03",
+      "component_id": "CMP-17",
+      "kind": "Command",
+      "name": "Invalidate Assessment",
+      "provider": "Trust Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Invalidate Assessment` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-17-IF-04",
+      "component_id": "CMP-17",
+      "kind": "Query",
+      "name": "Get Trust Assessment",
+      "provider": "Trust Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Trust Assessment` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-17-IF-05",
+      "component_id": "CMP-17",
+      "kind": "Query",
+      "name": "Explain Trust Basis",
+      "provider": "Trust Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Explain Trust Basis` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-17-IF-06",
+      "component_id": "CMP-17",
+      "kind": "Query",
+      "name": "List Expiring Assessments",
+      "provider": "Trust Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `List Expiring Assessments` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-17-IF-07",
+      "component_id": "CMP-17",
+      "kind": "Event",
+      "name": "Trust Assessed",
+      "provider": "Trust Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Trust Assessed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-17-IF-08",
+      "component_id": "CMP-17",
+      "kind": "Event",
+      "name": "Trust Degraded",
+      "provider": "Trust Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Trust Degraded` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-17-IF-09",
+      "component_id": "CMP-17",
+      "kind": "Event",
+      "name": "Assessment Expired",
+      "provider": "Trust Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Assessment Expired` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-18-IF-01",
+      "component_id": "CMP-18",
+      "kind": "Command",
+      "name": "Submit Evidence Candidate",
+      "provider": "Evidence Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Submit Evidence Candidate` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-18-IF-02",
+      "component_id": "CMP-18",
+      "kind": "Command",
+      "name": "Admit Evidence Object",
+      "provider": "Evidence Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Admit Evidence Object` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-18-IF-03",
+      "component_id": "CMP-18",
+      "kind": "Command",
+      "name": "Challenge Evidence",
+      "provider": "Evidence Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Challenge Evidence` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-18-IF-04",
+      "component_id": "CMP-18",
+      "kind": "Command",
+      "name": "Record Supersession",
+      "provider": "Evidence Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Record Supersession` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-18-IF-05",
+      "component_id": "CMP-18",
+      "kind": "Query",
+      "name": "Get Evidence Object",
+      "provider": "Evidence Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Evidence Object` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-18-IF-06",
+      "component_id": "CMP-18",
+      "kind": "Query",
+      "name": "Trace Custody",
+      "provider": "Evidence Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Trace Custody` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-18-IF-07",
+      "component_id": "CMP-18",
+      "kind": "Query",
+      "name": "Verify Evidence Integrity",
+      "provider": "Evidence Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Verify Evidence Integrity` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-18-IF-08",
+      "component_id": "CMP-18",
+      "kind": "Event",
+      "name": "Evidence Admitted",
+      "provider": "Evidence Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Evidence Admitted` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-18-IF-09",
+      "component_id": "CMP-18",
+      "kind": "Event",
+      "name": "Evidence Challenged",
+      "provider": "Evidence Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Evidence Challenged` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-18-IF-10",
+      "component_id": "CMP-18",
+      "kind": "Event",
+      "name": "Evidence Superseded",
+      "provider": "Evidence Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Evidence Superseded` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-19-IF-01",
+      "component_id": "CMP-19",
+      "kind": "Command",
+      "name": "Classify Data",
+      "provider": "Privacy and Data Governance Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Classify Data` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-19-IF-02",
+      "component_id": "CMP-19",
+      "kind": "Command",
+      "name": "Authorize Purpose",
+      "provider": "Privacy and Data Governance Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Authorize Purpose` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-19-IF-03",
+      "component_id": "CMP-19",
+      "kind": "Command",
+      "name": "Set Retention",
+      "provider": "Privacy and Data Governance Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Set Retention` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-19-IF-04",
+      "component_id": "CMP-19",
+      "kind": "Command",
+      "name": "Order Deletion",
+      "provider": "Privacy and Data Governance Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Order Deletion` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-19-IF-05",
+      "component_id": "CMP-19",
+      "kind": "Command",
+      "name": "Restrict Disclosure",
+      "provider": "Privacy and Data Governance Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Restrict Disclosure` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-19-IF-06",
+      "component_id": "CMP-19",
+      "kind": "Query",
+      "name": "Get Data Policy",
+      "provider": "Privacy and Data Governance Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Data Policy` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-19-IF-07",
+      "component_id": "CMP-19",
+      "kind": "Query",
+      "name": "Evaluate Data Use",
+      "provider": "Privacy and Data Governance Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Evaluate Data Use` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-19-IF-08",
+      "component_id": "CMP-19",
+      "kind": "Query",
+      "name": "Get Deletion Status",
+      "provider": "Privacy and Data Governance Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Deletion Status` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-19-IF-09",
+      "component_id": "CMP-19",
+      "kind": "Event",
+      "name": "Data Classified",
+      "provider": "Privacy and Data Governance Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Data Classified` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-19-IF-10",
+      "component_id": "CMP-19",
+      "kind": "Event",
+      "name": "Purpose Authorized",
+      "provider": "Privacy and Data Governance Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Purpose Authorized` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-19-IF-11",
+      "component_id": "CMP-19",
+      "kind": "Event",
+      "name": "Deletion Completed",
+      "provider": "Privacy and Data Governance Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Deletion Completed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-19-IF-12",
+      "component_id": "CMP-19",
+      "kind": "Event",
+      "name": "Use Denied",
+      "provider": "Privacy and Data Governance Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Use Denied` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-20-IF-01",
+      "component_id": "CMP-20",
+      "kind": "Command",
+      "name": "Open Domain Session",
+      "provider": "Constitutional Firewall",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Open Domain Session` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-20-IF-02",
+      "component_id": "CMP-20",
+      "kind": "Command",
+      "name": "Authorize Exchange",
+      "provider": "Constitutional Firewall",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Authorize Exchange` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-20-IF-03",
+      "component_id": "CMP-20",
+      "kind": "Command",
+      "name": "Terminate Exchange",
+      "provider": "Constitutional Firewall",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Terminate Exchange` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-20-IF-04",
+      "component_id": "CMP-20",
+      "kind": "Command",
+      "name": "Quarantine Payload",
+      "provider": "Constitutional Firewall",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Quarantine Payload` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-20-IF-05",
+      "component_id": "CMP-20",
+      "kind": "Query",
+      "name": "Get Firewall Decision",
+      "provider": "Constitutional Firewall",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Firewall Decision` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-20-IF-06",
+      "component_id": "CMP-20",
+      "kind": "Query",
+      "name": "Get Active Treaty View",
+      "provider": "Constitutional Firewall",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Active Treaty View` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-20-IF-07",
+      "component_id": "CMP-20",
+      "kind": "Query",
+      "name": "Explain Denial",
+      "provider": "Constitutional Firewall",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Explain Denial` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-20-IF-08",
+      "component_id": "CMP-20",
+      "kind": "Event",
+      "name": "Exchange Allowed",
+      "provider": "Constitutional Firewall",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Exchange Allowed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-20-IF-09",
+      "component_id": "CMP-20",
+      "kind": "Event",
+      "name": "Exchange Denied",
+      "provider": "Constitutional Firewall",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Exchange Denied` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-20-IF-10",
+      "component_id": "CMP-20",
+      "kind": "Event",
+      "name": "Domain Session Terminated",
+      "provider": "Constitutional Firewall",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Domain Session Terminated` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-21-IF-01",
+      "component_id": "CMP-21",
+      "kind": "Command",
+      "name": "Propose Treaty",
+      "provider": "Treaty Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Propose Treaty` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-21-IF-02",
+      "component_id": "CMP-21",
+      "kind": "Command",
+      "name": "Authorize Treaty",
+      "provider": "Treaty Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Authorize Treaty` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-21-IF-03",
+      "component_id": "CMP-21",
+      "kind": "Command",
+      "name": "Activate Treaty",
+      "provider": "Treaty Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Activate Treaty` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-21-IF-04",
+      "component_id": "CMP-21",
+      "kind": "Command",
+      "name": "Suspend Treaty",
+      "provider": "Treaty Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Suspend Treaty` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-21-IF-05",
+      "component_id": "CMP-21",
+      "kind": "Command",
+      "name": "Revoke Treaty",
+      "provider": "Treaty Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Revoke Treaty` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-21-IF-06",
+      "component_id": "CMP-21",
+      "kind": "Query",
+      "name": "Get Treaty",
+      "provider": "Treaty Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Treaty` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-21-IF-07",
+      "component_id": "CMP-21",
+      "kind": "Query",
+      "name": "Compare Treaty Version",
+      "provider": "Treaty Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Compare Treaty Version` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-21-IF-08",
+      "component_id": "CMP-21",
+      "kind": "Query",
+      "name": "List Active Treaties",
+      "provider": "Treaty Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `List Active Treaties` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-21-IF-09",
+      "component_id": "CMP-21",
+      "kind": "Event",
+      "name": "Treaty Proposed",
+      "provider": "Treaty Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Treaty Proposed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-21-IF-10",
+      "component_id": "CMP-21",
+      "kind": "Event",
+      "name": "Treaty Activated",
+      "provider": "Treaty Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Treaty Activated` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-21-IF-11",
+      "component_id": "CMP-21",
+      "kind": "Event",
+      "name": "Treaty Suspended",
+      "provider": "Treaty Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Treaty Suspended` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-21-IF-12",
+      "component_id": "CMP-21",
+      "kind": "Event",
+      "name": "Treaty Revoked",
+      "provider": "Treaty Manager",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Treaty Revoked` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-22-IF-01",
+      "component_id": "CMP-22",
+      "kind": "Command",
+      "name": "Publish Command",
+      "provider": "Event and Messaging Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Publish Command` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-22-IF-02",
+      "component_id": "CMP-22",
+      "kind": "Command",
+      "name": "Append Event",
+      "provider": "Event and Messaging Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Append Event` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-22-IF-03",
+      "component_id": "CMP-22",
+      "kind": "Command",
+      "name": "Acknowledge Delivery",
+      "provider": "Event and Messaging Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Acknowledge Delivery` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-22-IF-04",
+      "component_id": "CMP-22",
+      "kind": "Command",
+      "name": "Quarantine Message",
+      "provider": "Event and Messaging Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Quarantine Message` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-22-IF-05",
+      "component_id": "CMP-22",
+      "kind": "Query",
+      "name": "Query Event Stream",
+      "provider": "Event and Messaging Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Query Event Stream` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-22-IF-06",
+      "component_id": "CMP-22",
+      "kind": "Query",
+      "name": "Get Delivery State",
+      "provider": "Event and Messaging Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Delivery State` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-22-IF-07",
+      "component_id": "CMP-22",
+      "kind": "Query",
+      "name": "Trace Causation",
+      "provider": "Event and Messaging Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Trace Causation` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-22-IF-08",
+      "component_id": "CMP-22",
+      "kind": "Event",
+      "name": "Message Accepted",
+      "provider": "Event and Messaging Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Message Accepted` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-22-IF-09",
+      "component_id": "CMP-22",
+      "kind": "Event",
+      "name": "Event Published",
+      "provider": "Event and Messaging Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Event Published` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-22-IF-10",
+      "component_id": "CMP-22",
+      "kind": "Event",
+      "name": "Delivery Failed",
+      "provider": "Event and Messaging Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Delivery Failed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-22-IF-11",
+      "component_id": "CMP-22",
+      "kind": "Event",
+      "name": "Message Quarantined",
+      "provider": "Event and Messaging Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Message Quarantined` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-23-IF-01",
+      "component_id": "CMP-23",
+      "kind": "Command",
+      "name": "Commit State Change",
+      "provider": "State and Persistence Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Commit State Change` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-23-IF-02",
+      "component_id": "CMP-23",
+      "kind": "Command",
+      "name": "Create Snapshot",
+      "provider": "State and Persistence Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Create Snapshot` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-23-IF-03",
+      "component_id": "CMP-23",
+      "kind": "Command",
+      "name": "Migrate Store",
+      "provider": "State and Persistence Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Migrate Store` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-23-IF-04",
+      "component_id": "CMP-23",
+      "kind": "Command",
+      "name": "Rebuild Projection",
+      "provider": "State and Persistence Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Rebuild Projection` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-23-IF-05",
+      "component_id": "CMP-23",
+      "kind": "Query",
+      "name": "Read State",
+      "provider": "State and Persistence Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Read State` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-23-IF-06",
+      "component_id": "CMP-23",
+      "kind": "Query",
+      "name": "Get Version",
+      "provider": "State and Persistence Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Version` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-23-IF-07",
+      "component_id": "CMP-23",
+      "kind": "Query",
+      "name": "Verify Replica",
+      "provider": "State and Persistence Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Verify Replica` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-23-IF-08",
+      "component_id": "CMP-23",
+      "kind": "Query",
+      "name": "Get Migration State",
+      "provider": "State and Persistence Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Migration State` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-23-IF-09",
+      "component_id": "CMP-23",
+      "kind": "Event",
+      "name": "State Committed",
+      "provider": "State and Persistence Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `State Committed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-23-IF-10",
+      "component_id": "CMP-23",
+      "kind": "Event",
+      "name": "Snapshot Created",
+      "provider": "State and Persistence Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Snapshot Created` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-23-IF-11",
+      "component_id": "CMP-23",
+      "kind": "Event",
+      "name": "Migration Completed",
+      "provider": "State and Persistence Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Migration Completed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-23-IF-12",
+      "component_id": "CMP-23",
+      "kind": "Event",
+      "name": "Replica Diverged",
+      "provider": "State and Persistence Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Replica Diverged` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-24-IF-01",
+      "component_id": "CMP-24",
+      "kind": "Command",
+      "name": "Append Audit Record",
+      "provider": "Observability and Audit Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Append Audit Record` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-24-IF-02",
+      "component_id": "CMP-24",
+      "kind": "Command",
+      "name": "Emit Telemetry",
+      "provider": "Observability and Audit Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Emit Telemetry` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-24-IF-03",
+      "component_id": "CMP-24",
+      "kind": "Command",
+      "name": "Declare Alert",
+      "provider": "Observability and Audit Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Declare Alert` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-24-IF-04",
+      "component_id": "CMP-24",
+      "kind": "Command",
+      "name": "Seal Audit Segment",
+      "provider": "Observability and Audit Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Seal Audit Segment` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-24-IF-05",
+      "component_id": "CMP-24",
+      "kind": "Query",
+      "name": "Query Audit Ledger",
+      "provider": "Observability and Audit Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Query Audit Ledger` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-24-IF-06",
+      "component_id": "CMP-24",
+      "kind": "Query",
+      "name": "Get Trace",
+      "provider": "Observability and Audit Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Trace` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-24-IF-07",
+      "component_id": "CMP-24",
+      "kind": "Query",
+      "name": "Get Metric",
+      "provider": "Observability and Audit Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Metric` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-24-IF-08",
+      "component_id": "CMP-24",
+      "kind": "Query",
+      "name": "Verify Audit Chain",
+      "provider": "Observability and Audit Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Verify Audit Chain` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-24-IF-09",
+      "component_id": "CMP-24",
+      "kind": "Event",
+      "name": "Audit Record Appended",
+      "provider": "Observability and Audit Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Audit Record Appended` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-24-IF-10",
+      "component_id": "CMP-24",
+      "kind": "Event",
+      "name": "Alert Raised",
+      "provider": "Observability and Audit Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Alert Raised` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-24-IF-11",
+      "component_id": "CMP-24",
+      "kind": "Event",
+      "name": "Audit Chain Broken",
+      "provider": "Observability and Audit Platform",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Audit Chain Broken` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-25-IF-01",
+      "component_id": "CMP-25",
+      "kind": "Command",
+      "name": "Start Service",
+      "provider": "Runtime Supervisor",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Start Service` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-25-IF-02",
+      "component_id": "CMP-25",
+      "kind": "Command",
+      "name": "Stop Service",
+      "provider": "Runtime Supervisor",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Stop Service` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-25-IF-03",
+      "component_id": "CMP-25",
+      "kind": "Command",
+      "name": "Restart Service",
+      "provider": "Runtime Supervisor",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Restart Service` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-25-IF-04",
+      "component_id": "CMP-25",
+      "kind": "Command",
+      "name": "Enter Degraded Mode",
+      "provider": "Runtime Supervisor",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Enter Degraded Mode` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-25-IF-05",
+      "component_id": "CMP-25",
+      "kind": "Command",
+      "name": "Quarantine Service",
+      "provider": "Runtime Supervisor",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Quarantine Service` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-25-IF-06",
+      "component_id": "CMP-25",
+      "kind": "Query",
+      "name": "Get Service State",
+      "provider": "Runtime Supervisor",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Service State` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-25-IF-07",
+      "component_id": "CMP-25",
+      "kind": "Query",
+      "name": "Get Health",
+      "provider": "Runtime Supervisor",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Health` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-25-IF-08",
+      "component_id": "CMP-25",
+      "kind": "Query",
+      "name": "Get Resource Use",
+      "provider": "Runtime Supervisor",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Resource Use` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-25-IF-09",
+      "component_id": "CMP-25",
+      "kind": "Event",
+      "name": "Service Ready",
+      "provider": "Runtime Supervisor",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Service Ready` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-25-IF-10",
+      "component_id": "CMP-25",
+      "kind": "Event",
+      "name": "Service Degraded",
+      "provider": "Runtime Supervisor",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Service Degraded` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-25-IF-11",
+      "component_id": "CMP-25",
+      "kind": "Event",
+      "name": "Service Quarantined",
+      "provider": "Runtime Supervisor",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Service Quarantined` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-25-IF-12",
+      "component_id": "CMP-25",
+      "kind": "Event",
+      "name": "Service Stopped",
+      "provider": "Runtime Supervisor",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Service Stopped` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-26-IF-01",
+      "component_id": "CMP-26",
+      "kind": "Command",
+      "name": "Open Recovery Case",
+      "provider": "Recovery Coordinator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Open Recovery Case` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-26-IF-02",
+      "component_id": "CMP-26",
+      "kind": "Command",
+      "name": "Authorize Recovery Step",
+      "provider": "Recovery Coordinator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Authorize Recovery Step` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-26-IF-03",
+      "component_id": "CMP-26",
+      "kind": "Command",
+      "name": "Restore State",
+      "provider": "Recovery Coordinator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Restore State` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-26-IF-04",
+      "component_id": "CMP-26",
+      "kind": "Command",
+      "name": "Reconcile Partition",
+      "provider": "Recovery Coordinator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Reconcile Partition` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-26-IF-05",
+      "component_id": "CMP-26",
+      "kind": "Command",
+      "name": "Close Recovery",
+      "provider": "Recovery Coordinator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Close Recovery` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-26-IF-06",
+      "component_id": "CMP-26",
+      "kind": "Query",
+      "name": "Get Recovery State",
+      "provider": "Recovery Coordinator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Recovery State` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-26-IF-07",
+      "component_id": "CMP-26",
+      "kind": "Query",
+      "name": "Get RPO/RTO Result",
+      "provider": "Recovery Coordinator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get RPO/RTO Result` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-26-IF-08",
+      "component_id": "CMP-26",
+      "kind": "Query",
+      "name": "Explain Reconciliation",
+      "provider": "Recovery Coordinator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Explain Reconciliation` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-26-IF-09",
+      "component_id": "CMP-26",
+      "kind": "Event",
+      "name": "Recovery Started",
+      "provider": "Recovery Coordinator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Recovery Started` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-26-IF-10",
+      "component_id": "CMP-26",
+      "kind": "Event",
+      "name": "State Restored",
+      "provider": "Recovery Coordinator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `State Restored` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-26-IF-11",
+      "component_id": "CMP-26",
+      "kind": "Event",
+      "name": "Partition Reconciled",
+      "provider": "Recovery Coordinator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Partition Reconciled` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-26-IF-12",
+      "component_id": "CMP-26",
+      "kind": "Event",
+      "name": "Recovery Failed",
+      "provider": "Recovery Coordinator",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Recovery Failed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-27-IF-01",
+      "component_id": "CMP-27",
+      "kind": "Command",
+      "name": "Start Interaction",
+      "provider": "Human Interaction Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Start Interaction` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-27-IF-02",
+      "component_id": "CMP-27",
+      "kind": "Command",
+      "name": "Submit Human Input",
+      "provider": "Human Interaction Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Submit Human Input` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-27-IF-03",
+      "component_id": "CMP-27",
+      "kind": "Command",
+      "name": "Request Confirmation",
+      "provider": "Human Interaction Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Request Confirmation` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-27-IF-04",
+      "component_id": "CMP-27",
+      "kind": "Command",
+      "name": "End Interaction",
+      "provider": "Human Interaction Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `End Interaction` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-27-IF-05",
+      "component_id": "CMP-27",
+      "kind": "Query",
+      "name": "Get Session State",
+      "provider": "Human Interaction Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Session State` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-27-IF-06",
+      "component_id": "CMP-27",
+      "kind": "Query",
+      "name": "Get Accessible Representation",
+      "provider": "Human Interaction Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Accessible Representation` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-27-IF-07",
+      "component_id": "CMP-27",
+      "kind": "Query",
+      "name": "Get Action Status",
+      "provider": "Human Interaction Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Action Status` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-27-IF-08",
+      "component_id": "CMP-27",
+      "kind": "Event",
+      "name": "Interaction Started",
+      "provider": "Human Interaction Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Interaction Started` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-27-IF-09",
+      "component_id": "CMP-27",
+      "kind": "Event",
+      "name": "Clarification Requested",
+      "provider": "Human Interaction Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Clarification Requested` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-27-IF-10",
+      "component_id": "CMP-27",
+      "kind": "Event",
+      "name": "Confirmation Recorded",
+      "provider": "Human Interaction Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Confirmation Recorded` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-27-IF-11",
+      "component_id": "CMP-27",
+      "kind": "Event",
+      "name": "Interaction Ended",
+      "provider": "Human Interaction Layer",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Interaction Ended` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-28-IF-01",
+      "component_id": "CMP-28",
+      "kind": "Command",
+      "name": "Refresh Self Model",
+      "provider": "Self-Model and Constitutional Mirror",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Refresh Self Model` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-28-IF-02",
+      "component_id": "CMP-28",
+      "kind": "Command",
+      "name": "Publish Constitutional Mirror",
+      "provider": "Self-Model and Constitutional Mirror",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Publish Constitutional Mirror` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-28-IF-03",
+      "component_id": "CMP-28",
+      "kind": "Command",
+      "name": "Invalidate Projection",
+      "provider": "Self-Model and Constitutional Mirror",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Invalidate Projection` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-28-IF-04",
+      "component_id": "CMP-28",
+      "kind": "Query",
+      "name": "Get Self Description",
+      "provider": "Self-Model and Constitutional Mirror",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Self Description` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-28-IF-05",
+      "component_id": "CMP-28",
+      "kind": "Query",
+      "name": "Trace Mirror Claim",
+      "provider": "Self-Model and Constitutional Mirror",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Trace Mirror Claim` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-28-IF-06",
+      "component_id": "CMP-28",
+      "kind": "Query",
+      "name": "Get Declared Limitation",
+      "provider": "Self-Model and Constitutional Mirror",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Declared Limitation` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-28-IF-07",
+      "component_id": "CMP-28",
+      "kind": "Event",
+      "name": "Self Model Refreshed",
+      "provider": "Self-Model and Constitutional Mirror",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Self Model Refreshed` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-28-IF-08",
+      "component_id": "CMP-28",
+      "kind": "Event",
+      "name": "Mirror Published",
+      "provider": "Self-Model and Constitutional Mirror",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Mirror Published` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-28-IF-09",
+      "component_id": "CMP-28",
+      "kind": "Event",
+      "name": "Projection Invalidated",
+      "provider": "Self-Model and Constitutional Mirror",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Projection Invalidated` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-29-IF-01",
+      "component_id": "CMP-29",
+      "kind": "Command",
+      "name": "Open Outcome Evaluation",
+      "provider": "Outcome and Success Evaluation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Open Outcome Evaluation` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-29-IF-02",
+      "component_id": "CMP-29",
+      "kind": "Command",
+      "name": "Record Outcome",
+      "provider": "Outcome and Success Evaluation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Record Outcome` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-29-IF-03",
+      "component_id": "CMP-29",
+      "kind": "Command",
+      "name": "Evaluate Success",
+      "provider": "Outcome and Success Evaluation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Evaluate Success` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-29-IF-04",
+      "component_id": "CMP-29",
+      "kind": "Command",
+      "name": "Refer Learning",
+      "provider": "Outcome and Success Evaluation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Command `Refer Learning` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-29-IF-05",
+      "component_id": "CMP-29",
+      "kind": "Query",
+      "name": "Get Outcome Object",
+      "provider": "Outcome and Success Evaluation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Get Outcome Object` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-29-IF-06",
+      "component_id": "CMP-29",
+      "kind": "Query",
+      "name": "Explain Success Result",
+      "provider": "Outcome and Success Evaluation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `Explain Success Result` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-29-IF-07",
+      "component_id": "CMP-29",
+      "kind": "Query",
+      "name": "List Side Effects",
+      "provider": "Outcome and Success Evaluation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Query `List Side Effects` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-29-IF-08",
+      "component_id": "CMP-29",
+      "kind": "Event",
+      "name": "Outcome Recorded",
+      "provider": "Outcome and Success Evaluation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Outcome Recorded` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-29-IF-09",
+      "component_id": "CMP-29",
+      "kind": "Event",
+      "name": "Success Evaluated",
+      "provider": "Outcome and Success Evaluation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Success Evaluated` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    },
+    {
+      "interface_id": "CMP-29-IF-10",
+      "component_id": "CMP-29",
+      "kind": "Event",
+      "name": "Review Required",
+      "provider": "Outcome and Success Evaluation Service",
+      "consumers": "Authorized HAL components and operators with declared need",
+      "semantic_requirement": "Event `Review Required` MUST carry identity, authority context where applicable, schema version, correlation, causation, time/freshness, provenance, and explicit success or denial semantics.",
+      "book_ix_handoff": "Wire encoding, field schema, protocol, error code, timeout, retry, and compatibility contract"
+    }
+  ]
+}

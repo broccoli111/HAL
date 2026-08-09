@@ -1,0 +1,22 @@
+{
+  "@context": {
+    "hal": "https://hal.canon/terms/",
+    "term_id": "@id",
+    "canonical_label": "http://www.w3.org/2004/02/skos/core#prefLabel",
+    "definition": "http://www.w3.org/2004/02/skos/core#definition",
+    "allowed_aliases": "http://www.w3.org/2004/02/skos/core#altLabel",
+    "category": "hal:category",
+    "semantic_type": "hal:semanticType",
+    "distinction": "hal:requiredDistinction",
+    "book_i_source": "hal:bookISource",
+    "book_ii_source": "hal:bookIISource",
+    "book_iii_source": "hal:bookIIISource",
+    "source_basis": "hal:sourceBasis",
+    "examples": "hal:example",
+    "counterexamples": "hal:counterexample",
+    "relationship_ids": "hal:relationship",
+    "constraints": "hal:constraint",
+    "lifecycle_transition_ids": "hal:lifecycleTransition",
+    "status": "hal:termStatus"
+  }
+}

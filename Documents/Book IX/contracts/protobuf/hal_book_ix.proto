@@ -1,0 +1,513 @@
+syntax = "proto3";
+
+package hal.book_ix.v1;
+
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+
+message AuthorityContext { string principal_id = 1; repeated string delegation_chain = 2; string purpose = 3; string decision_id = 4; string policy_version = 5; google.protobuf.Struct constraints = 6; google.protobuf.Timestamp issued_at = 7; google.protobuf.Timestamp expires_at = 8; bytes integrity = 9; }
+message TreatyContext { string treaty_id = 1; string version = 2; string external_domain_id = 3; string purpose = 4; string state = 5; google.protobuf.Timestamp expires_at = 6; bytes integrity = 7; }
+message Envelope { string message_id = 1; string contract_id = 2; string contract_version = 3; string schema_id = 4; string correlation_id = 5; string causation_id = 6; string producer = 7; string intended_recipient = 8; google.protobuf.Timestamp issued_at = 9; google.protobuf.Timestamp expires_at = 10; uint64 sequence = 11; string idempotency_key = 12; string classification = 13; AuthorityContext authority_context = 14; TreatyContext treaty_context = 15; google.protobuf.Struct payload = 16; bytes integrity = 17; }
+
+service CMP01Service {
+  // IX-C-0001 from CMP-01-IF-01
+  rpc EvaluateProtectedAction(Envelope) returns (Envelope);
+  // IX-C-0002 from CMP-01-IF-02
+  rpc CommitProtectedMutation(Envelope) returns (Envelope);
+  // IX-C-0003 from CMP-01-IF-03
+  rpc ValidateOwnerAuthorization(Envelope) returns (Envelope);
+  // IX-C-0004 from CMP-01-IF-04
+  rpc AdmitConstitutionalRecovery(Envelope) returns (Envelope);
+  // IX-C-0005 from CMP-01-IF-05
+  rpc GetConstitutionalState(Envelope) returns (Envelope);
+  // IX-C-0006 from CMP-01-IF-06
+  rpc GetProtectedDecision(Envelope) returns (Envelope);
+}
+
+service CMP02Service {
+  // IX-C-0010 from CMP-02-IF-01
+  rpc CreateIdentity(Envelope) returns (Envelope);
+  // IX-C-0011 from CMP-02-IF-02
+  rpc BindIdentifier(Envelope) returns (Envelope);
+  // IX-C-0012 from CMP-02-IF-03
+  rpc SuspendIdentity(Envelope) returns (Envelope);
+  // IX-C-0013 from CMP-02-IF-04
+  rpc ReconcileContinuity(Envelope) returns (Envelope);
+  // IX-C-0014 from CMP-02-IF-05
+  rpc ResolveIdentity(Envelope) returns (Envelope);
+  // IX-C-0015 from CMP-02-IF-06
+  rpc GetContinuityLineage(Envelope) returns (Envelope);
+  // IX-C-0016 from CMP-02-IF-07
+  rpc GetAuthenticationContext(Envelope) returns (Envelope);
+}
+
+service CMP03Service {
+  // IX-C-0020 from CMP-03-IF-01
+  rpc GrantDelegation(Envelope) returns (Envelope);
+  // IX-C-0021 from CMP-03-IF-02
+  rpc RevokeDelegation(Envelope) returns (Envelope);
+  // IX-C-0022 from CMP-03-IF-03
+  rpc EvaluatePermission(Envelope) returns (Envelope);
+  // IX-C-0023 from CMP-03-IF-04
+  rpc ExpireDelegation(Envelope) returns (Envelope);
+  // IX-C-0024 from CMP-03-IF-05
+  rpc GetEffectiveAuthority(Envelope) returns (Envelope);
+  // IX-C-0025 from CMP-03-IF-06
+  rpc ExplainPolicyDecision(Envelope) returns (Envelope);
+  // IX-C-0026 from CMP-03-IF-07
+  rpc ListActiveDelegations(Envelope) returns (Envelope);
+}
+
+service CMP04Service {
+  // IX-C-0030 from CMP-04-IF-01
+  rpc RegisterIntent(Envelope) returns (Envelope);
+  // IX-C-0031 from CMP-04-IF-02
+  rpc ReviseIntent(Envelope) returns (Envelope);
+  // IX-C-0032 from CMP-04-IF-03
+  rpc DecomposeGoal(Envelope) returns (Envelope);
+  // IX-C-0033 from CMP-04-IF-04
+  rpc RetireIntent(Envelope) returns (Envelope);
+  // IX-C-0034 from CMP-04-IF-05
+  rpc GetIntentGraph(Envelope) returns (Envelope);
+  // IX-C-0035 from CMP-04-IF-06
+  rpc TraceObjective(Envelope) returns (Envelope);
+  // IX-C-0036 from CMP-04-IF-07
+  rpc ListOutcomeCriteria(Envelope) returns (Envelope);
+}
+
+service CMP05Service {
+  // IX-C-0040 from CMP-05-IF-01
+  rpc StartOrchestration(Envelope) returns (Envelope);
+  // IX-C-0041 from CMP-05-IF-02
+  rpc AdvanceExecutionGraph(Envelope) returns (Envelope);
+  // IX-C-0042 from CMP-05-IF-03
+  rpc CancelRun(Envelope) returns (Envelope);
+  // IX-C-0043 from CMP-05-IF-04
+  rpc RequestProviderWork(Envelope) returns (Envelope);
+  // IX-C-0044 from CMP-05-IF-05
+  rpc GetRunState(Envelope) returns (Envelope);
+  // IX-C-0045 from CMP-05-IF-06
+  rpc ExplainRouting(Envelope) returns (Envelope);
+  // IX-C-0046 from CMP-05-IF-07
+  rpc GetExecutionGraph(Envelope) returns (Envelope);
+}
+
+service CMP06Service {
+  // IX-C-0051 from CMP-06-IF-01
+  rpc SubmitAttentionRequest(Envelope) returns (Envelope);
+  // IX-C-0052 from CMP-06-IF-02
+  rpc AdmitWork(Envelope) returns (Envelope);
+  // IX-C-0053 from CMP-06-IF-03
+  rpc PreemptWork(Envelope) returns (Envelope);
+  // IX-C-0054 from CMP-06-IF-04
+  rpc ReleasePlacement(Envelope) returns (Envelope);
+  // IX-C-0055 from CMP-06-IF-05
+  rpc GetQueueState(Envelope) returns (Envelope);
+  // IX-C-0056 from CMP-06-IF-06
+  rpc ExplainPriority(Envelope) returns (Envelope);
+  // IX-C-0057 from CMP-06-IF-07
+  rpc GetPlacement(Envelope) returns (Envelope);
+}
+
+service CMP07Service {
+  // IX-C-0061 from CMP-07-IF-01
+  rpc RequestJudgment(Envelope) returns (Envelope);
+  // IX-C-0062 from CMP-07-IF-02
+  rpc RecordDecision(Envelope) returns (Envelope);
+  // IX-C-0063 from CMP-07-IF-03
+  rpc ReconsiderDecision(Envelope) returns (Envelope);
+  // IX-C-0064 from CMP-07-IF-04
+  rpc WithdrawDecision(Envelope) returns (Envelope);
+  // IX-C-0065 from CMP-07-IF-05
+  rpc GetDecisionObject(Envelope) returns (Envelope);
+  // IX-C-0066 from CMP-07-IF-06
+  rpc ExplainRationale(Envelope) returns (Envelope);
+  // IX-C-0067 from CMP-07-IF-07
+  rpc ListAlternatives(Envelope) returns (Envelope);
+}
+
+service CMP08Service {
+  // IX-C-0071 from CMP-08-IF-01
+  rpc AdmitKnowledgeAssertion(Envelope) returns (Envelope);
+  // IX-C-0072 from CMP-08-IF-02
+  rpc ReviseKnowledgeLink(Envelope) returns (Envelope);
+  // IX-C-0073 from CMP-08-IF-03
+  rpc InvalidateAssertion(Envelope) returns (Envelope);
+  // IX-C-0074 from CMP-08-IF-04
+  rpc RebuildIndex(Envelope) returns (Envelope);
+  // IX-C-0075 from CMP-08-IF-05
+  rpc QueryKnowledge(Envelope) returns (Envelope);
+  // IX-C-0076 from CMP-08-IF-06
+  rpc TraceProvenance(Envelope) returns (Envelope);
+  // IX-C-0077 from CMP-08-IF-07
+  rpc GetValidityContext(Envelope) returns (Envelope);
+}
+
+service CMP09Service {
+  // IX-C-0081 from CMP-09-IF-01
+  rpc StoreMemoryAssociation(Envelope) returns (Envelope);
+  // IX-C-0082 from CMP-09-IF-02
+  rpc ReviseAssociation(Envelope) returns (Envelope);
+  // IX-C-0083 from CMP-09-IF-03
+  rpc ForgetMemory(Envelope) returns (Envelope);
+  // IX-C-0084 from CMP-09-IF-04
+  rpc ReconcileConversation(Envelope) returns (Envelope);
+  // IX-C-0085 from CMP-09-IF-05
+  rpc RecallMemory(Envelope) returns (Envelope);
+  // IX-C-0086 from CMP-09-IF-06
+  rpc TraceMemorySource(Envelope) returns (Envelope);
+  // IX-C-0087 from CMP-09-IF-07
+  rpc GetRetentionStatus(Envelope) returns (Envelope);
+}
+
+service CMP10Service {
+  // IX-C-0091 from CMP-10-IF-01
+  rpc RecordExperience(Envelope) returns (Envelope);
+  // IX-C-0092 from CMP-10-IF-02
+  rpc ProposePattern(Envelope) returns (Envelope);
+  // IX-C-0093 from CMP-10-IF-03
+  rpc PromotePattern(Envelope) returns (Envelope);
+  // IX-C-0094 from CMP-10-IF-04
+  rpc RetireWisdom(Envelope) returns (Envelope);
+  // IX-C-0095 from CMP-10-IF-05
+  rpc GetExperience(Envelope) returns (Envelope);
+  // IX-C-0096 from CMP-10-IF-06
+  rpc ExplainPattern(Envelope) returns (Envelope);
+  // IX-C-0097 from CMP-10-IF-07
+  rpc GetWisdomLimits(Envelope) returns (Envelope);
+}
+
+service CMP11Service {
+  // IX-C-0101 from CMP-11-IF-01
+  rpc IssueLease(Envelope) returns (Envelope);
+  // IX-C-0102 from CMP-11-IF-02
+  rpc RenewLease(Envelope) returns (Envelope);
+  // IX-C-0103 from CMP-11-IF-03
+  rpc RecordLogicalTime(Envelope) returns (Envelope);
+  // IX-C-0104 from CMP-11-IF-04
+  rpc DeclareTimeSourceDegraded(Envelope) returns (Envelope);
+  // IX-C-0105 from CMP-11-IF-05
+  rpc GetCurrentTimeContext(Envelope) returns (Envelope);
+  // IX-C-0106 from CMP-11-IF-06
+  rpc CompareCausality(Envelope) returns (Envelope);
+  // IX-C-0107 from CMP-11-IF-07
+  rpc GetFreshness(Envelope) returns (Envelope);
+}
+
+service CMP12Service {
+  // IX-C-0111 from CMP-12-IF-01
+  rpc CreatePresence(Envelope) returns (Envelope);
+  // IX-C-0112 from CMP-12-IF-02
+  rpc BindEmbodiment(Envelope) returns (Envelope);
+  // IX-C-0113 from CMP-12-IF-03
+  rpc HandoffPresence(Envelope) returns (Envelope);
+  // IX-C-0114 from CMP-12-IF-04
+  rpc EndPresence(Envelope) returns (Envelope);
+  // IX-C-0115 from CMP-12-IF-05
+  rpc GetPresenceContext(Envelope) returns (Envelope);
+  // IX-C-0116 from CMP-12-IF-06
+  rpc ListEmbodiments(Envelope) returns (Envelope);
+  // IX-C-0117 from CMP-12-IF-07
+  rpc GetAudienceContext(Envelope) returns (Envelope);
+}
+
+service CMP13Service {
+  // IX-C-0121 from CMP-13-IF-01
+  rpc RegisterCapability(Envelope) returns (Envelope);
+  // IX-C-0122 from CMP-13-IF-02
+  rpc RegisterProvider(Envelope) returns (Envelope);
+  // IX-C-0123 from CMP-13-IF-03
+  rpc QualifyProvider(Envelope) returns (Envelope);
+  // IX-C-0124 from CMP-13-IF-04
+  rpc RetireAdapter(Envelope) returns (Envelope);
+  // IX-C-0125 from CMP-13-IF-05
+  rpc DiscoverCapability(Envelope) returns (Envelope);
+  // IX-C-0126 from CMP-13-IF-06
+  rpc GetProviderQualification(Envelope) returns (Envelope);
+  // IX-C-0127 from CMP-13-IF-07
+  rpc ResolveAdapter(Envelope) returns (Envelope);
+}
+
+service CMP14Service {
+  // IX-C-0131 from CMP-14-IF-01
+  rpc ProposeAction(Envelope) returns (Envelope);
+  // IX-C-0132 from CMP-14-IF-02
+  rpc PrepareTransaction(Envelope) returns (Envelope);
+  // IX-C-0133 from CMP-14-IF-03
+  rpc CommitTransaction(Envelope) returns (Envelope);
+  // IX-C-0134 from CMP-14-IF-04
+  rpc RollbackTransaction(Envelope) returns (Envelope);
+  // IX-C-0135 from CMP-14-IF-05
+  rpc BeginCompensation(Envelope) returns (Envelope);
+  // IX-C-0136 from CMP-14-IF-06
+  rpc GetTransactionState(Envelope) returns (Envelope);
+  // IX-C-0137 from CMP-14-IF-07
+  rpc ExplainCommitDecision(Envelope) returns (Envelope);
+  // IX-C-0138 from CMP-14-IF-08
+  rpc GetIdempotencyResult(Envelope) returns (Envelope);
+}
+
+service CMP15Service {
+  // IX-C-0143 from CMP-15-IF-01
+  rpc StartVerification(Envelope) returns (Envelope);
+  // IX-C-0144 from CMP-15-IF-02
+  rpc RecordVerificationResult(Envelope) returns (Envelope);
+  // IX-C-0145 from CMP-15-IF-03
+  rpc InvalidateResult(Envelope) returns (Envelope);
+  // IX-C-0146 from CMP-15-IF-04
+  rpc RequestReproduction(Envelope) returns (Envelope);
+  // IX-C-0147 from CMP-15-IF-05
+  rpc GetVerificationResult(Envelope) returns (Envelope);
+  // IX-C-0148 from CMP-15-IF-06
+  rpc ExplainConfidence(Envelope) returns (Envelope);
+  // IX-C-0149 from CMP-15-IF-07
+  rpc ListDefeaters(Envelope) returns (Envelope);
+}
+
+service CMP16Service {
+  // IX-C-0154 from CMP-16-IF-01
+  rpc CreateSimulation(Envelope) returns (Envelope);
+  // IX-C-0155 from CMP-16-IF-02
+  rpc LoadTwinState(Envelope) returns (Envelope);
+  // IX-C-0156 from CMP-16-IF-03
+  rpc RunScenario(Envelope) returns (Envelope);
+  // IX-C-0157 from CMP-16-IF-04
+  rpc InjectFailure(Envelope) returns (Envelope);
+  // IX-C-0158 from CMP-16-IF-05
+  rpc TerminateSimulation(Envelope) returns (Envelope);
+  // IX-C-0159 from CMP-16-IF-06
+  rpc GetScenarioResult(Envelope) returns (Envelope);
+  // IX-C-0160 from CMP-16-IF-07
+  rpc GetFidelityScore(Envelope) returns (Envelope);
+  // IX-C-0161 from CMP-16-IF-08
+  rpc GetIsolationStatus(Envelope) returns (Envelope);
+}
+
+service CMP17Service {
+  // IX-C-0165 from CMP-17-IF-01
+  rpc RequestTrustAssessment(Envelope) returns (Envelope);
+  // IX-C-0166 from CMP-17-IF-02
+  rpc UpdateTrustDimension(Envelope) returns (Envelope);
+  // IX-C-0167 from CMP-17-IF-03
+  rpc InvalidateAssessment(Envelope) returns (Envelope);
+  // IX-C-0168 from CMP-17-IF-04
+  rpc GetTrustAssessment(Envelope) returns (Envelope);
+  // IX-C-0169 from CMP-17-IF-05
+  rpc ExplainTrustBasis(Envelope) returns (Envelope);
+  // IX-C-0170 from CMP-17-IF-06
+  rpc ListExpiringAssessments(Envelope) returns (Envelope);
+}
+
+service CMP18Service {
+  // IX-C-0174 from CMP-18-IF-01
+  rpc SubmitEvidenceCandidate(Envelope) returns (Envelope);
+  // IX-C-0175 from CMP-18-IF-02
+  rpc AdmitEvidenceObject(Envelope) returns (Envelope);
+  // IX-C-0176 from CMP-18-IF-03
+  rpc ChallengeEvidence(Envelope) returns (Envelope);
+  // IX-C-0177 from CMP-18-IF-04
+  rpc RecordSupersession(Envelope) returns (Envelope);
+  // IX-C-0178 from CMP-18-IF-05
+  rpc GetEvidenceObject(Envelope) returns (Envelope);
+  // IX-C-0179 from CMP-18-IF-06
+  rpc TraceCustody(Envelope) returns (Envelope);
+  // IX-C-0180 from CMP-18-IF-07
+  rpc VerifyEvidenceIntegrity(Envelope) returns (Envelope);
+}
+
+service CMP19Service {
+  // IX-C-0184 from CMP-19-IF-01
+  rpc ClassifyData(Envelope) returns (Envelope);
+  // IX-C-0185 from CMP-19-IF-02
+  rpc AuthorizePurpose(Envelope) returns (Envelope);
+  // IX-C-0186 from CMP-19-IF-03
+  rpc SetRetention(Envelope) returns (Envelope);
+  // IX-C-0187 from CMP-19-IF-04
+  rpc OrderDeletion(Envelope) returns (Envelope);
+  // IX-C-0188 from CMP-19-IF-05
+  rpc RestrictDisclosure(Envelope) returns (Envelope);
+  // IX-C-0189 from CMP-19-IF-06
+  rpc GetDataPolicy(Envelope) returns (Envelope);
+  // IX-C-0190 from CMP-19-IF-07
+  rpc EvaluateDataUse(Envelope) returns (Envelope);
+  // IX-C-0191 from CMP-19-IF-08
+  rpc GetDeletionStatus(Envelope) returns (Envelope);
+}
+
+service CMP20Service {
+  // IX-C-0196 from CMP-20-IF-01
+  rpc OpenDomainSession(Envelope) returns (Envelope);
+  // IX-C-0197 from CMP-20-IF-02
+  rpc AuthorizeExchange(Envelope) returns (Envelope);
+  // IX-C-0198 from CMP-20-IF-03
+  rpc TerminateExchange(Envelope) returns (Envelope);
+  // IX-C-0199 from CMP-20-IF-04
+  rpc QuarantinePayload(Envelope) returns (Envelope);
+  // IX-C-0200 from CMP-20-IF-05
+  rpc GetFirewallDecision(Envelope) returns (Envelope);
+  // IX-C-0201 from CMP-20-IF-06
+  rpc GetActiveTreatyView(Envelope) returns (Envelope);
+  // IX-C-0202 from CMP-20-IF-07
+  rpc ExplainDenial(Envelope) returns (Envelope);
+}
+
+service CMP21Service {
+  // IX-C-0206 from CMP-21-IF-01
+  rpc ProposeTreaty(Envelope) returns (Envelope);
+  // IX-C-0207 from CMP-21-IF-02
+  rpc AuthorizeTreaty(Envelope) returns (Envelope);
+  // IX-C-0208 from CMP-21-IF-03
+  rpc ActivateTreaty(Envelope) returns (Envelope);
+  // IX-C-0209 from CMP-21-IF-04
+  rpc SuspendTreaty(Envelope) returns (Envelope);
+  // IX-C-0210 from CMP-21-IF-05
+  rpc RevokeTreaty(Envelope) returns (Envelope);
+  // IX-C-0211 from CMP-21-IF-06
+  rpc GetTreaty(Envelope) returns (Envelope);
+  // IX-C-0212 from CMP-21-IF-07
+  rpc CompareTreatyVersion(Envelope) returns (Envelope);
+  // IX-C-0213 from CMP-21-IF-08
+  rpc ListActiveTreaties(Envelope) returns (Envelope);
+}
+
+service CMP22Service {
+  // IX-C-0218 from CMP-22-IF-01
+  rpc PublishCommand(Envelope) returns (Envelope);
+  // IX-C-0219 from CMP-22-IF-02
+  rpc AppendEvent(Envelope) returns (Envelope);
+  // IX-C-0220 from CMP-22-IF-03
+  rpc AcknowledgeDelivery(Envelope) returns (Envelope);
+  // IX-C-0221 from CMP-22-IF-04
+  rpc QuarantineMessage(Envelope) returns (Envelope);
+  // IX-C-0222 from CMP-22-IF-05
+  rpc QueryEventStream(Envelope) returns (Envelope);
+  // IX-C-0223 from CMP-22-IF-06
+  rpc GetDeliveryState(Envelope) returns (Envelope);
+  // IX-C-0224 from CMP-22-IF-07
+  rpc TraceCausation(Envelope) returns (Envelope);
+}
+
+service CMP23Service {
+  // IX-C-0229 from CMP-23-IF-01
+  rpc CommitStateChange(Envelope) returns (Envelope);
+  // IX-C-0230 from CMP-23-IF-02
+  rpc CreateSnapshot(Envelope) returns (Envelope);
+  // IX-C-0231 from CMP-23-IF-03
+  rpc MigrateStore(Envelope) returns (Envelope);
+  // IX-C-0232 from CMP-23-IF-04
+  rpc RebuildProjection(Envelope) returns (Envelope);
+  // IX-C-0233 from CMP-23-IF-05
+  rpc ReadState(Envelope) returns (Envelope);
+  // IX-C-0234 from CMP-23-IF-06
+  rpc GetVersion(Envelope) returns (Envelope);
+  // IX-C-0235 from CMP-23-IF-07
+  rpc VerifyReplica(Envelope) returns (Envelope);
+  // IX-C-0236 from CMP-23-IF-08
+  rpc GetMigrationState(Envelope) returns (Envelope);
+}
+
+service CMP24Service {
+  // IX-C-0241 from CMP-24-IF-01
+  rpc AppendAuditRecord(Envelope) returns (Envelope);
+  // IX-C-0242 from CMP-24-IF-02
+  rpc EmitTelemetry(Envelope) returns (Envelope);
+  // IX-C-0243 from CMP-24-IF-03
+  rpc DeclareAlert(Envelope) returns (Envelope);
+  // IX-C-0244 from CMP-24-IF-04
+  rpc SealAuditSegment(Envelope) returns (Envelope);
+  // IX-C-0245 from CMP-24-IF-05
+  rpc QueryAuditLedger(Envelope) returns (Envelope);
+  // IX-C-0246 from CMP-24-IF-06
+  rpc GetTrace(Envelope) returns (Envelope);
+  // IX-C-0247 from CMP-24-IF-07
+  rpc GetMetric(Envelope) returns (Envelope);
+  // IX-C-0248 from CMP-24-IF-08
+  rpc VerifyAuditChain(Envelope) returns (Envelope);
+}
+
+service CMP25Service {
+  // IX-C-0252 from CMP-25-IF-01
+  rpc StartService(Envelope) returns (Envelope);
+  // IX-C-0253 from CMP-25-IF-02
+  rpc StopService(Envelope) returns (Envelope);
+  // IX-C-0254 from CMP-25-IF-03
+  rpc RestartService(Envelope) returns (Envelope);
+  // IX-C-0255 from CMP-25-IF-04
+  rpc EnterDegradedMode(Envelope) returns (Envelope);
+  // IX-C-0256 from CMP-25-IF-05
+  rpc QuarantineService(Envelope) returns (Envelope);
+  // IX-C-0257 from CMP-25-IF-06
+  rpc GetServiceState(Envelope) returns (Envelope);
+  // IX-C-0258 from CMP-25-IF-07
+  rpc GetHealth(Envelope) returns (Envelope);
+  // IX-C-0259 from CMP-25-IF-08
+  rpc GetResourceUse(Envelope) returns (Envelope);
+}
+
+service CMP26Service {
+  // IX-C-0264 from CMP-26-IF-01
+  rpc OpenRecoveryCase(Envelope) returns (Envelope);
+  // IX-C-0265 from CMP-26-IF-02
+  rpc AuthorizeRecoveryStep(Envelope) returns (Envelope);
+  // IX-C-0266 from CMP-26-IF-03
+  rpc RestoreState(Envelope) returns (Envelope);
+  // IX-C-0267 from CMP-26-IF-04
+  rpc ReconcilePartition(Envelope) returns (Envelope);
+  // IX-C-0268 from CMP-26-IF-05
+  rpc CloseRecovery(Envelope) returns (Envelope);
+  // IX-C-0269 from CMP-26-IF-06
+  rpc GetRecoveryState(Envelope) returns (Envelope);
+  // IX-C-0270 from CMP-26-IF-07
+  rpc GetRpoRtoResult(Envelope) returns (Envelope);
+  // IX-C-0271 from CMP-26-IF-08
+  rpc ExplainReconciliation(Envelope) returns (Envelope);
+}
+
+service CMP27Service {
+  // IX-C-0276 from CMP-27-IF-01
+  rpc StartInteraction(Envelope) returns (Envelope);
+  // IX-C-0277 from CMP-27-IF-02
+  rpc SubmitHumanInput(Envelope) returns (Envelope);
+  // IX-C-0278 from CMP-27-IF-03
+  rpc RequestConfirmation(Envelope) returns (Envelope);
+  // IX-C-0279 from CMP-27-IF-04
+  rpc EndInteraction(Envelope) returns (Envelope);
+  // IX-C-0280 from CMP-27-IF-05
+  rpc GetSessionState(Envelope) returns (Envelope);
+  // IX-C-0281 from CMP-27-IF-06
+  rpc GetAccessibleRepresentation(Envelope) returns (Envelope);
+  // IX-C-0282 from CMP-27-IF-07
+  rpc GetActionStatus(Envelope) returns (Envelope);
+}
+
+service CMP28Service {
+  // IX-C-0287 from CMP-28-IF-01
+  rpc RefreshSelfModel(Envelope) returns (Envelope);
+  // IX-C-0288 from CMP-28-IF-02
+  rpc PublishConstitutionalMirror(Envelope) returns (Envelope);
+  // IX-C-0289 from CMP-28-IF-03
+  rpc InvalidateProjection(Envelope) returns (Envelope);
+  // IX-C-0290 from CMP-28-IF-04
+  rpc GetSelfDescription(Envelope) returns (Envelope);
+  // IX-C-0291 from CMP-28-IF-05
+  rpc TraceMirrorClaim(Envelope) returns (Envelope);
+  // IX-C-0292 from CMP-28-IF-06
+  rpc GetDeclaredLimitation(Envelope) returns (Envelope);
+}
+
+service CMP29Service {
+  // IX-C-0296 from CMP-29-IF-01
+  rpc OpenOutcomeEvaluation(Envelope) returns (Envelope);
+  // IX-C-0297 from CMP-29-IF-02
+  rpc RecordOutcome(Envelope) returns (Envelope);
+  // IX-C-0298 from CMP-29-IF-03
+  rpc EvaluateSuccess(Envelope) returns (Envelope);
+  // IX-C-0299 from CMP-29-IF-04
+  rpc ReferLearning(Envelope) returns (Envelope);
+  // IX-C-0300 from CMP-29-IF-05
+  rpc GetOutcomeObject(Envelope) returns (Envelope);
+  // IX-C-0301 from CMP-29-IF-06
+  rpc ExplainSuccessResult(Envelope) returns (Envelope);
+  // IX-C-0302 from CMP-29-IF-07
+  rpc ListSideEffects(Envelope) returns (Envelope);
+}

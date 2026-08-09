@@ -1,0 +1,53 @@
+# HAL Book III Conformance Checklist
+
+- [ ] GOV-001 - Foundations, Authority, and Lifecycle
+- [ ] GOV-002 - Foundations, Authority, and Lifecycle
+- [ ] GOV-003 - Foundations, Authority, and Lifecycle
+- [ ] GOV-004 - Foundations, Authority, and Lifecycle
+- [ ] GOV-005 - Foundations, Authority, and Lifecycle
+- [ ] SRC-001 - Repository, Source, and Configuration Management
+- [ ] SRC-002 - Repository, Source, and Configuration Management
+- [ ] SRC-003 - Repository, Source, and Configuration Management
+- [ ] SRC-004 - Repository, Source, and Configuration Management
+- [ ] SRC-005 - Repository, Source, and Configuration Management
+- [ ] SRC-006 - Repository, Source, and Configuration Management
+- [ ] DES-001 - Software Design and Contract Engineering
+- [ ] DES-002 - Software Design and Contract Engineering
+- [ ] DES-003 - Software Design and Contract Engineering
+- [ ] DES-004 - Software Design and Contract Engineering
+- [ ] DES-005 - Software Design and Contract Engineering
+- [ ] DES-006 - Software Design and Contract Engineering
+- [ ] OBS-001 - Implementation Quality and Observability
+- [ ] OBS-002 - Implementation Quality and Observability
+- [ ] OBS-003 - Implementation Quality and Observability
+- [ ] OBS-004 - Implementation Quality and Observability
+- [ ] DOC-001 - Implementation Quality and Observability
+- [ ] SEC-001 - Security, Privacy, and Trust-Boundary Engineering
+- [ ] SEC-002 - Security, Privacy, and Trust-Boundary Engineering
+- [ ] SEC-003 - Security, Privacy, and Trust-Boundary Engineering
+- [ ] SEC-004 - Security, Privacy, and Trust-Boundary Engineering
+- [ ] SEC-005 - Security, Privacy, and Trust-Boundary Engineering
+- [ ] SEC-006 - Security, Privacy, and Trust-Boundary Engineering
+- [ ] PRV-001 - Security, Privacy, and Trust-Boundary Engineering
+- [ ] PRV-002 - Security, Privacy, and Trust-Boundary Engineering
+- [ ] TST-001 - Testing, Verification, and Simulation
+- [ ] TST-002 - Testing, Verification, and Simulation
+- [ ] TST-003 - Testing, Verification, and Simulation
+- [ ] TST-004 - Testing, Verification, and Simulation
+- [ ] VER-001 - Testing, Verification, and Simulation
+- [ ] VER-002 - Testing, Verification, and Simulation
+- [ ] VER-003 - Testing, Verification, and Simulation
+- [ ] BLD-001 - Delivery, Change, and Release Governance
+- [ ] BLD-002 - Delivery, Change, and Release Governance
+- [ ] BLD-003 - Delivery, Change, and Release Governance
+- [ ] RELSE-001 - Delivery, Change, and Release Governance
+- [ ] RELSE-002 - Delivery, Change, and Release Governance
+- [ ] RELSE-003 - Delivery, Change, and Release Governance
+- [ ] VER-004 - Review, Assurance, and Technical Debt
+- [ ] VER-005 - Review, Assurance, and Technical Debt
+- [ ] VER-006 - Review, Assurance, and Technical Debt
+- [ ] GOV-006 - Review, Assurance, and Technical Debt
+- [ ] GOV-007 - Control Operations, Exceptions, and Certification
+- [ ] GOV-008 - Control Operations, Exceptions, and Certification
+- [ ] DOC-002 - Control Operations, Exceptions, and Certification
+- [ ] OPS-001 - Control Operations, Exceptions, and Certification
