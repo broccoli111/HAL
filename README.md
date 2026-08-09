@@ -18,4 +18,7 @@ Use this Git repository and its `main` branch. Do not treat prior chat history o
 - `decisions/` contains repository-wide Decision Records subordinate to the Canon.
 - `tests/agent_runtime_contract/` contains test-only Agent Runtime Contract conformance artifacts.
 
+The initial zero-capability local assistant command and its containment limits
+are documented in [GX10 restricted runtime transport](implementation/hal-core/docs/GX10_RESTRICTED_HERMES_RUNTIME_TRANSPORT.md).
+
 Generated render output, local tool output, bytecode caches, and macOS metadata are ignored and should not be committed.

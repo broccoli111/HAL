@@ -6,7 +6,9 @@ This workspace contains the HAL v0.1 implemented local slice for M0-M9, plus ass
 
 - Local development and local test use only.
 - Synthetic data only.
-- No outbound network behavior is implemented by source code.
+- HAL Core source has no outbound network behavior. The separately authorized
+  GX10 transport composition scripts use only a restricted SSH command; see
+  `docs/GX10_RESTRICTED_HERMES_RUNTIME_TRANSPORT.md`.
 - No external provider, API client, account access, messaging, purchases, or device control exists.
 - No real authentication, no production database, and no live-effect execution capability is included.
 - Authority is never inferred from username, machine, credentials, transport success, or model output.
@@ -44,6 +46,9 @@ Use only non-secret local values in `.env`.
 - `npm run m7:session` - run local M7 terminal inquiry session (M6-governed delegation)
 - `npm run m8:desktop` - run local M8 offline desktop interface (M6-governed delegation)
 - `npm run m9:packs` - run local M9 approved-pack list/activate/status/deactivate CLI
+- `npm run runtime:ask -- '<question>'` - ask the Owner-authorized,
+  zero-capability GX10 Hermes/Qwen local assistant (requires the documented
+  local transport environment variables)
 
 ## Source structure
 
@@ -52,7 +57,8 @@ Use only non-secret local values in `.env`.
 - `src/authority` - exact authority decision model
 - `src/audit` - append-only in-memory audit records (dev/test only)
 - `src/shared` - shared immutable ID and correlation types
-- `src/runtime` - implementation-neutral Agent Runtime Contract seam, deterministic test runtime, and inert Hermes adapter boundary
+- `src/runtime` - implementation-neutral Agent Runtime Contract seam,
+  deterministic test runtime, and HAL-custodied Hermes adapter boundary
 - `test` - deterministic unit tests
 - `docs` - M0-M9 evidence, implementation, readiness, and assurance records
 - `scripts` - manifest generation utility
@@ -63,7 +69,14 @@ GitHub Actions runs format check, lint, typecheck, tests, and security scan. Tes
 
 ## Agent Runtime boundary
 
-The local runtime module is a semantic, test-only implementation seam for Book II’s Agent Runtime Contract. `HermesAdapter` contains no Hermes package or process integration; it delegates only contract operations to an injected driver. The runtime boundary holds no governed-resource handle and cannot authorize a capability request. See `docs/RUNTIME_ADAPTER_BOUNDARY_IMPLEMENTATION_RECORD.md`.
+`HermesAdapter` contains no Hermes package or process integration; it delegates
+only Contract operations to an injected driver. The zero-capability
+`HermesStatelessDriver` reports a result only through HAL callback custody. The
+Owner-authorized SSH transport composition remains outside HAL Core and invokes
+only a forced, network-none GX10 command. The runtime boundary holds no
+governed-resource handle and cannot authorize a capability request. See
+`docs/RUNTIME_ADAPTER_BOUNDARY_IMPLEMENTATION_RECORD.md` and
+`docs/GX10_RESTRICTED_HERMES_RUNTIME_TRANSPORT.md`.
 
 ## M1 demo usage
 
