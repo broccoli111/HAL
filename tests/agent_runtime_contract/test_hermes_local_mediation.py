@@ -104,6 +104,16 @@ class HermesLocalMediationTests(unittest.TestCase):
         self.assertTrue(head.startswith(b"POST /v1/chat/completions"))
         self.assertEqual(body, b"test")
 
+    def test_reads_a_complete_bounded_upstream_stream(self) -> None:
+        async def read() -> bytes:
+            reader = asyncio.StreamReader()
+            reader.feed_data(b"first")
+            reader.feed_data(b"second")
+            reader.feed_eof()
+            return await self.mediator.read_complete_response(reader)
+
+        self.assertEqual(asyncio.run(read()), b"firstsecond")
+
     def test_strips_local_reasoning_without_altering_final_content(self) -> None:
         upstream = {
             "choices": [{"message": {"role": "assistant", "content": "HAL_LOCAL_OK", "reasoning": "private"}, "finish_reason": "stop"}]

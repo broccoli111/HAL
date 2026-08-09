@@ -65,6 +65,20 @@ async def read_http_request(reader: asyncio.StreamReader) -> tuple[bytes, bytes]
     return head[:-4], body
 
 
+async def read_complete_response(reader: asyncio.StreamReader) -> bytes:
+    """Read a bounded upstream response through EOF, including SSE chunks."""
+    parts: list[bytes] = []
+    total = 0
+    while True:
+        part = await asyncio.wait_for(reader.read(16_384), timeout=300)
+        if not part:
+            return b"".join(parts)
+        total += len(part)
+        if total > MAX_BYTES:
+            raise ValueError("oversize upstream response")
+        parts.append(part)
+
+
 def admitted(headers: dict[str, str], body: bytes) -> dict[str, object] | None:
     if REQUESTS >= MAX_REQUESTS or time.time() >= EXPIRES_AT or len(body) > MAX_BYTES:
         print("HAL mediator denial=used-expired-or-oversize", flush=True)
@@ -132,9 +146,7 @@ async def handle(reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> 
             + body
         )
         await upstream.drain()
-        response = await asyncio.wait_for(upstream_reader.read(MAX_BYTES + 1), timeout=300)
-        if len(response) > MAX_BYTES:
-            raise ValueError("oversize upstream response")
+        response = await read_complete_response(upstream_reader)
         print("HAL mediator upstream_status=" + response.split(b"\r\n", 1)[0].decode("ascii", "replace"), flush=True)
         _, _, response_body = response.partition(b"\r\n\r\n")
         try:
