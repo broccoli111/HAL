@@ -39,6 +39,21 @@ The command builds HAL Core, sends the question only through the restricted
 transport, validates correlation, and displays the result after HAL records
 the non-canonical claim.
 
+## Bounded Local Terminal Assistant
+
+For a stateless local question-and-answer session through the same path, run:
+
+```sh
+npm run runtime:chat
+```
+
+Type a question at `HAL>` and `/exit` to finish. The interface permits at most
+20 separate requests per local process and at most 8,192 characters per
+question. It stores no transcript and does not pass prior turns to Hermes;
+each turn remains a separately bounded, zero-capability request through the
+same HAL-owned result/evidence route. End-of-input is treated as a clean local
+session termination.
+
 ## Verified Evidence
 
 On 2026-08-09, the fixed synthetic request returned `HAL_LOCAL_OK`; a normal
