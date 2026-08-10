@@ -1,24 +1,22 @@
-# Decision Record 0031 — Proposed Governed Dual-Scope Inquiry
+# Decision Record 0031 — Governed Dual-Scope Inquiry
 
 | Field | Value |
 | --- | --- |
-| Status | Proposed — not adopted |
+| Status | Accepted Owner decision |
 | Date | 2026-08-09 |
 | Scope | A bounded read-only inquiry over exactly two separately approved local knowledge packs |
-| Owner Review | Required and pending |
+| Owner Review | Explicit Owner approval: Option 2 |
 
 ## Decision
 
-**No decision has been adopted.**
-
-The proposed decision is to authorize one narrowly bounded M9/M6 inquiry
+The Owner authorizes one narrowly bounded M9/M6 inquiry
 profile that can retrieve from both of the following already-approved,
 independently validated packs for one Owner-requested question:
 
 - `hal_canon_v1` under DR 0028; and
 - `personal_document_folder_pilot_v1` under DR 0030.
 
-The profile would preserve the one-active-pack-per-state-directory rule. It
+The profile preserves the one-active-pack-per-state-directory rule. It does
 would not create a combined pack, alter either approved source set, scan a
 filesystem, permit runtime source selection, or give the runtime a source path,
 handle, tool, or capability. HAL alone would validate and render bounded,
@@ -49,7 +47,7 @@ inquiry therefore requires an explicit Owner decision before implementation.
   0028](0028-proposed-controlled-hal-canon-knowledge-pilot.md), and [DR
   0030](0030-owner-authorized-local-document-folder-pilot.md).
 
-Higher-order authority prevails over this proposed record.
+Higher-order authority prevails over this record.
 
 ## Alternatives Considered
 
@@ -65,7 +63,7 @@ Higher-order authority prevails over this proposed record.
 
 ## Consequences
 
-If accepted, the profile could make the local assistant more useful while
+The accepted profile makes the local assistant more useful while
 retaining fixed local-only sources, zero runtime capabilities, non-canonical
 context, and per-source evidence. Both pack tuples would be required to be
 valid at each inquiry; if either is unavailable, altered, missing, or invalid,
@@ -78,8 +76,8 @@ Capability Gateway semantics, evidence meaning, or existing single-pack paths.
 
 ## Implementation Implications
 
-If accepted, implementation may add a narrowly named profile and deterministic
-conformance tests for:
+The accepted implementation is limited to a narrowly named profile and
+deterministic conformance tests for:
 
 - exact two-pack allowlist and no third pack/source;
 - independent tuple/hash/source validation before retrieval;
@@ -101,9 +99,9 @@ Owner Review is required. Although the source sets are already individually
 approved, combining their retrieval context changes the governed knowledge
 inquiry boundary and the meaning of one inquiry's provenance/evidence record.
 
-### Decision required
+### Owner disposition
 
-Choose one of the alternatives above.
+The Owner approved Alternative 2 on 2026-08-09.
 
 ### Recommendation
 
@@ -137,8 +135,8 @@ remain unchanged.
 
 ## Continuity Notes
 
-Do not implement this profile unless the Owner explicitly accepts it. If
-accepted, update this record's status/disposition, define the exact bounded
-contract and evidence shape, implement deterministic conformance tests, run a
-local-only smoke inquiry, update `CURRENT_STATE.md`, and regenerate the fixed
-HAL Canon pack.
+The profile is now accepted. Maintain its exact two-pack allowlist,
+independent validation, source labeling, bounded context, no-runtime-resource
+rule, and fail-closed behavior. Any additional pack, source, data class,
+automatic source selection, combined derived pack, canonical promotion, or
+runtime resource access requires a new Owner Decision.

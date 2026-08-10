@@ -7,6 +7,7 @@ import { describe, expect, test } from "vitest";
 
 import { LocalBackupRestoreCoordinator } from "../src/m5/coordinator.js";
 import { runM6Inquiry } from "../src/m6/orchestrator.js";
+import { M6_DUAL_SCOPE_PROFILE_ID, runM6DualScopeInquiry } from "../src/m6/dualScopeInquiry.js";
 import {
   activateApprovedM9Pack,
   createM9OperationRequestId,
@@ -22,6 +23,7 @@ import {
   M9_PERSONAL_DOCUMENT_PILOT_PACK_CLASSIFICATION,
   M9_PERSONAL_DOCUMENT_PILOT_PROVENANCE_CLASSIFICATION
 } from "../src/m9/personalDocumentPilotScope.js";
+import { M9_PERSONAL_DOCUMENT_FOLDER_PILOT_PACK_ID } from "../src/m9/personalDocumentFolderPilotScope.js";
 import { M9ActivationJournal } from "../src/m9/activationJournal.js";
 import { validateApprovedPackDirectory } from "../src/m9/validator.js";
 import { createCorrelationId, createImmutableIdentifier } from "../src/shared/id.js";
@@ -255,6 +257,91 @@ describe("M9 controlled local knowledge packs", () => {
       expect(inquiry.renderedResponse).toContain("excerpt=");
     } finally {
       await rm(stateDirectory, { recursive: true, force: true });
+    }
+  });
+
+  test("dual-scope inquiry validates exact approved packs and preserves each source tuple", async () => {
+    const canonStateDirectory = await createTempDirectory("hal-m9-dual-canon-");
+    const documentStateDirectory = await createTempDirectory("hal-m9-dual-document-");
+    try {
+      expect(
+        activateApprovedM9Pack({
+          operationRequestId: createM9OperationRequestId(),
+          stateDirectory: canonStateDirectory,
+          packId: M9_HAL_CANON_PACK_ID,
+          ownerConfirmationClaim: "local_owner_confirmed",
+          reasonCode: "owner_local_activation"
+        }).result
+      ).toBe("succeeded");
+      expect(
+        activateApprovedM9Pack({
+          operationRequestId: createM9OperationRequestId(),
+          stateDirectory: documentStateDirectory,
+          packId: M9_PERSONAL_DOCUMENT_FOLDER_PILOT_PACK_ID,
+          ownerConfirmationClaim: "local_owner_confirmed",
+          reasonCode: "owner_local_activation"
+        }).result
+      ).toBe("succeeded");
+
+      const result = runM6DualScopeInquiry({
+        canonStateDirectory,
+        localDocumentFolderStateDirectory: documentStateDirectory,
+        questionText: "What is the owner's favorite color?",
+        requestId: "m6-dual-scope-favorite-color"
+      });
+
+      expect(result.profileId).toBe(M6_DUAL_SCOPE_PROFILE_ID);
+      expect(result.disposition).toBe("completed_without_effect");
+      expect(result.renderedResponse).toContain("scope=hal_canon");
+      expect(result.renderedResponse).toContain("scope=owner_approved_local_document_folder");
+      expect(result.renderedResponse).toContain(`packTuple=${M9_HAL_CANON_PACK_ID}@`);
+      expect(result.renderedResponse).toContain(
+        `packTuple=${M9_PERSONAL_DOCUMENT_FOLDER_PILOT_PACK_ID}@`
+      );
+      expect(result.sourceInquiries).toHaveLength(2);
+      expect(result.sourceInquiries.every((source) => source.inquiry.replayed === false)).toBe(
+        true
+      );
+    } finally {
+      await rm(canonStateDirectory, { recursive: true, force: true });
+      await rm(documentStateDirectory, { recursive: true, force: true });
+    }
+  });
+
+  test("dual-scope inquiry fails before source retrieval when either state has the wrong active pack", async () => {
+    const canonStateDirectory = await createTempDirectory("hal-m9-dual-wrong-canon-");
+    const documentStateDirectory = await createTempDirectory("hal-m9-dual-wrong-document-");
+    try {
+      activateApprovedM9Pack({
+        operationRequestId: createM9OperationRequestId(),
+        stateDirectory: canonStateDirectory,
+        packId: "pack_alpha",
+        ownerConfirmationClaim: "local_owner_confirmed",
+        reasonCode: "owner_local_activation"
+      });
+      activateApprovedM9Pack({
+        operationRequestId: createM9OperationRequestId(),
+        stateDirectory: documentStateDirectory,
+        packId: M9_PERSONAL_DOCUMENT_FOLDER_PILOT_PACK_ID,
+        ownerConfirmationClaim: "local_owner_confirmed",
+        reasonCode: "owner_local_activation"
+      });
+
+      expect(() =>
+        runM6DualScopeInquiry({
+          canonStateDirectory,
+          localDocumentFolderStateDirectory: documentStateDirectory,
+          questionText: "What is the owner's favorite color?"
+        })
+      ).toThrow("dual_scope_wrong_active_pack:hal_canon");
+      expect(
+        lstatSync(path.resolve(documentStateDirectory, "m6-event-journal.jsonl"), {
+          throwIfNoEntry: false
+        })
+      ).toBeUndefined();
+    } finally {
+      await rm(canonStateDirectory, { recursive: true, force: true });
+      await rm(documentStateDirectory, { recursive: true, force: true });
     }
   });
 

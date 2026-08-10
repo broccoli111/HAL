@@ -54,7 +54,10 @@ Use only non-secret local values in `.env`.
 - `npm run hal:canon-chat` - launch the separately activated, bounded HAL
   Canon assistant through the same zero-capability route
 - `npm run hal:assistant` - choose either of the two existing governed chat
-  scopes from one Owner-facing command
+  scopes or the Owner-approved, provenance-preserving combined inquiry profile
+  from one Owner-facing command
+- `npm run hal:dual-scope-chat` - launch the bounded DR 0031 inquiry profile
+  over both separately validated approved packs
 - `npm run m9:refresh-hal-canon-pack` - explicitly regenerate the immutable
   Canon-derived pack after an approved Canon source change
 - `npm run hal:knowledge:refresh` - explicitly regenerate the approved

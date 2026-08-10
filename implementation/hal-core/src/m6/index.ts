@@ -6,6 +6,12 @@ export { renderM6Response } from "./response.js";
 export { matchCorpus } from "./matcher.js";
 export { M6EvidenceJournal } from "./evidenceJournal.js";
 export {
+  M6_DUAL_SCOPE_MAX_RENDERED_CONTEXT_UTF8_BYTES,
+  M6_DUAL_SCOPE_PROFILE_ID,
+  runM6DualScopeInquiry
+} from "./dualScopeInquiry.js";
+export type { M6DualScopeInquiryResult } from "./dualScopeInquiry.js";
+export {
   M6_CAPABILITY_ID,
   M6_CORPUS_INDEX_VERSION,
   M6_MATCHER_VERSION,

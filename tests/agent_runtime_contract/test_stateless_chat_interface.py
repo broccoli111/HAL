@@ -18,6 +18,9 @@ PERSONAL_DOCUMENT_CHAT = SCRIPT.with_name("chat-gx10-hermes-with-personal-docume
 OWNER_LAUNCHER = SCRIPT.with_name("hal-owner-chat.mjs")
 CANON_OWNER_LAUNCHER = SCRIPT.with_name("hal-canon-chat.mjs")
 ASSISTANT_SELECTOR = SCRIPT.with_name("hal-assistant.mjs")
+DUAL_SCOPE_LAUNCHER = SCRIPT.with_name("hal-dual-scope-chat.mjs")
+DUAL_SCOPE_CHAT = SCRIPT.with_name("chat-gx10-hermes-with-dual-approved-knowledge.mjs")
+DUAL_SCOPE_ASK = SCRIPT.with_name("ask-gx10-hermes-with-dual-approved-knowledge.mjs")
 
 
 class StatelessChatInterfaceTests(unittest.TestCase):
@@ -99,6 +102,25 @@ class StatelessChatInterfaceTests(unittest.TestCase):
         self.assertNotIn("http://", source)
         self.assertNotIn("https://", source)
         self.assertNotIn("writeFile", source)
+
+    def test_dual_scope_path_validates_both_packs_before_using_existing_transport(self) -> None:
+        launcher = DUAL_SCOPE_LAUNCHER.read_text(encoding="utf-8")
+        chat = DUAL_SCOPE_CHAT.read_text(encoding="utf-8")
+        ask = DUAL_SCOPE_ASK.read_text(encoding="utf-8")
+        self.assertIn('const CANON_PACK_ID = "hal_canon_v1";', launcher)
+        self.assertIn('const DOCUMENT_PACK_ID = "personal_document_folder_pilot_v1";', launcher)
+        self.assertIn("activateExactPack(config.canonStateDirectory, CANON_PACK_ID)", launcher)
+        self.assertIn("activateExactPack(config.documentStateDirectory, DOCUMENT_PACK_ID)", launcher)
+        self.assertIn("HAL_CANON_KNOWLEDGE_STATE_DIRECTORY", launcher)
+        self.assertIn("runM6DualScopeInquiry", ask)
+        self.assertIn("ask-gx10-hermes.mjs", ask)
+        self.assertIn("dual-scope", chat)
+        for source in (launcher, chat, ask):
+            self.assertIn("shell: false", source)
+            self.assertNotIn("ollama", source.lower())
+            self.assertNotIn("http://", source)
+            self.assertNotIn("https://", source)
+            self.assertNotIn("writeFile", source)
 
 
 if __name__ == "__main__":

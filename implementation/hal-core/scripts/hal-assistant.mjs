@@ -14,18 +14,20 @@ function fail(message) {
 }
 
 async function chooseScope() {
-  if (requestedScope === "canon" || requestedScope === "documents") return requestedScope;
-  if (requestedScope) fail("scope must be canon or documents.");
+  if (requestedScope === "canon" || requestedScope === "documents" || requestedScope === "combined")
+    return requestedScope;
+  if (requestedScope) fail("scope must be canon, documents, or combined.");
 
   const readline = createInterface({ input: process.stdin, output: process.stdout });
   try {
     process.stdout.write(
-      "HAL local assistant\n1. HAL Canon and project documentation\n2. Owner-approved local document folder\n"
+      "HAL local assistant\n1. HAL Canon and project documentation\n2. Owner-approved local document folder\n3. Both approved contexts\n"
     );
     const answer = (await readline.question("Choose 1 or 2: ")).trim();
     if (answer === "1") return "canon";
     if (answer === "2") return "documents";
-    fail("choose 1 or 2.");
+    if (answer === "3") return "combined";
+    fail("choose 1, 2, or 3.");
   } finally {
     readline.close();
   }
@@ -34,7 +36,11 @@ async function chooseScope() {
 const scope = await chooseScope();
 const target = path.join(
   import.meta.dirname,
-  scope === "canon" ? "hal-canon-chat.mjs" : "hal-owner-chat.mjs"
+  scope === "canon"
+    ? "hal-canon-chat.mjs"
+    : scope === "combined"
+      ? "hal-dual-scope-chat.mjs"
+      : "hal-owner-chat.mjs"
 );
 const child = spawn(process.execPath, [target], { shell: false, stdio: "inherit" });
 const [exitCode] = await once(child, "close");

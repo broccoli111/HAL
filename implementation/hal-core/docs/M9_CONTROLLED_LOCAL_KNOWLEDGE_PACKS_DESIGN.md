@@ -28,6 +28,12 @@ separately named direct-folder pilot limited to regular `.txt`/`.md` files with
 no recursion. They do not authorize browsing beyond their exact scope, uploads,
 source discovery, NAS access, or any other user-document admission.
 
+DR 0031 is a narrow retrieval-composition exception only. It permits an
+Owner-requested M6 profile to query the already-approved `hal_canon_v1` and
+`personal_document_folder_pilot_v1` packs from their separate active state
+directories. It does not create a combined pack, change either source scope,
+permit automatic pack switching, or authorize runtime source selection.
+
 ## 2) Governing alignment (Books I, II, IV, V, VI, VII, VIII, IX, X)
 
 M9 design requirements are constrained by:

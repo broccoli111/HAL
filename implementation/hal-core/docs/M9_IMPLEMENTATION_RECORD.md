@@ -85,6 +85,13 @@ Pack identity tuples are case-sensitive and compared exactly.
 
 The explicit `m9:refresh-hal-canon-pack` command performs that immutable-pack replacement recoverably: it moves the prior derived pack aside, generates the exact fixed source set, restores the prior pack if generation fails, and removes the backup only after success. If a state directory's latest activation refers to the retired tuple, inquiry remains fail-closed; an explicit Owner-confirmed activation may append a new valid tuple without deleting the preserved journal evidence.
 
+DR 0031 adds one named dual-scope inquiry profile, not a combined pack. It may
+use only independently active/validated `hal_canon_v1` and
+`personal_document_folder_pilot_v1` states. HAL renders each source scope with
+its exact pack tuple and source-labeled M6 output; the runtime receives only
+the bounded combined rendering. A missing, stale, mismatched, or wrong active
+pack fails the entire profile before source retrieval or runtime dispatch.
+
 DR 0029 adds one separately named, non-canonical `personal_document_pilot_v1` pack. Its source, output location, pack identifier, classification, and provenance are fixed in `src/m9/personalDocumentPilotScope.ts`; it admits exactly one direct regular `.txt` file, refuses symlinks and overwrite, and bounds the source to 8 KiB/32 non-empty lines/2 KiB per line. The derived pack remains adjacent to the Owner-controlled source and is not a repository artifact. It records the source label, hash, and byte size at generation. Source changes require a new immutable pack and Owner-confirmed activation. It does not create a filesystem capability or expose the source path to the runtime.
 
 DR 0030 adds a separately named `personal_document_folder_pilot_v1` pack. Its direct source directory, output location, identifiers, and bounds are fixed in `src/m9/personalDocumentFolderPilotScope.ts`. It admits at most 32 direct regular `.txt`/`.md` files, each at most 8 KiB and at most 128 KiB total. It rejects selected-path symlinks, records every source label/hash/byte size, and revalidates source-set count, names, hashes, and byte sizes before use. No recursion or runtime path/handle is permitted.

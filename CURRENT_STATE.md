@@ -163,19 +163,21 @@ The runtime-sovereignty clarification is recorded in the Book II Markdown workin
 
 ## Material Blocker
 
-**Owner Decision required for multi-pack retrieval:** The current usable local
-assistant offers an explicit Owner choice between the separately approved HAL
-Canon scope and DR 0030 document-folder scope. M9 intentionally maintains one
-active pack per state directory. Answering a single question from both scopes,
-automatic cross-scope selection, or a combined derived pack would alter that
-knowledge-boundary rule and requires a new Owner Decision before design or
-implementation. Until then, use `npm run hal:assistant` and choose the scope
-relevant to the question.
+**Accepted DR 0031 dual-scope profile:** The Owner approved Option 2 for one
+bounded, read-only inquiry over exactly `hal_canon_v1` and
+`personal_document_folder_pilot_v1`. M9 still maintains one active pack per
+state directory; HAL independently validates both tuples before retrieval,
+retains pack/source labels in each M6 inquiry, bounds the combined non-canonical
+context to 4 KiB, and provides the runtime no path, handle, tool, capability,
+canonical-write, or source-selection authority. `npm run hal:assistant` now
+offers **Both approved contexts**. The 23-file/179-test local suite and runtime
+boundary suite passed, and one restricted GX10/Qwen smoke inquiry returned the
+approved local-folder favorite-color fact. The runtime result remained an
+`unaccepted_runtime_claim`.
 
-The non-authorizing [DR 0031 proposal](decisions/0031-proposed-governed-dual-scope-inquiry.md)
-records the narrow recommended option: an Owner-requested, read-only inquiry
-over only the two existing packs, independently validated and provenance-labeled
-without creating a combined pack or runtime resource route.
+DR 0031 does not authorize additional pack/source types, automatic cross-scope
+selection, a combined derived pack, canonical promotion, filesystem access,
+NAS, external data/providers, secrets, shell access, or production use.
 
 The formal independent AI technical-review scope, findings/disposition, date, and attestation are now stored in the repository with Pass with limitations. This status record does not decide whether an AI reviewer satisfies any human or professional qualification requirement and therefore does not itself claim or issue Book II recertification. The Owner has authorized the narrow, temporary [Engineering Exception 0010](decisions/0010-owner-authorized-independent-review-control-exception.md), which allows only provisional documentation and test-only work until 2026-08-16. If the recorded reviewer qualification is not accepted by the applicable Owner/Certification Service, a qualified human disposition remains required before expiry. The exception cannot authorize production integration or a certification claim.
 

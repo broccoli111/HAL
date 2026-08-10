@@ -44,8 +44,8 @@
     },
     {
       "sourcePath": "CURRENT_STATE.md",
-      "sha256": "cb0eee7e43f4a1f928cd48cf7f7b1edb2242c477d9ef7ad394d1c75a8a078d08",
-      "byteSize": 43882
+      "sha256": "6e6e7a304014e73850d9c89109a19f29c3e45bf9dcfd961ce9b574e1a79a712f",
+      "byteSize": 44010
     },
     {
       "sourcePath": "decisions/0001-agent-runtime-sovereignty-and-replaceability.md",
@@ -196,6 +196,11 @@
       "sourcePath": "decisions/0030-owner-authorized-local-document-folder-pilot.md",
       "sha256": "cbd46a2c0d517d0d563ba748849d63ffdb36f420acfc54775648d063f10830aa",
       "byteSize": 2088
+    },
+    {
+      "sourcePath": "decisions/0031-proposed-governed-dual-scope-inquiry.md",
+      "sha256": "c627f72b68f5b64be590a2756734638d818d206fd519211ef336477c3a27b28b",
+      "byteSize": 6048
     }
   ],
   "documents": [
@@ -5773,7 +5778,47 @@
         "paragraph:13",
         "paragraph:14",
         "paragraph:15",
-        "paragraph:16"
+        "paragraph:16",
+        "paragraph:17",
+        "paragraph:18",
+        "paragraph:19",
+        "paragraph:20",
+        "paragraph:21",
+        "paragraph:22",
+        "paragraph:23",
+        "paragraph:24",
+        "paragraph:25",
+        "paragraph:26",
+        "paragraph:27",
+        "paragraph:28",
+        "paragraph:29",
+        "paragraph:30",
+        "paragraph:31",
+        "paragraph:32",
+        "paragraph:33",
+        "paragraph:34",
+        "paragraph:35",
+        "paragraph:36",
+        "paragraph:37",
+        "paragraph:38",
+        "paragraph:39",
+        "paragraph:40",
+        "paragraph:41",
+        "paragraph:42",
+        "paragraph:43",
+        "paragraph:44",
+        "paragraph:45",
+        "paragraph:46",
+        "paragraph:47",
+        "paragraph:48",
+        "paragraph:49",
+        "paragraph:50",
+        "paragraph:51",
+        "paragraph:52",
+        "paragraph:53",
+        "paragraph:54",
+        "paragraph:55",
+        "paragraph:56"
       ]
     }
   ],
@@ -6032,8 +6077,8 @@
     },
     {
       "relativePath": "content/source-06-chunk-000.json",
-      "sha256": "c0e3b375faa13d74482d83f8ecddfcb981cfb829bfbd9e7db448ebbf30b9d9a8",
-      "byteSize": 44434,
+      "sha256": "4a267163698b1224b51ba3cb925308b4419da5d3bac58c09e80b4f78110df283",
+      "byteSize": 44562,
       "contentClass": "pack_content_json"
     },
     {
@@ -6062,14 +6107,14 @@
     },
     {
       "relativePath": "content/source-07-chunk-004.json",
-      "sha256": "b88389f8ee71fb988ba78c5abaf931873b81dbbf6b99f50f020d91e4a3ba544e",
-      "byteSize": 3450,
+      "sha256": "45624e1895130c93f517bd4ec07f7747110b655cd8a6ac5c4d496bad23f42b2e",
+      "byteSize": 9775,
       "contentClass": "pack_content_json"
     }
   ],
   "contentRoot": "content",
   "integrity": {
     "manifestHashAlgorithm": "sha256",
-    "manifestHashSha256": "db29e773520d83ad59532a90b48aaafdcc7a5f283500b11529d7ea88ef5d28f6"
+    "manifestHashSha256": "30bd3e5bcadff65c18aafc862d3d89400fdf91e484685148d33084e9e5245106"
   }
 }

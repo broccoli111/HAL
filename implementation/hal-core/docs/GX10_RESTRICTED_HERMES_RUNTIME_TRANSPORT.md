@@ -95,11 +95,14 @@ For the simplest entry point, run:
 npm run hal:assistant
 ```
 
-Select either the HAL Canon/project-documentation scope or the approved local
-document-folder scope. The selector starts the corresponding existing launcher;
-it never combines scopes, reads sources, contacts a runtime itself, or grants a
-capability. You may also select a scope directly with `npm run hal:assistant --
-canon` or `npm run hal:assistant -- documents`.
+Select the HAL Canon/project-documentation scope, the approved local
+document-folder scope, or the Owner-approved DR 0031 **Both approved contexts**
+profile. The selector starts the corresponding existing launcher; it never
+reads sources, contacts a runtime itself, or grants a capability. The combined
+profile separately validates the two exact active pack tuples and sends only
+bounded, pack-labeled HAL-rendered context to the runtime. You may also select
+a scope directly with `npm run hal:assistant -- canon`, `npm run hal:assistant
+-- documents`, or `npm run hal:assistant -- combined`.
 
 For the approved DR 0030 direct-folder pilot, copy
 `.hal-chat.local.example.json` to the ignored local
