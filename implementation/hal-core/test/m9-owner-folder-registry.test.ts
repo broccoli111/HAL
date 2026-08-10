@@ -11,7 +11,10 @@ import {
   createM9OwnerFolderRegistration,
   revokeM9OwnerFolderRegistration
 } from "../src/m9/ownerFolderRegistry.js";
-import { collectM9OwnerFolderSourceSnapshot } from "../src/m9/ownerFolderPack.js";
+import {
+  buildM9OwnerFolderPackArtifact,
+  collectM9OwnerFolderSourceSnapshot
+} from "../src/m9/ownerFolderPack.js";
 
 describe("M9 Owner-controlled folder registry contract", () => {
   test("creates a fixed-policy HAL-owned registration without reading a folder", () => {
@@ -91,6 +94,15 @@ describe("M9 Owner-controlled folder registry contract", () => {
         "This is owner context."
       ]);
       expect(snapshot[0]?.sha256).toMatch(/^[a-f0-9]{64}$/);
+      const artifact = buildM9OwnerFolderPackArtifact(registration, snapshot);
+      expect(artifact.packId).toBe("owner_folder_owner_notes_v1_v1");
+      expect(artifact.manifestHashSha256).toMatch(/^[a-f0-9]{64}$/);
+      expect(artifact.content[0]?.relativePath).toBe("content/source-00.json");
+      expect(artifact.content[0]?.utf8).toContain("Green is the favorite color.");
+      expect(artifact.manifest).toMatchObject({
+        packClassification: "owner_approved_local_document_folder_registry",
+        provenanceClassification: "owner_approved_local_document"
+      });
     } finally {
       await rm(directory, { recursive: true, force: true });
     }

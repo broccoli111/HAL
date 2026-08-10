@@ -8,12 +8,20 @@ import {
   type M9OwnerFolderRegistration,
   M9_OWNER_FOLDER_REGISTRY_ALLOWED_EXTENSIONS
 } from "./ownerFolderRegistry.js";
+import { canonicalJsonUtf8Bytes, sha256Hex } from "./canonical.js";
 
 export type M9OwnerFolderSourceSnapshot = Readonly<{
   sourceLabel: string;
   sha256: string;
   byteSize: number;
   paragraphs: readonly string[];
+}>;
+
+export type M9OwnerFolderPackArtifact = Readonly<{
+  packId: string;
+  manifestHashSha256: string;
+  manifest: Readonly<Record<string, unknown>>;
+  content: readonly Readonly<{ relativePath: string; utf8: string }>[];
 }>;
 
 function sha256(value: string): string {
@@ -98,4 +106,73 @@ export function collectM9OwnerFolderSourceSnapshot(
     );
   }
   return Object.freeze(sources);
+}
+
+/**
+ * Builds an immutable, M9-compatible artifact from a HAL-collected snapshot.
+ * It does not write, register, activate, or dispatch the artifact.
+ */
+export function buildM9OwnerFolderPackArtifact(
+  registration: M9OwnerFolderRegistration,
+  sources: readonly M9OwnerFolderSourceSnapshot[]
+): M9OwnerFolderPackArtifact {
+  assert(registration.status === "registered", "owner-folder registration is revoked");
+  assert(
+    sources.length > 0 && sources.length <= registration.maxFiles,
+    "owner-folder pack source count invalid"
+  );
+  const packId = `owner_folder_${registration.registrationId}_v1`;
+  const content = sources.map((source, index) => {
+    const relativePath = `content/source-${String(index).padStart(2, "0")}.json`;
+    const document = {
+      id: `owner.local_folder.${registration.registrationId}.${String(index).padStart(3, "0")}`,
+      title: source.sourceLabel,
+      tags: ["owner-approved", "local-document", "non-canonical", "folder-registry"],
+      paragraphs: source.paragraphs
+    };
+    return Object.freeze({ relativePath, utf8: `${JSON.stringify(document, null, 2)}\n` });
+  });
+  const manifestBase = {
+    schemaVersion: "hal.m9.knowledge-pack.manifest.v1",
+    packId,
+    packName: `Owner-approved local folder: ${registration.registrationId}`,
+    packVersion: "1.0.0",
+    packClassification: "owner_approved_local_document_folder_registry",
+    provenanceClassification: "owner_approved_local_document",
+    m6Compatibility: {
+      tokenizerVersion: "m6.tokenizer.v1",
+      matcherVersion: "m6.matcher.v1",
+      corpusIndexVersion: "m6.corpus-index.v1",
+      documentShape: "m6.document.v1"
+    },
+    sourceRecords: sources.map((source) => ({
+      sourcePath: source.sourceLabel,
+      sha256: source.sha256,
+      byteSize: source.byteSize
+    })),
+    documents: content.map((entry, index) => ({
+      documentId: `owner.local_folder.${registration.registrationId}.${String(index).padStart(3, "0")}`,
+      sectionIds: sources[index]!.paragraphs.map(
+        (_, paragraphIndex) => `paragraph:${paragraphIndex}`
+      )
+    })),
+    files: content.map((entry) => ({
+      relativePath: entry.relativePath,
+      sha256: sha256Hex(entry.utf8),
+      byteSize: Buffer.byteLength(entry.utf8, "utf8"),
+      contentClass: "pack_content_json"
+    })),
+    contentRoot: "content",
+    integrity: { manifestHashAlgorithm: "sha256" }
+  };
+  const manifestHashSha256 = sha256Hex(canonicalJsonUtf8Bytes(manifestBase));
+  return Object.freeze({
+    packId,
+    manifestHashSha256,
+    manifest: Object.freeze({
+      ...manifestBase,
+      integrity: { ...manifestBase.integrity, manifestHashSha256 }
+    }),
+    content: Object.freeze(content)
+  });
 }
