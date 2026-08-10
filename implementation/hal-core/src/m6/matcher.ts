@@ -56,7 +56,14 @@ export function matchCorpus(
       countIntersection(questionTokens, new Set(section.tokens))
     );
     const paragraphMatches = sectionScores.reduce((sum, score) => sum + score, 0);
-    const documentScore = titleMatches * 5 + tagMatches * 3 + paragraphMatches;
+    // Rendering is bounded to the two highest-scoring sections. Rank by that
+    // same bounded evidence window so a long document cannot outrank a more
+    // directly relevant document merely by repeating a weak lexical match.
+    const renderedSectionMatchScore = [...sectionScores]
+      .sort((left, right) => right - left)
+      .slice(0, 2)
+      .reduce((sum, score) => sum + score, 0);
+    const documentScore = titleMatches * 5 + tagMatches * 3 + renderedSectionMatchScore;
     const sections = document.sections
       .map((section, index) =>
         Object.freeze({
