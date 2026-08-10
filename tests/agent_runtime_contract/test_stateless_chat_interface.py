@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import subprocess
 import unittest
 
 
@@ -107,6 +108,20 @@ class StatelessChatInterfaceTests(unittest.TestCase):
         self.assertNotIn("http://", source)
         self.assertNotIn("https://", source)
         self.assertNotIn("writeFile", source)
+
+    def test_owner_assistant_help_is_non_activating_and_requires_no_local_configuration(self) -> None:
+        result = subprocess.run(
+            ["node", str(ASSISTANT_SELECTOR), "--help"],
+            check=False,
+            capture_output=True,
+            encoding="utf-8",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("approved local-only scopes", result.stdout)
+        self.assertIn("canon", result.stdout)
+        self.assertIn("documents", result.stdout)
+        self.assertIn("combined", result.stdout)
+        self.assertIn("does not validate, activate, or contact a runtime", result.stdout)
 
     def test_dual_scope_path_validates_both_packs_before_using_existing_transport(self) -> None:
         launcher = DUAL_SCOPE_LAUNCHER.read_text(encoding="utf-8")
