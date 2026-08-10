@@ -31,6 +31,10 @@ const electronRuntime = (
     : (electron as unknown)
 ) as typeof electron;
 const { BrowserWindow: ElectronBrowserWindow, app, ipcMain, protocol } = electronRuntime;
+// Electron windows must remain strongly referenced for the process lifetime.
+// Otherwise the local variable in launchDesktopAssistantApp can be collected
+// after startup and the app exits without an actionable renderer error.
+let _desktopAssistantWindow: BrowserWindow | undefined;
 
 protocol.registerSchemesAsPrivileged([
   {
@@ -73,6 +77,7 @@ export async function launchDesktopAssistantApp(
 ): Promise<void> {
   await app.whenReady();
   app.on("window-all-closed", () => app.quit());
+  app.on("activate", () => _desktopAssistantWindow?.focus());
   await registerDesktopAssistantProtocol(options.rendererRoot);
   const mainWindow = new ElectronBrowserWindow(
     createDesktopAssistantWindowOptions({ preloadPath: options.preloadPath })
@@ -83,6 +88,10 @@ export async function launchDesktopAssistantApp(
     options.dispatchQuestion,
     options.dispatchControl
   );
+  _desktopAssistantWindow = mainWindow;
+  mainWindow.on("closed", () => {
+    _desktopAssistantWindow = undefined;
+  });
   await mainWindow.loadURL(`${DESKTOP_ASSISTANT_PROTOCOL}://${DESKTOP_ASSISTANT_HOST}/index.html`);
 }
 
