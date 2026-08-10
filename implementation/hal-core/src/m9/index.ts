@@ -7,3 +7,4 @@ export * from "./halCanonSourceScope.js";
 export * from "./personalDocumentPilotScope.js";
 export * from "./personalDocumentFolderPilotScope.js";
 export * from "./ownerFolderRegistry.js";
+export * from "./ownerFolderPack.js";

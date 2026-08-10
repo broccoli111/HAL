@@ -1,3 +1,6 @@
+import { mkdtemp, rm, symlink, writeFile } from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
 import { describe, expect, test } from "vitest";
 
 import {
@@ -8,6 +11,7 @@ import {
   createM9OwnerFolderRegistration,
   revokeM9OwnerFolderRegistration
 } from "../src/m9/ownerFolderRegistry.js";
+import { collectM9OwnerFolderSourceSnapshot } from "../src/m9/ownerFolderPack.js";
 
 describe("M9 Owner-controlled folder registry contract", () => {
   test("creates a fixed-policy HAL-owned registration without reading a folder", () => {
@@ -67,5 +71,53 @@ describe("M9 Owner-controlled folder registry contract", () => {
     expect(revokeM9OwnerFolderRegistration(registration, "local_owner_confirmed").status).toBe(
       "revoked"
     );
+  });
+
+  test("HAL alone collects a bounded immutable source snapshot from an exact registered folder", async () => {
+    const directory = await mkdtemp(path.join(os.tmpdir(), "hal-owner-folder-"));
+    const source = path.join(directory, "note.txt");
+    try {
+      await writeFile(source, "Green is the favorite color.\n\nThis is owner context.\n", "utf8");
+      const registration = createM9OwnerFolderRegistration({
+        registrationId: "owner_notes_v1",
+        sourceDirectory: directory,
+        ownerConfirmationClaim: "local_owner_confirmed"
+      });
+      const snapshot = collectM9OwnerFolderSourceSnapshot(registration);
+      expect(snapshot).toHaveLength(1);
+      expect(snapshot[0]?.sourceLabel).toBe("owner-approved local folder owner_notes_v1/note.txt");
+      expect(snapshot[0]?.paragraphs).toEqual([
+        "Green is the favorite color.",
+        "This is owner context."
+      ]);
+      expect(snapshot[0]?.sha256).toMatch(/^[a-f0-9]{64}$/);
+    } finally {
+      await rm(directory, { recursive: true, force: true });
+    }
+  });
+
+  test("collection fails closed for unapproved files, symlinks, and revoked registrations", async () => {
+    const directory = await mkdtemp(path.join(os.tmpdir(), "hal-owner-folder-deny-"));
+    try {
+      await writeFile(path.join(directory, "note.pdf"), "not permitted", "utf8");
+      const registration = createM9OwnerFolderRegistration({
+        registrationId: "owner_notes_v1",
+        sourceDirectory: directory,
+        ownerConfirmationClaim: "local_owner_confirmed"
+      });
+      expect(() => collectM9OwnerFolderSourceSnapshot(registration)).toThrow(
+        "file type is not approved"
+      );
+      await rm(path.join(directory, "note.pdf"));
+      await symlink("/private/tmp/not-present", path.join(directory, "note.txt"));
+      expect(() => collectM9OwnerFolderSourceSnapshot(registration)).toThrow("regular non-symlink");
+      expect(() =>
+        collectM9OwnerFolderSourceSnapshot(
+          revokeM9OwnerFolderRegistration(registration, "local_owner_confirmed")
+        )
+      ).toThrow("registration is revoked");
+    } finally {
+      await rm(directory, { recursive: true, force: true });
+    }
   });
 });
