@@ -178,6 +178,7 @@ try {
       })
     })
   );
+  process.stderr.write("HAL desktop window launched. Close with Cmd+Q when finished.\n");
 } catch (error) {
   process.stderr.write(`${error instanceof Error ? error.message : "HAL desktop failed"}\n`);
   electronRuntime.app.exit(1);

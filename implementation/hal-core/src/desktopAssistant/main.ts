@@ -76,23 +76,39 @@ export async function launchDesktopAssistantApp(
   options: DesktopAssistantLaunchOptions
 ): Promise<void> {
   await app.whenReady();
+  const createWindow = async (): Promise<void> => {
+    const mainWindow = new ElectronBrowserWindow(
+      createDesktopAssistantWindowOptions({ preloadPath: options.preloadPath })
+    );
+    enforceDesktopAssistantSecurity(mainWindow);
+    registerDesktopAssistantIpcHandlers(
+      mainWindow,
+      options.dispatchQuestion,
+      options.dispatchControl
+    );
+    _desktopAssistantWindow = mainWindow;
+    mainWindow.on("closed", () => {
+      _desktopAssistantWindow = undefined;
+    });
+    mainWindow.webContents.on("did-fail-load", (_event, code, description) => {
+      process.stderr.write(`HAL desktop renderer failed to load (${code}): ${description}\n`);
+    });
+    mainWindow.webContents.on("render-process-gone", (_event, details) => {
+      process.stderr.write(`HAL desktop renderer stopped: ${details.reason}\n`);
+    });
+    await mainWindow.loadURL(
+      `${DESKTOP_ASSISTANT_PROTOCOL}://${DESKTOP_ASSISTANT_HOST}/index.html`
+    );
+    mainWindow.show();
+    mainWindow.focus();
+  };
   app.on("window-all-closed", () => app.quit());
-  app.on("activate", () => _desktopAssistantWindow?.focus());
   await registerDesktopAssistantProtocol(options.rendererRoot);
-  const mainWindow = new ElectronBrowserWindow(
-    createDesktopAssistantWindowOptions({ preloadPath: options.preloadPath })
-  );
-  enforceDesktopAssistantSecurity(mainWindow);
-  registerDesktopAssistantIpcHandlers(
-    mainWindow,
-    options.dispatchQuestion,
-    options.dispatchControl
-  );
-  _desktopAssistantWindow = mainWindow;
-  mainWindow.on("closed", () => {
-    _desktopAssistantWindow = undefined;
-  });
-  await mainWindow.loadURL(`${DESKTOP_ASSISTANT_PROTOCOL}://${DESKTOP_ASSISTANT_HOST}/index.html`);
+  if (_desktopAssistantWindow) {
+    _desktopAssistantWindow.focus();
+    return;
+  }
+  await createWindow();
 }
 
 export async function registerDesktopAssistantProtocol(rendererRoot: string): Promise<void> {
