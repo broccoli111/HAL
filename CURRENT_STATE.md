@@ -152,6 +152,7 @@ The following are status pointers, not restatements or replacements of architect
 9. Use the Solo-Owner Assurance Profile only for eligible routine, reversible, non-production work; retain independent review for the high-risk threshold and production release. Exception 0024 applies only to the exact Book III amendment certification-control gate.
 10. Do not broaden the completed DR 0012/0015/0019/0020 pilots or DR 0026 into an external provider, unapproved model, real capability, real resource, general mediation service, or production deployment.
 11. DR 0032 Option 2 is accepted for a bounded Owner-controlled local folder registry. HAL now has a fixed-policy registration/revocation contract, a HAL-only bounded source-snapshot collector, deterministic manifest-hashed per-folder artifact generation/persistence, and an append-only integrity-chained registration/revocation evidence journal. No real folder is registered or available to the assistant yet. Next, add independent persisted-artifact validation and activation/revocation conformance without exposing a path, handle, tool, or capability to the runtime.
+12. DR 0033 authorizes the empty disposable test folder `/Users/rosslauda/Desktop/hal_ref_2`. HAL recorded its exact-path registration in disposable local registry state as `hal_ref_2_test_v1`; no content was read, no pack was generated, and Hermes received no access. Direct non-sensitive `.txt`/`.md` test content in that exact folder may be used only for the next registry pack-generation/validation test.
 
 ## Explicitly Out of Scope
 
