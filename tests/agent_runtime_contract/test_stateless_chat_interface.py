@@ -25,6 +25,7 @@ DUAL_SCOPE_ASK = SCRIPT.with_name("ask-gx10-hermes-with-dual-approved-knowledge.
 ASSISTANT_STATUS = SCRIPT.with_name("hal-assistant-status.mjs")
 PERSISTENT_OWNER_FOLDER_LAUNCHER = SCRIPT.with_name("hal-ref-2-owner-folder-chat.mjs")
 OWNER_FOLDER_REGISTER = SCRIPT.with_name("register-owner-folder.mjs")
+OWNER_FOLDER_DEACTIVATE = SCRIPT.with_name("deactivate-owner-folder.mjs")
 OWNER_FOLDER_REVOKE = SCRIPT.with_name("revoke-owner-folder.mjs")
 
 
@@ -62,6 +63,18 @@ class StatelessChatInterfaceTests(unittest.TestCase):
         self.assertIn("revokeM9OwnerFolderRegistration", source)
         self.assertIn('journal.append("revoked", revoked)', source)
         self.assertIn("deactivateApprovedM9Pack", source)
+        self.assertNotIn("readdir", source)
+        self.assertNotIn("spawn(", source)
+        self.assertNotIn("ollama", source.lower())
+        self.assertNotIn("http://", source)
+        self.assertNotIn("https://", source)
+
+    def test_owner_folder_deactivation_requires_confirmation_and_never_reads_or_dispatches(self) -> None:
+        source = OWNER_FOLDER_DEACTIVATE.read_text(encoding="utf-8")
+        self.assertIn("--registration-id", source)
+        self.assertIn("--owner-confirm", source)
+        self.assertIn("deactivateApprovedM9Pack", source)
+        self.assertIn("M9OwnerFolderRegistryJournal", source)
         self.assertNotIn("readdir", source)
         self.assertNotIn("spawn(", source)
         self.assertNotIn("ollama", source.lower())

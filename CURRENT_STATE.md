@@ -164,6 +164,7 @@ The following are status pointers, not restatements or replacements of architect
 21. The persistent-folder refresh path now handles a permitted source change recoverably: it structurally validates and archives the prior immutable pack, then derives and validates a new pack. Querying still fails closed on source drift until refresh; the change only prevents drift from blocking the required recovery workflow.
 22. DR 0032's Owner-only local command surface is implemented without admitting a new source: exact-folder registration records an immutable registration ID and Owner claim without reading the folder; refresh and chat accept a registered ID while defaulting only to DR 0034 `hal_ref_2`. A future folder still requires explicit Owner authorization for its exact path before the command may be used.
 23. The same DR 0032 command surface now includes an Owner-confirmed revoke operation. It deactivates the matching derived pack first when active, appends an immutable revoked registration event, and never reads or deletes the source folder or contacts a runtime. No registered source was revoked during implementation.
+24. DR 0032's Owner-only command surface is now complete for its accepted registration lifecycle: register, refresh, activate through bounded chat, deactivate, and revoke. The new deactivation command preserves the registration and source while HAL records the M2/M9 deactivation; it never reads a source or contacts a runtime. No active source was deactivated during implementation.
 
 ## Explicitly Out of Scope
 

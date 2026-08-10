@@ -41,6 +41,7 @@
     "hal:knowledge:refresh": "npm run build && node ./scripts/refresh-personal-document-folder-pilot.mjs",
     "hal:owner-folder:refresh": "npm run build && node ./scripts/refresh-hal-ref-2-owner-folder-pack.mjs",
     "hal:owner-folder:register": "npm run build && node ./scripts/register-owner-folder.mjs",
+    "hal:owner-folder:deactivate": "npm run build && node ./scripts/deactivate-owner-folder.mjs",
     "hal:owner-folder:revoke": "npm run build && node ./scripts/revoke-owner-folder.mjs",
     "hal:owner-folder:chat": "npm run build && node ./scripts/hal-ref-2-owner-folder-chat.mjs",
     "runtime:ask:knowledge": "npm run build && node ./scripts/ask-gx10-hermes-with-approved-knowledge.mjs",
