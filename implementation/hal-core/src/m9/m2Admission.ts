@@ -45,7 +45,8 @@ export function runM2ForM9Activation(input: {
   const isHalCanonPack = input.packId === M9_HAL_CANON_PACK_ID;
   const isPersonalDocumentPilotPack =
     isPersonalDocumentPilotPackId(input.packId) ||
-    isPersonalDocumentFolderPilotPackId(input.packId);
+    isPersonalDocumentFolderPilotPackId(input.packId) ||
+    /^owner_folder_[a-z][a-z0-9_-]{2,63}_v1$/.test(input.packId);
   const dataClassification = isHalCanonPack
     ? ("owner_approved_repository_canon" as const)
     : isPersonalDocumentPilotPack
