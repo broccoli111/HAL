@@ -168,6 +168,7 @@ The following are status pointers, not restatements or replacements of architect
 25. The separately scoped development-dependency security remediation is complete: the lockfile now resolves `brace-expansion` 5.0.9 and `nanoid` 3.3.18, replacing the two previously flagged high-severity transitive versions. A clean `npm ci --ignore-scripts`, full `npm audit`, core test suite, and runtime-boundary suite passed. This changes no HAL runtime authority, model route, source scope, or production configuration.
 26. The dependency-security evidence now includes an on-demand, lockfile-only CycloneDX SBOM command and records the reviewed lockfile hash, clean audit, and script-disabled install posture. The SBOM is deliberately generated per reviewed lockfile because npm adds timestamp/serial metadata; it is not committed as a misleading immutable artifact.
 27. Owner-approved DR 0035 adds a local desktop chat UI over the existing four fixed assistant scopes only. Its sandboxed renderer has no Node/Electron/filesystem/shell access; main-process IPC validates origin, scope, and question bounds before spawning only the existing `hal-assistant.mjs` launcher with `shell: false`. The UI adds no source, capability, provider, or direct runtime route and retains results only on screen.
+28. Owner-approved DR 0036 establishes a HAL-owned model-planning boundary: HAL may recommend and select only from an Owner-approved local catalog, while a missing modality produces an Owner acquisition request. A fixed, read-only official-source research probe passed with bounded minimised evidence only. HAL recommends `qwen3-vl:8b` as a future local image-capable candidate, but it is not acquired, enabled, or exposed; a specific Owner acquisition decision remains required.
 
 ## Explicitly Out of Scope
 
@@ -246,11 +247,12 @@ No unresolved Owner Decision is currently recorded for the runtime-sovereignty c
 ## Next Owner Decision
 
 The current bounded local assistant is operational for its exact approved
-sources, including persistent `hal_ref_2`. Further progress that would admit
-another folder/source class, create a general local-knowledge route, grant any
-capability, or broaden runtime behavior requires a new explicit Owner Decision.
-HAL must not treat the working assistant as authority to self-expand its
-knowledge or resource access.
+sources, including persistent `hal_ref_2`. Under DR 0036, HAL has completed a
+bounded research/recommendation pass and recommends `qwen3-vl:8b` for the
+future local visual-understanding pilot. The Owner must decide whether to
+authorize its specific one-time acquisition and limited local pilot. HAL must
+not treat a recommendation as authority to self-download, self-enable, or
+self-expand its knowledge or resource access.
 
 ## Continuity Rule
 

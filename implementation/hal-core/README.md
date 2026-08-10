@@ -76,6 +76,8 @@ Use only non-secret local values in `.env`.
 - `npm run hal:owner-folder:revoke -- --registration-id <registered-id> --owner-confirm local_owner_confirmed` - records irreversible revocation of one registered folder and deactivates its derived pack first when it is active; it never reads or deletes the source folder
 - `npm run hal:owner-folder:chat -- --registration-id <registered-id>` - launches a separately registered, activated folder scope; with no argument it uses the exact DR 0034 `hal_ref_2` source
 - `npm run hal:desktop` - opens the Owner-approved local desktop UI for one bounded question at a time over the same four fixed assistant scopes; it adds no tools, sources, or external-provider route
+- `npm run hal:model:recommend -- <text|image>` - produces a DR 0036 governed local-model recommendation only; it does not invoke, download, install, or enable a model
+- `npm run hal:model:research` - performs bounded, read-only retrieval of three fixed official vision-model pages and emits minimised evidence only
 
 ## Source structure
 
