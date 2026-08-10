@@ -24,7 +24,7 @@ import {
 } from "../src/m9/personalDocumentPilotScope.js";
 import { M9ActivationJournal } from "../src/m9/activationJournal.js";
 import { validateApprovedPackDirectory } from "../src/m9/validator.js";
-import { createImmutableIdentifier } from "../src/shared/id.js";
+import { createCorrelationId, createImmutableIdentifier } from "../src/shared/id.js";
 
 async function createTempDirectory(prefix: string): Promise<string> {
   return mkdtemp(path.join(os.tmpdir(), prefix));
@@ -281,6 +281,48 @@ describe("M9 controlled local knowledge packs", () => {
       expect(deactivated.result).toBe("succeeded");
       expect(deactivated.externalEffect).toBe("none");
       expect(getM9ActivePackState(stateDirectory)).toBeUndefined();
+    } finally {
+      await rm(stateDirectory, { recursive: true, force: true });
+    }
+  });
+
+  test("explicit Owner reactivation recovers from an unavailable retired tuple without deleting evidence", async () => {
+    const stateDirectory = await createTempDirectory("hal-m9-retired-tuple-");
+    try {
+      const journal = new M9ActivationJournal(stateDirectory);
+      journal.append({
+        operationRequestId: createImmutableIdentifier("m9_operation_request"),
+        correlationId: createCorrelationId(),
+        causationId: createImmutableIdentifier("m9_causation"),
+        ownerDisposition: "activate",
+        operationFingerprintSha256: "a".repeat(64),
+        reasonCode: "owner_local_activation",
+        packId: "retired_immutable_pack",
+        packVersion: "1.0.0",
+        manifestHashSha256: "b".repeat(64),
+        ownerConfirmationClaimCategory: "local_owner_confirmed",
+        m2IntentId: createImmutableIdentifier("m2_intent"),
+        m2PlanId: createImmutableIdentifier("m2_plan"),
+        m2DecisionId: createImmutableIdentifier("m2_decision"),
+        m2TransactionId: createImmutableIdentifier("m2_transaction"),
+        result: "succeeded",
+        resultReasonCode: "owner_local_activation"
+      });
+      expect(() => getM9ActivePackState(stateDirectory)).toThrow(
+        "integrity_unavailable: activated pack tuple unavailable"
+      );
+
+      const replacement = activateApprovedM9Pack({
+        operationRequestId: createM9OperationRequestId(),
+        stateDirectory,
+        packId: "pack_alpha",
+        ownerConfirmationClaim: "local_owner_confirmed",
+        reasonCode: "owner_local_activation"
+      });
+      expect(replacement.result).toBe("succeeded");
+      expect(getM9ActivePackState(stateDirectory)?.packId).toBe("pack_alpha");
+      expect(journal.listAll()).toHaveLength(2);
+      expect(journal.listAll()[0]?.packId).toBe("retired_immutable_pack");
     } finally {
       await rm(stateDirectory, { recursive: true, force: true });
     }

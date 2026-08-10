@@ -110,6 +110,28 @@ The refresh replaces only the derived folder pack; it preserves and restores
 the prior pack if generation fails. The next `hal:chat` validates and activates
 the new tuple.
 
+For the separately approved HAL Canon pack, run:
+
+```sh
+npm run hal:canon-chat
+```
+
+This uses the distinct `canonKnowledgeStateDirectory` in the same ignored
+local configuration and activates only `hal_canon_v1`. It deliberately does
+not combine the Canon and personal-folder packs: M9 admits one active pack per
+state directory, preserving each Owner-approved source scope and provenance.
+After an approved change to a Canon source, use the recoverable refresh:
+
+```sh
+npm run m9:refresh-hal-canon-pack
+```
+
+It moves the current immutable derived pack aside, regenerates it from the
+fixed DR 0028 allowlist, restores the prior pack if regeneration fails, and
+removes the temporary backup only after success. The append-only activation
+journal remains intact; a fresh Owner-confirmed activation records the new
+tuple without deleting the retired tuple's evidence.
+
 ## Verified Evidence
 
 On 2026-08-09, the fixed synthetic request returned `HAL_LOCAL_OK`; a normal

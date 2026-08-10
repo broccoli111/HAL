@@ -3,5 +3,6 @@
   "runtimeKeyPath": "/Users/rosslauda/.ssh/hal_gx10_runtime_ed25519",
   "runtimeStateDirectory": "/private/tmp/hal-runtime-state",
   "knowledgeStateDirectory": "/private/tmp/hal-knowledge-state",
+  "canonKnowledgeStateDirectory": "/private/tmp/hal-canon-knowledge-state",
   "knowledgePackId": "personal_document_folder_pilot_v1"
 }

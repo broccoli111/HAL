@@ -16,6 +16,7 @@ SCRIPT = (
 KNOWLEDGE_SCRIPT = SCRIPT.with_name("chat-gx10-hermes-with-approved-knowledge.mjs")
 PERSONAL_DOCUMENT_CHAT = SCRIPT.with_name("chat-gx10-hermes-with-personal-document-pilot.mjs")
 OWNER_LAUNCHER = SCRIPT.with_name("hal-owner-chat.mjs")
+CANON_OWNER_LAUNCHER = SCRIPT.with_name("hal-canon-chat.mjs")
 
 
 class StatelessChatInterfaceTests(unittest.TestCase):
@@ -66,6 +67,19 @@ class StatelessChatInterfaceTests(unittest.TestCase):
         self.assertIn('const APPROVED_PACK_ID = "personal_document_folder_pilot_v1";', source)
         self.assertIn("activateApprovedM9Pack", source)
         self.assertIn("chat-gx10-hermes-with-personal-document-pilot.mjs", source)
+        self.assertIn('ownerConfirmationClaim: "local_owner_confirmed"', source)
+        self.assertIn("shell: false", source)
+        self.assertNotIn("ollama", source.lower())
+        self.assertNotIn("http://", source)
+        self.assertNotIn("https://", source)
+        self.assertNotIn("writeFile", source)
+
+    def test_canon_owner_launcher_uses_a_separate_state_and_exact_canon_pack(self) -> None:
+        source = CANON_OWNER_LAUNCHER.read_text(encoding="utf-8")
+        self.assertIn('const APPROVED_PACK_ID = "hal_canon_v1";', source)
+        self.assertIn('"canonKnowledgeStateDirectory"', source)
+        self.assertIn("activateApprovedM9Pack", source)
+        self.assertIn("chat-gx10-hermes-with-approved-knowledge.mjs", source)
         self.assertIn('ownerConfirmationClaim: "local_owner_confirmed"', source)
         self.assertIn("shell: false", source)
         self.assertNotIn("ollama", source.lower())

@@ -51,6 +51,10 @@ Use only non-secret local values in `.env`.
   local transport environment variables)
 - `npm run hal:chat` - launch the Owner-facing, bounded ephemeral chat through
   the existing HAL-governed GX10 route and the approved direct-folder pack
+- `npm run hal:canon-chat` - launch the separately activated, bounded HAL
+  Canon assistant through the same zero-capability route
+- `npm run m9:refresh-hal-canon-pack` - explicitly regenerate the immutable
+  Canon-derived pack after an approved Canon source change
 - `npm run hal:knowledge:refresh` - explicitly regenerate the approved
   direct-folder derived pack after a permitted source change
 

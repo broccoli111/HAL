@@ -186,7 +186,17 @@ export function activateApprovedM9Pack(request: M9ActivationRequest): M9Activati
     });
   }
 
-  const currentActive = getM9ActivePackState(request.stateDirectory);
+  let currentActive: M9ActivePackState | undefined;
+  try {
+    currentActive = getM9ActivePackState(request.stateDirectory);
+  } catch (error) {
+    // A retired immutable derived tuple must continue to block inquiry, but
+    // it must not require deletion of its intact activation evidence before
+    // an explicitly Owner-confirmed replacement tuple can be admitted.
+    if ((error as Error).message !== "integrity_unavailable: activated pack tuple unavailable") {
+      throw error;
+    }
+  }
   const admission = runM2ForM9Activation({
     operationRequestId: request.operationRequestId,
     operationFingerprintSha256: requestFingerprint,

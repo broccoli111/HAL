@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/** Owner-facing launcher for the existing governed, zero-capability chat path. */
+/** Owner-facing launcher for the approved HAL Canon knowledge pack only. */
 
 import { lstatSync, mkdirSync, readFileSync } from "node:fs";
 import path from "node:path";
@@ -13,10 +13,10 @@ import {
 } from "../dist/src/m9/index.js";
 
 const CONFIG_FILE = path.join(import.meta.dirname, "..", ".hal-chat.local.json");
-const APPROVED_PACK_ID = "personal_document_folder_pilot_v1";
+const APPROVED_PACK_ID = "hal_canon_v1";
 
 function fail(message) {
-  process.stderr.write(`HAL chat: ${message}\n`);
+  process.stderr.write(`HAL Canon chat: ${message}\n`);
   process.exit(2);
 }
 
@@ -73,18 +73,17 @@ function loadConfig() {
   ) {
     fail("runtimeTarget is invalid.");
   }
-  if (parsed.knowledgePackId !== APPROVED_PACK_ID) {
-    fail(`knowledgePackId must be ${APPROVED_PACK_ID}.`);
+  if (parsed.knowledgePackId !== "personal_document_folder_pilot_v1") {
+    fail("knowledgePackId must remain personal_document_folder_pilot_v1.");
   }
   return Object.freeze({
     runtimeTarget: parsed.runtimeTarget,
     runtimeKeyPath: requireRegularFile(parsed.runtimeKeyPath, "runtimeKeyPath"),
     runtimeStateDirectory: requireDirectory(parsed.runtimeStateDirectory, "runtimeStateDirectory"),
     knowledgeStateDirectory: requireDirectory(
-      parsed.knowledgeStateDirectory,
-      "knowledgeStateDirectory"
-    ),
-    knowledgePackId: APPROVED_PACK_ID
+      parsed.canonKnowledgeStateDirectory,
+      "canonKnowledgeStateDirectory"
+    )
   });
 }
 
@@ -93,26 +92,24 @@ let active;
 try {
   active = getM9ActivePackState(config.knowledgeStateDirectory);
 } catch {
-  // A changed source invalidates an old active tuple. Re-admission below must
-  // independently validate the current pack and will fail closed if it cannot.
   active = undefined;
 }
-if (active?.packId !== config.knowledgePackId) {
+if (active?.packId !== APPROVED_PACK_ID) {
   const activation = activateApprovedM9Pack({
     operationRequestId: createM9OperationRequestId(),
     stateDirectory: config.knowledgeStateDirectory,
-    packId: config.knowledgePackId,
+    packId: APPROVED_PACK_ID,
     ownerConfirmationClaim: "local_owner_confirmed",
     reasonCode: "owner_local_activation"
   });
   if (activation.result !== "succeeded") {
     fail(
-      `approved knowledge-pack activation failed closed: ${activation.resultReasonCode}. Run npm run hal:knowledge:refresh after an approved source change.`
+      `approved Canon-pack activation failed closed: ${activation.resultReasonCode}. Regenerate the Canon pack after an approved Canon source change.`
     );
   }
 }
 
-const chat = path.join(import.meta.dirname, "chat-gx10-hermes-with-personal-document-pilot.mjs");
+const chat = path.join(import.meta.dirname, "chat-gx10-hermes-with-approved-knowledge.mjs");
 const child = spawn(process.execPath, [chat], {
   shell: false,
   stdio: "inherit",
