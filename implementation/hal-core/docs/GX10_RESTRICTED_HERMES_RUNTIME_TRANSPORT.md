@@ -76,11 +76,15 @@ That path receives only M6-rendered bounded excerpts from the active pack. It
 does not give Hermes/Qwen the Desktop source path, a filesystem handle, a tool,
 or a resource capability.
 
-This has the same 20-turn and 8,192-character limits as `runtime:chat`, but
-each independent turn first obtains HAL-owned, source-labeled, non-canonical
-context from the active pack. A stale activation hash fails closed; regenerate
-the pack and activate its new tuple after an approved source changes. The
-runtime never receives a source path, filesystem handle, tool, capability, or
+This has the same 20-turn and 8,192-character limits as `runtime:chat`. Each
+turn first obtains HAL-owned, source-labeled, non-canonical context from the
+active pack. The Owner-facing local-document chat retains at most its three
+most recent prompt/result pairs (4 KiB total) in process memory solely for
+direct in-session follow-ups. That context is explicitly non-canonical,
+untrusted operational context; it is never persisted, admitted as evidence,
+or available after exit. A stale activation hash fails closed; regenerate the
+pack and activate its new tuple after an approved source changes. The runtime
+never receives a source path, filesystem handle, tool, capability, or
 canonical-knowledge write authority.
 
 ## Owner Chat Launcher
