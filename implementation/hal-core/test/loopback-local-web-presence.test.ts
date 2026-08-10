@@ -41,4 +41,9 @@ describe("loopback local web presence", () => {
     expect(source).toContain("HAL request failed:");
     expect(source).toContain("button.disabled=true");
   });
+
+  test("presents a completed question as answer-only text", () => {
+    expect(source).toContain("renderDesktopAssistantResponse");
+    expect(source).toContain("presentAnswerOnly&&result.result==='completed'?result.response");
+  });
 });
