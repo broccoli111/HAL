@@ -9,6 +9,7 @@ coverage/
 .env.*
 !.env.example
 .hal-chat.local.json
+.hal-owner-folder.local.json
 *.pem
 *.key
 *.crt

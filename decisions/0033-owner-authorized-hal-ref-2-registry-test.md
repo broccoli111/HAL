@@ -23,6 +23,9 @@ folder authorization is recorded before any real data source is admitted.
 The registration event is recorded in disposable HAL local registry state as
 `hal_ref_2_test_v1`.
 
+DR 0034 supersedes this record's disposable-only limitation for this exact
+folder. This record remains the evidence of the initial bounded registry test.
+
 ## Authoritative Sources
 
 - Book I Owner authority and evidence/provenance requirements.

@@ -18,7 +18,7 @@ import {
   persistM9OwnerFolderPackArtifact,
   validatePersistedM9OwnerFolderPackArtifact
 } from "../src/m9/ownerFolderPack.js";
-import { validateApprovedPackDirectory } from "../src/m9/validator.js";
+import { listApprovedPacks, validateApprovedPackDirectory } from "../src/m9/validator.js";
 
 describe("M9 Owner-controlled folder registry contract", () => {
   test("creates a fixed-policy HAL-owned registration without reading a folder", () => {
@@ -81,6 +81,37 @@ describe("M9 Owner-controlled folder registry contract", () => {
     } finally {
       await rm(sourceDirectory, { recursive: true, force: true });
       await rm(destinationParent, { recursive: true, force: true });
+    }
+  });
+
+  test("discovers a registered owner-folder pack only through the HAL-set local root", async () => {
+    const sourceDirectory = await mkdtemp(path.join(os.tmpdir(), "hal-owner-folder-root-source-"));
+    const packRoot = await mkdtemp(path.join(os.tmpdir(), "hal-owner-folder-root-pack-"));
+    try {
+      await writeFile(path.join(sourceDirectory, "note.md"), "Green", "utf8");
+      const registration = createM9OwnerFolderRegistration({
+        registrationId: "owner_notes_v1",
+        sourceDirectory,
+        ownerConfirmationClaim: "local_owner_confirmed"
+      });
+      const artifact = buildM9OwnerFolderPackArtifact(
+        registration,
+        collectM9OwnerFolderSourceSnapshot(registration)
+      );
+      persistM9OwnerFolderPackArtifact(artifact, path.join(packRoot, artifact.packId));
+      const previous = process.env.HAL_OWNER_FOLDER_PACK_ROOT;
+      process.env.HAL_OWNER_FOLDER_PACK_ROOT = packRoot;
+      try {
+        expect(listApprovedPacks().some((pack) => pack.manifest.packId === artifact.packId)).toBe(
+          true
+        );
+      } finally {
+        if (previous === undefined) delete process.env.HAL_OWNER_FOLDER_PACK_ROOT;
+        else process.env.HAL_OWNER_FOLDER_PACK_ROOT = previous;
+      }
+    } finally {
+      await rm(sourceDirectory, { recursive: true, force: true });
+      await rm(packRoot, { recursive: true, force: true });
     }
   });
 

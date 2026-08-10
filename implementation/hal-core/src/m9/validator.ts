@@ -590,6 +590,20 @@ export function listApprovedPacks(): readonly M9ResolvedPack[] {
     );
     packs.push(validateApprovedPackDirectory(PERSONAL_DOCUMENT_FOLDER_PILOT_PACK_DIRECTORY));
   }
+  const ownerFolderRoot = process.env.HAL_OWNER_FOLDER_PACK_ROOT?.trim();
+  if (ownerFolderRoot) {
+    assert(path.isAbsolute(ownerFolderRoot), "owner-folder pack root must be absolute");
+    ensureNoSymlinkOrSpecial(ownerFolderRoot, "owner-folder pack root");
+    const entries = readdirSync(ownerFolderRoot).sort();
+    assert(entries.length <= M9_BOUNDS.maxPacks, "owner-folder pack count exceeds v1 bound");
+    for (const entry of entries) {
+      const absolute = path.resolve(ownerFolderRoot, entry);
+      assertInside(ownerFolderRoot, absolute, "owner-folder pack root child");
+      const stat = lstatSync(absolute);
+      assert(!stat.isSymbolicLink() && stat.isDirectory(), "owner-folder pack entry rejected");
+      packs.push(validateApprovedPackDirectory(absolute));
+    }
+  }
   return Object.freeze(
     packs.sort((left, right) =>
       `${left.manifest.packId}@${left.manifest.packVersion}`.localeCompare(
