@@ -56,6 +56,14 @@ function sha256(value: string): string {
   return createHash("sha256").update(value).digest("hex");
 }
 
+function isOwnerApprovedLocalDocumentPack(packId: string | undefined): boolean {
+  return (
+    packId === "personal_document_pilot_v1" ||
+    packId === "personal_document_folder_pilot_v1" ||
+    /^owner_folder_[a-z][a-z0-9_-]{2,63}_v1$/.test(packId ?? "")
+  );
+}
+
 export class LocalDeterministicInquiryProvider {
   private invocationCount = 0;
 
@@ -74,8 +82,7 @@ export class LocalDeterministicInquiryProvider {
       input.fixtureRoot,
       input.files,
       input.providerInput.m9ActivationContext?.packId === "hal_canon_v1" ||
-        input.providerInput.m9ActivationContext?.packId === "personal_document_pilot_v1" ||
-        input.providerInput.m9ActivationContext?.packId === "personal_document_folder_pilot_v1"
+        isOwnerApprovedLocalDocumentPack(input.providerInput.m9ActivationContext?.packId)
     );
     const match = matchCorpus(input.providerInput.questionTokens, corpus.documents);
     const rendered = renderM6Response({
@@ -84,9 +91,7 @@ export class LocalDeterministicInquiryProvider {
       corpusContext:
         input.providerInput.m9ActivationContext?.packId === "hal_canon_v1"
           ? "owner_approved_hal_canon"
-          : input.providerInput.m9ActivationContext?.packId === "personal_document_pilot_v1" ||
-              input.providerInput.m9ActivationContext?.packId ===
-                "personal_document_folder_pilot_v1"
+          : isOwnerApprovedLocalDocumentPack(input.providerInput.m9ActivationContext?.packId)
             ? "owner_approved_local_document"
             : "synthetic"
     });

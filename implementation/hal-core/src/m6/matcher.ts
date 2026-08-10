@@ -71,7 +71,7 @@ export function matchCorpus(
       : 0;
     const documentScore =
       titleMatches * 5 + tagMatches * 3 + renderedSectionMatchScore + topicIndexBoost;
-    const sections = document.sections
+    const lexicalSections = document.sections
       .map((section, index) =>
         Object.freeze({
           documentId: document.id,
@@ -89,6 +89,23 @@ export function matchCorpus(
         return left.sectionIndex - right.sectionIndex;
       })
       .slice(0, 2);
+
+    // A source title or tag can be the only direct lexical bridge to a short
+    // owner-approved document (for example, `colors.md` for “what colors”).
+    // Preserve one bounded section from that same already-selected document;
+    // this is retrieval shaping, not source expansion or semantic inference.
+    const sections =
+      lexicalSections.length > 0 || titleMatches + tagMatches === 0
+        ? lexicalSections
+        : Object.freeze([
+            Object.freeze({
+              documentId: document.id,
+              sectionId: document.sections[0]!.sectionId,
+              sectionIndex: document.sections[0]!.index,
+              sectionScore: 0,
+              paragraph: document.sections[0]!.originalParagraph
+            } satisfies M6SelectedSection)
+          ]);
 
     if (documentScore >= 2) {
       scored.push(

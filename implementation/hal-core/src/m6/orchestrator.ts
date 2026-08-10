@@ -305,6 +305,14 @@ type M6ThroughM3Outcome = Readonly<{
   questionHashSha256: string;
 }>;
 
+function isOwnerApprovedLocalDocumentPack(packId: string): boolean {
+  return (
+    packId === "personal_document_pilot_v1" ||
+    packId === "personal_document_folder_pilot_v1" ||
+    /^owner_folder_[a-z][a-z0-9_-]{2,63}_v1$/.test(packId)
+  );
+}
+
 export function reconstructM6Trace(
   stateDirectory: string,
   correlationId: CorrelationId
@@ -405,8 +413,7 @@ function runM6ThroughM3(input: {
     input.corpusRoot,
     outcome.providerResult.consumedFiles.map((file) => path.resolve(input.corpusRoot, file)),
     input.m9ActivationContext.packId === "hal_canon_v1" ||
-      input.m9ActivationContext.packId === "personal_document_pilot_v1" ||
-      input.m9ActivationContext.packId === "personal_document_folder_pilot_v1"
+      isOwnerApprovedLocalDocumentPack(input.m9ActivationContext.packId)
   );
   if (corpusSnapshot.manifestHashSha256 !== deterministic.fixtureManifestHash) {
     throw new Error("M6 canonical manifest hash mismatch against approved corpus.");
@@ -421,8 +428,7 @@ function runM6ThroughM3(input: {
     corpusContext:
       input.m9ActivationContext.packId === "hal_canon_v1"
         ? "owner_approved_hal_canon"
-        : input.m9ActivationContext.packId === "personal_document_pilot_v1" ||
-            input.m9ActivationContext.packId === "personal_document_folder_pilot_v1"
+        : isOwnerApprovedLocalDocumentPack(input.m9ActivationContext.packId)
           ? "owner_approved_local_document"
           : "synthetic"
   });
