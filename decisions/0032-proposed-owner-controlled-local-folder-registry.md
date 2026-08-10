@@ -2,16 +2,18 @@
 
 | Field | Value |
 | --- | --- |
-| Status | Proposed — not adopted |
+| Status | Accepted Owner decision |
 | Date | 2026-08-09 |
 | Scope | Potential future expansion of Owner-approved local-document knowledge sources |
-| Owner Review | Required and pending |
+| Owner Review | Explicit Owner approval: Option 2 |
 
 ## Decision
 
-No decision has been made. This record presents a bounded next-step choice for
-allowing the Owner to add or remove explicitly approved local document folders
-without giving an Agent Runtime filesystem access or changing the Canon.
+The Owner accepts Option 2: HAL may design and test a bounded, HAL-owned local
+folder registry. Each future folder remains subject to explicit Owner
+registration, immutable per-folder pack generation, validation, activation,
+and revocation. This decision does not register a folder, authorize automatic
+admission, or give an Agent Runtime filesystem access.
 
 ## Context
 
@@ -76,8 +78,8 @@ production use, external providers, or a change to the Agent Runtime Contract.
 
 ## Implementation Implications
 
-No implementation is authorized by this record while it is Proposed. If the
-Owner accepts Alternative 2, implementation should first define a narrow
+This decision authorizes a first design-and-conformance implementation slice.
+Implementation should first define a narrow
 HAL-owned registration record and deterministic conformance suite, including:
 
 - exact absolute-path and non-symlink validation;
@@ -91,10 +93,9 @@ HAL-owned registration record and deterministic conformance suite, including:
 
 ## Owner Review Assessment
 
-### Decision required
+### Owner disposition
 
-Choose whether HAL may evolve from the one-folder DR 0030 pilot to a governed
-Owner-controlled local folder registry.
+The Owner approved Option 2 on 2026-08-09.
 
 ### Why Owner Review is required
 
@@ -138,6 +139,7 @@ existing single-folder behavior.
 
 ## Continuity Notes
 
-Do not implement the registry unless the Owner accepts an option. Upon an
-acceptance, create the accepted decision record details, define the conformance
-plan, and implement only the accepted bounded scope.
+Begin with the HAL-owned registration contract and deterministic conformance
+suite. Do not register a real folder or enable it in the assistant until the
+contract, immutable-pack generation, activation/revocation behavior, and
+runtime-boundary tests are complete.
