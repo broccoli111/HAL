@@ -12,11 +12,14 @@ The active workspace is the Git repository rooted at `/Users/rosslauda/Documents
 
 ## Current Phase
 
-**Reference Runtime Integration — Hermes v1**
+**Bounded Local Assistant — Hermes v1 Reference Runtime**
 
 ## Current Objective
 
-Demonstrate a minimal end-to-end execution using the real installed Hermes runtime, existing local Ollama service, and existing local Qwen3 model while preserving the HAL Agent Runtime Contract and governance boundaries.
+Maintain and improve the usable, bounded local-only assistant over the
+Owner-approved HAL Canon and `HAL_doc_ref` knowledge scopes while preserving
+the HAL Agent Runtime Contract, zero-capability runtime posture, provenance,
+and governance boundaries.
 
 ## Completed
 
@@ -142,8 +145,9 @@ The following are status pointers, not restatements or replacements of architect
 5. Completed: DR 0029 one-file local document pilot. Maintain its exact path/file/type/size scope and derived-pack provenance; a new source, a directory scan, source expansion, canonical promotion, or any runtime file access requires a new Owner Decision.
 6. Completed: DR 0030 direct-folder local document pilot. Maintain its direct `.txt`/`.md`, non-recursive, hash-verified bounds; any other path, subdirectory, file type, NAS source, canonical promotion, or runtime file access requires a new Owner Decision.
 7. Completed: Owner-facing bounded interactive chat launcher. Maintain its ephemeral session context, HAL-owned activation/journaling path, zero capability manifest, local-only configuration, and fail-closed source validation.
-8. Use the Solo-Owner Assurance Profile only for eligible routine, reversible, non-production work; retain independent review for the high-risk threshold and production release. Exception 0024 applies only to the exact Book III amendment certification-control gate.
-9. Do not broaden the completed DR 0012/0015/0019/0020 pilots or DR 0026 into an external provider, unapproved model, real capability, real resource, general mediation service, or production deployment.
+8. Completed: DR 0031 bounded governed dual-scope inquiry. Maintain its exact two-pack allowlist, separate state validation, per-source labels, 4 KiB combined context bound, zero-capability runtime route, and ephemeral-only session context. Any additional source/pack, automatic selection, combined pack, canonical promotion, or resource route requires an Owner Decision.
+9. Use the Solo-Owner Assurance Profile only for eligible routine, reversible, non-production work; retain independent review for the high-risk threshold and production release. Exception 0024 applies only to the exact Book III amendment certification-control gate.
+10. Do not broaden the completed DR 0012/0015/0019/0020 pilots or DR 0026 into an external provider, unapproved model, real capability, real resource, general mediation service, or production deployment.
 
 ## Explicitly Out of Scope
 
