@@ -5,6 +5,7 @@ import {
   parseDesktopAssistantQuestionRequest,
   validateDesktopAssistantIpcSender
 } from "../src/desktopAssistant/ipcContracts.js";
+import { createDesktopAssistantQuestionGate } from "../src/desktopAssistant/questionGate.js";
 import { resolveDesktopAssistantAssetPath } from "../src/desktopAssistant/securityPolicy.js";
 
 describe("bounded desktop assistant IPC", () => {
@@ -58,5 +59,30 @@ describe("bounded desktop assistant IPC", () => {
     expect(
       resolveDesktopAssistantAssetPath("/tmp/hal-ui", "https://example.com/index.html")
     ).toBeUndefined();
+  });
+
+  test("HAL main process permits only one in-flight desktop dispatch", async () => {
+    let releaseFirst: (() => void) | undefined;
+    const firstPending = new Promise<void>((resolve) => {
+      releaseFirst = resolve;
+    });
+    const dispatchQuestion = createDesktopAssistantQuestionGate(async () => {
+      await firstPending;
+      return { result: "completed" as const, response: "first result" };
+    });
+    const request = { scope: "canon" as const, questionText: "What is HAL?" };
+    const first = dispatchQuestion(request);
+
+    await expect(dispatchQuestion(request)).resolves.toEqual({
+      result: "blocked",
+      response: "",
+      reasonCode: "desktop_request_in_progress"
+    });
+    releaseFirst?.();
+    await expect(first).resolves.toEqual({ result: "completed", response: "first result" });
+    await expect(dispatchQuestion(request)).resolves.toEqual({
+      result: "completed",
+      response: "first result"
+    });
   });
 });

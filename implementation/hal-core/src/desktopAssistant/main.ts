@@ -9,7 +9,11 @@ import {
   parseDesktopAssistantQuestionRequest,
   validateDesktopAssistantIpcSender
 } from "./ipcContracts.js";
-import type { DesktopAssistantQuestionRequest, DesktopAssistantQuestionResult } from "./types.js";
+import type { DesktopAssistantQuestionResult } from "./types.js";
+import {
+  createDesktopAssistantQuestionGate,
+  type DesktopAssistantQuestionDispatcher
+} from "./questionGate.js";
 import {
   DESKTOP_ASSISTANT_HOST,
   DESKTOP_ASSISTANT_PROTOCOL,
@@ -43,11 +47,6 @@ export type DesktopAssistantLaunchOptions = Readonly<{
   preloadPath: string;
   dispatchQuestion: DesktopAssistantQuestionDispatcher;
 }>;
-
-export type DesktopAssistantQuestionDispatcher = (
-  // eslint-disable-next-line no-unused-vars
-  request: DesktopAssistantQuestionRequest
-) => Promise<DesktopAssistantQuestionResult>;
 
 export function createDesktopAssistantWindowOptions(input: {
   preloadPath: string;
@@ -90,6 +89,7 @@ export function registerDesktopAssistantIpcHandlers(
   mainWindow: BrowserWindow,
   dispatchQuestion: DesktopAssistantQuestionDispatcher
 ): void {
+  const dispatchOneAtATime = createDesktopAssistantQuestionGate(dispatchQuestion);
   ipcMain.handle(DESKTOP_ASSISTANT_IPC_CHANNEL, async (event, payload: unknown) => {
     const senderFrame = event.senderFrame;
     const senderError = validateDesktopAssistantIpcSender({
@@ -101,9 +101,10 @@ export function registerDesktopAssistantIpcHandlers(
     if (senderError) return blocked("ipc_validation_failed");
     const request = parseDesktopAssistantQuestionRequest(payload);
     if (!request) return blocked("malformed_question_or_scope");
-    return await dispatchQuestion(request);
+    return await dispatchOneAtATime(request);
   });
 }
+
 export function resolveDesktopAssistantRuntimePaths(input: {
   projectRoot: string;
   dispatchQuestion: DesktopAssistantQuestionDispatcher;

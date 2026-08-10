@@ -16,8 +16,9 @@ bounded question at a time and selects only one of these fixed scopes:
 
 The Electron main process validates the local renderer origin, scope, and
 question bound, then spawns only the existing `hal-assistant.mjs` launcher with
-`shell: false`. The renderer has no Node, Electron, filesystem, shell, browser,
-or unrestricted IPC access.
+`shell: false`. HAL main enforces a single in-flight desktop dispatch even if a
+renderer is compromised. The renderer has no Node, Electron, filesystem,
+shell, browser, or unrestricted IPC access.
 
 ## Boundaries
 
