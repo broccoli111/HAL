@@ -151,7 +151,7 @@ The following are status pointers, not restatements or replacements of architect
 8. Completed: DR 0031 bounded governed dual-scope inquiry. Maintain its exact two-pack allowlist, separate state validation, per-source labels, 4 KiB combined context bound, zero-capability runtime route, and ephemeral-only session context. Any additional source/pack, automatic selection, combined pack, canonical promotion, or resource route requires an Owner Decision.
 9. Use the Solo-Owner Assurance Profile only for eligible routine, reversible, non-production work; retain independent review for the high-risk threshold and production release. Exception 0024 applies only to the exact Book III amendment certification-control gate.
 10. Do not broaden the completed DR 0012/0015/0019/0020 pilots or DR 0026 into an external provider, unapproved model, real capability, real resource, general mediation service, or production deployment.
-11. DR 0032 Option 2 is accepted for a bounded Owner-controlled local folder registry. HAL has a fixed-policy registration/revocation contract, a HAL-only bounded source-snapshot collector, deterministic manifest-hashed per-folder artifact generation/persistence, and an append-only integrity-chained registration/revocation evidence journal. DR 0034 later admitted the single exact persistent `hal_ref_2` source; no other folder is registered or available to the assistant.
+11. DR 0032 Option 2 is accepted for a bounded Owner-controlled local folder registry. HAL has a registration/revocation contract, a HAL-only bounded source-snapshot collector, deterministic manifest-hashed per-folder artifact generation/persistence, and an append-only integrity-chained registration/revocation evidence journal. DR 0034 later admitted the single exact persistent `hal_ref_2` source; no other folder is registered or available to the assistant.
 12. DR 0033 authorizes the empty disposable test folder `/Users/rosslauda/Desktop/hal_ref_2`. HAL recorded its exact-path registration in disposable local registry state as `hal_ref_2_test_v1`; no content was read, no pack was generated, and Hermes received no access. Direct non-sensitive `.txt`/`.md` test content in that exact folder may be used only for the next registry pack-generation/validation test.
 13. DR 0033 pack-generation/validation test passed after `colors.md` was added directly to `hal_ref_2`: HAL collected exactly one source, built manifest-hashed artifact `fde062268a64ccd3ea521b6562299bc3edd07f15913912177414bbd34655bd38`, independently revalidated it, and securely removed the disposable pack. The pack was not activated and Hermes received no source, path, handle, tool, capability, or content.
 14. DR 0033 disposable activation/revocation conformance passed: HAL persisted the exact `hal_ref_2` pack temporarily, structurally validated it, activated it under M2 as owner-approved local-document material, received a bounded local M6 match, revoked it, and removed the temporary pack/state. Hermes was not contacted. This does not authorize a persistent user-facing route for the test folder.
@@ -169,6 +169,7 @@ The following are status pointers, not restatements or replacements of architect
 26. The dependency-security evidence now includes an on-demand, lockfile-only CycloneDX SBOM command and records the reviewed lockfile hash, clean audit, and script-disabled install posture. The SBOM is deliberately generated per reviewed lockfile because npm adds timestamp/serial metadata; it is not committed as a misleading immutable artifact.
 27. Owner-approved DR 0035 adds a local desktop chat UI over the existing four fixed assistant scopes only. Its sandboxed renderer has no Node/Electron/filesystem/shell access; main-process IPC validates origin, scope, and question bounds before spawning only the existing `hal-assistant.mjs` launcher with `shell: false`. The UI adds no source, capability, provider, or direct runtime route and retains results only on screen.
 28. Owner-approved DR 0036 establishes a HAL-owned model-planning boundary: HAL may recommend and select only from an Owner-approved local catalog, while a missing modality produces an Owner acquisition request. A fixed, read-only official-source research probe passed with bounded minimised evidence only. HAL recommends `qwen3-vl:8b` as a future local image-capable candidate, but it is not acquired, enabled, or exposed; a specific Owner acquisition decision remains required.
+29. Owner-approved DR 0037 centralizes supported local content classes in HAL rather than storing a separate image/PDF capability in every folder registration. An exact registered folder remains the only location HAL may inspect. The new `npm run hal:owner-folder:model-recommend -- --file-name <direct-file-name>` self-test validates direct-file metadata only and deterministically recommends a catalog model without opening content, activating a pack, contacting a runtime/GX10-1, or invoking a model. Text is the sole implemented pack extractor; recognized PDF/image files are skipped pending separately authorized extraction and visual-model work.
 
 ## Explicitly Out of Scope
 
@@ -247,12 +248,13 @@ No unresolved Owner Decision is currently recorded for the runtime-sovereignty c
 ## Next Owner Decision
 
 The current bounded local assistant is operational for its exact approved
-sources, including persistent `hal_ref_2`. Under DR 0036, HAL has completed a
-bounded research/recommendation pass and recommends `qwen3-vl:8b` for the
-future local visual-understanding pilot. The Owner must decide whether to
+sources, including persistent `hal_ref_2`. Under DR 0036 and DR 0037, HAL can
+now locally classify a direct file in that registered folder and demonstrate a
+central, metadata-only model recommendation. HAL recommends `qwen3-vl:8b` for
+the future local visual-understanding pilot. The Owner must decide whether to
 authorize its specific one-time acquisition and limited local pilot. HAL must
-not treat a recommendation as authority to self-download, self-enable, or
-self-expand its knowledge or resource access.
+not treat a recommendation as authority to self-download, self-enable, parse
+media, or self-expand its knowledge or resource access.
 
 ## Continuity Rule
 

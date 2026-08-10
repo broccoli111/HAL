@@ -5,13 +5,16 @@ import { describe, expect, test } from "vitest";
 
 import {
   M9OwnerFolderRegistryJournal,
-  M9_OWNER_FOLDER_REGISTRY_ALLOWED_EXTENSIONS,
   M9_OWNER_FOLDER_REGISTRY_MAX_FILE_BYTES,
   M9_OWNER_FOLDER_REGISTRY_MAX_FILES,
   M9_OWNER_FOLDER_REGISTRY_MAX_TOTAL_BYTES,
   createM9OwnerFolderRegistration,
   revokeM9OwnerFolderRegistration
 } from "../src/m9/ownerFolderRegistry.js";
+import {
+  M9_CENTRAL_CONTENT_CAPABILITY_POLICY_ID,
+  classifyM9CentralContentFileName
+} from "../src/m9/contentCapabilityPolicy.js";
 import {
   buildM9OwnerFolderPackArtifact,
   collectM9OwnerFolderSourceSnapshot,
@@ -30,11 +33,10 @@ describe("M9 Owner-controlled folder registry contract", () => {
       ownerConfirmationClaim: "local_owner_confirmed"
     });
     expect(registration.status).toBe("registered");
-    expect(registration.allowedExtensions).toEqual([".md", ".txt"]);
     expect(registration.maxFiles).toBe(M9_OWNER_FOLDER_REGISTRY_MAX_FILES);
     expect(registration.maxFileBytes).toBe(M9_OWNER_FOLDER_REGISTRY_MAX_FILE_BYTES);
     expect(registration.maxTotalBytes).toBe(M9_OWNER_FOLDER_REGISTRY_MAX_TOTAL_BYTES);
-    expect(registration.allowedExtensions).toEqual(M9_OWNER_FOLDER_REGISTRY_ALLOWED_EXTENSIONS);
+    expect(M9_CENTRAL_CONTENT_CAPABILITY_POLICY_ID).toBe("local_mixed_media_v1");
   });
 
   test("persists an artifact once to an explicit empty destination", async () => {
@@ -262,19 +264,37 @@ describe("M9 Owner-controlled folder registry contract", () => {
     }
   });
 
-  test("collection fails closed for unapproved files, symlinks, and revoked registrations", async () => {
-    const directory = await mkdtemp(path.join(os.tmpdir(), "hal-owner-folder-deny-"));
+  test("central policy recognizes mixed media while only text enters a knowledge pack", async () => {
+    const directory = await mkdtemp(path.join(os.tmpdir(), "hal-owner-folder-mixed-"));
     try {
-      await writeFile(path.join(directory, "note.pdf"), "not permitted", "utf8");
+      await writeFile(path.join(directory, "note.txt"), "bounded text", "utf8");
+      await writeFile(path.join(directory, "picture.png"), "not parsed", "utf8");
       const registration = createM9OwnerFolderRegistration({
         registrationId: "owner_notes_v1",
         sourceDirectory: directory,
         ownerConfirmationClaim: "local_owner_confirmed"
       });
-      expect(() => collectM9OwnerFolderSourceSnapshot(registration)).toThrow(
-        "file type is not approved"
-      );
-      await rm(path.join(directory, "note.pdf"));
+      expect(classifyM9CentralContentFileName("picture.png")).toBe("image");
+      expect(classifyM9CentralContentFileName("paper.pdf")).toBe("document");
+      expect(collectM9OwnerFolderSourceSnapshot(registration)).toHaveLength(1);
+      expect(() => classifyM9CentralContentFileName("nested/picture.png")).toThrow("direct");
+      expect(() => classifyM9CentralContentFileName("tool.sh")).toThrow("centrally supported");
+    } finally {
+      await rm(directory, { recursive: true, force: true });
+    }
+  });
+
+  test("collection fails closed for unapproved files, symlinks, and revoked registrations", async () => {
+    const directory = await mkdtemp(path.join(os.tmpdir(), "hal-owner-folder-deny-"));
+    try {
+      await writeFile(path.join(directory, "tool.sh"), "not permitted", "utf8");
+      const registration = createM9OwnerFolderRegistration({
+        registrationId: "owner_notes_v1",
+        sourceDirectory: directory,
+        ownerConfirmationClaim: "local_owner_confirmed"
+      });
+      expect(() => collectM9OwnerFolderSourceSnapshot(registration)).toThrow("centrally supported");
+      await rm(path.join(directory, "tool.sh"));
       await symlink("/private/tmp/not-present", path.join(directory, "note.txt"));
       expect(() => collectM9OwnerFolderSourceSnapshot(registration)).toThrow("regular non-symlink");
       expect(() =>

@@ -9,7 +9,6 @@ import { canonicalJsonUtf8Bytes, sha256Hex } from "./canonical.js";
  * and it conveys neither a path nor a handle to an Agent Runtime.
  */
 export const M9_OWNER_FOLDER_REGISTRY_SCHEMA_VERSION = "hal.m9.owner-folder-registry.v1" as const;
-export const M9_OWNER_FOLDER_REGISTRY_ALLOWED_EXTENSIONS = Object.freeze([".md", ".txt"]);
 export const M9_OWNER_FOLDER_REGISTRY_MAX_FILES = 32 as const;
 export const M9_OWNER_FOLDER_REGISTRY_MAX_FILE_BYTES = 8_192 as const;
 export const M9_OWNER_FOLDER_REGISTRY_MAX_TOTAL_BYTES = 131_072 as const;
@@ -18,7 +17,6 @@ export type M9OwnerFolderRegistration = Readonly<{
   schemaVersion: typeof M9_OWNER_FOLDER_REGISTRY_SCHEMA_VERSION;
   registrationId: string;
   sourceDirectory: string;
-  allowedExtensions: readonly string[];
   maxFiles: number;
   maxFileBytes: number;
   maxTotalBytes: number;
@@ -64,7 +62,6 @@ export function createM9OwnerFolderRegistration(input: {
     schemaVersion: M9_OWNER_FOLDER_REGISTRY_SCHEMA_VERSION,
     registrationId: input.registrationId,
     sourceDirectory: normalized,
-    allowedExtensions: M9_OWNER_FOLDER_REGISTRY_ALLOWED_EXTENSIONS,
     maxFiles: M9_OWNER_FOLDER_REGISTRY_MAX_FILES,
     maxFileBytes: M9_OWNER_FOLDER_REGISTRY_MAX_FILE_BYTES,
     maxTotalBytes: M9_OWNER_FOLDER_REGISTRY_MAX_TOTAL_BYTES,

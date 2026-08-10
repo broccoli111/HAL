@@ -11,10 +11,8 @@ import {
 import path from "node:path";
 
 import { containsSecretLikeContent } from "../m6/inputPolicy.js";
-import {
-  type M9OwnerFolderRegistration,
-  M9_OWNER_FOLDER_REGISTRY_ALLOWED_EXTENSIONS
-} from "./ownerFolderRegistry.js";
+import { type M9OwnerFolderRegistration } from "./ownerFolderRegistry.js";
+import { classifyM9CentralContentFileName } from "./contentCapabilityPolicy.js";
 import { canonicalJsonUtf8Bytes, sha256Hex } from "./canonical.js";
 
 export type M9OwnerFolderSourceSnapshot = Readonly<{
@@ -72,10 +70,7 @@ export function collectM9OwnerFolderSourceSnapshot(
   let totalBytes = 0;
   const sources: M9OwnerFolderSourceSnapshot[] = [];
   for (const name of names) {
-    assert(
-      M9_OWNER_FOLDER_REGISTRY_ALLOWED_EXTENSIONS.includes(path.extname(name).toLowerCase()),
-      "owner-folder source file type is not approved"
-    );
+    const contentClass = classifyM9CentralContentFileName(name);
     const absolute = path.resolve(registration.sourceDirectory, name);
     assertInside(registration.sourceDirectory, absolute);
     const stat = lstatSync(absolute, { throwIfNoEntry: false });
@@ -83,6 +78,10 @@ export function collectM9OwnerFolderSourceSnapshot(
       stat?.isFile() && !stat.isSymbolicLink(),
       "owner-folder source must be regular non-symlink file"
     );
+    // Central policy recognizes mixed media, but only its text class has an
+    // approved pack extractor. Media is deliberately neither opened nor made
+    // available to a runtime here.
+    if (contentClass !== "text") continue;
     const raw = readFileSync(absolute, "utf8");
     const byteSize = byteLength(raw);
     assert(

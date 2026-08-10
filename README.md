@@ -46,4 +46,18 @@ npm run hal:owner-folder:refresh
 This does not authorize a new folder, source class, capability, or canonical
 knowledge promotion.
 
+## Test a Local Model Recommendation for a Mixed Folder
+
+HAL centrally governs content classes; an approved folder remains only the
+resource boundary. Put a direct image (`.png`, `.jpg`, or `.jpeg`) in the
+already registered `hal_ref_2` folder and, from `implementation/hal-core`, run:
+
+```bash
+npm run hal:owner-folder:model-recommend -- --file-name my-image.png
+```
+
+This reads file metadata only and returns HAL's local catalog recommendation.
+It does not read or transmit the image, invoke a model, or grant a runtime any
+filesystem access. See [the policy and limits](implementation/hal-core/docs/CENTRAL_CONTENT_CAPABILITY_POLICY.md).
+
 Generated render output, local tool output, bytecode caches, and macOS metadata are ignored and should not be committed.

@@ -61,13 +61,18 @@ runtime input, or destination argument.
 selection demonstration. It invokes no model and returns either an
 `selected_approved_local` entry or `owner_acquisition_required` candidate.
 
+For an already registered mixed folder, the metadata-only local self-test is
+documented in [Central Content Capability Policy](CENTRAL_CONTENT_CAPABILITY_POLICY.md).
+
 ## Visual-source boundary
 
 The pilot may only derive bounded, non-canonical context from direct regular
 `.pdf`, `.png`, `.jpg`, and `.jpeg` files in a separately approved registered
-folder. HAL must hash and record provenance before extraction; reject symlinks,
-recursion, hidden source expansion, encrypted/unsupported media, parser errors,
-and over-limit files; and retain no runtime source path or handle.
+folder. Content classes are centrally governed by HAL rather than separately
+granted per folder; exact folder admission remains required. HAL must hash and
+record provenance before extraction; reject symlinks, recursion, hidden source
+expansion, encrypted/unsupported media, parser errors, and over-limit files;
+and retain no runtime source path or handle.
 
 Text PDFs, scanned PDFs, and images require distinct local extractor evidence.
 No parser is enabled by this design, and no source class is activated until its

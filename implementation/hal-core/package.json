@@ -41,6 +41,7 @@
     "hal:assistant:status": "npm run build && node ./scripts/hal-assistant-status.mjs",
     "hal:model:research": "npm run build && node ./scripts/hal-model-research.mjs",
     "hal:model:recommend": "npm run build && node ./scripts/hal-model-recommend.mjs",
+    "hal:owner-folder:model-recommend": "npm run build && node ./scripts/hal-owner-folder-model-recommend.mjs",
     "hal:knowledge:refresh": "npm run build && node ./scripts/refresh-personal-document-folder-pilot.mjs",
     "hal:owner-folder:refresh": "npm run build && node ./scripts/refresh-hal-ref-2-owner-folder-pack.mjs",
     "hal:owner-folder:register": "npm run build && node ./scripts/register-owner-folder.mjs",
