@@ -53,6 +53,8 @@ Use only non-secret local values in `.env`.
   the existing HAL-governed GX10 route and the approved direct-folder pack
 - `npm run hal:canon-chat` - launch the separately activated, bounded HAL
   Canon assistant through the same zero-capability route
+- `npm run hal:assistant` - choose either of the two existing governed chat
+  scopes from one Owner-facing command
 - `npm run m9:refresh-hal-canon-pack` - explicitly regenerate the immutable
   Canon-derived pack after an approved Canon source change
 - `npm run hal:knowledge:refresh` - explicitly regenerate the approved

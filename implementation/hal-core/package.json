@@ -35,6 +35,7 @@
     "runtime:chat:personal-doc": "npm run build && node ./scripts/chat-gx10-hermes-with-personal-document-pilot.mjs",
     "hal:chat": "npm run build && node ./scripts/hal-owner-chat.mjs",
     "hal:canon-chat": "npm run build && node ./scripts/hal-canon-chat.mjs",
+    "hal:assistant": "npm run build && node ./scripts/hal-assistant.mjs",
     "hal:knowledge:refresh": "npm run build && node ./scripts/refresh-personal-document-folder-pilot.mjs",
     "runtime:ask:knowledge": "npm run build && node ./scripts/ask-gx10-hermes-with-approved-knowledge.mjs",
     "runtime:ask:status": "npm run build && node ./scripts/ask-gx10-hermes-repository-status.mjs",

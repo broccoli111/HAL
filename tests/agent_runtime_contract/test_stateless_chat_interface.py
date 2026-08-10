@@ -17,6 +17,7 @@ KNOWLEDGE_SCRIPT = SCRIPT.with_name("chat-gx10-hermes-with-approved-knowledge.mj
 PERSONAL_DOCUMENT_CHAT = SCRIPT.with_name("chat-gx10-hermes-with-personal-document-pilot.mjs")
 OWNER_LAUNCHER = SCRIPT.with_name("hal-owner-chat.mjs")
 CANON_OWNER_LAUNCHER = SCRIPT.with_name("hal-canon-chat.mjs")
+ASSISTANT_SELECTOR = SCRIPT.with_name("hal-assistant.mjs")
 
 
 class StatelessChatInterfaceTests(unittest.TestCase):
@@ -81,6 +82,18 @@ class StatelessChatInterfaceTests(unittest.TestCase):
         self.assertIn("activateApprovedM9Pack", source)
         self.assertIn("chat-gx10-hermes-with-approved-knowledge.mjs", source)
         self.assertIn('ownerConfirmationClaim: "local_owner_confirmed"', source)
+        self.assertIn("shell: false", source)
+        self.assertNotIn("ollama", source.lower())
+        self.assertNotIn("http://", source)
+        self.assertNotIn("https://", source)
+        self.assertNotIn("writeFile", source)
+
+    def test_owner_assistant_selector_only_dispatches_to_existing_governed_launchers(self) -> None:
+        source = ASSISTANT_SELECTOR.read_text(encoding="utf-8")
+        self.assertIn('requestedScope === "canon"', source)
+        self.assertIn('requestedScope === "documents"', source)
+        self.assertIn('"hal-canon-chat.mjs"', source)
+        self.assertIn('"hal-owner-chat.mjs"', source)
         self.assertIn("shell: false", source)
         self.assertNotIn("ollama", source.lower())
         self.assertNotIn("http://", source)

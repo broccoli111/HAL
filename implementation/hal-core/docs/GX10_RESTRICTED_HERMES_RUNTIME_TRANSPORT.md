@@ -89,6 +89,18 @@ canonical-knowledge write authority.
 
 ## Owner Chat Launcher
 
+For the simplest entry point, run:
+
+```sh
+npm run hal:assistant
+```
+
+Select either the HAL Canon/project-documentation scope or the approved local
+document-folder scope. The selector starts the corresponding existing launcher;
+it never combines scopes, reads sources, contacts a runtime itself, or grants a
+capability. You may also select a scope directly with `npm run hal:assistant --
+canon` or `npm run hal:assistant -- documents`.
+
 For the approved DR 0030 direct-folder pilot, copy
 `.hal-chat.local.example.json` to the ignored local
 `.hal-chat.local.json`, confirm its local paths, then run:
