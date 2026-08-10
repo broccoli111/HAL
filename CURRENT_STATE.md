@@ -151,6 +151,7 @@ The following are status pointers, not restatements or replacements of architect
 8. Completed: DR 0031 bounded governed dual-scope inquiry. Maintain its exact two-pack allowlist, separate state validation, per-source labels, 4 KiB combined context bound, zero-capability runtime route, and ephemeral-only session context. Any additional source/pack, automatic selection, combined pack, canonical promotion, or resource route requires an Owner Decision.
 9. Use the Solo-Owner Assurance Profile only for eligible routine, reversible, non-production work; retain independent review for the high-risk threshold and production release. Exception 0024 applies only to the exact Book III amendment certification-control gate.
 10. Do not broaden the completed DR 0012/0015/0019/0020 pilots or DR 0026 into an external provider, unapproved model, real capability, real resource, general mediation service, or production deployment.
+11. **Owner Decision pending:** [DR 0032](decisions/0032-proposed-owner-controlled-local-folder-registry.md) presents the bounded choice for any future additional local folder. It is Proposed only and authorizes no implementation or source admission.
 
 ## Explicitly Out of Scope
 
