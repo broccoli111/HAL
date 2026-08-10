@@ -58,6 +58,8 @@ Use only non-secret local values in `.env`.
   from one Owner-facing command
 - `npm run hal:dual-scope-chat` - launch the bounded DR 0031 inquiry profile
   over both separately validated approved packs
+- `npm run hal:assistant:status` - read-only local readiness check; it does not
+  contact GX10, Ollama, Hermes, or a governed resource
 - `npm run m9:refresh-hal-canon-pack` - explicitly regenerate the immutable
   Canon-derived pack after an approved Canon source change
 - `npm run hal:knowledge:refresh` - explicitly regenerate the approved

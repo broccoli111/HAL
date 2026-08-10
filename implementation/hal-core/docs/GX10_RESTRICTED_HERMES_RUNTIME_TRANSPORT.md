@@ -109,6 +109,17 @@ in process memory for direct in-session follow-ups. This operational context is
 not persisted, canonical HAL knowledge, evidence, authority, or a capability
 grant; it disappears when the session ends.
 
+Before starting a session, the following read-only local command verifies the
+available Canon and document-folder tuples and local configuration:
+
+```sh
+npm run hal:assistant:status
+```
+
+It reports whether each tuple is currently active or needs the normal launcher
+revalidation. It does not start a runtime process, open SSH, contact Ollama,
+or read source document content beyond the existing M9 integrity validation.
+
 For the approved DR 0030 direct-folder pilot, copy
 `.hal-chat.local.example.json` to the ignored local
 `.hal-chat.local.json`, confirm its local paths, then run:

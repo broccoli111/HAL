@@ -21,6 +21,7 @@ ASSISTANT_SELECTOR = SCRIPT.with_name("hal-assistant.mjs")
 DUAL_SCOPE_LAUNCHER = SCRIPT.with_name("hal-dual-scope-chat.mjs")
 DUAL_SCOPE_CHAT = SCRIPT.with_name("chat-gx10-hermes-with-dual-approved-knowledge.mjs")
 DUAL_SCOPE_ASK = SCRIPT.with_name("ask-gx10-hermes-with-dual-approved-knowledge.mjs")
+ASSISTANT_STATUS = SCRIPT.with_name("hal-assistant-status.mjs")
 
 
 class StatelessChatInterfaceTests(unittest.TestCase):
@@ -125,6 +126,18 @@ class StatelessChatInterfaceTests(unittest.TestCase):
             self.assertNotIn("http://", source)
             self.assertNotIn("https://", source)
             self.assertNotIn("writeFile", source)
+
+    def test_assistant_status_is_local_read_only_and_does_not_contact_the_runtime(self) -> None:
+        source = ASSISTANT_STATUS.read_text(encoding="utf-8")
+        self.assertIn("getM9ActivePackState", source)
+        self.assertIn('const CANON_PACK_ID = "hal_canon_v1";', source)
+        self.assertIn('const DOCUMENT_PACK_ID = "personal_document_folder_pilot_v1";', source)
+        self.assertIn("restricted_ssh_zero_capability_not_contacted", source)
+        self.assertNotIn("spawn(", source)
+        self.assertNotIn("ollama", source.lower())
+        self.assertNotIn("http://", source)
+        self.assertNotIn("https://", source)
+        self.assertNotIn("writeFile", source)
 
 
 if __name__ == "__main__":

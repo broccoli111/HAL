@@ -37,6 +37,7 @@
     "hal:canon-chat": "npm run build && node ./scripts/hal-canon-chat.mjs",
     "hal:dual-scope-chat": "npm run build && node ./scripts/hal-dual-scope-chat.mjs",
     "hal:assistant": "npm run build && node ./scripts/hal-assistant.mjs",
+    "hal:assistant:status": "npm run build && node ./scripts/hal-assistant-status.mjs",
     "hal:knowledge:refresh": "npm run build && node ./scripts/refresh-personal-document-folder-pilot.mjs",
     "runtime:ask:knowledge": "npm run build && node ./scripts/ask-gx10-hermes-with-approved-knowledge.mjs",
     "runtime:ask:dual-scope": "npm run build && node ./scripts/ask-gx10-hermes-with-dual-approved-knowledge.mjs",

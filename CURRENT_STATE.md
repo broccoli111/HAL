@@ -184,6 +184,12 @@ The accepted dual-scope chat retains at most three prior prompt/result pairs
 operational runtime context, never canonical HAL knowledge, evidence, authority,
 or a capability grant, and is discarded when the session ends.
 
+`npm run hal:assistant:status` provides a read-only local readiness check for
+the two exact available pack tuples and local configuration. It reports whether
+each tuple is active or needs the launcher's normal revalidation. It does not
+start a runtime process, connect over SSH, contact Ollama, or access any
+governed resource beyond existing M9 integrity validation.
+
 DR 0031 does not authorize additional pack/source types, automatic cross-scope
 selection, a combined derived pack, canonical promotion, filesystem access,
 NAS, external data/providers, secrets, shell access, or production use.
