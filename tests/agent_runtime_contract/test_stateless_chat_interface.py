@@ -115,6 +115,7 @@ class StatelessChatInterfaceTests(unittest.TestCase):
         self.assertIn("HAL_CANON_KNOWLEDGE_STATE_DIRECTORY", launcher)
         self.assertIn("runM6DualScopeInquiry", ask)
         self.assertIn("ask-gx10-hermes.mjs", ask)
+        self.assertIn("source heading plus an excerpt is direct support", ask)
         self.assertIn("dual-scope", chat)
         self.assertIn("const MAX_CONTEXT_TURNS = 3;", chat)
         self.assertIn("const MAX_CONTEXT_UTF8_BYTES = 4_096;", chat)

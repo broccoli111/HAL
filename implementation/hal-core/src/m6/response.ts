@@ -58,8 +58,8 @@ function truncateValueWithSuffix(value: string, maxBytes: number): string {
   return `${clipped}${suffix}`;
 }
 
-function clipExcerpt(value: string): string {
-  return truncateUtf8(normalizeForM6(value), M6_EXCERPT_MAX_UTF8_BYTES)
+function clipExcerptToBytes(value: string, maxBytes: number): string {
+  return truncateUtf8(normalizeForM6(value), maxBytes)
     .replaceAll("\\", "\\\\")
     .replaceAll('"', '\\"');
 }
@@ -142,10 +142,18 @@ export function renderM6Response(input: {
         {
           key: "excerpt",
           value: input.match.selectedDocuments
+            // References retain the complete bounded match set. Render only
+            // the highest-ranked document's excerpts so the fixed response
+            // budget preserves a useful, source-derived statement rather
+            // than diluting it with lower-ranked lexical matches.
+            .slice(0, 1)
             .flatMap((document) =>
               document.selectedSections.map(
                 (section) =>
-                  `${document.documentId}#${section.sectionId}:"${clipExcerpt(section.paragraph)}"`
+                  `${document.documentId}#${section.sectionId}:"${clipExcerptToBytes(
+                    section.paragraph,
+                    document.tags?.includes("topic-index") ? 480 : M6_EXCERPT_MAX_UTF8_BYTES
+                  )}"`
               )
             )
             .join("|")

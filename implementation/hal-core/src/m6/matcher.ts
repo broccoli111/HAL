@@ -63,7 +63,14 @@ export function matchCorpus(
       .sort((left, right) => right - left)
       .slice(0, 2)
       .reduce((sum, score) => sum + score, 0);
-    const documentScore = titleMatches * 5 + tagMatches * 3 + renderedSectionMatchScore;
+    // A source-derived topic index is a bounded retrieval aid, not an
+    // authority source. Prefer its direct heading match over diffuse matches
+    // in a large source body while retaining lexical-only behavior.
+    const topicIndexBoost = document.tags.includes("topic-index")
+      ? renderedSectionMatchScore * 2
+      : 0;
+    const documentScore =
+      titleMatches * 5 + tagMatches * 3 + renderedSectionMatchScore + topicIndexBoost;
     const sections = document.sections
       .map((section, index) =>
         Object.freeze({
@@ -122,6 +129,7 @@ export function matchCorpus(
         documentId: entry.document.id,
         documentScore: entry.documentScore,
         titleMatches: entry.titleMatches,
+        tags: entry.document.tags,
         selectedSections: entry.sections
       } satisfies M6SelectedDocument)
     );

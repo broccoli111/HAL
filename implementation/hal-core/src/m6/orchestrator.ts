@@ -876,6 +876,7 @@ function hydrateMatchOutcomeFromDeterministic(
         documentId,
         documentScore: Math.max(2, selectedSections.length),
         titleMatches: 1,
+        tags: document.tags,
         selectedSections: Object.freeze(selectedSections)
       })
     );

@@ -260,6 +260,32 @@ describe("M9 controlled local knowledge packs", () => {
     }
   });
 
+  test("HAL Canon topic index preserves source-derived runtime-memory retrieval context", async () => {
+    const stateDirectory = await createTempDirectory("hal-m9-canon-topic-index-");
+    try {
+      expect(
+        activateApprovedM9Pack({
+          operationRequestId: createM9OperationRequestId(),
+          stateDirectory,
+          packId: M9_HAL_CANON_PACK_ID,
+          ownerConfirmationClaim: "local_owner_confirmed",
+          reasonCode: "owner_local_activation"
+        }).result
+      ).toBe("succeeded");
+      const inquiry = runM6Inquiry({
+        stateDirectory,
+        requestId: "m9-hal-canon-runtime-memory-topic-index",
+        questionText: "Is runtime memory canonical HAL knowledge?"
+      });
+      expect(inquiry.result).toBe("matched");
+      expect(inquiry.selectedDocumentIds.some((id) => id.includes(".topics."))).toBe(true);
+      expect(inquiry.renderedResponse).toContain("runtime memory sovereignty");
+      expect(inquiry.renderedResponse).toContain("non-authoritative");
+    } finally {
+      await rm(stateDirectory, { recursive: true, force: true });
+    }
+  });
+
   test("dual-scope inquiry validates exact approved packs and preserves each source tuple", async () => {
     const canonStateDirectory = await createTempDirectory("hal-m9-dual-canon-");
     const documentStateDirectory = await createTempDirectory("hal-m9-dual-document-");

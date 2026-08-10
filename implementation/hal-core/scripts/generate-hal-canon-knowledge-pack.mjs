@@ -18,6 +18,8 @@ import { canonicalJsonUtf8Bytes } from "../dist/src/m9/canonical.js";
 const MAX_PARAGRAPH_BYTES = 2_000;
 const MAX_PARAGRAPHS_PER_DOCUMENT = 120;
 const MAX_DOCUMENT_BYTES = 120_000;
+const MAX_TOPIC_ENTRIES_PER_DOCUMENT = 120;
+const TOPIC_INDEX_SOURCE_PREFIXES = new Set(["hal.canon.book2", "hal.canon.bookx"]);
 const repositoryRoot = resolveHalRepositoryRoot();
 const packDirectory = path.join(
   repositoryRoot,
@@ -93,6 +95,34 @@ function chunksForSource(paragraphs) {
   return chunks;
 }
 
+function topicEntriesFromSource(raw) {
+  const lines = raw.replaceAll("\r\n", "\n").split("\n");
+  const entries = [];
+  for (let index = 0; index < lines.length; index += 1) {
+    const match = lines[index].match(/^(#{1,6})\s+(.+)$/u);
+    if (!match) continue;
+    const heading = match[2].trim();
+    let summary = "";
+    for (let lookahead = index + 1; lookahead < lines.length; lookahead += 1) {
+      const candidate = lines[lookahead].trim();
+      if (!candidate) continue;
+      if (/^#{1,6}\s+/u.test(candidate)) break;
+      summary = candidate;
+      break;
+    }
+    entries.push(summary ? `${heading} — ${summary}` : heading);
+  }
+  return entries;
+}
+
+function chunksForTopicEntries(entries) {
+  const chunks = [];
+  for (let start = 0; start < entries.length; start += MAX_TOPIC_ENTRIES_PER_DOCUMENT) {
+    chunks.push(entries.slice(start, start + MAX_TOPIC_ENTRIES_PER_DOCUMENT));
+  }
+  return chunks;
+}
+
 const sourceRecords = HAL_CANON_SOURCE_PATHS.map((sourcePath) => {
   const absolutePath = path.resolve(repositoryRoot, sourcePath);
   const raw = readFileSync(absolutePath, "utf8");
@@ -148,6 +178,36 @@ for (const [sourceIndex, source] of contentSources.entries()) {
     const raw = `${JSON.stringify(content, null, 2)}\n`;
     if (utf8Bytes(raw) > 131_072)
       throw new Error(`Generated content file exceeds M9 bound: ${filename}`);
+    writeFileSync(path.join(packDirectory, "content", filename), raw, "utf8");
+    documents.push({ documentId, sectionIds: paragraphs.map((_, index) => `paragraph:${index}`) });
+    files.push({
+      relativePath: `content/${filename}`,
+      sha256: sha256(raw),
+      byteSize: utf8Bytes(raw),
+      contentClass: "pack_content_json"
+    });
+    fileIndex += 1;
+  }
+  if (!TOPIC_INDEX_SOURCE_PREFIXES.has(source.documentPrefix)) continue;
+  const topicEntries = topicEntriesFromSource(source.raw);
+  const topicChunks = chunksForTopicEntries(topicEntries);
+  for (const [topicIndex, paragraphs] of topicChunks.entries()) {
+    const documentId = `${source.documentPrefix}.topics.${String(topicIndex).padStart(3, "0")}`;
+    const filename = `source-${String(sourceIndex).padStart(2, "0")}-topics-${String(topicIndex).padStart(3, "0")}.json`;
+    const content = {
+      id: documentId,
+      title: `HAL Canon topic index: ${source.sourcePath} (part ${topicIndex + 1}/${topicChunks.length})`,
+      tags: [
+        "hal-canon",
+        "owner-approved",
+        "topic-index",
+        `source-${String(sourceIndex).padStart(2, "0")}`
+      ],
+      paragraphs
+    };
+    const raw = `${JSON.stringify(content, null, 2)}\n`;
+    if (utf8Bytes(raw) > 131_072)
+      throw new Error(`Generated topic-index file exceeds M9 bound: ${filename}`);
     writeFileSync(path.join(packDirectory, "content", filename), raw, "utf8");
     documents.push({ documentId, sectionIds: paragraphs.map((_, index) => `paragraph:${index}`) });
     files.push({

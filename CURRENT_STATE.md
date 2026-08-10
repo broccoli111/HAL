@@ -124,6 +124,7 @@ and governance boundaries.
 - A separate Owner-facing Canon chat path is available through `npm run hal:canon-chat`. It uses a distinct local M9 state directory and activates only the existing DR 0028 `hal_canon_v1` pack before it starts the same bounded, zero-capability route. It deliberately does not combine the Canon and personal-folder packs: M9 preserves one active, source-scoped pack per state directory. This adds no knowledge source, runtime capability, direct resource access, or Canonical-knowledge promotion.
 - M9 activation recovery now preserves retired immutable-pack evidence while allowing an explicit Owner-confirmed activation of a newly regenerated valid tuple. Inquiry still fails closed when only a retired tuple is present. `npm run m9:refresh-hal-canon-pack` performs recoverable fixed-allowlist Canon-pack regeneration; the analogous existing folder refresh remains `npm run hal:knowledge:refresh`. The Canon chat launcher passed a real restricted GX10/Qwen smoke request through the zero-capability route; the response remained an `unaccepted_runtime_claim`.
 - M6’s deterministic lexical ranking now scores the same bounded top-two evidence window it renders, preventing a long document with repeated weak matches from outranking a shorter, more directly matching source merely due to length. The source scope, provenance, non-canonical status, and response/evidence limits are unchanged; a focused regression test covers the ranking rule.
+- The `hal_canon_v1` generator now derives bounded, manifest-hashed topic-index documents from the existing Book II and Book X sources only. M6 preferentially preserves the highest-ranked source-derived topic statement within its fixed response budget, while retaining the complete bounded reference set. This improves retrieval of named Canon topics without adding a source, runtime access, authority, or canonical-knowledge path; the full local suite passed 23 files / 180 tests and the runtime-boundary checks passed.
 - `npm run hal:assistant` is the simple Owner-facing entry point for the two existing governed chat scopes. It requires an explicit choice of either the HAL Canon/project documentation pack or the approved direct-folder pack and then dispatches only to the existing launcher. It does not merge source scopes, select sources autonomously, contact the runtime itself, or alter any capability/authority boundary.
 
 ## Important Current Architectural Boundaries
@@ -174,7 +175,7 @@ state directory; HAL independently validates both tuples before retrieval,
 retains pack/source labels in each M6 inquiry, bounds the combined non-canonical
 context to 4 KiB, and provides the runtime no path, handle, tool, capability,
 canonical-write, or source-selection authority. `npm run hal:assistant` now
-offers **Both approved contexts**. The 23-file/179-test local suite and runtime
+offers **Both approved contexts**. The 23-file/180-test local suite and runtime
 boundary suite passed, and one restricted GX10/Qwen smoke inquiry returned the
 approved local-folder favorite-color fact. The runtime result remained an
 `unaccepted_runtime_claim`.

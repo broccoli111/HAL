@@ -78,6 +78,12 @@ export type M6SelectedDocument = Readonly<{
   documentId: string;
   documentScore: number;
   titleMatches: number;
+  /**
+   * Retrieval-only document classification retained with the selected result.
+   * It carries no authority or source content; renderers use it only to apply
+   * the bounded topic-index excerpt policy.
+   */
+  tags?: readonly string[];
   selectedSections: readonly M6SelectedSection[];
 }>;
 

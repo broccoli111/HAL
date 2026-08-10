@@ -83,6 +83,13 @@ Pack identity tuples are case-sensitive and compared exactly.
 
 `hal_canon_v1` is the repository-document non-synthetic M9 pack. Its generator reads only the exact code-enforced source list in `src/m9/halCanonSourceScope.ts`: named Book I–IV/X editions, root `agents.md`, `CURRENT_STATE.md`, and enumerated Decision Records. It writes a bounded JSON retrieval representation with a source-record manifest containing each source path, SHA-256 hash, and byte size. M9 revalidates those source hashes on registration and activation; a source change requires a fresh derived pack and activation tuple.
 
+The generator additionally derives bounded topic-index documents from Book II
+and Book X Markdown headings and their immediate source text. These documents
+remain part of the same manifest-hashed, source-derived non-canonical pack;
+they add no source, authority, or runtime access. They improve lexical
+retrieval of named architecture/terminology topics while retaining source
+identity in the document label.
+
 The explicit `m9:refresh-hal-canon-pack` command performs that immutable-pack replacement recoverably: it moves the prior derived pack aside, generates the exact fixed source set, restores the prior pack if generation fails, and removes the backup only after success. If a state directory's latest activation refers to the retired tuple, inquiry remains fail-closed; an explicit Owner-confirmed activation may append a new valid tuple without deleting the preserved journal evidence.
 
 DR 0031 adds one named dual-scope inquiry profile, not a combined pack. It may

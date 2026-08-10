@@ -1153,6 +1153,7 @@ function reconstructM6MatchOutcome(input: {
         documentId,
         documentScore: Math.max(2, selectedSections.length),
         titleMatches: 1,
+        tags: document.tags,
         selectedSections: Object.freeze(selectedSections)
       })
     );
