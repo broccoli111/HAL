@@ -4,6 +4,7 @@ import path from "node:path";
 import { describe, expect, test } from "vitest";
 
 import {
+  M9OwnerFolderRegistryJournal,
   M9_OWNER_FOLDER_REGISTRY_ALLOWED_EXTENSIONS,
   M9_OWNER_FOLDER_REGISTRY_MAX_FILE_BYTES,
   M9_OWNER_FOLDER_REGISTRY_MAX_FILES,
@@ -105,6 +106,28 @@ describe("M9 Owner-controlled folder registry contract", () => {
     expect(revokeM9OwnerFolderRegistration(registration, "local_owner_confirmed").status).toBe(
       "revoked"
     );
+  });
+
+  test("durably chains Owner registration and revocation policy evidence", async () => {
+    const stateDirectory = await mkdtemp(path.join(os.tmpdir(), "hal-owner-folder-state-"));
+    try {
+      const registration = createM9OwnerFolderRegistration({
+        registrationId: "owner_notes_v1",
+        sourceDirectory: "/private/tmp/hal-owner-notes",
+        ownerConfirmationClaim: "local_owner_confirmed"
+      });
+      const journal = new M9OwnerFolderRegistryJournal(stateDirectory);
+      const registered = journal.append("registered", registration);
+      const revoked = journal.append(
+        "revoked",
+        revokeM9OwnerFolderRegistration(registration, "local_owner_confirmed")
+      );
+      expect(revoked.previousRecordHash).toBe(registered.recordHash);
+      expect(journal.latest("owner_notes_v1")?.status).toBe("revoked");
+      expect(journal.list()).toHaveLength(2);
+    } finally {
+      await rm(stateDirectory, { recursive: true, force: true });
+    }
   });
 
   test("HAL alone collects a bounded immutable source snapshot from an exact registered folder", async () => {

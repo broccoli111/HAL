@@ -1,4 +1,7 @@
 import path from "node:path";
+import { appendFileSync, existsSync, mkdirSync, readFileSync } from "node:fs";
+
+import { canonicalJsonUtf8Bytes, sha256Hex } from "./canonical.js";
 
 /**
  * DR 0032's HAL-owned, runtime-independent local-folder registration contract.
@@ -21,6 +24,14 @@ export type M9OwnerFolderRegistration = Readonly<{
   maxTotalBytes: number;
   ownerConfirmationClaimCategory: "local_owner_confirmed";
   status: "registered" | "revoked";
+}>;
+
+export type M9OwnerFolderRegistryEvent = Readonly<{
+  schemaVersion: typeof M9_OWNER_FOLDER_REGISTRY_SCHEMA_VERSION;
+  eventType: "registered" | "revoked";
+  registration: M9OwnerFolderRegistration;
+  previousRecordHash?: string;
+  recordHash: string;
 }>;
 
 function assert(value: unknown, message: string): asserts value {
@@ -71,4 +82,70 @@ export function revokeM9OwnerFolderRegistration(
     "owner-folder revocation requires explicit local Owner confirmation"
   );
   return Object.freeze({ ...registration, status: "revoked" });
+}
+
+/** Append-only HAL evidence journal for Owner folder registration policy. */
+export class M9OwnerFolderRegistryJournal {
+  private readonly journalPath: string;
+
+  public constructor(stateDirectory: string) {
+    assert(
+      path.isAbsolute(stateDirectory),
+      "owner-folder registry state directory must be absolute"
+    );
+    this.journalPath = path.join(stateDirectory, "m9-owner-folder-registry.jsonl");
+  }
+
+  public list(): readonly M9OwnerFolderRegistryEvent[] {
+    if (!existsSync(this.journalPath)) return Object.freeze([]);
+    const records = readFileSync(this.journalPath, "utf8")
+      .split("\n")
+      .filter(Boolean)
+      .map((line) => JSON.parse(line) as M9OwnerFolderRegistryEvent);
+    let previousRecordHash: string | undefined;
+    for (const record of records) {
+      assert(
+        record.schemaVersion === M9_OWNER_FOLDER_REGISTRY_SCHEMA_VERSION,
+        "owner-folder registry schema invalid"
+      );
+      assert(
+        record.previousRecordHash === previousRecordHash,
+        "owner-folder registry integrity chain invalid"
+      );
+      const { recordHash, ...unsigned } = record;
+      assert(
+        sha256Hex(canonicalJsonUtf8Bytes(unsigned)) === recordHash,
+        "owner-folder registry record hash invalid"
+      );
+      previousRecordHash = recordHash;
+    }
+    return Object.freeze(records);
+  }
+
+  public append(
+    eventType: "registered" | "revoked",
+    registration: M9OwnerFolderRegistration
+  ): M9OwnerFolderRegistryEvent {
+    const existing = this.list();
+    const previousRecordHash = existing.at(-1)?.recordHash;
+    const unsigned = {
+      schemaVersion: M9_OWNER_FOLDER_REGISTRY_SCHEMA_VERSION,
+      eventType,
+      registration,
+      ...(previousRecordHash ? { previousRecordHash } : {})
+    } as const;
+    const event = Object.freeze({
+      ...unsigned,
+      recordHash: sha256Hex(canonicalJsonUtf8Bytes(unsigned))
+    });
+    mkdirSync(path.dirname(this.journalPath), { recursive: true });
+    appendFileSync(this.journalPath, `${JSON.stringify(event)}\n`, "utf8");
+    return event;
+  }
+
+  public latest(registrationId: string): M9OwnerFolderRegistration | undefined {
+    return [...this.list()]
+      .reverse()
+      .find((event) => event.registration.registrationId === registrationId)?.registration;
+  }
 }
