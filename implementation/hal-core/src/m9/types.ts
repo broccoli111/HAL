@@ -14,7 +14,8 @@ export type M9PackClassification =
   | typeof M9_PACK_CLASSIFICATION
   | "owner_approved_hal_canon_local_only"
   | "owner_approved_local_document_pilot"
-  | "owner_approved_local_document_folder_pilot";
+  | "owner_approved_local_document_folder_pilot"
+  | "owner_approved_local_document_folder_registry";
 export type M9ProvenanceClassification =
   | typeof M9_PROVENANCE_CLASSIFICATION
   | "owner_approved_repository_canon"

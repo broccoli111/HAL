@@ -117,6 +117,7 @@ function validateManifestStructure(manifest: unknown): M9PackManifest {
   const isHalCanonPack = m.packId === M9_HAL_CANON_PACK_ID;
   const isPersonalDocumentPilotPack = isPersonalDocumentPilotPackId(m.packId ?? "");
   const isPersonalDocumentFolderPilotPack = isPersonalDocumentFolderPilotPackId(m.packId ?? "");
+  const isOwnerFolderRegistryPack = /^owner_folder_[a-z][a-z0-9_-]{2,63}_v1$/.test(m.packId ?? "");
   compareExact(
     m.packClassification ?? "",
     isHalCanonPack
@@ -125,7 +126,9 @@ function validateManifestStructure(manifest: unknown): M9PackManifest {
         ? M9_PERSONAL_DOCUMENT_PILOT_PACK_CLASSIFICATION
         : isPersonalDocumentFolderPilotPack
           ? M9_PERSONAL_DOCUMENT_FOLDER_PILOT_PACK_CLASSIFICATION
-          : M9_PACK_CLASSIFICATION,
+          : isOwnerFolderRegistryPack
+            ? "owner_approved_local_document_folder_registry"
+            : M9_PACK_CLASSIFICATION,
     "packClassification"
   );
   compareExact(
@@ -136,7 +139,9 @@ function validateManifestStructure(manifest: unknown): M9PackManifest {
         ? M9_PERSONAL_DOCUMENT_PILOT_PROVENANCE_CLASSIFICATION
         : isPersonalDocumentFolderPilotPack
           ? M9_PERSONAL_DOCUMENT_FOLDER_PILOT_PROVENANCE_CLASSIFICATION
-          : M9_PROVENANCE_CLASSIFICATION,
+          : isOwnerFolderRegistryPack
+            ? "owner_approved_local_document"
+            : M9_PROVENANCE_CLASSIFICATION,
     "provenanceClassification"
   );
   assert(m.m6Compatibility && typeof m.m6Compatibility === "object", "m6Compatibility missing");
@@ -149,7 +154,10 @@ function validateManifestStructure(manifest: unknown): M9PackManifest {
   );
   compareExact(
     m.m6Compatibility?.documentShape ?? "",
-    isHalCanonPack || isPersonalDocumentPilotPack || isPersonalDocumentFolderPilotPack
+    isHalCanonPack ||
+      isPersonalDocumentPilotPack ||
+      isPersonalDocumentFolderPilotPack ||
+      isOwnerFolderRegistryPack
       ? "m6.document.v1"
       : "m6.synthetic-document.v1",
     "documentShape"
@@ -171,12 +179,36 @@ function validateNonSyntheticSourceRecords(manifest: M9PackManifest): void {
   const isHalCanonPack = manifest.packId === M9_HAL_CANON_PACK_ID;
   const isPersonalDocumentPilotPack = isPersonalDocumentPilotPackId(manifest.packId);
   const isPersonalDocumentFolderPilotPack = isPersonalDocumentFolderPilotPackId(manifest.packId);
-  if (!isHalCanonPack && !isPersonalDocumentPilotPack && !isPersonalDocumentFolderPilotPack) {
+  const isOwnerFolderRegistryPack = /^owner_folder_[a-z][a-z0-9_-]{2,63}_v1$/.test(manifest.packId);
+  if (
+    !isHalCanonPack &&
+    !isPersonalDocumentPilotPack &&
+    !isPersonalDocumentFolderPilotPack &&
+    !isOwnerFolderRegistryPack
+  ) {
     assert(!manifest.sourceRecords, "synthetic pack sourceRecords rejected");
     return;
   }
   assert(Array.isArray(manifest.sourceRecords), "HAL Canon sourceRecords missing");
   const records = manifest.sourceRecords;
+  if (isOwnerFolderRegistryPack) {
+    assert(
+      records.length >= 1 && records.length <= 32,
+      "owner-folder registry source count mismatch"
+    );
+    for (const record of records) {
+      assert(
+        /^owner-approved local folder [a-z][a-z0-9_-]{2,63}\/.+\.(md|txt)$/.test(record.sourcePath),
+        "owner-folder registry source path invalid"
+      );
+      assert(/^[a-f0-9]{64}$/.test(record.sha256), "owner-folder registry source hash invalid");
+      assert(
+        Number.isInteger(record.byteSize) && record.byteSize > 0 && record.byteSize <= 8_192,
+        "owner-folder registry source byteSize invalid"
+      );
+    }
+    return;
+  }
   if (isPersonalDocumentFolderPilotPack) {
     assert(
       records.length >= 1 && records.length <= PERSONAL_DOCUMENT_FOLDER_PILOT_MAX_FILES,

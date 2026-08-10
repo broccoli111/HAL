@@ -18,6 +18,7 @@ import {
   persistM9OwnerFolderPackArtifact,
   validatePersistedM9OwnerFolderPackArtifact
 } from "../src/m9/ownerFolderPack.js";
+import { validateApprovedPackDirectory } from "../src/m9/validator.js";
 
 describe("M9 Owner-controlled folder registry contract", () => {
   test("creates a fixed-policy HAL-owned registration without reading a folder", () => {
@@ -58,6 +59,9 @@ describe("M9 Owner-controlled folder registry contract", () => {
       expect(
         validatePersistedM9OwnerFolderPackArtifact(registration, destination).manifestHashSha256
       ).toBe(artifact.manifestHashSha256);
+      expect(validateApprovedPackDirectory(destination).manifestHashSha256).toBe(
+        artifact.manifestHashSha256
+      );
       expect(() => persistM9OwnerFolderPackArtifact(artifact, destination)).toThrow(
         "already exists"
       );
