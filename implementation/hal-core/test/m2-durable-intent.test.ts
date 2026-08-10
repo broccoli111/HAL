@@ -709,6 +709,7 @@ describe("M2 durable intent path", () => {
         path.resolve(srcRoot, "m5/restoreService.ts"),
         path.resolve(srcRoot, "m6/evidenceJournal.ts"),
         path.resolve(srcRoot, "m9/activationJournal.ts"),
+        path.resolve(srcRoot, "m9/ownerFolderPack.ts"),
         path.resolve(srcRoot, "m4/journal.ts"),
         path.resolve(srcRoot, "m4/orchestrator.ts"),
         path.resolve(srcRoot, "runtime/runtimeJournal.ts")
