@@ -49,6 +49,10 @@ Use only non-secret local values in `.env`.
 - `npm run runtime:ask -- '<question>'` - ask the Owner-authorized,
   zero-capability GX10 Hermes/Qwen local assistant (requires the documented
   local transport environment variables)
+- `npm run hal:chat` - launch the Owner-facing, bounded ephemeral chat through
+  the existing HAL-governed GX10 route and the approved direct-folder pack
+- `npm run hal:knowledge:refresh` - explicitly regenerate the approved
+  direct-folder derived pack after a permitted source change
 
 ## Source structure
 

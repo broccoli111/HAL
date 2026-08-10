@@ -1,0 +1,7 @@
+{
+  "runtimeTarget": "hal_eval@192.168.124.100",
+  "runtimeKeyPath": "/Users/rosslauda/.ssh/hal_gx10_runtime_ed25519",
+  "runtimeStateDirectory": "/private/tmp/hal-runtime-state",
+  "knowledgeStateDirectory": "/private/tmp/hal-knowledge-state",
+  "knowledgePackId": "personal_document_folder_pilot_v1"
+}

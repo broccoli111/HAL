@@ -14,6 +14,7 @@ SCRIPT = (
     / "chat-gx10-hermes.mjs"
 )
 KNOWLEDGE_SCRIPT = SCRIPT.with_name("chat-gx10-hermes-with-approved-knowledge.mjs")
+OWNER_LAUNCHER = SCRIPT.with_name("hal-owner-chat.mjs")
 
 
 class StatelessChatInterfaceTests(unittest.TestCase):
@@ -43,6 +44,18 @@ class StatelessChatInterfaceTests(unittest.TestCase):
         self.assertNotIn("writeFile", source)
         self.assertNotIn("http://", source)
         self.assertNotIn("https://", source)
+
+    def test_owner_launcher_activates_only_the_approved_folder_pack_and_uses_existing_chat(self) -> None:
+        source = OWNER_LAUNCHER.read_text(encoding="utf-8")
+        self.assertIn('const APPROVED_PACK_ID = "personal_document_folder_pilot_v1";', source)
+        self.assertIn("activateApprovedM9Pack", source)
+        self.assertIn("chat-gx10-hermes-with-personal-document-pilot.mjs", source)
+        self.assertIn('ownerConfirmationClaim: "local_owner_confirmed"', source)
+        self.assertIn("shell: false", source)
+        self.assertNotIn("ollama", source.lower())
+        self.assertNotIn("http://", source)
+        self.assertNotIn("https://", source)
+        self.assertNotIn("writeFile", source)
 
 
 if __name__ == "__main__":

@@ -59,8 +59,9 @@ session termination.
 After activating the Owner-approved `hal_canon_v1` pack in the existing
 `HAL_KNOWLEDGE_STATE_DIRECTORY`, run:
 
-````sh
+```sh
 npm run runtime:chat:knowledge
+```
 
 For the separately Owner-approved DR 0029 one-file or DR 0030 direct-folder
 local-document pilot, first activate the corresponding pack
@@ -69,13 +70,11 @@ same state directory and run:
 
 ```sh
 npm run runtime:chat:personal-doc
-````
+```
 
 That path receives only M6-rendered bounded excerpts from the active pack. It
 does not give Hermes/Qwen the Desktop source path, a filesystem handle, a tool,
 or a resource capability.
-
-```
 
 This has the same 20-turn and 8,192-character limits as `runtime:chat`, but
 each independent turn first obtains HAL-owned, source-labeled, non-canonical
@@ -83,6 +82,29 @@ context from the active pack. A stale activation hash fails closed; regenerate
 the pack and activate its new tuple after an approved source changes. The
 runtime never receives a source path, filesystem handle, tool, capability, or
 canonical-knowledge write authority.
+
+## Owner Chat Launcher
+
+For the approved DR 0030 direct-folder pilot, copy
+`.hal-chat.local.example.json` to the ignored local
+`.hal-chat.local.json`, confirm its local paths, then run:
+
+```sh
+npm run hal:chat
+```
+
+The launcher validates/activates only `personal_document_folder_pilot_v1` and
+starts the same bounded, ephemeral, zero-capability chat path above. It does
+not connect to Ollama or Hermes directly. After you add, remove, rename, or
+edit an allowed direct `.txt`/`.md` file, explicitly refresh the derived pack:
+
+```sh
+npm run hal:knowledge:refresh
+```
+
+The refresh replaces only the derived folder pack; it preserves and restores
+the prior pack if generation fails. The next `hal:chat` validates and activates
+the new tuple.
 
 ## Verified Evidence
 
@@ -108,4 +130,7 @@ part of the restricted user transport and grants no capability.
 - Result length is capped at 1,024 characters and requests are bounded.
 - A result is not accepted as evidence or canonical knowledge without separate
   HAL-governed processes.
+
+```
+
 ```
