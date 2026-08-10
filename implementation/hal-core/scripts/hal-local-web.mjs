@@ -11,6 +11,7 @@ import { createDesktopControlChat } from "../dist/src/desktopAssistant/controlCh
 
 const projectRoot = path.resolve(import.meta.dirname, "..");
 const token = randomBytes(32).toString("hex");
+const scriptNonce = randomBytes(16).toString("base64");
 const maxBody = 8_192;
 const controlJournalPath = path.resolve(
   projectRoot,
@@ -101,13 +102,12 @@ const control = createDesktopControlChat({
   },
   record: recordControl
 });
-const page = `<!doctype html><meta charset=utf-8><title>HAL Local</title><style>body{font:16px -apple-system,sans-serif;max-width:850px;margin:3rem auto;padding:0 1rem}textarea{width:100%;box-sizing:border-box}pre{white-space:pre-wrap;background:#f4f4f4;padding:1rem}button{margin:.5rem 0}</style><h1>HAL Local</h1><p>Loopback-only · no external providers · governed controls</p><select id=s><option value=canon>HAL Canon</option><option value=documents>Approved documents</option><option value=combined>Both approved contexts</option><option value=hal-ref-2>Persistent owner folder</option></select><textarea id=q rows=4 placeholder="Ask HAL"></textarea><button onclick="send('/api/question',{scope:s.value,questionText:q.value})">Ask HAL</button><h2>HAL Control Chat</h2><textarea id=c rows=3 placeholder="matrix image, status, research"></textarea><button onclick="send('/api/control',{message:c.value})">Send control request</button><pre id=o>Ready.</pre><script>const t='${token}';async function send(u,b){let r=await fetch(u,{method:'POST',headers:{'content-type':'application/json','x-hal-session-token':t},body:JSON.stringify(b)});o.textContent=JSON.stringify(await r.json(),null,2)}</script>`;
+const page = `<!doctype html><meta charset=utf-8><title>HAL Local</title><style>body{font:16px -apple-system,sans-serif;max-width:850px;margin:3rem auto;padding:0 1rem}textarea{width:100%;box-sizing:border-box}pre{white-space:pre-wrap;background:#f4f4f4;padding:1rem}button{margin:.5rem 0}</style><h1>HAL Local</h1><p>Loopback-only · no external providers · governed controls</p><select id=scope><option value=canon>HAL Canon</option><option value=documents>Approved documents</option><option value=combined>Both approved contexts</option><option value=hal-ref-2>Persistent owner folder</option></select><textarea id=question rows=4 placeholder="Ask HAL"></textarea><button id=ask type=button>Ask HAL</button><h2>HAL Control Chat</h2><textarea id=control rows=3 placeholder="matrix image, status, research"></textarea><button id=send-control type=button>Send control request</button><pre id=output aria-live=polite>Ready.</pre><script nonce="${scriptNonce}">const token='${token}';const output=document.getElementById('output');const scope=document.getElementById('scope');const question=document.getElementById('question');const control=document.getElementById('control');async function send(url,body,button){button.disabled=true;output.textContent='HAL is working…';try{const response=await fetch(url,{method:'POST',headers:{'content-type':'application/json','x-hal-session-token':token},body:JSON.stringify(body)});const result=await response.json();if(!response.ok)throw new Error(result.reasonCode||'request failed');output.textContent=JSON.stringify(result,null,2)}catch(error){output.textContent='HAL request failed: '+(error instanceof Error?error.message:'unknown error')}finally{button.disabled=false}}document.getElementById('ask').addEventListener('click',()=>send('/api/question',{scope:scope.value,questionText:question.value},document.getElementById('ask')));document.getElementById('send-control').addEventListener('click',()=>send('/api/control',{message:control.value},document.getElementById('send-control')))</script>`;
 const server = http.createServer(async (req, res) => {
   if (req.method === "GET" && req.url === "/") {
     res.writeHead(200, {
       "content-type": "text/html; charset=utf-8",
-      "content-security-policy":
-        "default-src 'self'; connect-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'"
+      "content-security-policy": `default-src 'self'; connect-src 'self'; script-src 'nonce-${scriptNonce}'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'`
     });
     return res.end(page);
   }
@@ -156,6 +156,7 @@ server.listen(0, "127.0.0.1", () => {
   if (!address || typeof address === "string") process.exit(2);
   const url = `http://127.0.0.1:${address.port}/`;
   process.stdout.write(`HAL local web is running at ${url}\nPress Ctrl+C to stop.\n`);
-  spawn("open", [url], { stdio: "ignore", detached: true }).unref();
+  if (process.env.HAL_LOCAL_WEB_NO_OPEN !== "1")
+    spawn("open", [url], { stdio: "ignore", detached: true }).unref();
 });
 process.on("SIGINT", () => server.close(() => process.exit(0)));

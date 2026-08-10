@@ -14,6 +14,7 @@ describe("loopback local web presence", () => {
   test("binds only a random IPv4 loopback listener with a fresh session token", () => {
     expect(source).toContain('server.listen(0, "127.0.0.1"');
     expect(source).toContain("randomBytes(32)");
+    expect(source).toContain('process.env.HAL_LOCAL_WEB_NO_OPEN !== "1"');
     expect(source).not.toContain("0.0.0.0");
     expect(source).not.toContain("process.env.HAL_WEB_PORT");
   });
@@ -24,6 +25,8 @@ describe("loopback local web presence", () => {
     expect(source).toContain('req.url === "/api/question"');
     expect(source).toContain('reasonCode: "unknown_route"');
     expect(source).toContain("const maxBody = 8_192");
+    expect(source).toContain("script-src 'nonce-${scriptNonce}'");
+    expect(source).not.toContain("onclick=");
   });
 
   test("uses fixed script dispatch with no shell and records control events", () => {
@@ -31,5 +34,11 @@ describe("loopback local web presence", () => {
     expect(source).toContain("record: recordControl");
     expect(source).toContain("control-journal.jsonl");
     expect(source).not.toContain("exec(");
+  });
+
+  test("reports loading and request failures visibly through the page", () => {
+    expect(source).toContain("HAL is working…");
+    expect(source).toContain("HAL request failed:");
+    expect(source).toContain("button.disabled=true");
   });
 });
