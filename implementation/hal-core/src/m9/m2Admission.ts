@@ -14,6 +14,7 @@ import { M2_PROVENANCE, M2_SCHEMA_VERSION } from "../m2/types.js";
 import { sha256Hex } from "./canonical.js";
 import { M9_HAL_CANON_PACK_ID } from "./halCanonSourceScope.js";
 import { isPersonalDocumentPilotPackId } from "./personalDocumentPilotScope.js";
+import { isPersonalDocumentFolderPilotPackId } from "./personalDocumentFolderPilotScope.js";
 import type {
   M9OwnerConfirmationClaimCategory,
   M9OwnerDisposition,
@@ -42,7 +43,9 @@ export function runM2ForM9Activation(input: {
   manifestHashSha256: string;
 }): M9AdmissionContext {
   const isHalCanonPack = input.packId === M9_HAL_CANON_PACK_ID;
-  const isPersonalDocumentPilotPack = isPersonalDocumentPilotPackId(input.packId);
+  const isPersonalDocumentPilotPack =
+    isPersonalDocumentPilotPackId(input.packId) ||
+    isPersonalDocumentFolderPilotPackId(input.packId);
   const dataClassification = isHalCanonPack
     ? ("owner_approved_repository_canon" as const)
     : isPersonalDocumentPilotPack

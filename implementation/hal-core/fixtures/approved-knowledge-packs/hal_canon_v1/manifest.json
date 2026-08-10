@@ -44,8 +44,8 @@
     },
     {
       "sourcePath": "CURRENT_STATE.md",
-      "sha256": "cde5ba176f9443446489399a4c2c6a21514bd3865cec91b2fb7eb3391dfbe4a4",
-      "byteSize": 38892
+      "sha256": "7430f8feac3ab433a6cfc56dea6bb123c4e3d86cfb615f169c180ffabd2a5758",
+      "byteSize": 40040
     },
     {
       "sourcePath": "decisions/0001-agent-runtime-sovereignty-and-replaceability.md",
@@ -191,6 +191,11 @@
       "sourcePath": "decisions/0029-owner-authorized-local-document-pilot.md",
       "sha256": "1debc155206bffc0e699ac3f0a5bf1317cf9aa4de90b8f8876b9f8af18879336",
       "byteSize": 2686
+    },
+    {
+      "sourcePath": "decisions/0030-owner-authorized-local-document-folder-pilot.md",
+      "sha256": "cbd46a2c0d517d0d563ba748849d63ffdb36f420acfc54775648d063f10830aa",
+      "byteSize": 2088
     }
   ],
   "documents": [
@@ -5241,7 +5246,8 @@
         "paragraph:47",
         "paragraph:48",
         "paragraph:49",
-        "paragraph:50"
+        "paragraph:50",
+        "paragraph:51"
       ]
     },
     {
@@ -5750,7 +5756,20 @@
         "paragraph:0",
         "paragraph:1",
         "paragraph:2",
-        "paragraph:3"
+        "paragraph:3",
+        "paragraph:4",
+        "paragraph:5",
+        "paragraph:6",
+        "paragraph:7",
+        "paragraph:8",
+        "paragraph:9",
+        "paragraph:10",
+        "paragraph:11",
+        "paragraph:12",
+        "paragraph:13",
+        "paragraph:14",
+        "paragraph:15",
+        "paragraph:16"
       ]
     }
   ],
@@ -6009,8 +6028,8 @@
     },
     {
       "relativePath": "content/source-06-chunk-000.json",
-      "sha256": "58a1dd63b631d848418573be0b7624fb60ff9474f718402da1a5f67c6ed0793e",
-      "byteSize": 39412,
+      "sha256": "680bc27979ee737d42206aee24f395bd558442a70ea804685a134339de307fa1",
+      "byteSize": 40566,
       "contentClass": "pack_content_json"
     },
     {
@@ -6039,14 +6058,14 @@
     },
     {
       "relativePath": "content/source-07-chunk-004.json",
-      "sha256": "3aa887d2067bf550231599c2e1d5ee2afb4217e9fe7b0732723c4f9f2dc73672",
-      "byteSize": 1216,
+      "sha256": "b88389f8ee71fb988ba78c5abaf931873b81dbbf6b99f50f020d91e4a3ba544e",
+      "byteSize": 3450,
       "contentClass": "pack_content_json"
     }
   ],
   "contentRoot": "content",
   "integrity": {
     "manifestHashAlgorithm": "sha256",
-    "manifestHashSha256": "5aeaad55be72621fc2dcd2f326e188461f5184af7f0e16bbbfb32e1c3c20555c"
+    "manifestHashSha256": "f5e19401f5bad87bf0259df72219beaaac26d0c3eaba40e4757996bcac28f179"
   }
 }

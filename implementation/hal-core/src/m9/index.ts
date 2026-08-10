@@ -5,3 +5,4 @@ export * from "./m2Admission.js";
 export * from "./service.js";
 export * from "./halCanonSourceScope.js";
 export * from "./personalDocumentPilotScope.js";
+export * from "./personalDocumentFolderPilotScope.js";

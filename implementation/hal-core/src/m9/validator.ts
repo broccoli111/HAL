@@ -34,6 +34,17 @@ import {
   PERSONAL_DOCUMENT_PILOT_PACK_DIRECTORY,
   PERSONAL_DOCUMENT_PILOT_SOURCE_PATH
 } from "./personalDocumentPilotScope.js";
+import {
+  isPersonalDocumentFolderPilotPackId,
+  M9_PERSONAL_DOCUMENT_FOLDER_PILOT_PACK_CLASSIFICATION,
+  M9_PERSONAL_DOCUMENT_FOLDER_PILOT_PROVENANCE_CLASSIFICATION,
+  PERSONAL_DOCUMENT_FOLDER_PILOT_ALLOWED_EXTENSIONS,
+  PERSONAL_DOCUMENT_FOLDER_PILOT_MAX_FILE_BYTES,
+  PERSONAL_DOCUMENT_FOLDER_PILOT_MAX_FILES,
+  PERSONAL_DOCUMENT_FOLDER_PILOT_MAX_TOTAL_BYTES,
+  PERSONAL_DOCUMENT_FOLDER_PILOT_PACK_DIRECTORY,
+  PERSONAL_DOCUMENT_FOLDER_PILOT_SOURCE_DIRECTORY
+} from "./personalDocumentFolderPilotScope.js";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) {
@@ -105,13 +116,16 @@ function validateManifestStructure(manifest: unknown): M9PackManifest {
   );
   const isHalCanonPack = m.packId === M9_HAL_CANON_PACK_ID;
   const isPersonalDocumentPilotPack = isPersonalDocumentPilotPackId(m.packId ?? "");
+  const isPersonalDocumentFolderPilotPack = isPersonalDocumentFolderPilotPackId(m.packId ?? "");
   compareExact(
     m.packClassification ?? "",
     isHalCanonPack
       ? M9_HAL_CANON_PACK_CLASSIFICATION
       : isPersonalDocumentPilotPack
         ? M9_PERSONAL_DOCUMENT_PILOT_PACK_CLASSIFICATION
-        : M9_PACK_CLASSIFICATION,
+        : isPersonalDocumentFolderPilotPack
+          ? M9_PERSONAL_DOCUMENT_FOLDER_PILOT_PACK_CLASSIFICATION
+          : M9_PACK_CLASSIFICATION,
     "packClassification"
   );
   compareExact(
@@ -120,7 +134,9 @@ function validateManifestStructure(manifest: unknown): M9PackManifest {
       ? M9_HAL_CANON_PROVENANCE_CLASSIFICATION
       : isPersonalDocumentPilotPack
         ? M9_PERSONAL_DOCUMENT_PILOT_PROVENANCE_CLASSIFICATION
-        : M9_PROVENANCE_CLASSIFICATION,
+        : isPersonalDocumentFolderPilotPack
+          ? M9_PERSONAL_DOCUMENT_FOLDER_PILOT_PROVENANCE_CLASSIFICATION
+          : M9_PROVENANCE_CLASSIFICATION,
     "provenanceClassification"
   );
   assert(m.m6Compatibility && typeof m.m6Compatibility === "object", "m6Compatibility missing");
@@ -133,7 +149,9 @@ function validateManifestStructure(manifest: unknown): M9PackManifest {
   );
   compareExact(
     m.m6Compatibility?.documentShape ?? "",
-    isHalCanonPack || isPersonalDocumentPilotPack ? "m6.document.v1" : "m6.synthetic-document.v1",
+    isHalCanonPack || isPersonalDocumentPilotPack || isPersonalDocumentFolderPilotPack
+      ? "m6.document.v1"
+      : "m6.synthetic-document.v1",
     "documentShape"
   );
   compareExact(m.contentRoot ?? "", "content", "contentRoot");
@@ -152,12 +170,73 @@ function validateManifestStructure(manifest: unknown): M9PackManifest {
 function validateNonSyntheticSourceRecords(manifest: M9PackManifest): void {
   const isHalCanonPack = manifest.packId === M9_HAL_CANON_PACK_ID;
   const isPersonalDocumentPilotPack = isPersonalDocumentPilotPackId(manifest.packId);
-  if (!isHalCanonPack && !isPersonalDocumentPilotPack) {
+  const isPersonalDocumentFolderPilotPack = isPersonalDocumentFolderPilotPackId(manifest.packId);
+  if (!isHalCanonPack && !isPersonalDocumentPilotPack && !isPersonalDocumentFolderPilotPack) {
     assert(!manifest.sourceRecords, "synthetic pack sourceRecords rejected");
     return;
   }
   assert(Array.isArray(manifest.sourceRecords), "HAL Canon sourceRecords missing");
   const records = manifest.sourceRecords;
+  if (isPersonalDocumentFolderPilotPack) {
+    assert(
+      records.length >= 1 && records.length <= PERSONAL_DOCUMENT_FOLDER_PILOT_MAX_FILES,
+      "personal-document-folder source count mismatch"
+    );
+    ensureNoSymlinkOrSpecial(
+      PERSONAL_DOCUMENT_FOLDER_PILOT_SOURCE_DIRECTORY,
+      "personal-document-folder source directory"
+    );
+    assert(
+      lstatSync(PERSONAL_DOCUMENT_FOLDER_PILOT_SOURCE_DIRECTORY).isDirectory(),
+      "personal-document-folder source directory must be a directory"
+    );
+    const actualNames = readdirSync(PERSONAL_DOCUMENT_FOLDER_PILOT_SOURCE_DIRECTORY)
+      .filter((name) =>
+        PERSONAL_DOCUMENT_FOLDER_PILOT_ALLOWED_EXTENSIONS.includes(path.extname(name).toLowerCase())
+      )
+      .sort();
+    assert(actualNames.length === records.length, "personal-document-folder source count drift");
+    let totalBytes = 0;
+    for (let index = 0; index < actualNames.length; index += 1) {
+      const name = actualNames[index]!;
+      const record = records[index];
+      assert(record, "personal-document-folder source record missing");
+      compareExact(
+        record.sourcePath,
+        `owner-approved desktop HAL_doc_ref/${name}`,
+        "personal-document-folder source path"
+      );
+      const absolute = path.resolve(PERSONAL_DOCUMENT_FOLDER_PILOT_SOURCE_DIRECTORY, name);
+      assertInside(
+        PERSONAL_DOCUMENT_FOLDER_PILOT_SOURCE_DIRECTORY,
+        absolute,
+        "personal-document-folder source"
+      );
+      ensureNoSymlinkOrSpecial(absolute, "personal-document-folder source");
+      assert(
+        lstatSync(absolute).isFile(),
+        "personal-document-folder source must be a regular file"
+      );
+      const raw = readFileSync(absolute, "utf8");
+      const bytes = byteLengthUtf8(raw);
+      assert(
+        bytes > 0 && bytes <= PERSONAL_DOCUMENT_FOLDER_PILOT_MAX_FILE_BYTES,
+        "personal-document-folder source byteSize invalid"
+      );
+      totalBytes += bytes;
+      compareExact(sha256Hex(raw), record.sha256, "personal-document-folder source hash");
+      compareExact(
+        String(bytes),
+        String(record.byteSize),
+        "personal-document-folder source byteSize"
+      );
+    }
+    assert(
+      totalBytes <= PERSONAL_DOCUMENT_FOLDER_PILOT_MAX_TOTAL_BYTES,
+      "personal-document-folder total byteSize invalid"
+    );
+    return;
+  }
   if (isPersonalDocumentPilotPack) {
     assert(records.length === 1, "personal-document source count mismatch");
     const record = records[0];
@@ -464,6 +543,20 @@ export function listApprovedPacks(): readonly M9ResolvedPack[] {
     );
     assert(personalPilotStat.isDirectory(), "personal-document pack directory must be a directory");
     packs.push(validateApprovedPackDirectory(PERSONAL_DOCUMENT_PILOT_PACK_DIRECTORY));
+  }
+  const personalFolderPilotStat = lstatSync(PERSONAL_DOCUMENT_FOLDER_PILOT_PACK_DIRECTORY, {
+    throwIfNoEntry: false
+  });
+  if (personalFolderPilotStat) {
+    ensureNoSymlinkOrSpecial(
+      PERSONAL_DOCUMENT_FOLDER_PILOT_PACK_DIRECTORY,
+      "personal-document-folder pack directory"
+    );
+    assert(
+      personalFolderPilotStat.isDirectory(),
+      "personal-document-folder pack directory must be a directory"
+    );
+    packs.push(validateApprovedPackDirectory(PERSONAL_DOCUMENT_FOLDER_PILOT_PACK_DIRECTORY));
   }
   return Object.freeze(
     packs.sort((left, right) =>

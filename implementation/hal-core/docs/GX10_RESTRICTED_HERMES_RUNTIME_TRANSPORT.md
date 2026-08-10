@@ -62,8 +62,10 @@ After activating the Owner-approved `hal_canon_v1` pack in the existing
 ````sh
 npm run runtime:chat:knowledge
 
-For the separately Owner-approved DR 0029 local-document pilot, first activate
-`personal_document_pilot_v1` in the same state directory and run:
+For the separately Owner-approved DR 0029 one-file or DR 0030 direct-folder
+local-document pilot, first activate the corresponding pack
+(`personal_document_pilot_v1` or `personal_document_folder_pilot_v1`) in the
+same state directory and run:
 
 ```sh
 npm run runtime:chat:personal-doc

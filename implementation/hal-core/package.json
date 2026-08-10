@@ -24,6 +24,7 @@
     "m9:packs": "npm run build && node ./dist/src/cli/m9PacksCli.js",
     "m9:generate-hal-canon-pack": "npm run build && node ./scripts/generate-hal-canon-knowledge-pack.mjs",
     "m9:generate-personal-document-pilot-pack": "npm run build && node ./scripts/generate-personal-document-pilot-pack.mjs",
+    "m9:generate-personal-document-folder-pilot-pack": "npm run build && node ./scripts/generate-personal-document-folder-pilot-pack.mjs",
     "m7:session": "npm run build && node ./dist/src/cli/m7SessionCli.js",
     "m8:copy-assets": "node ./scripts/copy-m8-assets.mjs",
     "m8:desktop": "npm run build && npm run m8:copy-assets && electron ./dist/src/cli/m8DesktopCli.js",

@@ -74,7 +74,8 @@ export class LocalDeterministicInquiryProvider {
       input.fixtureRoot,
       input.files,
       input.providerInput.m9ActivationContext?.packId === "hal_canon_v1" ||
-        input.providerInput.m9ActivationContext?.packId === "personal_document_pilot_v1"
+        input.providerInput.m9ActivationContext?.packId === "personal_document_pilot_v1" ||
+        input.providerInput.m9ActivationContext?.packId === "personal_document_folder_pilot_v1"
     );
     const match = matchCorpus(input.providerInput.questionTokens, corpus.documents);
     const rendered = renderM6Response({
@@ -83,7 +84,9 @@ export class LocalDeterministicInquiryProvider {
       corpusContext:
         input.providerInput.m9ActivationContext?.packId === "hal_canon_v1"
           ? "owner_approved_hal_canon"
-          : input.providerInput.m9ActivationContext?.packId === "personal_document_pilot_v1"
+          : input.providerInput.m9ActivationContext?.packId === "personal_document_pilot_v1" ||
+              input.providerInput.m9ActivationContext?.packId ===
+                "personal_document_folder_pilot_v1"
             ? "owner_approved_local_document"
             : "synthetic"
     });
