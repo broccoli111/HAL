@@ -23,6 +23,7 @@ DUAL_SCOPE_LAUNCHER = SCRIPT.with_name("hal-dual-scope-chat.mjs")
 DUAL_SCOPE_CHAT = SCRIPT.with_name("chat-gx10-hermes-with-dual-approved-knowledge.mjs")
 DUAL_SCOPE_ASK = SCRIPT.with_name("ask-gx10-hermes-with-dual-approved-knowledge.mjs")
 ASSISTANT_STATUS = SCRIPT.with_name("hal-assistant-status.mjs")
+PERSISTENT_OWNER_FOLDER_LAUNCHER = SCRIPT.with_name("hal-ref-2-owner-folder-chat.mjs")
 
 
 class StatelessChatInterfaceTests(unittest.TestCase):
@@ -98,11 +99,13 @@ class StatelessChatInterfaceTests(unittest.TestCase):
         self.assertIn('requestedScope === "canon"', source)
         self.assertIn('requestedScope === "documents"', source)
         self.assertIn('requestedScope === "combined"', source)
+        self.assertIn('requestedScope === "hal-ref-2"', source)
         self.assertIn('requestedScope === "--help"', source)
-        self.assertIn("Choose 1, 2, or 3", source)
+        self.assertIn("Choose 1, 2, 3, or 4", source)
         self.assertIn("does not validate, activate, or contact a runtime", source)
         self.assertIn('"hal-canon-chat.mjs"', source)
         self.assertIn('"hal-owner-chat.mjs"', source)
+        self.assertIn('"hal-ref-2-owner-folder-chat.mjs"', source)
         self.assertIn("shell: false", source)
         self.assertNotIn("ollama", source.lower())
         self.assertNotIn("http://", source)
@@ -121,6 +124,7 @@ class StatelessChatInterfaceTests(unittest.TestCase):
         self.assertIn("canon", result.stdout)
         self.assertIn("documents", result.stdout)
         self.assertIn("combined", result.stdout)
+        self.assertIn("hal-ref-2", result.stdout)
         self.assertIn("does not validate, activate, or contact a runtime", result.stdout)
 
     def test_dual_scope_path_validates_both_packs_before_using_existing_transport(self) -> None:
@@ -146,6 +150,19 @@ class StatelessChatInterfaceTests(unittest.TestCase):
             self.assertNotIn("http://", source)
             self.assertNotIn("https://", source)
             self.assertNotIn("writeFile", source)
+
+    def test_persistent_owner_folder_launcher_revalidates_exact_approved_source_before_chat(self) -> None:
+        source = PERSISTENT_OWNER_FOLDER_LAUNCHER.read_text(encoding="utf-8")
+        self.assertIn('const REGISTRATION_ID = "hal_ref_2_persistent_v1";', source)
+        self.assertIn('const SOURCE_DIRECTORY = "/Users/rosslauda/Desktop/hal_ref_2";', source)
+        self.assertIn("validatePersistedM9OwnerFolderPackArtifact", source)
+        self.assertIn("activateApprovedM9Pack", source)
+        self.assertIn("source or persistent pack is stale/unavailable", source)
+        self.assertIn("chat-gx10-hermes-with-personal-document-pilot.mjs", source)
+        self.assertIn("shell: false", source)
+        self.assertNotIn("ollama", source.lower())
+        self.assertNotIn("http://", source)
+        self.assertNotIn("https://", source)
 
     def test_assistant_status_is_local_read_only_and_does_not_contact_the_runtime(self) -> None:
         source = ASSISTANT_STATUS.read_text(encoding="utf-8")
