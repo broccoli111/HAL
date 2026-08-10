@@ -56,6 +56,8 @@ Use only non-secret local values in `.env`.
 - `npm run hal:assistant` - choose either of the two existing governed chat
   scopes or the Owner-approved, provenance-preserving combined inquiry profile
   from one Owner-facing command
+- `npm run hal:assistant -- --help` - show the three approved scope choices;
+  it does not validate, activate, or contact a runtime
 - `npm run hal:dual-scope-chat` - launch the bounded DR 0031 inquiry profile
   over both separately validated approved packs
 - `npm run hal:assistant:status` - read-only local readiness check; it does not

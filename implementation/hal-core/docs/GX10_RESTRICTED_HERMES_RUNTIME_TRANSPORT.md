@@ -104,6 +104,9 @@ bounded, pack-labeled HAL-rendered context to the runtime. You may also select
 a scope directly with `npm run hal:assistant -- canon`, `npm run hal:assistant
 -- documents`, or `npm run hal:assistant -- combined`.
 
+To view these exact approved choices without activating a pack or contacting
+GX10, run `npm run hal:assistant -- --help`.
+
 The dual-scope chat keeps at most three prior prompt/result pairs (4 KiB total)
 in process memory for direct in-session follow-ups. This operational context is
 not persisted, canonical HAL knowledge, evidence, authority, or a capability
