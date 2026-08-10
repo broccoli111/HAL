@@ -70,11 +70,19 @@ The matrix shows retained official-evidence coverage, task fit, approval state,
 and limitations. It is a local policy report—not a model invocation, download,
 or internet query.
 
-## Use the Local HAL Control Chat
+## Use the Local HAL Browser Interface
 
-Start the Electron app with `npm run hal:desktop`. Its **HAL Control Chat**
-provides the existing admitted local operations through a conversational,
-two-step control flow rather than an unrestricted terminal. See the supported
-messages and confirmation rules in [Local Control Chat](implementation/hal-core/docs/LOCAL_CONTROL_CHAT.md).
+Start the loopback-only local browser interface with:
+
+```bash
+cd implementation/hal-core
+npm run hal:web
+```
+
+It opens a per-launch `127.0.0.1` page with the existing bounded question
+scopes and **HAL Control Chat**. It provides the admitted local operations
+through a conversational, two-step control flow rather than an unrestricted
+terminal. See [Loopback Local Web Presence](implementation/hal-core/docs/LOOPBACK_LOCAL_WEB_PRESENCE.md)
+and [Local Control Chat](implementation/hal-core/docs/LOCAL_CONTROL_CHAT.md).
 
 Generated render output, local tool output, bytecode caches, and macOS metadata are ignored and should not be committed.
