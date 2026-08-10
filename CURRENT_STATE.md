@@ -172,6 +172,11 @@ knowledge-boundary rule and requires a new Owner Decision before design or
 implementation. Until then, use `npm run hal:assistant` and choose the scope
 relevant to the question.
 
+The non-authorizing [DR 0031 proposal](decisions/0031-proposed-governed-dual-scope-inquiry.md)
+records the narrow recommended option: an Owner-requested, read-only inquiry
+over only the two existing packs, independently validated and provenance-labeled
+without creating a combined pack or runtime resource route.
+
 The formal independent AI technical-review scope, findings/disposition, date, and attestation are now stored in the repository with Pass with limitations. This status record does not decide whether an AI reviewer satisfies any human or professional qualification requirement and therefore does not itself claim or issue Book II recertification. The Owner has authorized the narrow, temporary [Engineering Exception 0010](decisions/0010-owner-authorized-independent-review-control-exception.md), which allows only provisional documentation and test-only work until 2026-08-16. If the recorded reviewer qualification is not accepted by the applicable Owner/Certification Service, a qualified human disposition remains required before expiry. The exception cannot authorize production integration or a certification claim.
 
 GX10-1 evaluation evidence remains strictly bounded to the approved isolated `hal_eval` account, rootless container profile, static validation, safe no-provider smoke result, synthetic line-driver probes, the DR 0026 local-only Hermes/Qwen3 pilot, and the DR 0027 restricted stateless transport. The stateless result/evidence route and bounded zero-capability full Hermes CLI-loop conformance are complete; neither result authorizes tools, governed resources, a general provider route, credentials, production activation, or tool-capable runtime behavior.
