@@ -165,6 +165,7 @@ The following are status pointers, not restatements or replacements of architect
 22. DR 0032's Owner-only local command surface is implemented without admitting a new source: exact-folder registration records an immutable registration ID and Owner claim without reading the folder; refresh and chat accept a registered ID while defaulting only to DR 0034 `hal_ref_2`. A future folder still requires explicit Owner authorization for its exact path before the command may be used.
 23. The same DR 0032 command surface now includes an Owner-confirmed revoke operation. It deactivates the matching derived pack first when active, appends an immutable revoked registration event, and never reads or deletes the source folder or contacts a runtime. No registered source was revoked during implementation.
 24. DR 0032's Owner-only command surface is now complete for its accepted registration lifecycle: register, refresh, activate through bounded chat, deactivate, and revoke. The new deactivation command preserves the registration and source while HAL records the M2/M9 deactivation; it never reads a source or contacts a runtime. No active source was deactivated during implementation.
+25. The separately scoped development-dependency security remediation is complete: the lockfile now resolves `brace-expansion` 5.0.9 and `nanoid` 3.3.18, replacing the two previously flagged high-severity transitive versions. A clean `npm ci --ignore-scripts`, full `npm audit`, core test suite, and runtime-boundary suite passed. This changes no HAL runtime authority, model route, source scope, or production configuration.
 
 ## Explicitly Out of Scope
 
@@ -227,9 +228,14 @@ GX10-1 evaluation evidence remains strictly bounded to the approved isolated `ha
 
 DR 0018 resolves the design-authorization decision for a HAL-owned identity-and-correlation mediator. The activation path remains blocked on its planned conformance evidence and a further Owner activation decision. Read-only assessment confirms that rootless Docker retains its default `bridge`, `host`, and `none` network definitions, while GX10-1 exposes multiple host loopback listeners (including Ollama). The host-side proxy prototype is intentionally not mountable or runtime-addressable. No container-to-proxy route, container mount, runtime identity binding, or bypass/egress negative test has been attempted or passed.
 
-## Known Dependency Follow-Up
+## Dependency Security Status
 
-The lockfile-pinned development dependency audit reports two high-severity advisories: `brace-expansion` (GHSA-rgw5-rvv9-x895) and `nanoid` (GHSA-2v37-7h3g-55p8). No dependency or lockfile change was made, and package install scripts for `esbuild` and `fsevents` remained blocked by the local install policy. Review and remediation must be a separately scoped dependency-change task under Book II Chapter 29; it is not part of the adapter-boundary milestone.
+The current lockfile’s full `npm audit` reports zero vulnerabilities. The local
+development install was reproduced from that lockfile using `npm ci
+--ignore-scripts`; package install scripts remain disabled by the local install
+policy. Future dependency changes remain separately scoped under Book II
+Chapter 29 and require provenance, vulnerability, compatibility, and rollback
+evidence proportionate to their risk.
 
 ## Owner Review Status
 
