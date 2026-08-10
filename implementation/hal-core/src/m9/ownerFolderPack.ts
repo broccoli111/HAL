@@ -1,6 +1,13 @@
 import { Buffer } from "node:buffer";
 import { createHash } from "node:crypto";
-import { lstatSync, readdirSync, readFileSync } from "node:fs";
+import {
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  writeFileSync
+} from "node:fs";
 import path from "node:path";
 
 import { containsSecretLikeContent } from "../m6/inputPolicy.js";
@@ -175,4 +182,29 @@ export function buildM9OwnerFolderPackArtifact(
     }),
     content: Object.freeze(content)
   });
+}
+
+/** Writes a newly derived artifact once; overwrite and symlink destinations are rejected. */
+export function persistM9OwnerFolderPackArtifact(
+  artifact: M9OwnerFolderPackArtifact,
+  destinationDirectory: string
+): void {
+  assert(path.isAbsolute(destinationDirectory), "owner-folder pack destination must be absolute");
+  assert(!existsSync(destinationDirectory), "owner-folder pack destination already exists");
+  mkdirSync(path.join(destinationDirectory, "content"), { recursive: true });
+  const destinationStat = lstatSync(destinationDirectory);
+  assert(
+    destinationStat.isDirectory() && !destinationStat.isSymbolicLink(),
+    "owner-folder pack destination is invalid"
+  );
+  for (const entry of artifact.content) {
+    const target = path.resolve(destinationDirectory, entry.relativePath);
+    assertInside(destinationDirectory, target);
+    writeFileSync(target, entry.utf8, { encoding: "utf8", flag: "wx" });
+  }
+  writeFileSync(
+    path.join(destinationDirectory, "manifest.json"),
+    `${JSON.stringify(artifact.manifest, null, 2)}\n`,
+    { encoding: "utf8", flag: "wx" }
+  );
 }

@@ -1,4 +1,4 @@
-import { mkdtemp, rm, symlink, writeFile } from "node:fs/promises";
+import { mkdtemp, readFile, rm, symlink, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, test } from "vitest";
@@ -13,7 +13,8 @@ import {
 } from "../src/m9/ownerFolderRegistry.js";
 import {
   buildM9OwnerFolderPackArtifact,
-  collectM9OwnerFolderSourceSnapshot
+  collectM9OwnerFolderSourceSnapshot,
+  persistM9OwnerFolderPackArtifact
 } from "../src/m9/ownerFolderPack.js";
 
 describe("M9 Owner-controlled folder registry contract", () => {
@@ -29,6 +30,36 @@ describe("M9 Owner-controlled folder registry contract", () => {
     expect(registration.maxFileBytes).toBe(M9_OWNER_FOLDER_REGISTRY_MAX_FILE_BYTES);
     expect(registration.maxTotalBytes).toBe(M9_OWNER_FOLDER_REGISTRY_MAX_TOTAL_BYTES);
     expect(registration.allowedExtensions).toEqual(M9_OWNER_FOLDER_REGISTRY_ALLOWED_EXTENSIONS);
+  });
+
+  test("persists an artifact once to an explicit empty destination", async () => {
+    const sourceDirectory = await mkdtemp(path.join(os.tmpdir(), "hal-owner-folder-write-source-"));
+    const destinationParent = await mkdtemp(
+      path.join(os.tmpdir(), "hal-owner-folder-write-destination-")
+    );
+    const destination = path.join(destinationParent, "pack");
+    try {
+      await writeFile(path.join(sourceDirectory, "note.txt"), "bounded owner text", "utf8");
+      const registration = createM9OwnerFolderRegistration({
+        registrationId: "owner_notes_v1",
+        sourceDirectory,
+        ownerConfirmationClaim: "local_owner_confirmed"
+      });
+      const artifact = buildM9OwnerFolderPackArtifact(
+        registration,
+        collectM9OwnerFolderSourceSnapshot(registration)
+      );
+      persistM9OwnerFolderPackArtifact(artifact, destination);
+      expect(await readFile(path.join(destination, "manifest.json"), "utf8")).toContain(
+        artifact.manifestHashSha256
+      );
+      expect(() => persistM9OwnerFolderPackArtifact(artifact, destination)).toThrow(
+        "already exists"
+      );
+    } finally {
+      await rm(sourceDirectory, { recursive: true, force: true });
+      await rm(destinationParent, { recursive: true, force: true });
+    }
   });
 
   test("rejects implicit, broad, or malformed registration inputs", () => {
