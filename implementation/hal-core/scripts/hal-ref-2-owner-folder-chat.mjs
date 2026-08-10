@@ -15,6 +15,7 @@ import {
 } from "../dist/src/m9/index.js";
 
 const CONFIG_FILE = path.join(import.meta.dirname, "..", ".hal-owner-folder.local.json");
+const RUNTIME_CONFIG_FILE = path.join(import.meta.dirname, "..", ".hal-chat.local.json");
 const REGISTRATION_ID = "hal_ref_2_persistent_v1";
 const SOURCE_DIRECTORY = "/Users/rosslauda/Desktop/hal_ref_2";
 const PACK_ID = `owner_folder_${REGISTRATION_ID}_v1`;
@@ -29,6 +30,46 @@ function requireDirectory(value, label) {
   const stat = lstatSync(value, { throwIfNoEntry: false });
   if (!stat?.isDirectory() || stat.isSymbolicLink()) fail(`${label} must be a regular directory.`);
   return value;
+}
+function requireRegularFile(value, label) {
+  if (typeof value !== "string" || !path.isAbsolute(value)) fail(`${label} must be absolute.`);
+  const stat = lstatSync(value, { throwIfNoEntry: false });
+  if (!stat?.isFile() || stat.isSymbolicLink()) fail(`${label} must be a regular file.`);
+  return value;
+}
+function loadRuntimeConfig() {
+  const stat = lstatSync(RUNTIME_CONFIG_FILE, { throwIfNoEntry: false });
+  if (!stat?.isFile() || stat.isSymbolicLink()) {
+    fail(`runtime configuration is required at ${RUNTIME_CONFIG_FILE}.`);
+  }
+  let runtime;
+  try {
+    runtime = JSON.parse(readFileSync(RUNTIME_CONFIG_FILE, "utf8"));
+  } catch {
+    fail("runtime configuration is not valid JSON.");
+  }
+  const allowedKeys = new Set([
+    "runtimeTarget",
+    "runtimeKeyPath",
+    "runtimeStateDirectory",
+    "knowledgeStateDirectory",
+    "canonKnowledgeStateDirectory",
+    "knowledgePackId"
+  ]);
+  if (
+    !runtime ||
+    typeof runtime !== "object" ||
+    Object.keys(runtime).some((key) => !allowedKeys.has(key)) ||
+    typeof runtime.runtimeTarget !== "string" ||
+    !/^[a-z_][a-z0-9_-]{0,31}@[A-Za-z0-9.-]+$/.test(runtime.runtimeTarget)
+  ) {
+    fail("runtime configuration is invalid.");
+  }
+  return Object.freeze({
+    runtimeTarget: runtime.runtimeTarget,
+    runtimeKeyPath: requireRegularFile(runtime.runtimeKeyPath, "runtimeKeyPath"),
+    runtimeStateDirectory: requireDirectory(runtime.runtimeStateDirectory, "runtimeStateDirectory")
+  });
 }
 const configStat = lstatSync(CONFIG_FILE, { throwIfNoEntry: false });
 if (!configStat?.isFile() || configStat.isSymbolicLink())
@@ -49,6 +90,7 @@ const config = Object.freeze({
   ),
   packRootDirectory: requireDirectory(parsed.packRootDirectory, "packRootDirectory")
 });
+const runtimeConfig = loadRuntimeConfig();
 const registration = createM9OwnerFolderRegistration({
   registrationId: REGISTRATION_ID,
   sourceDirectory: SOURCE_DIRECTORY,
@@ -84,7 +126,13 @@ const chat = path.join(import.meta.dirname, "chat-gx10-hermes-with-personal-docu
 const child = spawn(process.execPath, [chat], {
   shell: false,
   stdio: "inherit",
-  env: { ...process.env, HAL_KNOWLEDGE_STATE_DIRECTORY: config.knowledgeStateDirectory }
+  env: {
+    ...process.env,
+    HAL_GX10_RUNTIME_TARGET: runtimeConfig.runtimeTarget,
+    HAL_GX10_RUNTIME_KEY: runtimeConfig.runtimeKeyPath,
+    HAL_RUNTIME_STATE_DIRECTORY: runtimeConfig.runtimeStateDirectory,
+    HAL_KNOWLEDGE_STATE_DIRECTORY: config.knowledgeStateDirectory
+  }
 });
 const [exitCode] = await once(child, "close");
 process.exit(exitCode ?? 1);
