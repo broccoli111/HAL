@@ -75,7 +75,9 @@ export function createDesktopAssistantWindowOptions(input: {
 export async function launchDesktopAssistantApp(
   options: DesktopAssistantLaunchOptions
 ): Promise<void> {
+  process.stderr.write("HAL desktop: waiting for Electron readiness.\n");
   await app.whenReady();
+  process.stderr.write("HAL desktop: Electron ready; registering local renderer.\n");
   const createWindow = async (): Promise<void> => {
     const mainWindow = new ElectronBrowserWindow(
       createDesktopAssistantWindowOptions({ preloadPath: options.preloadPath })
@@ -87,6 +89,7 @@ export async function launchDesktopAssistantApp(
       options.dispatchControl
     );
     _desktopAssistantWindow = mainWindow;
+    process.stderr.write("HAL desktop: window created; loading local renderer.\n");
     mainWindow.on("closed", () => {
       _desktopAssistantWindow = undefined;
     });
@@ -96,11 +99,18 @@ export async function launchDesktopAssistantApp(
     mainWindow.webContents.on("render-process-gone", (_event, details) => {
       process.stderr.write(`HAL desktop renderer stopped: ${details.reason}\n`);
     });
-    await mainWindow.loadURL(
-      `${DESKTOP_ASSISTANT_PROTOCOL}://${DESKTOP_ASSISTANT_HOST}/index.html`
-    );
+    await Promise.race([
+      mainWindow.loadURL(`${DESKTOP_ASSISTANT_PROTOCOL}://${DESKTOP_ASSISTANT_HOST}/index.html`),
+      new Promise<never>((_resolve, reject) => {
+        globalThis.setTimeout(
+          () => reject(new Error("HAL desktop renderer load timed out after 15 seconds.")),
+          15_000
+        );
+      })
+    ]);
     mainWindow.show();
     mainWindow.focus();
+    process.stderr.write("HAL desktop: local renderer loaded.\n");
   };
   app.on("window-all-closed", () => app.quit());
   await registerDesktopAssistantProtocol(options.rendererRoot);
