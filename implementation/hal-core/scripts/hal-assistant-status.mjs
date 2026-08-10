@@ -7,8 +7,14 @@ import path from "node:path";
 import { getM9ActivePackState, listApprovedM9PackRegistrations } from "../dist/src/m9/index.js";
 
 const CONFIG_FILE = path.join(import.meta.dirname, "..", ".hal-chat.local.json");
+const OWNER_FOLDER_CONFIG_FILE = path.join(
+  import.meta.dirname,
+  "..",
+  ".hal-owner-folder.local.json"
+);
 const CANON_PACK_ID = "hal_canon_v1";
 const DOCUMENT_PACK_ID = "personal_document_folder_pilot_v1";
+const OWNER_FOLDER_PACK_ID = "owner_folder_hal_ref_2_persistent_v1_v1";
 
 function fail(message) {
   process.stderr.write(`HAL assistant status: ${message}\n`);
@@ -105,6 +111,53 @@ const documentActivation =
     ? "active"
     : "inactive_or_stale_launcher_will_revalidate";
 
+function ownerFolderStatus() {
+  const configStat = lstatSync(OWNER_FOLDER_CONFIG_FILE, { throwIfNoEntry: false });
+  if (!configStat?.isFile() || configStat.isSymbolicLink()) return "not_configured";
+  let ownerFolderConfig;
+  try {
+    ownerFolderConfig = JSON.parse(readFileSync(OWNER_FOLDER_CONFIG_FILE, "utf8"));
+  } catch {
+    return "invalid_local_configuration";
+  }
+  const keys = new Set(["registryStateDirectory", "knowledgeStateDirectory", "packRootDirectory"]);
+  if (
+    !ownerFolderConfig ||
+    typeof ownerFolderConfig !== "object" ||
+    Object.keys(ownerFolderConfig).some((key) => !keys.has(key))
+  ) {
+    return "invalid_local_configuration";
+  }
+  try {
+    const packRootDirectory = requireDirectory(
+      ownerFolderConfig.packRootDirectory,
+      "ownerFolder.packRootDirectory"
+    );
+    const stateDirectory = requireDirectory(
+      ownerFolderConfig.knowledgeStateDirectory,
+      "ownerFolder.knowledgeStateDirectory"
+    );
+    process.env.HAL_OWNER_FOLDER_PACK_ROOT = packRootDirectory;
+    const registration = listApprovedM9PackRegistrations().find(
+      (entry) => entry.packId === OWNER_FOLDER_PACK_ID
+    );
+    if (!registration) return "unavailable_or_invalid";
+    let active;
+    try {
+      active = getM9ActivePackState(stateDirectory);
+    } catch {
+      active = undefined;
+    }
+    return active?.packId === OWNER_FOLDER_PACK_ID
+      ? "active"
+      : "inactive_or_stale_launcher_will_revalidate";
+  } catch {
+    return "unavailable_or_invalid";
+  }
+}
+
+const persistentOwnerFolder = ownerFolderStatus();
+
 process.stdout.write(
   [
     "HAL assistant readiness: approved_local_only",
@@ -112,6 +165,7 @@ process.stdout.write(
     `canonActivation=${canonActivation}`,
     `documentPack=${documentRegistration.packId}@${documentRegistration.packVersion}#${documentRegistration.manifestHashSha256}`,
     `documentActivation=${documentActivation}`,
+    `persistentOwnerFolder=${persistentOwnerFolder}`,
     "runtimeRoute=restricted_ssh_zero_capability_not_contacted",
     "sources=owner_approved_non_canonical_context_only"
   ].join("\n") + "\n"

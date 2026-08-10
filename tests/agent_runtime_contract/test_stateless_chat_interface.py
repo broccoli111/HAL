@@ -169,6 +169,8 @@ class StatelessChatInterfaceTests(unittest.TestCase):
         self.assertIn("getM9ActivePackState", source)
         self.assertIn('const CANON_PACK_ID = "hal_canon_v1";', source)
         self.assertIn('const DOCUMENT_PACK_ID = "personal_document_folder_pilot_v1";', source)
+        self.assertIn('const OWNER_FOLDER_PACK_ID = "owner_folder_hal_ref_2_persistent_v1_v1";', source)
+        self.assertIn("persistentOwnerFolder", source)
         self.assertIn("restricted_ssh_zero_capability_not_contacted", source)
         self.assertNotIn("spawn(", source)
         self.assertNotIn("ollama", source.lower())
