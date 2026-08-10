@@ -65,6 +65,15 @@ describe("M9 Owner-controlled folder registry contract", () => {
       expect(() => validatePersistedM9OwnerFolderPackArtifact(registration, destination)).toThrow(
         "manifest mismatch"
       );
+      await writeFile(path.join(sourceDirectory, "note.txt"), "bounded owner text", "utf8");
+      await rm(path.join(destination, "content", "source-00.json"));
+      await symlink(
+        "/private/tmp/not-present",
+        path.join(destination, "content", "source-00.json")
+      );
+      expect(() => validatePersistedM9OwnerFolderPackArtifact(registration, destination)).toThrow(
+        "content is invalid"
+      );
     } finally {
       await rm(sourceDirectory, { recursive: true, force: true });
       await rm(destinationParent, { recursive: true, force: true });

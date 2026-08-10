@@ -232,6 +232,11 @@ export function validatePersistedM9OwnerFolderPackArtifact(
   for (const entry of expected.content) {
     const target = path.resolve(destinationDirectory, entry.relativePath);
     assertInside(destinationDirectory, target);
+    const targetStat = lstatSync(target, { throwIfNoEntry: false });
+    assert(
+      targetStat?.isFile() && !targetStat.isSymbolicLink(),
+      "owner-folder pack content is invalid"
+    );
     assert(readFileSync(target, "utf8") === entry.utf8, "owner-folder pack content mismatch");
   }
   return expected;
