@@ -28,7 +28,9 @@ or unrestricted IPC access.
   GX10 route, zero capability manifest, local-model-only policy, and result
   custody.
 - Results appear only in the open window and are not stored as a desktop
-  transcript. They remain non-canonical runtime claims.
+  transcript. Known terminal launch framing is removed for display, while the
+  returned answer text is otherwise preserved. Results remain non-canonical
+  runtime claims.
 - The UI cannot add folders, select arbitrary files, grant capabilities, use
   tools, access secrets, or bypass HAL governance.
 

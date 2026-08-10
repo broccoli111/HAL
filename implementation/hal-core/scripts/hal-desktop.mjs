@@ -10,6 +10,7 @@ import {
   launchDesktopAssistantApp,
   resolveDesktopAssistantRuntimePaths
 } from "../dist/src/desktopAssistant/main.js";
+import { renderDesktopAssistantResponse } from "../dist/src/desktopAssistant/terminalOutput.js";
 
 const MAX_RESPONSE_BYTES = 32_768;
 const QUERY_TIMEOUT_MILLISECONDS = 120_000;
@@ -53,7 +54,7 @@ async function dispatchQuestion(request) {
     child.on("error", () => settle(blocked("launcher_unavailable")));
     child.on("close", (exitCode) => {
       if (exitCode !== 0) return settle(blocked("runtime_request_failed"));
-      const response = Buffer.concat(stdout).toString("utf8").trim();
+      const response = renderDesktopAssistantResponse(Buffer.concat(stdout).toString("utf8"));
       if (!response) return settle(blocked("runtime_empty_response"));
       return settle(Object.freeze({ result: "completed", response }));
     });
