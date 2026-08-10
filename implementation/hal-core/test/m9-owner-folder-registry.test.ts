@@ -18,7 +18,9 @@ import {
   persistM9OwnerFolderPackArtifact,
   validatePersistedM9OwnerFolderPackArtifact
 } from "../src/m9/ownerFolderPack.js";
+import { activateApprovedM9Pack, createM9OperationRequestId } from "../src/m9/service.js";
 import { listApprovedPacks, validateApprovedPackDirectory } from "../src/m9/validator.js";
+import { runM6Inquiry } from "../src/m6/orchestrator.js";
 
 describe("M9 Owner-controlled folder registry contract", () => {
   test("creates a fixed-policy HAL-owned registration without reading a folder", () => {
@@ -112,6 +114,49 @@ describe("M9 Owner-controlled folder registry contract", () => {
     } finally {
       await rm(sourceDirectory, { recursive: true, force: true });
       await rm(packRoot, { recursive: true, force: true });
+    }
+  });
+
+  test("renders bounded owner-folder context with local-document provenance after a title match", async () => {
+    const sourceDirectory = await mkdtemp(path.join(os.tmpdir(), "hal-owner-folder-m6-source-"));
+    const packRoot = await mkdtemp(path.join(os.tmpdir(), "hal-owner-folder-m6-pack-"));
+    const stateDirectory = await mkdtemp(path.join(os.tmpdir(), "hal-owner-folder-m6-state-"));
+    const previous = process.env.HAL_OWNER_FOLDER_PACK_ROOT;
+    try {
+      await writeFile(path.join(sourceDirectory, "colors.md"), "Red\nOrange\nGreen", "utf8");
+      const registration = createM9OwnerFolderRegistration({
+        registrationId: "owner_notes_v1",
+        sourceDirectory,
+        ownerConfirmationClaim: "local_owner_confirmed"
+      });
+      const artifact = buildM9OwnerFolderPackArtifact(
+        registration,
+        collectM9OwnerFolderSourceSnapshot(registration)
+      );
+      persistM9OwnerFolderPackArtifact(artifact, path.join(packRoot, artifact.packId));
+      process.env.HAL_OWNER_FOLDER_PACK_ROOT = packRoot;
+      const activation = activateApprovedM9Pack({
+        operationRequestId: createM9OperationRequestId(),
+        stateDirectory,
+        packId: artifact.packId,
+        ownerConfirmationClaim: "local_owner_confirmed",
+        reasonCode: "owner_local_activation"
+      });
+      expect(activation.result).toBe("succeeded");
+      const inquiry = runM6Inquiry({
+        stateDirectory,
+        questionText: "What colors are in colors.md?",
+        requestId: "owner-folder-title-match-001"
+      });
+      expect(inquiry.result).toBe("matched");
+      expect(inquiry.renderedResponse).toContain("owner_approved_local_document_context_only");
+      expect(inquiry.renderedResponse).toContain("red");
+    } finally {
+      if (previous === undefined) delete process.env.HAL_OWNER_FOLDER_PACK_ROOT;
+      else process.env.HAL_OWNER_FOLDER_PACK_ROOT = previous;
+      await rm(sourceDirectory, { recursive: true, force: true });
+      await rm(packRoot, { recursive: true, force: true });
+      await rm(stateDirectory, { recursive: true, force: true });
     }
   });
 
