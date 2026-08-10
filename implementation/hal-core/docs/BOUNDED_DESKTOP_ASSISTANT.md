@@ -40,4 +40,6 @@ shell, browser, or unrestricted IPC access.
 Malformed sender, scope, or question payloads are rejected before dispatch.
 The UI fails closed on unavailable launcher, timeout, oversized output, empty
 output, or nonzero launcher result. It does not expose child-process error
-details or configuration values to the renderer.
+details or configuration values to the renderer. On Unix, a timeout terminates
+the desktop dispatcher's dedicated launcher process group so descendant
+launcher/transport processes do not outlive the question.

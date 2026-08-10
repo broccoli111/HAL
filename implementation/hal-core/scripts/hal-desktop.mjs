@@ -11,6 +11,10 @@ import {
   resolveDesktopAssistantRuntimePaths
 } from "../dist/src/desktopAssistant/main.js";
 import { renderDesktopAssistantResponse } from "../dist/src/desktopAssistant/terminalOutput.js";
+import {
+  desktopAssistantTerminationTarget,
+  shouldDetachDesktopAssistantLauncher
+} from "../dist/src/desktopAssistant/processControl.js";
 
 const MAX_RESPONSE_BYTES = 32_768;
 const QUERY_TIMEOUT_MILLISECONDS = 120_000;
@@ -26,6 +30,7 @@ async function dispatchQuestion(request) {
   return await new Promise((resolve) => {
     const child = spawn(process.execPath, [assistantLauncherPath, request.scope], {
       shell: false,
+      detached: shouldDetachDesktopAssistantLauncher(process.platform),
       stdio: ["pipe", "pipe", "pipe"],
       env: { ...process.env, ELECTRON_RUN_AS_NODE: "1" }
     });
@@ -39,7 +44,7 @@ async function dispatchQuestion(request) {
       resolve(result);
     };
     const timeout = globalThis.setTimeout(() => {
-      child.kill();
+      terminateLauncher(child);
       settle(blocked("runtime_timeout"));
     }, QUERY_TIMEOUT_MILLISECONDS);
     child.stdout.on("data", (chunk) => {
@@ -61,6 +66,16 @@ async function dispatchQuestion(request) {
     child.stdin.write(`${request.questionText}\n/exit\n`);
     child.stdin.end();
   });
+}
+
+function terminateLauncher(child) {
+  const target = desktopAssistantTerminationTarget({ pid: child.pid, platform: process.platform });
+  if (!target) return;
+  try {
+    process.kill(target, "SIGTERM");
+  } catch {
+    child.kill("SIGTERM");
+  }
 }
 
 try {
