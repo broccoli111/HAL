@@ -14,6 +14,7 @@ SCRIPT = (
     / "chat-gx10-hermes.mjs"
 )
 KNOWLEDGE_SCRIPT = SCRIPT.with_name("chat-gx10-hermes-with-approved-knowledge.mjs")
+PERSONAL_DOCUMENT_CHAT = SCRIPT.with_name("chat-gx10-hermes-with-personal-document-pilot.mjs")
 OWNER_LAUNCHER = SCRIPT.with_name("hal-owner-chat.mjs")
 
 
@@ -28,6 +29,17 @@ class StatelessChatInterfaceTests(unittest.TestCase):
         self.assertIn('error?.code === "ERR_USE_AFTER_CLOSE"', source)
         self.assertIn("shell: false", source)
         self.assertNotIn("history", source.lower())
+        self.assertNotIn("writeFile", source)
+        self.assertNotIn("http://", source)
+        self.assertNotIn("https://", source)
+
+    def test_personal_document_chat_handles_owner_commands_without_resource_expansion(self) -> None:
+        source = PERSONAL_DOCUMENT_CHAT.read_text(encoding="utf-8")
+        self.assertIn('prompt === "exit"', source)
+        self.assertIn('prompt === "/help"', source)
+        self.assertIn('prompt === "/status"', source)
+        self.assertIn('readline.on("SIGINT"', source)
+        self.assertIn("shell: false", source)
         self.assertNotIn("writeFile", source)
         self.assertNotIn("http://", source)
         self.assertNotIn("https://", source)
