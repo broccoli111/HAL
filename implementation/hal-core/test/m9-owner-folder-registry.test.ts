@@ -68,6 +68,9 @@ describe("M9 Owner-controlled folder registry contract", () => {
         "already exists"
       );
       await writeFile(path.join(sourceDirectory, "note.txt"), "changed source", "utf8");
+      expect(validateApprovedPackDirectory(destination).manifestHashSha256).toBe(
+        artifact.manifestHashSha256
+      );
       expect(() => validatePersistedM9OwnerFolderPackArtifact(registration, destination)).toThrow(
         "manifest mismatch"
       );

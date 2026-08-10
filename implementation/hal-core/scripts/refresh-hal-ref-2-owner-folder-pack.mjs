@@ -10,6 +10,7 @@ import {
   collectM9OwnerFolderSourceSnapshot,
   createM9OwnerFolderRegistration,
   persistM9OwnerFolderPackArtifact,
+  validateApprovedPackDirectory,
   validatePersistedM9OwnerFolderPackArtifact
 } from "../dist/src/m9/index.js";
 
@@ -88,8 +89,12 @@ const artifact = buildM9OwnerFolderPackArtifact(
 );
 const destination = path.join(config.packRootDirectory, PACK_ID);
 if (existsSync(destination)) {
-  const current = validatePersistedM9OwnerFolderPackArtifact(registration, destination);
+  // A source change must fail querying until refresh, but it must not make the
+  // prior immutable artifact unreadable for archival/recovery. Validate its
+  // stored structure first; source equality is checked only for the no-op case.
+  const current = validateApprovedPackDirectory(destination);
   if (current.manifestHashSha256 === artifact.manifestHashSha256) {
+    validatePersistedM9OwnerFolderPackArtifact(registration, destination);
     process.stdout.write(
       `HAL owner-folder pack already current: ${PACK_ID}#${artifact.manifestHashSha256}\n`
     );
