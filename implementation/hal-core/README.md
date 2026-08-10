@@ -72,6 +72,7 @@ Use only non-secret local values in `.env`.
   pass `-- --registration-id <registered-id>` only for a separately
   Owner-authorized registered folder
 - `npm run hal:owner-folder:register -- --registration-id <immutable-id> --source-directory <absolute-path> --owner-confirm local_owner_confirmed` - records one exact Owner-confirmed folder without reading it; this command does not itself grant an Agent Runtime access
+- `npm run hal:owner-folder:revoke -- --registration-id <registered-id> --owner-confirm local_owner_confirmed` - records irreversible revocation of one registered folder and deactivates its derived pack first when it is active; it never reads or deletes the source folder
 - `npm run hal:owner-folder:chat -- --registration-id <registered-id>` - launches a separately registered, activated folder scope; with no argument it uses the exact DR 0034 `hal_ref_2` source
 
 ## Source structure
