@@ -11,9 +11,13 @@ export const M9_CONTENT_CLASS = "pack_content_json" as const;
 export const M9_PACK_CLASSIFICATION = "synthetic_approved_local_only" as const;
 export const M9_PROVENANCE_CLASSIFICATION = "synthetic_non_sensitive" as const;
 export type M9PackClassification =
-  typeof M9_PACK_CLASSIFICATION | "owner_approved_hal_canon_local_only";
+  | typeof M9_PACK_CLASSIFICATION
+  | "owner_approved_hal_canon_local_only"
+  | "owner_approved_local_document_pilot";
 export type M9ProvenanceClassification =
-  typeof M9_PROVENANCE_CLASSIFICATION | "owner_approved_repository_canon";
+  | typeof M9_PROVENANCE_CLASSIFICATION
+  | "owner_approved_repository_canon"
+  | "owner_approved_local_document";
 
 export const M9_BOUNDS = Object.freeze({
   maxPacks: 32,

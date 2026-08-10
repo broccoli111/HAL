@@ -15,7 +15,7 @@ export const HAL_CANON_SOURCE_PATHS = Object.freeze([
   "agents.md",
   "CURRENT_STATE.md",
   ...Array.from(
-    { length: 28 },
+    { length: 29 },
     (_, index) =>
       `decisions/${String(index + 1).padStart(4, "0")}-${
         [
@@ -46,7 +46,8 @@ export const HAL_CANON_SOURCE_PATHS = Object.freeze([
           "hermes-zero-capability-design-and-conformance-phase",
           "real-hermes-local-only-reference-runtime-pilot",
           "proposed-hal-to-gx10-runtime-transport",
-          "proposed-controlled-hal-canon-knowledge-pilot"
+          "proposed-controlled-hal-canon-knowledge-pilot",
+          "owner-authorized-local-document-pilot"
         ][index]
       }.md`
   )

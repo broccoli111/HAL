@@ -17,6 +17,11 @@ import {
 import { canonicalJsonUtf8Bytes, sha256Hex } from "../src/m9/canonical.js";
 import { M9_BOUNDS } from "../src/m9/types.js";
 import { HAL_CANON_SOURCE_PATHS, M9_HAL_CANON_PACK_ID } from "../src/m9/halCanonSourceScope.js";
+import {
+  M9_PERSONAL_DOCUMENT_PILOT_PACK_ID,
+  M9_PERSONAL_DOCUMENT_PILOT_PACK_CLASSIFICATION,
+  M9_PERSONAL_DOCUMENT_PILOT_PROVENANCE_CLASSIFICATION
+} from "../src/m9/personalDocumentPilotScope.js";
 import { M9ActivationJournal } from "../src/m9/activationJournal.js";
 import { validateApprovedPackDirectory } from "../src/m9/validator.js";
 import { createImmutableIdentifier } from "../src/shared/id.js";
@@ -52,10 +57,13 @@ type PackOptions = Readonly<{
   paragraphBytes?: number;
   titleBytes?: number;
   extraFile?: boolean;
+  personalDocumentPilot?: boolean;
 }>;
 
 async function createSyntheticPack(root: string, options: PackOptions = {}): Promise<string> {
-  const packId = options.packId ?? "pack_test";
+  const packId = options.personalDocumentPilot
+    ? M9_PERSONAL_DOCUMENT_PILOT_PACK_ID
+    : (options.packId ?? "pack_test");
   const packDirectory = path.resolve(root, packId);
   const contentDirectory = path.resolve(packDirectory, "content");
   await mkdir(contentDirectory, { recursive: true });
@@ -84,13 +92,17 @@ async function createSyntheticPack(root: string, options: PackOptions = {}): Pro
     packId,
     packName: options.packName ?? "Synthetic deterministic pack",
     packVersion: options.packVersion ?? "1.0.0",
-    packClassification: "synthetic_approved_local_only",
-    provenanceClassification: "synthetic_non_sensitive",
+    packClassification: options.personalDocumentPilot
+      ? M9_PERSONAL_DOCUMENT_PILOT_PACK_CLASSIFICATION
+      : "synthetic_approved_local_only",
+    provenanceClassification: options.personalDocumentPilot
+      ? M9_PERSONAL_DOCUMENT_PILOT_PROVENANCE_CLASSIFICATION
+      : "synthetic_non_sensitive",
     m6Compatibility: {
       tokenizerVersion: "m6.tokenizer.v1",
       matcherVersion: "m6.matcher.v1",
       corpusIndexVersion: "m6.corpus-index.v1",
-      documentShape: "m6.synthetic-document.v1"
+      documentShape: options.personalDocumentPilot ? "m6.document.v1" : "m6.synthetic-document.v1"
     },
     documents: [
       {
@@ -106,6 +118,17 @@ async function createSyntheticPack(root: string, options: PackOptions = {}): Pro
         contentClass: "pack_content_json"
       }
     ],
+    ...(options.personalDocumentPilot
+      ? {
+          sourceRecords: [
+            {
+              sourcePath: "owner-approved desktop HAL_doc_ref/HAL_reference.txt",
+              sha256: "a".repeat(64),
+              byteSize: 32
+            }
+          ]
+        }
+      : {}),
     contentRoot: "content",
     integrity: {
       manifestHashAlgorithm: "sha256"
@@ -183,6 +206,26 @@ describe("M9 controlled local knowledge packs", () => {
       await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
       expect(() => validateApprovedPackDirectory(copiedPack)).toThrow(
         "HAL Canon source hash mismatch"
+      );
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  });
+
+  test("personal-document pilot requires its exact owner-approved source record", async () => {
+    const root = await createTempDirectory("hal-m9-personal-document-");
+    try {
+      const pack = await createSyntheticPack(root, { personalDocumentPilot: true });
+      const manifestPath = path.resolve(pack, "manifest.json");
+      const manifest = JSON.parse(await readFile(manifestPath, "utf8")) as Record<string, unknown>;
+      const sourceRecords = manifest.sourceRecords as Array<Record<string, unknown>>;
+      sourceRecords[0] = { ...sourceRecords[0], sourcePath: "unapproved.txt" };
+      const integrity = manifest.integrity as Record<string, unknown>;
+      delete integrity.manifestHashSha256;
+      integrity.manifestHashSha256 = sha256Hex(canonicalJsonUtf8Bytes(manifest));
+      await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+      expect(() => validateApprovedPackDirectory(pack)).toThrow(
+        "personal-document source path mismatch"
       );
     } finally {
       await rm(root, { recursive: true, force: true });

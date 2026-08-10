@@ -7,7 +7,8 @@ M9 is implemented under explicit Owner authorization for local-only, determinist
 Implemented scope is limited to:
 
 - fixed approved synthetic knowledge-pack root under `fixtures/approved-knowledge-packs`;
-- one fixed, source-confined `hal_canon_v1` pack generated only from the DR 0028 allowlist;
+- one fixed, source-confined `hal_canon_v1` pack generated only from the DR 0028 allowlist; and
+- the separately bounded DR 0029 `personal_document_pilot_v1` pack, generated only from its one exact Owner-approved desktop text file.
 - strict pack validation/registration for M9 v1 manifest and content contracts;
 - explicit local operator-provided Owner confirmation claims for activation/deactivation;
 - dedicated governed M2 admission path before any M9 state mutation;
@@ -16,7 +17,7 @@ Implemented scope is limited to:
 
 Not implemented:
 
-- private/user-document ingestion;
+- private/user-document ingestion apart from the exact DR 0029 one-file pilot;
 - cloud/network/model/provider sources;
 - arbitrary filesystem pack admission;
 - real-world identity/authentication claims;
@@ -79,7 +80,9 @@ Pack identity tuples are case-sensitive and compared exactly.
 
 ## DR 0028 HAL Canon documentation pilot
 
-`hal_canon_v1` is the sole non-synthetic M9 pack. Its generator reads only the exact code-enforced source list in `src/m9/halCanonSourceScope.ts`: named Book I–IV/X editions, root `agents.md`, `CURRENT_STATE.md`, and enumerated Decision Records. It writes a bounded JSON retrieval representation with a source-record manifest containing each source path, SHA-256 hash, and byte size. M9 revalidates those source hashes on registration and activation; a source change requires a fresh derived pack and activation tuple.
+`hal_canon_v1` is the repository-document non-synthetic M9 pack. Its generator reads only the exact code-enforced source list in `src/m9/halCanonSourceScope.ts`: named Book I–IV/X editions, root `agents.md`, `CURRENT_STATE.md`, and enumerated Decision Records. It writes a bounded JSON retrieval representation with a source-record manifest containing each source path, SHA-256 hash, and byte size. M9 revalidates those source hashes on registration and activation; a source change requires a fresh derived pack and activation tuple.
+
+DR 0029 adds one separately named, non-canonical `personal_document_pilot_v1` pack. Its source, output location, pack identifier, classification, and provenance are fixed in `src/m9/personalDocumentPilotScope.ts`; it admits exactly one direct regular `.txt` file, refuses symlinks and overwrite, and bounds the source to 8 KiB/32 non-empty lines/2 KiB per line. The derived pack remains adjacent to the Owner-controlled source and is not a repository artifact. It records the source label, hash, and byte size at generation. Source changes require a new immutable pack and Owner-confirmed activation. It does not create a filesystem capability or expose the source path to the runtime.
 
 This representation is non-canonical retrieval context. It is not a new canonical knowledge store, does not grant runtime filesystem access, and may not be expanded by a runtime. HAL gives the zero-capability runtime only bounded M6-rendered text and source-labeled references. Canon documentation may mention security terms such as “secret”; only value-shaped credentials are rejected for this fixed pack, while the stricter synthetic-pack guard remains unchanged.
 
@@ -146,5 +149,5 @@ Verified command suite:
 ## Remaining limits and posture
 
 - Owner confirmation claims are local operational assertions only; they are not authentication or real-world identity proof.
-- M9 stays local-only with `externalEffect=none`. Apart from the fixed DR 0028 HAL Canon pack, packs remain synthetic-only.
+- M9 stays local-only with `externalEffect=none`. Apart from the fixed DR 0028 HAL Canon pack and the separately named exact DR 0029 one-file pilot, packs remain synthetic-only.
 - This implementation record does not claim authority expansion, certification, or readiness uplift.

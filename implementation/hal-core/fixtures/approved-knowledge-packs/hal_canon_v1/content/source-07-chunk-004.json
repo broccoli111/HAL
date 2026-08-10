@@ -1,0 +1,15 @@
+{
+  "id": "hal.canon.decisions.004",
+  "title": "HAL Canon source: accepted Decision Records 0001-0028 (chunk 5/5)",
+  "tags": [
+    "hal-canon",
+    "owner-approved",
+    "source-07"
+  ],
+  "paragraphs": [
+    "The generated pack is explicitly classified as an Owner-approved local document pilot and as non-canonical retrieval context. It is bounded to one source of at most 8 KiB, 32 non-empty lines, and 2 KiB per line. The derived pack refuses overwrite; source changes require a fresh pack generation and Owner-confirmed activation. Deactivation/removal of the derived pack is reversible and does not mutate the source document.",
+    "This is not a general filesystem capability or a new runtime capability. HAL alone performs source admission; the runtime has no means to select, add, read, alter, or promote the source.",
+    "## Owner Review Assessment",
+    "Owner Review was required because this expands the governed knowledge source class from repository documentation to a user document. The Owner approved the exact path and limits stated above. No constitutional amendment is proposed; the existing authority, evidence, provenance, recovery, and runtime-memory boundaries remain controlling."
+  ]
+}

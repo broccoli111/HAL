@@ -44,8 +44,8 @@
     },
     {
       "sourcePath": "CURRENT_STATE.md",
-      "sha256": "3781fccdd015a9ffef01d776086aa5da566c55a107401b421ab6d2bbcfc3c2bb",
-      "byteSize": 37467
+      "sha256": "cde5ba176f9443446489399a4c2c6a21514bd3865cec91b2fb7eb3391dfbe4a4",
+      "byteSize": 38892
     },
     {
       "sourcePath": "decisions/0001-agent-runtime-sovereignty-and-replaceability.md",
@@ -186,6 +186,11 @@
       "sourcePath": "decisions/0028-proposed-controlled-hal-canon-knowledge-pilot.md",
       "sha256": "ec128a6d439cf79e6f26112ef445948912e5d9fe2e6759cb928a02175d08bdeb",
       "byteSize": 6810
+    },
+    {
+      "sourcePath": "decisions/0029-owner-authorized-local-document-pilot.md",
+      "sha256": "1debc155206bffc0e699ac3f0a5bf1317cf9aa4de90b8f8876b9f8af18879336",
+      "byteSize": 2686
     }
   ],
   "documents": [
@@ -5234,7 +5239,9 @@
         "paragraph:45",
         "paragraph:46",
         "paragraph:47",
-        "paragraph:48"
+        "paragraph:48",
+        "paragraph:49",
+        "paragraph:50"
       ]
     },
     {
@@ -5723,7 +5730,27 @@
         "paragraph:105",
         "paragraph:106",
         "paragraph:107",
-        "paragraph:108"
+        "paragraph:108",
+        "paragraph:109",
+        "paragraph:110",
+        "paragraph:111",
+        "paragraph:112",
+        "paragraph:113",
+        "paragraph:114",
+        "paragraph:115",
+        "paragraph:116",
+        "paragraph:117",
+        "paragraph:118",
+        "paragraph:119"
+      ]
+    },
+    {
+      "documentId": "hal.canon.decisions.004",
+      "sectionIds": [
+        "paragraph:0",
+        "paragraph:1",
+        "paragraph:2",
+        "paragraph:3"
       ]
     }
   ],
@@ -5982,38 +6009,44 @@
     },
     {
       "relativePath": "content/source-06-chunk-000.json",
-      "sha256": "bc2c8e1895fbd891e9845c209952adb32fb8b0c9859434cdc3dd43a119fbbdb8",
-      "byteSize": 37974,
+      "sha256": "58a1dd63b631d848418573be0b7624fb60ff9474f718402da1a5f67c6ed0793e",
+      "byteSize": 39412,
       "contentClass": "pack_content_json"
     },
     {
       "relativePath": "content/source-07-chunk-000.json",
-      "sha256": "80a27d29772feaf71bcc6b6af68b50a0508124a4ec467ea71a0d7915a6bafe5b",
+      "sha256": "7b2a398c48fd64b6745114ea800fe7ad92dcfef38481aedacc77d055c879d484",
       "byteSize": 20305,
       "contentClass": "pack_content_json"
     },
     {
       "relativePath": "content/source-07-chunk-001.json",
-      "sha256": "730dfb5d84e3764b3804368cabbe435e9bc311a57ffd0247aa75e5979ab4e5e2",
+      "sha256": "56a22ff4f4306f7f0ea809a70706ab8bcb24aa60760a13c96bfe16746ff909fa",
       "byteSize": 23663,
       "contentClass": "pack_content_json"
     },
     {
       "relativePath": "content/source-07-chunk-002.json",
-      "sha256": "a70ac8fa30f815c2ffdac3777df226aac86fdd66298e07788001da3ae6408d9c",
+      "sha256": "118d70f8b89647026018277e6c8cdbdb81e595013e84ea5f0f3ab9f461866e5d",
       "byteSize": 21615,
       "contentClass": "pack_content_json"
     },
     {
       "relativePath": "content/source-07-chunk-003.json",
-      "sha256": "5638adb61df8141319e260350145c6729aed3ef4d6fbeaaafecf3b8dfcf8a828",
-      "byteSize": 21589,
+      "sha256": "43452362b6f61fb696465a940179cd22e3e3af6093cbb6af0301c64fdd02eb70",
+      "byteSize": 23422,
+      "contentClass": "pack_content_json"
+    },
+    {
+      "relativePath": "content/source-07-chunk-004.json",
+      "sha256": "3aa887d2067bf550231599c2e1d5ee2afb4217e9fe7b0732723c4f9f2dc73672",
+      "byteSize": 1216,
       "contentClass": "pack_content_json"
     }
   ],
   "contentRoot": "content",
   "integrity": {
     "manifestHashAlgorithm": "sha256",
-    "manifestHashSha256": "6d4c07f1f683016d1b9304d7299e8ac70be22ba2eb7477c074194feb24ab499b"
+    "manifestHashSha256": "5aeaad55be72621fc2dcd2f326e188461f5184af7f0e16bbbfb32e1c3c20555c"
   }
 }

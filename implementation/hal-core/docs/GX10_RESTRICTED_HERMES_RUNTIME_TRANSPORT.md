@@ -59,8 +59,20 @@ session termination.
 After activating the Owner-approved `hal_canon_v1` pack in the existing
 `HAL_KNOWLEDGE_STATE_DIRECTORY`, run:
 
-```sh
+````sh
 npm run runtime:chat:knowledge
+
+For the separately Owner-approved DR 0029 local-document pilot, first activate
+`personal_document_pilot_v1` in the same state directory and run:
+
+```sh
+npm run runtime:chat:personal-doc
+````
+
+That path receives only M6-rendered bounded excerpts from the active pack. It
+does not give Hermes/Qwen the Desktop source path, a filesystem handle, a tool,
+or a resource capability.
+
 ```
 
 This has the same 20-turn and 8,192-character limits as `runtime:chat`, but
@@ -94,3 +106,4 @@ part of the restricted user transport and grants no capability.
 - Result length is capped at 1,024 characters and requests are bounded.
 - A result is not accepted as evidence or canonical knowledge without separate
   HAL-governed processes.
+```

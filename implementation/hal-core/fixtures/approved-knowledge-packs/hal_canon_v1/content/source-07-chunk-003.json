@@ -1,6 +1,6 @@
 {
   "id": "hal.canon.decisions.003",
-  "title": "HAL Canon source: accepted Decision Records 0001-0028 (chunk 4/4)",
+  "title": "HAL Canon source: accepted Decision Records 0001-0028 (chunk 4/5)",
   "tags": [
     "hal-canon",
     "owner-approved",
@@ -115,6 +115,17 @@
     "**Security impact:** a tightly defined HAL-side read path is introduced for the named repository sources only. The runtime remains zero-capability and receives only bounded rendered context.",
     "**Reversibility:** deactivate/delete the derived local pack state and its non-canonical index; retain required activation/evidence records. No source or constitutional mutation is required.",
     "## Continuity Notes",
-    "Define exact source selection and immutable-manifest procedures, implement the narrow M9 extension with deterministic negative tests, activate only the verified pack, run an end-to-end bounded inquiry through the existing DR 0027 route, and update `CURRENT_STATE.md` with evidence and remaining limitations."
+    "Define exact source selection and immutable-manifest procedures, implement the narrow M9 extension with deterministic negative tests, activate only the verified pack, run an end-to-end bounded inquiry through the existing DR 0027 route, and update `CURRENT_STATE.md` with evidence and remaining limitations.",
+    "---",
+    "Source: decisions/0029-owner-authorized-local-document-pilot.md",
+    "# Decision Record 0029 — Owner-Authorized Local Document Pilot",
+    "| Field | Value | | --- | --- | | Status | Accepted Owner decision | | Date | 2026-08-09 | | Scope | One exact, read-only local text document in the Owner-created `HAL_doc_ref` folder | | Owner Review | Explicit Owner approval |",
+    "## Decision",
+    "The Owner authorizes a non-canonical, local-only retrieval pilot for exactly `/Users/rosslauda/Desktop/HAL_doc_ref/HAL_reference.txt`. HAL may read only that direct, regular, non-symlink `.txt` file; construct a bounded immutable derived retrieval pack; record the source's path label, hash, and byte size; and send only bounded M6-rendered excerpts to the existing zero-capability local runtime route.",
+    "The runtime receives neither the source path nor a filesystem handle. A model answer remains a non-canonical runtime claim. This decision does not admit subdirectories, other Desktop files, arbitrary local files, NAS data, network sources, secrets, canonical-knowledge promotion, runtime filesystem access, or production use.",
+    "## Authoritative Sources",
+    "- Book I decisions on Owner authority, provenance, immutable experience, and governed knowledge evolution. - Book II runtime sovereignty, memory sovereignty, Capability Gateway, Evidence Graph, recovery, and conformance sections. - Book III local-only, testing, evidence, and change-control standards. - [DR 0001](0001-agent-runtime-sovereignty-and-replaceability.md), [DR 0026](0026-real-hermes-local-only-reference-runtime-pilot.md), [DR 0027](0027-proposed-hal-to-gx10-runtime-transport.md), and [DR 0028](0028-proposed-controlled-hal-canon-knowledge-pilot.md).",
+    "Higher-order sources prevail over this record.",
+    "## Consequences"
   ]
 }

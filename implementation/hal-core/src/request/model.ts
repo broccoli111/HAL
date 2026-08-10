@@ -1,6 +1,7 @@
 import type { CorrelationId, RequestId } from "../shared/types.js";
 
-export type LocalDataClassification = "synthetic_non_sensitive" | "owner_approved_repository_canon";
+export type LocalDataClassification =
+  "synthetic_non_sensitive" | "owner_approved_repository_canon" | "owner_approved_local_document";
 
 export type LocalRequest = Readonly<{
   requestId: RequestId;

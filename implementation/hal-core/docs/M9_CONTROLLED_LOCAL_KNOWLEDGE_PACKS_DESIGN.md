@@ -22,7 +22,11 @@ M9 is permanently constrained to all of the following:
 - no autonomous pack discovery, installation, activation, or switching;
 - no authority expansion.
 
-Personal/private document ingestion is explicitly out of scope. Any such admission requires a separate future Owner-authorized Reality Boundary proposal.
+Personal/private document ingestion is otherwise out of scope. DR 0029 is the
+sole accepted exception: one exact direct regular `.txt` source and its
+separately named bounded derived pack. It does not authorize browsing,
+directory ingestion, uploads, source discovery, or any other user-document
+admission.
 
 ## 2) Governing alignment (Books I, II, IV, V, VI, VII, VIII, IX, X)
 
@@ -442,7 +446,7 @@ Independent validation must cover all of the following:
 
 ## 10) Explicit non-goals
 
-- no private or user-document ingestion;
+- no private or user-document ingestion apart from the exact DR 0029 one-file pilot;
 - no upload/import wizard;
 - no cloud or network source;
 - no semantic/vector/model search;

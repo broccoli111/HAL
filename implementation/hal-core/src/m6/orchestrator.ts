@@ -404,7 +404,8 @@ function runM6ThroughM3(input: {
   const corpusSnapshot = loadSyntheticCorpusFromFilesForTest(
     input.corpusRoot,
     outcome.providerResult.consumedFiles.map((file) => path.resolve(input.corpusRoot, file)),
-    input.m9ActivationContext.packId === "hal_canon_v1"
+    input.m9ActivationContext.packId === "hal_canon_v1" ||
+      input.m9ActivationContext.packId === "personal_document_pilot_v1"
   );
   if (corpusSnapshot.manifestHashSha256 !== deterministic.fixtureManifestHash) {
     throw new Error("M6 canonical manifest hash mismatch against approved corpus.");
@@ -417,7 +418,11 @@ function runM6ThroughM3(input: {
     match,
     corpusManifestHashSha256: deterministic.fixtureManifestHash,
     corpusContext:
-      input.m9ActivationContext.packId === "hal_canon_v1" ? "owner_approved_hal_canon" : "synthetic"
+      input.m9ActivationContext.packId === "hal_canon_v1"
+        ? "owner_approved_hal_canon"
+        : input.m9ActivationContext.packId === "personal_document_pilot_v1"
+          ? "owner_approved_local_document"
+          : "synthetic"
   });
   const renderedHash = sha256(rendered.responseText);
   if (renderedHash !== deterministic.answerHashSha256) {

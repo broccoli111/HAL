@@ -27,6 +27,13 @@ import {
   M9_HAL_CANON_PROVENANCE_CLASSIFICATION,
   resolveHalRepositoryRoot
 } from "./halCanonSourceScope.js";
+import {
+  isPersonalDocumentPilotPackId,
+  M9_PERSONAL_DOCUMENT_PILOT_PACK_CLASSIFICATION,
+  M9_PERSONAL_DOCUMENT_PILOT_PROVENANCE_CLASSIFICATION,
+  PERSONAL_DOCUMENT_PILOT_PACK_DIRECTORY,
+  PERSONAL_DOCUMENT_PILOT_SOURCE_PATH
+} from "./personalDocumentPilotScope.js";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) {
@@ -97,14 +104,23 @@ function validateManifestStructure(manifest: unknown): M9PackManifest {
     "invalid packVersion"
   );
   const isHalCanonPack = m.packId === M9_HAL_CANON_PACK_ID;
+  const isPersonalDocumentPilotPack = isPersonalDocumentPilotPackId(m.packId ?? "");
   compareExact(
     m.packClassification ?? "",
-    isHalCanonPack ? M9_HAL_CANON_PACK_CLASSIFICATION : M9_PACK_CLASSIFICATION,
+    isHalCanonPack
+      ? M9_HAL_CANON_PACK_CLASSIFICATION
+      : isPersonalDocumentPilotPack
+        ? M9_PERSONAL_DOCUMENT_PILOT_PACK_CLASSIFICATION
+        : M9_PACK_CLASSIFICATION,
     "packClassification"
   );
   compareExact(
     m.provenanceClassification ?? "",
-    isHalCanonPack ? M9_HAL_CANON_PROVENANCE_CLASSIFICATION : M9_PROVENANCE_CLASSIFICATION,
+    isHalCanonPack
+      ? M9_HAL_CANON_PROVENANCE_CLASSIFICATION
+      : isPersonalDocumentPilotPack
+        ? M9_PERSONAL_DOCUMENT_PILOT_PROVENANCE_CLASSIFICATION
+        : M9_PROVENANCE_CLASSIFICATION,
     "provenanceClassification"
   );
   assert(m.m6Compatibility && typeof m.m6Compatibility === "object", "m6Compatibility missing");
@@ -117,7 +133,7 @@ function validateManifestStructure(manifest: unknown): M9PackManifest {
   );
   compareExact(
     m.m6Compatibility?.documentShape ?? "",
-    isHalCanonPack ? "m6.document.v1" : "m6.synthetic-document.v1",
+    isHalCanonPack || isPersonalDocumentPilotPack ? "m6.document.v1" : "m6.synthetic-document.v1",
     "documentShape"
   );
   compareExact(m.contentRoot ?? "", "content", "contentRoot");
@@ -133,14 +149,43 @@ function validateManifestStructure(manifest: unknown): M9PackManifest {
   return m as M9PackManifest;
 }
 
-function validateHalCanonSourceRecords(manifest: M9PackManifest): void {
+function validateNonSyntheticSourceRecords(manifest: M9PackManifest): void {
   const isHalCanonPack = manifest.packId === M9_HAL_CANON_PACK_ID;
-  if (!isHalCanonPack) {
+  const isPersonalDocumentPilotPack = isPersonalDocumentPilotPackId(manifest.packId);
+  if (!isHalCanonPack && !isPersonalDocumentPilotPack) {
     assert(!manifest.sourceRecords, "synthetic pack sourceRecords rejected");
     return;
   }
   assert(Array.isArray(manifest.sourceRecords), "HAL Canon sourceRecords missing");
   const records = manifest.sourceRecords;
+  if (isPersonalDocumentPilotPack) {
+    assert(records.length === 1, "personal-document source count mismatch");
+    const record = records[0];
+    assert(record, "personal-document source record missing");
+    compareExact(
+      record.sourcePath,
+      "owner-approved desktop HAL_doc_ref/HAL_reference.txt",
+      "personal-document source path"
+    );
+    assert(/^[a-f0-9]{64}$/.test(record.sha256), "personal-document source sha256 invalid");
+    assert(
+      Number.isInteger(record.byteSize) && record.byteSize > 0 && record.byteSize <= 8_192,
+      "personal-document source byteSize invalid"
+    );
+    ensureNoSymlinkOrSpecial(PERSONAL_DOCUMENT_PILOT_SOURCE_PATH, "personal-document source");
+    assert(
+      lstatSync(PERSONAL_DOCUMENT_PILOT_SOURCE_PATH).isFile(),
+      "personal-document source must be a regular file"
+    );
+    const sourceRaw = readFileSync(PERSONAL_DOCUMENT_PILOT_SOURCE_PATH, "utf8");
+    compareExact(sha256Hex(sourceRaw), record.sha256, "personal-document source hash");
+    compareExact(
+      String(byteLengthUtf8(sourceRaw)),
+      String(record.byteSize),
+      "personal-document source byteSize"
+    );
+    return;
+  }
   assert(records.length === HAL_CANON_SOURCE_PATHS.length, "HAL Canon source count mismatch");
   const repositoryRoot = resolveHalRepositoryRoot();
   for (let index = 0; index < HAL_CANON_SOURCE_PATHS.length; index += 1) {
@@ -319,7 +364,7 @@ export function validateApprovedPackDirectory(packDirectory: string): M9Resolved
   );
   const manifest = validateManifestStructure(parseJsonFile<unknown>(manifestPath, "manifest"));
   enforceManifestDeterminism(manifest);
-  validateHalCanonSourceRecords(manifest);
+  validateNonSyntheticSourceRecords(manifest);
   const manifestHash = verifyManifestSelfHash(manifest);
 
   const manifestDocumentsById = new Map<string, readonly string[]>(
@@ -408,6 +453,17 @@ export function listApprovedPacks(): readonly M9ResolvedPack[] {
     }
     const validated = validateApprovedPackDirectory(absolute);
     packs.push(validated);
+  }
+  const personalPilotStat = lstatSync(PERSONAL_DOCUMENT_PILOT_PACK_DIRECTORY, {
+    throwIfNoEntry: false
+  });
+  if (personalPilotStat) {
+    ensureNoSymlinkOrSpecial(
+      PERSONAL_DOCUMENT_PILOT_PACK_DIRECTORY,
+      "personal-document pack directory"
+    );
+    assert(personalPilotStat.isDirectory(), "personal-document pack directory must be a directory");
+    packs.push(validateApprovedPackDirectory(PERSONAL_DOCUMENT_PILOT_PACK_DIRECTORY));
   }
   return Object.freeze(
     packs.sort((left, right) =>

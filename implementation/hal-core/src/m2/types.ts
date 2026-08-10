@@ -6,7 +6,8 @@ export const M2_SCHEMA_VERSION = "m2.v1" as const;
 export const M2_PROVENANCE = "local_fixture_demo" as const;
 
 export type M2SchemaVersion = typeof M2_SCHEMA_VERSION;
-export type M2Provenance = typeof M2_PROVENANCE | "local_owner_approved_repository_canon";
+export type M2Provenance =
+  typeof M2_PROVENANCE | "local_owner_approved_repository_canon" | "local_owner_approved_document";
 
 export type M2BaseMetadata = Readonly<{
   commandId: CommandId;
@@ -77,7 +78,8 @@ export type TransactionRecord = Readonly<
     declaredEffectClass:
       | "local_synthetic_inspection"
       | "local_synthetic_inquiry"
-      | "local_owner_approved_canon_inquiry";
+      | "local_owner_approved_canon_inquiry"
+      | "local_owner_approved_document_inquiry";
     claimedEffect: ClaimedEffect;
     recoveryDisposition: "reconstruct_from_journal";
   }
@@ -170,7 +172,10 @@ export type OpenTransactionCommand = CommandEnvelope<{
   planId: ImmutableIdentifier;
   decisionId: ImmutableIdentifier;
   declaredEffectClass:
-    "local_synthetic_inspection" | "local_synthetic_inquiry" | "local_owner_approved_canon_inquiry";
+    | "local_synthetic_inspection"
+    | "local_synthetic_inquiry"
+    | "local_owner_approved_canon_inquiry"
+    | "local_owner_approved_document_inquiry";
   status: TransactionStatus;
   claimedEffect: ClaimedEffect;
 }>;

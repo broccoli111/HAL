@@ -18,6 +18,10 @@ const HAL_CANON_MATCHED_UNCERTAINTY =
   "matched: lexical evidence only; owner-approved HAL Canon retrieval context is non-canonical; external data unavailable";
 const HAL_CANON_NO_MATCH_UNCERTAINTY =
   "no_match: no lexical evidence met threshold; owner-approved HAL Canon retrieval context is non-canonical; external data unavailable";
+const PERSONAL_DOCUMENT_MATCHED_UNCERTAINTY =
+  "matched: lexical evidence only; owner-approved local document retrieval context is non-canonical; external data unavailable";
+const PERSONAL_DOCUMENT_NO_MATCH_UNCERTAINTY =
+  "no_match: no lexical evidence met threshold; owner-approved local document retrieval context is non-canonical; external data unavailable";
 
 function utf8Bytes(value: string): number {
   return Buffer.byteLength(value, "utf8");
@@ -69,9 +73,10 @@ export type RenderedInquiryResponse = Readonly<{
 export function renderM6Response(input: {
   match: M6MatchOutcome;
   corpusManifestHashSha256: string;
-  corpusContext?: "synthetic" | "owner_approved_hal_canon";
+  corpusContext?: "synthetic" | "owner_approved_hal_canon" | "owner_approved_local_document";
 }): RenderedInquiryResponse {
   const isHalCanon = input.corpusContext === "owner_approved_hal_canon";
+  const isPersonalDocument = input.corpusContext === "owner_approved_local_document";
   const references = input.match.noMatch
     ? Object.freeze([] as string[])
     : Object.freeze(
@@ -91,17 +96,25 @@ export function renderM6Response(input: {
           key: "limitations",
           value: isHalCanon
             ? "owner_approved_hal_canon_context_only; non_canonical_retrieval; lexical_match_only; no_external_data"
-            : "synthetic_corpus_only; lexical_match_only; no_external_data"
+            : isPersonalDocument
+              ? "owner_approved_local_document_context_only; non_canonical_retrieval; lexical_match_only; no_external_data"
+              : "synthetic_corpus_only; lexical_match_only; no_external_data"
         },
         {
           key: "uncertainty",
-          value: isHalCanon ? HAL_CANON_NO_MATCH_UNCERTAINTY : NO_MATCH_UNCERTAINTY
+          value: isHalCanon
+            ? HAL_CANON_NO_MATCH_UNCERTAINTY
+            : isPersonalDocument
+              ? PERSONAL_DOCUMENT_NO_MATCH_UNCERTAINTY
+              : NO_MATCH_UNCERTAINTY
         },
         {
           key: "message",
           value: isHalCanon
             ? "no matching owner-approved HAL Canon sections found for the normalized question tokens"
-            : "no matching synthetic corpus sections found for the normalized question tokens"
+            : isPersonalDocument
+              ? "no matching owner-approved local document sections found for the normalized question tokens"
+              : "no matching synthetic corpus sections found for the normalized question tokens"
         }
       ]
     : [
@@ -114,11 +127,17 @@ export function renderM6Response(input: {
           key: "limitations",
           value: isHalCanon
             ? "owner_approved_hal_canon_context_only; non_canonical_retrieval; lexical_match_only; no_external_data"
-            : "synthetic_corpus_only; lexical_match_only; no_external_data"
+            : isPersonalDocument
+              ? "owner_approved_local_document_context_only; non_canonical_retrieval; lexical_match_only; no_external_data"
+              : "synthetic_corpus_only; lexical_match_only; no_external_data"
         },
         {
           key: "uncertainty",
-          value: isHalCanon ? HAL_CANON_MATCHED_UNCERTAINTY : MATCHED_UNCERTAINTY
+          value: isHalCanon
+            ? HAL_CANON_MATCHED_UNCERTAINTY
+            : isPersonalDocument
+              ? PERSONAL_DOCUMENT_MATCHED_UNCERTAINTY
+              : MATCHED_UNCERTAINTY
         },
         {
           key: "excerpt",
