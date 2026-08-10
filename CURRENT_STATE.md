@@ -175,6 +175,11 @@ boundary suite passed, and one restricted GX10/Qwen smoke inquiry returned the
 approved local-folder favorite-color fact. The runtime result remained an
 `unaccepted_runtime_claim`.
 
+The accepted dual-scope chat retains at most three prior prompt/result pairs
+(4 KiB total) in process memory only for direct follow-up questions. This is
+operational runtime context, never canonical HAL knowledge, evidence, authority,
+or a capability grant, and is discarded when the session ends.
+
 DR 0031 does not authorize additional pack/source types, automatic cross-scope
 selection, a combined derived pack, canonical promotion, filesystem access,
 NAS, external data/providers, secrets, shell access, or production use.

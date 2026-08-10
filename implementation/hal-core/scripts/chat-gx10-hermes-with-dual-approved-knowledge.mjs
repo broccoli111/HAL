@@ -10,8 +10,11 @@ import path from "node:path";
 
 const MAX_TURNS = 20;
 const MAX_PROMPT_CHARS = 8_192;
+const MAX_CONTEXT_TURNS = 3;
+const MAX_CONTEXT_UTF8_BYTES = 4_096;
 const ask = path.join(import.meta.dirname, "ask-gx10-hermes-with-dual-approved-knowledge.mjs");
 const readline = createInterface({ input: process.stdin, output: process.stdout });
+const sessionTurns = [];
 
 readline.on("SIGINT", () => readline.close());
 process.stdout.write(
@@ -37,7 +40,7 @@ for (let turn = 1; turn <= MAX_TURNS; turn += 1) {
   }
   if (prompt === "/status") {
     process.stdout.write(
-      "HAL status: dual approved contexts; separately validated; non-canonical; zero capabilities; no session persistence.\n"
+      `HAL status: dual approved contexts; separately validated; non-canonical; zero capabilities; ephemeral session; ${sessionTurns.length}/${MAX_CONTEXT_TURNS} prior turns retained in memory.\n`
     );
     continue;
   }
@@ -45,9 +48,11 @@ for (let turn = 1; turn <= MAX_TURNS; turn += 1) {
     process.stderr.write(`Question exceeds the ${MAX_PROMPT_CHARS}-character bound.\n`);
     continue;
   }
+  const context = sessionTurns.join("\n\n");
   const child = spawn(process.execPath, [ask, prompt], {
     shell: false,
-    stdio: ["ignore", "pipe", "pipe"]
+    stdio: ["ignore", "pipe", "pipe"],
+    env: { ...process.env, ...(context ? { HAL_EPHEMERAL_SESSION_CONTEXT: context } : {}) }
   });
   const stdout = [];
   child.stdout.on("data", (chunk) => {
@@ -60,9 +65,17 @@ for (let turn = 1; turn <= MAX_TURNS; turn += 1) {
     process.stderr.write("HAL could not complete that bounded dual-scope request.\n");
     continue;
   }
-  // Consume stdout only to ensure bounded child output remains text; no answer
-  // is retained beyond the current turn or persisted by this UI.
-  Buffer.concat(stdout).toString("utf8");
+  const answer = Buffer.concat(stdout).toString("utf8").trim();
+  const candidate = `Owner: ${prompt}\nHAL: ${answer}`;
+  if (Buffer.byteLength(candidate, "utf8") <= MAX_CONTEXT_UTF8_BYTES) {
+    sessionTurns.push(candidate);
+    while (
+      sessionTurns.length > MAX_CONTEXT_TURNS ||
+      Buffer.byteLength(sessionTurns.join("\n\n"), "utf8") > MAX_CONTEXT_UTF8_BYTES
+    ) {
+      sessionTurns.shift();
+    }
+  }
 }
 
 readline.close();

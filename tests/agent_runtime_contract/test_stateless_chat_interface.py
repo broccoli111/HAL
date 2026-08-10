@@ -115,6 +115,10 @@ class StatelessChatInterfaceTests(unittest.TestCase):
         self.assertIn("runM6DualScopeInquiry", ask)
         self.assertIn("ask-gx10-hermes.mjs", ask)
         self.assertIn("dual-scope", chat)
+        self.assertIn("const MAX_CONTEXT_TURNS = 3;", chat)
+        self.assertIn("const MAX_CONTEXT_UTF8_BYTES = 4_096;", chat)
+        self.assertIn("HAL_EPHEMERAL_SESSION_CONTEXT", chat)
+        self.assertIn("HAL_EPHEMERAL_SESSION_CONTEXT", ask)
         for source in (launcher, chat, ask):
             self.assertIn("shell: false", source)
             self.assertNotIn("ollama", source.lower())
