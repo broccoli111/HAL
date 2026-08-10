@@ -60,4 +60,14 @@ This reads file metadata only and returns HAL's local catalog recommendation.
 It does not read or transmit the image, invoke a model, or grant a runtime any
 filesystem access. See [the policy and limits](implementation/hal-core/docs/CENTRAL_CONTENT_CAPABILITY_POLICY.md).
 
+To inspect HAL's transparent recommendation matrix for a task modality:
+
+```bash
+npm run hal:model:matrix -- image
+```
+
+The matrix shows retained official-evidence coverage, task fit, approval state,
+and limitations. It is a local policy report—not a model invocation, download,
+or internet query.
+
 Generated render output, local tool output, bytecode caches, and macOS metadata are ignored and should not be committed.

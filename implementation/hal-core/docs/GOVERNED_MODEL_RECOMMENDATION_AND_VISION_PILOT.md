@@ -61,6 +61,14 @@ runtime input, or destination argument.
 selection demonstration. It invokes no model and returns either an
 `selected_approved_local` entry or `owner_acquisition_required` candidate.
 
+`npm run hal:model:matrix -- <text|image>` renders HAL's deterministic,
+evidence-aware comparison matrix. It records evidence coverage, task fit,
+approval status, limitations, and transparent policy arithmetic. Its score is
+not a benchmark, trust assertion, or authorization: absent evidence remains
+visible, and no row can acquire, activate, dispatch, or download a model. The
+output includes only minimised evidence references (official source, retrieval
+time, response digest, and byte count), never retained source bodies.
+
 For an already registered mixed folder, the metadata-only local self-test is
 documented in [Central Content Capability Policy](CENTRAL_CONTENT_CAPABILITY_POLICY.md).
 

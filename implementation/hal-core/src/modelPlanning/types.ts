@@ -33,3 +33,33 @@ export type ModelRecommendation = Readonly<{
   requiredModalities: readonly ModelModality[];
   researchEvidence: readonly string[];
 }>;
+
+/** A minimised, immutable reference to an observed official planning source. */
+export type ModelPlanningEvidence = Readonly<{
+  sourceUrl: string;
+  retrievedAtUtc: string;
+  responseSha256: string;
+  responseByteSize: number;
+  observationKind: "publisher_metadata" | "registry_metadata" | "runtime_documentation";
+  subjectModelIds: readonly string[];
+}>;
+
+export type ModelEvidenceCoverage = "complete" | "partial" | "absent";
+
+export type ModelCapabilityMatrixRow = Readonly<{
+  modelId: string;
+  status: ModelCatalogStatus;
+  taskSuitable: boolean;
+  evidenceCoverage: ModelEvidenceCoverage;
+  matchedEvidenceSources: readonly string[];
+  score?: number;
+  limitations: readonly string[];
+}>;
+
+export type ModelCapabilityMatrix = Readonly<{
+  policyId: "hal.model-recommendation-policy.v1";
+  task: ModelTaskRequirement;
+  evidence: readonly ModelPlanningEvidence[];
+  rows: readonly ModelCapabilityMatrixRow[];
+  rankingLimitations: readonly string[];
+}>;
