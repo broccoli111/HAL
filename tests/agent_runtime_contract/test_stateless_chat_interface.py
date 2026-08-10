@@ -24,6 +24,7 @@ DUAL_SCOPE_CHAT = SCRIPT.with_name("chat-gx10-hermes-with-dual-approved-knowledg
 DUAL_SCOPE_ASK = SCRIPT.with_name("ask-gx10-hermes-with-dual-approved-knowledge.mjs")
 ASSISTANT_STATUS = SCRIPT.with_name("hal-assistant-status.mjs")
 PERSISTENT_OWNER_FOLDER_LAUNCHER = SCRIPT.with_name("hal-ref-2-owner-folder-chat.mjs")
+OWNER_FOLDER_REGISTER = SCRIPT.with_name("register-owner-folder.mjs")
 
 
 class StatelessChatInterfaceTests(unittest.TestCase):
@@ -38,6 +39,18 @@ class StatelessChatInterfaceTests(unittest.TestCase):
         self.assertIn("shell: false", source)
         self.assertNotIn("history", source.lower())
         self.assertNotIn("writeFile", source)
+        self.assertNotIn("http://", source)
+        self.assertNotIn("https://", source)
+
+    def test_owner_folder_registration_is_explicit_and_does_not_dispatch_a_runtime(self) -> None:
+        source = OWNER_FOLDER_REGISTER.read_text(encoding="utf-8")
+        self.assertIn("--registration-id", source)
+        self.assertIn("--source-directory", source)
+        self.assertIn("--owner-confirm", source)
+        self.assertIn("createM9OwnerFolderRegistration", source)
+        self.assertIn('journal.append("registered", registration)', source)
+        self.assertNotIn("spawn(", source)
+        self.assertNotIn("ollama", source.lower())
         self.assertNotIn("http://", source)
         self.assertNotIn("https://", source)
 
@@ -153,11 +166,13 @@ class StatelessChatInterfaceTests(unittest.TestCase):
 
     def test_persistent_owner_folder_launcher_revalidates_exact_approved_source_before_chat(self) -> None:
         source = PERSISTENT_OWNER_FOLDER_LAUNCHER.read_text(encoding="utf-8")
-        self.assertIn('const REGISTRATION_ID = "hal_ref_2_persistent_v1";', source)
-        self.assertIn('const SOURCE_DIRECTORY = "/Users/rosslauda/Desktop/hal_ref_2";', source)
+        self.assertIn('const DEFAULT_REGISTRATION_ID = "hal_ref_2_persistent_v1";', source)
+        self.assertIn("M9OwnerFolderRegistryJournal", source)
+        self.assertNotIn("/Users/rosslauda/Desktop/hal_ref_2", source)
         self.assertIn("validatePersistedM9OwnerFolderPackArtifact", source)
         self.assertIn("activateApprovedM9Pack", source)
         self.assertIn('const RUNTIME_CONFIG_FILE = path.join(import.meta.dirname, "..", ".hal-chat.local.json");', source)
+        self.assertIn("--registration-id", source)
         self.assertIn("HAL_GX10_RUNTIME_TARGET: runtimeConfig.runtimeTarget", source)
         self.assertIn("HAL_GX10_RUNTIME_KEY: runtimeConfig.runtimeKeyPath", source)
         self.assertIn("source or persistent pack is stale/unavailable", source)

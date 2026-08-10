@@ -69,7 +69,10 @@ Use only non-secret local values in `.env`.
   direct-folder derived pack after a permitted source change
 - `npm run hal:owner-folder:refresh` - explicitly regenerate the exact DR 0034
   persistent `hal_ref_2` derived pack after an Owner-approved source change;
-  it does not register any other folder
+  pass `-- --registration-id <registered-id>` only for a separately
+  Owner-authorized registered folder
+- `npm run hal:owner-folder:register -- --registration-id <immutable-id> --source-directory <absolute-path> --owner-confirm local_owner_confirmed` - records one exact Owner-confirmed folder without reading it; this command does not itself grant an Agent Runtime access
+- `npm run hal:owner-folder:chat -- --registration-id <registered-id>` - launches a separately registered, activated folder scope; with no argument it uses the exact DR 0034 `hal_ref_2` source
 
 ## Source structure
 
