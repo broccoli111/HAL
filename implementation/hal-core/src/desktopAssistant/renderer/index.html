@@ -36,6 +36,19 @@
       </p>
       <h2>Response</h2>
       <pre id="response" aria-live="polite"></pre>
+      <h2>HAL Control Chat</h2>
+      <p class="boundary">
+        Allowlisted HAL operations only. Consequential requests require
+        <code>approve &lt;proposal-id&gt;</code>.
+      </p>
+      <textarea
+        id="control"
+        maxlength="512"
+        rows="3"
+        placeholder="Try: matrix image, status, refresh folder hal_ref_2_persistent_v1"
+      ></textarea>
+      <button id="control-submit" type="button">Send control request</button>
+      <pre id="control-response" aria-live="polite"></pre>
     </main>
     <script type="module" src="./renderer.js"></script>
   </body>

@@ -6,10 +6,13 @@ import type { BrowserWindow, BrowserWindowConstructorOptions } from "electron";
 
 import {
   DESKTOP_ASSISTANT_IPC_CHANNEL,
+  DESKTOP_CONTROL_IPC_CHANNEL,
+  parseDesktopControlMessage,
   parseDesktopAssistantQuestionRequest,
   validateDesktopAssistantIpcSender
 } from "./ipcContracts.js";
 import type { DesktopAssistantQuestionResult } from "./types.js";
+import type { DesktopControlResult } from "./controlChat.js";
 import {
   createDesktopAssistantQuestionGate,
   type DesktopAssistantQuestionDispatcher
@@ -46,6 +49,10 @@ export type DesktopAssistantLaunchOptions = Readonly<{
   rendererRoot: string;
   preloadPath: string;
   dispatchQuestion: DesktopAssistantQuestionDispatcher;
+  dispatchControl?: (
+    // eslint-disable-next-line no-unused-vars
+    message: string
+  ) => Promise<DesktopControlResult>;
 }>;
 
 export function createDesktopAssistantWindowOptions(input: {
@@ -71,7 +78,11 @@ export async function launchDesktopAssistantApp(
     createDesktopAssistantWindowOptions({ preloadPath: options.preloadPath })
   );
   enforceDesktopAssistantSecurity(mainWindow);
-  registerDesktopAssistantIpcHandlers(mainWindow, options.dispatchQuestion);
+  registerDesktopAssistantIpcHandlers(
+    mainWindow,
+    options.dispatchQuestion,
+    options.dispatchControl
+  );
   await mainWindow.loadURL(`${DESKTOP_ASSISTANT_PROTOCOL}://${DESKTOP_ASSISTANT_HOST}/index.html`);
 }
 
@@ -87,7 +98,11 @@ export async function registerDesktopAssistantProtocol(rendererRoot: string): Pr
 
 export function registerDesktopAssistantIpcHandlers(
   mainWindow: BrowserWindow,
-  dispatchQuestion: DesktopAssistantQuestionDispatcher
+  dispatchQuestion: DesktopAssistantQuestionDispatcher,
+  dispatchControl?: (
+    // eslint-disable-next-line no-unused-vars
+    message: string
+  ) => Promise<DesktopControlResult>
 ): void {
   const dispatchOneAtATime = createDesktopAssistantQuestionGate(dispatchQuestion);
   ipcMain.handle(DESKTOP_ASSISTANT_IPC_CHANNEL, async (event, payload: unknown) => {
@@ -103,16 +118,40 @@ export function registerDesktopAssistantIpcHandlers(
     if (!request) return blocked("malformed_question_or_scope");
     return await dispatchOneAtATime(request);
   });
+  if (dispatchControl) {
+    ipcMain.handle(DESKTOP_CONTROL_IPC_CHANNEL, async (event, payload: unknown) => {
+      const senderFrame = event.senderFrame;
+      const senderError = validateDesktopAssistantIpcSender({
+        senderId: event.sender.id,
+        expectedSenderId: mainWindow.webContents.id,
+        senderUrl: senderFrame?.url ?? "",
+        isMainFrame: senderFrame === event.sender.mainFrame
+      });
+      const message = parseDesktopControlMessage(payload);
+      if (senderError || !message)
+        return Object.freeze({
+          result: "blocked",
+          response: "",
+          reasonCode: "ipc_validation_failed"
+        });
+      return await dispatchControl(message);
+    });
+  }
 }
 
 export function resolveDesktopAssistantRuntimePaths(input: {
   projectRoot: string;
   dispatchQuestion: DesktopAssistantQuestionDispatcher;
+  dispatchControl?: (
+    // eslint-disable-next-line no-unused-vars
+    message: string
+  ) => Promise<DesktopControlResult>;
 }): DesktopAssistantLaunchOptions {
   return Object.freeze({
     rendererRoot: path.resolve(input.projectRoot, "dist/src/desktopAssistant/renderer"),
     preloadPath: path.resolve(input.projectRoot, "dist/src/desktopAssistant/preload.cjs"),
-    dispatchQuestion: input.dispatchQuestion
+    dispatchQuestion: input.dispatchQuestion,
+    ...(input.dispatchControl ? { dispatchControl: input.dispatchControl } : {})
   });
 }
 

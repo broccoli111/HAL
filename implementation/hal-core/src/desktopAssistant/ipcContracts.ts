@@ -1,6 +1,7 @@
 import { DESKTOP_ASSISTANT_SCOPES, type DesktopAssistantQuestionRequest } from "./types.js";
 
 export const DESKTOP_ASSISTANT_IPC_CHANNEL = "desktop-assistant:submit-question";
+export const DESKTOP_CONTROL_IPC_CHANNEL = "desktop-assistant:submit-control";
 export const DESKTOP_ASSISTANT_MAX_QUESTION_CHARS = 8_192;
 
 export function parseDesktopAssistantQuestionRequest(
@@ -22,6 +23,12 @@ export function parseDesktopAssistantQuestionRequest(
     scope: scope as DesktopAssistantQuestionRequest["scope"],
     questionText: questionText.trim()
   });
+}
+
+export function parseDesktopControlMessage(payload: unknown): string | undefined {
+  if (!isObject(payload) || typeof payload.message !== "string") return undefined;
+  const message = payload.message.trim();
+  return message.length > 0 && message.length <= 512 ? message : undefined;
 }
 
 export function validateDesktopAssistantIpcSender(input: {

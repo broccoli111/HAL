@@ -70,4 +70,11 @@ The matrix shows retained official-evidence coverage, task fit, approval state,
 and limitations. It is a local policy report—not a model invocation, download,
 or internet query.
 
+## Use the Local HAL Control Chat
+
+Start the Electron app with `npm run hal:desktop`. Its **HAL Control Chat**
+provides the existing admitted local operations through a conversational,
+two-step control flow rather than an unrestricted terminal. See the supported
+messages and confirmation rules in [Local Control Chat](implementation/hal-core/docs/LOCAL_CONTROL_CHAT.md).
+
 Generated render output, local tool output, bytecode caches, and macOS metadata are ignored and should not be committed.
