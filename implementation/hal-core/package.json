@@ -29,6 +29,7 @@
     "m7:session": "npm run build && node ./dist/src/cli/m7SessionCli.js",
     "m8:copy-assets": "node ./scripts/copy-m8-assets.mjs",
     "m8:desktop": "npm run build && npm run m8:copy-assets && electron ./dist/src/cli/m8DesktopCli.js",
+    "hal:desktop": "npm run build && npm run m8:copy-assets && electron ./scripts/hal-desktop.mjs",
     "runtime:ask": "npm run build && node ./scripts/ask-gx10-hermes.mjs",
     "runtime:chat": "npm run build && node ./scripts/chat-gx10-hermes.mjs",
     "runtime:chat:knowledge": "npm run build && node ./scripts/chat-gx10-hermes-with-approved-knowledge.mjs",

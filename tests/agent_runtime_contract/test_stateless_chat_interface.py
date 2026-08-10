@@ -6,9 +6,10 @@ from pathlib import Path
 import subprocess
 import unittest
 
+ROOT = Path(__file__).resolve().parents[2]
 
 SCRIPT = (
-    Path(__file__).resolve().parents[2]
+    ROOT
     / "implementation"
     / "hal-core"
     / "scripts"
@@ -27,6 +28,8 @@ PERSISTENT_OWNER_FOLDER_LAUNCHER = SCRIPT.with_name("hal-ref-2-owner-folder-chat
 OWNER_FOLDER_REGISTER = SCRIPT.with_name("register-owner-folder.mjs")
 OWNER_FOLDER_DEACTIVATE = SCRIPT.with_name("deactivate-owner-folder.mjs")
 OWNER_FOLDER_REVOKE = SCRIPT.with_name("revoke-owner-folder.mjs")
+DESKTOP_ASSISTANT_MAIN = ROOT / "implementation" / "hal-core" / "src" / "desktopAssistant" / "main.ts"
+DESKTOP_ASSISTANT_DISPATCH = SCRIPT.with_name("hal-desktop.mjs")
 
 
 class StatelessChatInterfaceTests(unittest.TestCase):
@@ -77,6 +80,19 @@ class StatelessChatInterfaceTests(unittest.TestCase):
         self.assertIn("M9OwnerFolderRegistryJournal", source)
         self.assertNotIn("readdir", source)
         self.assertNotIn("spawn(", source)
+        self.assertNotIn("ollama", source.lower())
+        self.assertNotIn("http://", source)
+        self.assertNotIn("https://", source)
+
+    def test_desktop_assistant_only_dispatches_the_existing_bounded_launcher(self) -> None:
+        source = DESKTOP_ASSISTANT_MAIN.read_text(encoding="utf-8")
+        self.assertIn('DESKTOP_ASSISTANT_PROTOCOL', source)
+        self.assertIn('DESKTOP_ASSISTANT_IPC_CHANNEL', source)
+        self.assertIn('dispatchQuestion', source)
+        dispatch = DESKTOP_ASSISTANT_DISPATCH.read_text(encoding="utf-8")
+        self.assertIn('assistantLauncherPath', dispatch)
+        self.assertIn('shell: false', dispatch)
+        self.assertIn('ELECTRON_RUN_AS_NODE: "1"', dispatch)
         self.assertNotIn("ollama", source.lower())
         self.assertNotIn("http://", source)
         self.assertNotIn("https://", source)

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'none'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HAL Local Assistant</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main>
+      <h1>HAL Local Assistant</h1>
+      <p class="boundary">
+        Local-only · Qwen3 on GX10-1 · zero capabilities · no external providers
+      </p>
+      <label for="scope">Approved knowledge scope</label>
+      <select id="scope">
+        <option value="canon">HAL Canon and project documentation</option>
+        <option value="documents">Approved local document folder</option>
+        <option value="combined">Both approved contexts</option>
+        <option value="hal-ref-2">Persistent owner folder (hal_ref_2)</option>
+      </select>
+      <label for="question">Question</label>
+      <textarea
+        id="question"
+        maxlength="8192"
+        rows="5"
+        placeholder="Ask a bounded local question"
+      ></textarea>
+      <button id="submit" type="button">Ask HAL</button>
+      <p id="status" role="status" aria-live="polite">
+        Ready. No folder, tool, or capability access is granted by this window.
+      </p>
+      <h2>Response</h2>
+      <pre id="response" aria-live="polite"></pre>
+    </main>
+    <script type="module" src="./renderer.js"></script>
+  </body>
+</html>
