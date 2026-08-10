@@ -231,6 +231,15 @@ The lockfile-pinned development dependency audit reports two high-severity advis
 
 No unresolved Owner Decision is currently recorded for the runtime-sovereignty clarification. Owner Review remains required whenever the conditions in [agents.md](agents.md) apply, including a material change to authority, constitutional invariants, a security boundary, canonical knowledge semantics, evidence/recovery guarantees, or a major architecture contract.
 
+## Next Owner Decision
+
+The current bounded local assistant is operational for its exact approved
+sources, including persistent `hal_ref_2`. Further progress that would admit
+another folder/source class, create a general local-knowledge route, grant any
+capability, or broaden runtime behavior requires a new explicit Owner Decision.
+HAL must not treat the working assistant as authority to self-expand its
+knowledge or resource access.
+
 ## Continuity Rule
 
 Update this file at the completion of meaningful work when:
