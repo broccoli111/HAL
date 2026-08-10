@@ -53,10 +53,11 @@ Use only non-secret local values in `.env`.
   the existing HAL-governed GX10 route and the approved direct-folder pack
 - `npm run hal:canon-chat` - launch the separately activated, bounded HAL
   Canon assistant through the same zero-capability route
-- `npm run hal:assistant` - choose either of the two existing governed chat
-  scopes or the Owner-approved, provenance-preserving combined inquiry profile
-  from one Owner-facing command
-- `npm run hal:assistant -- --help` - show the three approved scope choices;
+- `npm run hal:assistant` - choose one explicitly separate governed chat scope:
+  HAL Canon/project documentation, the approved direct-folder pack, the
+  Owner-approved dual-scope inquiry profile, or the exact persistent DR 0034
+  `hal_ref_2` source
+- `npm run hal:assistant -- --help` - show the four approved scope choices;
   it does not validate, activate, or contact a runtime
 - `npm run hal:dual-scope-chat` - launch the bounded DR 0031 inquiry profile
   over both separately validated approved packs
@@ -66,6 +67,9 @@ Use only non-secret local values in `.env`.
   Canon-derived pack after an approved Canon source change
 - `npm run hal:knowledge:refresh` - explicitly regenerate the approved
   direct-folder derived pack after a permitted source change
+- `npm run hal:owner-folder:refresh` - explicitly regenerate the exact DR 0034
+  persistent `hal_ref_2` derived pack after an Owner-approved source change;
+  it does not register any other folder
 
 ## Source structure
 
