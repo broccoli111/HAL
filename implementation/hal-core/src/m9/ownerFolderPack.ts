@@ -208,3 +208,31 @@ export function persistM9OwnerFolderPackArtifact(
     { encoding: "utf8", flag: "wx" }
   );
 }
+
+/** Reconstructs the expected artifact and fails closed on source or persisted-byte drift. */
+export function validatePersistedM9OwnerFolderPackArtifact(
+  registration: M9OwnerFolderRegistration,
+  destinationDirectory: string
+): M9OwnerFolderPackArtifact {
+  assert(path.isAbsolute(destinationDirectory), "owner-folder pack destination must be absolute");
+  const expected = buildM9OwnerFolderPackArtifact(
+    registration,
+    collectM9OwnerFolderSourceSnapshot(registration)
+  );
+  const destinationStat = lstatSync(destinationDirectory, { throwIfNoEntry: false });
+  assert(
+    destinationStat?.isDirectory() && !destinationStat.isSymbolicLink(),
+    "owner-folder pack destination is invalid"
+  );
+  assert(
+    readFileSync(path.join(destinationDirectory, "manifest.json"), "utf8") ===
+      `${JSON.stringify(expected.manifest, null, 2)}\n`,
+    "owner-folder pack manifest mismatch"
+  );
+  for (const entry of expected.content) {
+    const target = path.resolve(destinationDirectory, entry.relativePath);
+    assertInside(destinationDirectory, target);
+    assert(readFileSync(target, "utf8") === entry.utf8, "owner-folder pack content mismatch");
+  }
+  return expected;
+}

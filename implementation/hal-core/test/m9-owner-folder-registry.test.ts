@@ -15,7 +15,8 @@ import {
 import {
   buildM9OwnerFolderPackArtifact,
   collectM9OwnerFolderSourceSnapshot,
-  persistM9OwnerFolderPackArtifact
+  persistM9OwnerFolderPackArtifact,
+  validatePersistedM9OwnerFolderPackArtifact
 } from "../src/m9/ownerFolderPack.js";
 
 describe("M9 Owner-controlled folder registry contract", () => {
@@ -54,8 +55,15 @@ describe("M9 Owner-controlled folder registry contract", () => {
       expect(await readFile(path.join(destination, "manifest.json"), "utf8")).toContain(
         artifact.manifestHashSha256
       );
+      expect(
+        validatePersistedM9OwnerFolderPackArtifact(registration, destination).manifestHashSha256
+      ).toBe(artifact.manifestHashSha256);
       expect(() => persistM9OwnerFolderPackArtifact(artifact, destination)).toThrow(
         "already exists"
+      );
+      await writeFile(path.join(sourceDirectory, "note.txt"), "changed source", "utf8");
+      expect(() => validatePersistedM9OwnerFolderPackArtifact(registration, destination)).toThrow(
+        "manifest mismatch"
       );
     } finally {
       await rm(sourceDirectory, { recursive: true, force: true });
